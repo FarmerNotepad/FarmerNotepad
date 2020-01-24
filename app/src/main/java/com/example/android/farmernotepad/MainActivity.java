@@ -1,5 +1,7 @@
 package com.example.android.farmernotepad;
 
+
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.database.Cursor;
@@ -7,8 +9,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import android.content.ContextWrapper;
+
 import android.os.Bundle;
 import android.util.Log;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
