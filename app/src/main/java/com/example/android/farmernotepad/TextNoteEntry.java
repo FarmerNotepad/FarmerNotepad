@@ -20,6 +20,9 @@ public class TextNoteEntry {
         this.location = location;
     }
 
+    public TextNoteEntry(){  //NULL Constructor for testing purposes
+    }
+
     public int getNoteID() {
         return noteID;
     }
