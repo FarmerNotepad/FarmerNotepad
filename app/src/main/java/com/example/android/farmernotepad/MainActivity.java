@@ -12,17 +12,18 @@ import android.util.Log;
 
 public class MainActivity extends AppCompatActivity {
 
-    private DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
-    SQLiteDatabase db =dbHelper.getReadableDatabase();
-    Cursor cursor = db.rawQuery(dbHelper.testSQL, new String [] {});
-    TextNoteEntry noteOne = new TextNoteEntry();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        noteOne.setNoteText(cursor.toString());
-        String testResult = noteOne.getNoteText();
-        Log.d("OK",testResult);
+        DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
+        SQLiteDatabase db =dbHelper.getReadableDatabase();
+        //Cursor cursor = db.rawQuery(dbHelper.testSQL, new String [] {});
+        //TextNoteEntry noteOne = new TextNoteEntry();
+        //noteOne.setNoteText(cursor.toString());
+        //String testResult = noteOne.getNoteText();
+        //Log.d("OK",testResult);
     }
 }
