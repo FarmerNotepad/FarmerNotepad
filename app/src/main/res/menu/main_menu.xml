@@ -8,7 +8,14 @@
         android:icon="@drawable/ic_note_add_black_24dp"
         app:showAsAction="always" />
 
-        <item
+    <item
+        android:id="@+id/searchNoteMenuItem"
+        android:icon="@drawable/ic_search_black_24dp"
+        android:title="Search"
+        app:actionViewClass="android.widget.SearchView"
+        app:showAsAction="always" />
+
+    <item
             android:id="@+id/Backup"
             android:title = "Backup Files"
             app:showAsAction="never"
