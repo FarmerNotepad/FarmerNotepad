@@ -1,10 +1,10 @@
 package com.example.android.farmernotepad;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 
-public class NewNoteActivity extends AppCompatActivity {
+import androidx.appcompat.app.AppCompatActivity;
+
+public class NewTextNoteActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
