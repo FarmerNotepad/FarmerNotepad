@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/newNote"
+        android:title="New Note"
+        android:icon="@drawable/ic_note_add_black_24dp"
+        app:showAsAction="always" />
+
+        <item
+            android:id="@+id/Backup"
+            android:title = "Backup Files"
+            app:showAsAction="never"
+        />
+
+
+
+</menu>
