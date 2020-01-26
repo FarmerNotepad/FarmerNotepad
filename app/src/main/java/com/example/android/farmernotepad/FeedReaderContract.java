@@ -9,21 +9,22 @@ public class FeedReaderContract {
 
     public static class FeedTextNote {
         public final static String TABLE_NAME_Text_Note = "TextNote";
-        public final static String COLUMN_NAME_ID = "noteID";
-        public final static String COLUMN_NAME_noteTitle = "noteTitle";
-        public final static String COLUMN_NAME_noteText = "noteText";
-        public final static String COLUMN_NAME_color = "noteColor";
-        public final static String COLUMN_NAME_noteLocation = "noteLocation";
-        public final static String COLUMN_NAME_noteCreateDate = "noteCreateDate";
-        public final static String COLUMN_NAME_noteModDate = "noteModDate";
+        public final static String COLUMN_ID = "noteID";
+        public final static String COLUMN_noteTitle = "noteTitle";
+        public final static String COLUMN_noteText = "noteText";
+        public final static String COLUMN_color = "noteColor";
+        public final static String COLUMN_noteLongtitude = "noteLongtitude";
+        public final static String COLUMN_noteAltitude = "noteAltitude";
+        public final static String COLUMN_noteCreateDate = "noteCreateDate";
+        public final static String COLUMN_noteModDate = "noteModDate";
     }
     public static final String SQL_CREATE_TABLE =
-            "CREATE TABLE IF NOT EXISTS " + FeedTextNote.TABLE_NAME_Text_Note + "(" + FeedTextNote.COLUMN_NAME_ID +
-                    " INTEGER PRIMARY KEY AUTOINCREMENT ," +FeedTextNote.COLUMN_NAME_noteTitle + " TEXT," +
-                    FeedTextNote.COLUMN_NAME_noteText + " TEXT," + FeedTextNote.COLUMN_NAME_color
-                    + " INTEGER," +FeedTextNote.COLUMN_NAME_noteLocation + " TEXT," +
-                    FeedTextNote.COLUMN_NAME_noteCreateDate + " TEXT," +
-                    FeedTextNote.COLUMN_NAME_noteModDate + " TEXT);" ;
+            "CREATE TABLE IF NOT EXISTS " + FeedTextNote.TABLE_NAME_Text_Note + "(" + FeedTextNote.COLUMN_ID +
+                    " INTEGER PRIMARY KEY AUTOINCREMENT," +FeedTextNote.COLUMN_noteTitle + " TEXT," +
+                    FeedTextNote.COLUMN_noteText + " TEXT," + FeedTextNote.COLUMN_color
+                    + " INTEGER," +FeedTextNote.COLUMN_noteLongtitude + " REAL," + FeedTextNote.COLUMN_noteAltitude +
+                    " REAL," + FeedTextNote.COLUMN_noteCreateDate + " TEXT," +
+                    FeedTextNote.COLUMN_noteModDate + " TEXT);" ;
     public static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + FeedTextNote.TABLE_NAME_Text_Note;
 
