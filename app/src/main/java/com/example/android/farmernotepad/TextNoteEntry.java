@@ -9,20 +9,27 @@ public class TextNoteEntry {
     private String createDate;
     private String modDate;
     private int color;
+
+
+
+    public TextNoteEntry(int noteID, String noteTitle, String noteText, String createDate, String modDate, int color, double latitude, double longitude) {
     private float longtitude;
     private float latitude;
 
 
     public TextNoteEntry(int noteID, String noteTitle, String noteText, String createDate, String modDate, int color, float longtitude, float latitude) {
+
         this.noteID = noteID;
         this.noteTitle = noteTitle;
         this.noteText = noteText;
         this.createDate = createDate;
         this.modDate = modDate;
         this.color = color;
-        this.longtitude = longtitude;
         this.latitude = latitude;
+        this.longitude = longitude;
+
     }
+
 
     public TextNoteEntry(){  //NULL Constructor for testing purposes
     }
@@ -82,6 +89,7 @@ public class TextNoteEntry {
     public float getLongtitude() {return longtitude;}
 
     public float getLatitude() {return latitude;}
+
 
 
 }
