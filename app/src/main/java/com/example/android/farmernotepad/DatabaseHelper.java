@@ -1,6 +1,8 @@
 package com.example.android.farmernotepad;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -27,5 +29,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+    public boolean insertNote(TextNoteEntry note){
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(FeedReaderContract.FeedTextNote.COLUMN_noteTitle,note.getNoteTitle());
+        cv.put(FeedReaderContract.FeedTextNote.COLUMN_noteText,note.getNoteText());
+        cv.put(FeedReaderContract.FeedTextNote.COLUMN_noteCreateDate,note.getCreateDate());
+        cv.put(FeedReaderContract.FeedTextNote.COLUMN_noteModDate,note.getModDate());
+        long rowInserted = db.insert(FeedReaderContract.FeedTextNote.TABLE_NAME_Text_Note, null ,cv);
+        if (rowInserted != -1)
+            return true;
+        else
+            return false;
+    }
+
+    Cursor getAllNotes(){
+        SQLiteDatabase db = getReadableDatabase();
+        return db.rawQuery("SELECT * FROM "+ FeedReaderContract.FeedTextNote.TABLE_NAME_Text_Note, null);
+    }
 
 }
