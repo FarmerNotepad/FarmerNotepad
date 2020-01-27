@@ -78,7 +78,7 @@ public class TextNoteEntry {
         this.color = color;
     }
 
-    public void setLongtitude(float longitude) {this.longitude = longitude;}
+    public void setLongitude(float longitude) {this.longitude = longitude;}
 
     public void setLatitude(float latitude) {this.latitude = latitude;}
 
