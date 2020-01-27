@@ -36,12 +36,16 @@ public class NewTextNoteActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 TextNoteEntry myNewTextNote = new TextNoteEntry();
-                myNewTextNote.setNoteTitle(noteTitle.getText().toString());
+                if (noteTitle.getText().toString().equals("")){
+                        myNewTextNote.setNoteTitle(getDateTime()); }
+                    else {
+                        myNewTextNote.setNoteTitle(noteTitle.getText().toString());
+                }
                 myNewTextNote.setNoteText(noteText.getText().toString());
                 myNewTextNote.setCreateDate(getDateTime());
                 myNewTextNote.setModDate(getDateTime());
                 //myNewTextNote.setColor(TO DO);
-                //myNewTextNote.setLongtitude(TO DO);
+                //myNewTextNote.setLongitude(TO DO);
                 //myNewTextNote.setLatitude(TO DO);
                 DatabaseHelper dbHelper = new DatabaseHelper(NewTextNoteActivity.this);
                 Boolean checkInsert = dbHelper.insertNote(myNewTextNote);

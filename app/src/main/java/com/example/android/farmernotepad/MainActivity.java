@@ -122,7 +122,6 @@ public class MainActivity extends AppCompatActivity {
 
                 mTextNoteTitle.add(textNoteTitle);
                 mTextNoteContent.add(textNoteText);
-                initRecyclerView();
             }
             while(cursor.moveToNext());
         }
