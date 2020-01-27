@@ -1,9 +1,5 @@
 package com.example.android.farmernotepad;
 
-import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
-
 public class FeedReaderContract {
     private FeedReaderContract(){}
 
@@ -13,7 +9,7 @@ public class FeedReaderContract {
         public final static String COLUMN_noteTitle = "noteTitle";
         public final static String COLUMN_noteText = "noteText";
         public final static String COLUMN_color = "noteColor";
-        public final static String COLUMN_noteLongtitude = "noteLongtitude";
+        public final static String COLUMN_noteLongitude = "noteLongitude";
         public final static String COLUMN_noteAltitude = "noteAltitude";
         public final static String COLUMN_noteCreateDate = "noteCreateDate";
         public final static String COLUMN_noteModDate = "noteModDate";
@@ -22,7 +18,7 @@ public class FeedReaderContract {
             "CREATE TABLE IF NOT EXISTS " + FeedTextNote.TABLE_NAME_Text_Note + "(" + FeedTextNote.COLUMN_ID +
                     " INTEGER PRIMARY KEY AUTOINCREMENT," +FeedTextNote.COLUMN_noteTitle + " TEXT," +
                     FeedTextNote.COLUMN_noteText + " TEXT," + FeedTextNote.COLUMN_color
-                    + " INTEGER," +FeedTextNote.COLUMN_noteLongtitude + " REAL," + FeedTextNote.COLUMN_noteAltitude +
+                    + " INTEGER," +FeedTextNote.COLUMN_noteLongitude + " REAL," + FeedTextNote.COLUMN_noteAltitude +
                     " REAL," + FeedTextNote.COLUMN_noteCreateDate + " TEXT," +
                     FeedTextNote.COLUMN_noteModDate + " TEXT);" ;
     public static final String SQL_DELETE_ENTRIES =
