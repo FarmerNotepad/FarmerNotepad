@@ -1,7 +1,5 @@
 package com.example.android.farmernotepad;
 
-import android.content.Context;
-
 public class TextNoteEntry {
     private int noteID;
     private String noteTitle;
@@ -9,15 +7,13 @@ public class TextNoteEntry {
     private String createDate;
     private String modDate;
     private int color;
-
-
-
-    public TextNoteEntry(int noteID, String noteTitle, String noteText, String createDate, String modDate, int color, double latitude, double longitude) {
-    private float longtitude;
     private float latitude;
+    private float longitude;
 
 
-    public TextNoteEntry(int noteID, String noteTitle, String noteText, String createDate, String modDate, int color, float longtitude, float latitude) {
+
+
+    public TextNoteEntry(int noteID, String noteTitle, String noteText, String createDate, String modDate, int color, float longitude, float latitude) {
 
         this.noteID = noteID;
         this.noteTitle = noteTitle;
@@ -82,11 +78,11 @@ public class TextNoteEntry {
         this.color = color;
     }
 
-    public void setLongtitude(float longtitude) {this.longtitude = longtitude;}
+    public void setLongtitude(float longitude) {this.longitude = longitude;}
 
-    public void setLatitude(float altitude) {this.latitude = altitude;}
+    public void setLatitude(float latitude) {this.latitude = latitude;}
 
-    public float getLongtitude() {return longtitude;}
+    public float getLongitude() {return longitude;}
 
     public float getLatitude() {return latitude;}
 

@@ -18,9 +18,9 @@
     </TextView>
 
     <TextView
+        android:id="@+id/textNoteContent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textNoteContent"
         android:text="TEST CONTENT TEST CONTENT ">
 
     </TextView>

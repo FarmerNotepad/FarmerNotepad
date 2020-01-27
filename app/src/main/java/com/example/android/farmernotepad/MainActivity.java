@@ -3,6 +3,7 @@ package com.example.android.farmernotepad;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
@@ -32,16 +33,28 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
-        SQLiteDatabase db =dbHelper.getReadableDatabase();
-
         Log.d(TAG, "onCreate: started.");
 
-        initRecyclerView();
-
+        loadNotes();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setContentView(R.layout.activity_main);
 
+        clearRecyclerView();
+        loadNotes();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        setContentView(R.layout.activity_main);
+
+        clearRecyclerView();
+        loadNotes();
+    }
 
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -89,15 +102,38 @@ public class MainActivity extends AppCompatActivity {
     private void initRecyclerView(){
         Log.d(TAG, "initRecyclerView: init recyclerview.");
 
-        mTextNoteTitle.add("bges malakismeno");
-        mTextNoteTitle.add("ante re gamw");
-        mTextNoteContent.add("ante mh gamhsw");
-        mTextNoteContent.add("emfanisou mh soy spasw");
-
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         RecyclerViewAdapter adapter = new RecyclerViewAdapter(mTextNoteTitle, mTextNoteContent, this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    private void loadNotes(){
+        DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
+        SQLiteDatabase db =dbHelper.getReadableDatabase();
+        Cursor cursor = dbHelper.getAllNotes();
+
+        initRecyclerView();
+
+        if(cursor.moveToFirst()){
+            do{
+                String textNoteTitle = cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_noteTitle));
+                String textNoteText = cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_noteText));
+
+                mTextNoteTitle.add(textNoteTitle);
+                mTextNoteContent.add(textNoteText);
+                initRecyclerView();
+            }
+            while(cursor.moveToNext());
+        }
+        cursor.close();
+    }
+
+    private void clearRecyclerView(){
+        if(mTextNoteContent!=null && mTextNoteTitle!=null) {
+            mTextNoteTitle.clear();
+            mTextNoteContent.clear();
+        }
     }
 
 }
