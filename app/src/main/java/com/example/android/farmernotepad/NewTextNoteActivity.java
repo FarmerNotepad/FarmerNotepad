@@ -105,7 +105,7 @@ public class NewTextNoteActivity extends AppCompatActivity {
     }
 
     private double[] getLocation(){
-        if ( ContextCompat.checkSelfPermission( this, android.Manifest.permission.ACCESS_COARSE_LOCATION ) != PackageManager.PERMISSION_GRANTED ) {
+        if ( ContextCompat.checkSelfPermission( this, android.Manifest.permission.ACCESS_COARSE_LOCATION ) == PackageManager.PERMISSION_GRANTED ) {
             LocationManager mLocationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
             MyLocationListener myLocationListener = new MyLocationListener();
             if (mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
