@@ -7,13 +7,13 @@ public class TextNoteEntry {
     private String createDate;
     private String modDate;
     private int color;
-    private float latitude;
-    private float longitude;
+    private double latitude;
+    private double longitude;
 
 
 
 
-    public TextNoteEntry(int noteID, String noteTitle, String noteText, String createDate, String modDate, int color, float longitude, float latitude) {
+    public TextNoteEntry(int noteID, String noteTitle, String noteText, String createDate, String modDate, int color, double longitude, double latitude) {
 
         this.noteID = noteID;
         this.noteTitle = noteTitle;
@@ -78,13 +78,13 @@ public class TextNoteEntry {
         this.color = color;
     }
 
-    public void setLongitude(float longitude) {this.longitude = longitude;}
+    public void setLongitude(double longitude) {this.longitude = longitude;}
 
-    public void setLatitude(float latitude) {this.latitude = latitude;}
+    public void setLatitude(double latitude) {this.latitude = latitude;}
 
-    public float getLongitude() {return longitude;}
+    public double getLongitude() {return longitude;}
 
-    public float getLatitude() {return latitude;}
+    public double getLatitude() {return latitude;}
 
 
 

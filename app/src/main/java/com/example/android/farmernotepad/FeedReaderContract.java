@@ -18,7 +18,7 @@ public class FeedReaderContract {
             "CREATE TABLE IF NOT EXISTS " + FeedTextNote.TABLE_NAME_Text_Note + "(" + FeedTextNote.COLUMN_ID +
                     " INTEGER PRIMARY KEY AUTOINCREMENT," +FeedTextNote.COLUMN_noteTitle + " TEXT," +
                     FeedTextNote.COLUMN_noteText + " TEXT," + FeedTextNote.COLUMN_color
-                    + " INTEGER," +FeedTextNote.COLUMN_noteLongitude + " REAL," + FeedTextNote.COLUMN_noteLatitude +
+                    + " INTEGER," +FeedTextNote.COLUMN_noteLatitude + " REAL," + FeedTextNote.COLUMN_noteLongitude +
                     " REAL," + FeedTextNote.COLUMN_noteCreateDate + " TEXT," +
                     FeedTextNote.COLUMN_noteModDate + " TEXT);" ;
     public static final String SQL_DELETE_ENTRIES =
