@@ -48,4 +48,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return db.rawQuery("SELECT * FROM "+ FeedReaderContract.FeedTextNote.TABLE_NAME_Text_Note, null);
     }
 
+    Cursor getNote(int noteId){
+        SQLiteDatabase db = getWritableDatabase();
+        return  db.rawQuery("SELECT * FROM " + FeedReaderContract.FeedTextNote.TABLE_NAME_Text_Note + " WHERE " + FeedReaderContract.FeedTextNote.COLUMN_ID + "=?", null);
+    }
+
 }

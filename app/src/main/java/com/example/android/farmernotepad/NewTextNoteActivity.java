@@ -64,7 +64,7 @@ public class NewTextNoteActivity extends AppCompatActivity {
                 }
                 DatabaseHelper dbHelper = new DatabaseHelper(NewTextNoteActivity.this);
                 Boolean checkInsert = dbHelper.insertNote(myNewTextNote);
-                if (checkInsert == true) {
+                if (checkInsert = true) {
                     Toast.makeText(getApplicationContext(), "Note Saved", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(NewTextNoteActivity.this, MainActivity.class);
                     startActivity(intent);

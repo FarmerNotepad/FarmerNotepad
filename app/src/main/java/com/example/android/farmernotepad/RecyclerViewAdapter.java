@@ -1,25 +1,26 @@
 package com.example.android.farmernotepad;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
+public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>{
 
     private static final String TAG = "RecyclerViewAdapter";
 
     private ArrayList<String> mTextNoteTitle = new ArrayList<>();
     private ArrayList<String> mTextNoteContent = new ArrayList<>();
+    private ArrayList<String> mNoteID = new ArrayList<>();
     private Context mContext;
 
 
@@ -47,7 +48,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext, mTextNoteTitle.get(position), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(mContext, mTextNoteTitle.get(position), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(mContext, NewTextNoteActivity.class);
+                intent.putExtra("flag", "editNote");
+                intent.putExtra("noteId", mNoteID);
+                mContext.startActivity(intent);
             }
         });
     }

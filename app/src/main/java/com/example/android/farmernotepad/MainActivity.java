@@ -82,7 +82,6 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         Intent intent = new Intent(MainActivity.this, NewTextNoteActivity.class);
                         startActivity(intent);
-                        alertDialog.dismiss();   //Create method to be used for all note types
                     }
                 });
 
