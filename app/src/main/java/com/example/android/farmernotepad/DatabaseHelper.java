@@ -43,14 +43,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return false;
     }
 
+    /*public boolean updateNote(TextNoteEntry note){
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(FeedReaderContract.FeedTextNote.COLUMN_noteTitle,note.getNoteTitle());
+        cv.put(FeedReaderContract.FeedTextNote.COLUMN_noteText,note.getNoteText());
+        cv.put(FeedReaderContract.FeedTextNote.COLUMN_noteModDate,note.getModDate());
+        //long rowUpdated = db.update(FeedReaderContract.FeedTextNote.TABLE_NAME_Text_Note, null,cv);
+        return true;
+    }*/
+
     Cursor getAllNotes(){
         SQLiteDatabase db = getReadableDatabase();
         return db.rawQuery("SELECT * FROM "+ FeedReaderContract.FeedTextNote.TABLE_NAME_Text_Note, null);
     }
 
     Cursor getNote(int noteId){
-        SQLiteDatabase db = getWritableDatabase();
-        return  db.rawQuery("SELECT * FROM " + FeedReaderContract.FeedTextNote.TABLE_NAME_Text_Note + " WHERE " + FeedReaderContract.FeedTextNote.COLUMN_ID + "=?", null);
+        SQLiteDatabase db = getReadableDatabase();
+        return  db.rawQuery("SELECT * FROM " + FeedReaderContract.FeedTextNote.TABLE_NAME_Text_Note + " WHERE " + FeedReaderContract.FeedTextNote.COLUMN_ID + "=?", new String[]{String.valueOf(noteId)});
     }
 
 }
