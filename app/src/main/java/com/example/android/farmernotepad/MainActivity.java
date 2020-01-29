@@ -20,12 +20,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements RecyclerViewAdapter.OnNoteListener{
 
     private static final String TAG = "MainActivity";
 
     private ArrayList<String> mTextNoteTitle = new ArrayList<>();
     private ArrayList<String> mTextNoteContent = new ArrayList<>();
+    private ArrayList<Integer> mTextNoteID = new ArrayList<>();
 
 
     @Override
@@ -82,7 +83,6 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         Intent intent = new Intent(MainActivity.this, NewTextNoteActivity.class);
                         startActivity(intent);
-                        alertDialog.dismiss();   //Create method to be used for all note types
                     }
                 });
 
@@ -121,9 +121,12 @@ public class MainActivity extends AppCompatActivity {
             do{
                 String textNoteTitle = cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_noteTitle));
                 String textNoteText = cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_noteText));
+                //String textNoteID = cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_ID));
+                int textNoteID = cursor.getInt(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_ID));
 
                 mTextNoteTitle.add(textNoteTitle);
                 mTextNoteContent.add(textNoteText);
+                mTextNoteID.add(textNoteID);
             }
             while(cursor.moveToNext());
         }
@@ -134,7 +137,18 @@ public class MainActivity extends AppCompatActivity {
         if(mTextNoteContent!=null && mTextNoteTitle!=null) {
             mTextNoteTitle.clear();
             mTextNoteContent.clear();
+            mTextNoteID.clear();
         }
     }
 
+    @Override
+    public void onNoteClick(int position) {
+
+        Intent intent = new Intent(this, NewTextNoteActivity.class);
+        intent.putExtra("flag", "editNote");
+        int mNoteID = mTextNoteID.get(position).intValue();
+        intent.putExtra("noteID", mNoteID);
+        startActivity(intent);
+
+    }
 }
