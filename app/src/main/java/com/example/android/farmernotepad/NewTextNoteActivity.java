@@ -1,5 +1,6 @@
 package com.example.android.farmernotepad;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -8,15 +9,19 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.ActivityChooserView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -96,6 +101,34 @@ public class NewTextNoteActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.note_menu, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()){
+            case R.id.pickColor:
+                final AlertDialog.Builder alert = new AlertDialog.Builder(NewTextNoteActivity.this);
+                View mView = getLayoutInflater().inflate(R.layout.color_picker_dialog_box,  null,false);
+
+                alert.setView(mView);
+
+                final AlertDialog alertDialog = alert.create();
+                alertDialog.setCanceledOnTouchOutside(true);
+                alertDialog.show();
+                ImageButton buttonWhite = alertDialog.findViewById(R.id.colorWhite);
+                buttonWhite.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                       Toast.makeText(NewTextNoteActivity.this,"lel", LENGTH_SHORT).show();
+                    }
+                });
+
+
+
+
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
      private String getDateTime() {
