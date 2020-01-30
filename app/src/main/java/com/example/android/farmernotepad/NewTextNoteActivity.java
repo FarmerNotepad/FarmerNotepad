@@ -9,8 +9,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.text.SpannableString;
-import android.text.style.ForegroundColorSpan;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -42,16 +40,18 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import static android.widget.Toast.LENGTH_SHORT;
+import static java.lang.String.valueOf;
 
 public class NewTextNoteActivity extends AppCompatActivity {
-    private static final int PERMISSION_COARSE_LOCATION = 177;
+    private static final int PERMISSION_FINE_LOCATION = 177;
     private Menu mMenu;
+    private int noteColor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_note);
-
+        noteColor = getColor(R.color.White);
 
         final EditText noteTitle =  findViewById(R.id.editTitle);
         final EditText noteText = findViewById(R.id.editText);
@@ -59,6 +59,38 @@ public class NewTextNoteActivity extends AppCompatActivity {
         final CheckBox checkLocation = findViewById(R.id.checkBoxLoc);
 
         if(getIntent().hasExtra("flag")){
+
+            checkLocation.setVisibility(View.INVISIBLE);
+            noteText.setEnabled(false);
+            noteTitle.setEnabled(false);
+
+            confirmSaveButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    TextNoteEntry myNewTextNote = new TextNoteEntry();
+
+                    if (noteTitle.getText().toString().equals("")) {
+                        myNewTextNote.setNoteTitle(getDateTime());
+                    } else {
+                        myNewTextNote.setNoteTitle(noteTitle.getText().toString());
+                    }
+                    myNewTextNote.setNoteText(noteText.getText().toString());
+                    myNewTextNote.setModDate(getDateTime());
+
+                    DatabaseHelper dbHelper = new DatabaseHelper(NewTextNoteActivity.this);
+                    Boolean checkInsert = dbHelper.updateNote(myNewTextNote, getIntent().getIntExtra("noteID", 0));
+
+                    if (checkInsert == true) {
+                        Toast.makeText(getApplicationContext(), "Note Updated", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(NewTextNoteActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        NewTextNoteActivity.this.finish();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Update Failed", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+
 
             getIncomingIntent();
 
@@ -79,7 +111,7 @@ public class NewTextNoteActivity extends AppCompatActivity {
                     myNewTextNote.setNoteText(noteText.getText().toString());
                     myNewTextNote.setCreateDate(getDateTime());
                     myNewTextNote.setModDate(getDateTime());
-                    //myNewTextNote.setColor(TO DO);
+                    myNewTextNote.setColor(noteColor);
                     if (checkPermission == true && checkLocation.isChecked()) {
                         double[] myCoords = getLocation();
                         if (myCoords != null) {
@@ -89,7 +121,7 @@ public class NewTextNoteActivity extends AppCompatActivity {
                     }
                     DatabaseHelper dbHelper = new DatabaseHelper(NewTextNoteActivity.this);
                     Boolean checkInsert = dbHelper.insertNote(myNewTextNote);
-                    if (checkInsert = true) {
+                    if (checkInsert == true) {
                         Toast.makeText(getApplicationContext(), "Note Saved", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(NewTextNoteActivity.this, MainActivity.class);
                         startActivity(intent);
@@ -147,6 +179,7 @@ public class NewTextNoteActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         pickColorItem.setIcon(R.drawable.ic_stop_white_24dp);
+                        noteColor = getColor(R.color.White);
                     }
                 });
                 ImageButton buttonRed = alertDialog.findViewById(R.id.colorRed);
@@ -154,6 +187,7 @@ public class NewTextNoteActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         pickColorItem.setIcon(R.drawable.ic_stop_red_24dp);
+                        noteColor = getColor(R.color.Red);
                     }
                 });
                 ImageButton buttonBlue = alertDialog.findViewById(R.id.colorBlue);
@@ -161,6 +195,7 @@ public class NewTextNoteActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         pickColorItem.setIcon(R.drawable.ic_stop_blue_24dp);
+                        noteColor = getColor(R.color.Blue);
                     }
                 });
                 ImageButton buttonGreen = alertDialog.findViewById(R.id.colorGreen);
@@ -168,6 +203,7 @@ public class NewTextNoteActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         pickColorItem.setIcon(R.drawable.ic_stop_green_24dp);
+                        noteColor = getColor(R.color.Green);
                     }
                 });
                 ImageButton buttonYellow = alertDialog.findViewById(R.id.colorYellow);
@@ -175,6 +211,7 @@ public class NewTextNoteActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         pickColorItem.setIcon(R.drawable.ic_stop_yellow_24dp);
+                        noteColor = getColor(R.color.Yellow);
                     }
                 });
                 ImageButton buttonGrey = alertDialog.findViewById(R.id.colorGrey);
@@ -182,6 +219,7 @@ public class NewTextNoteActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         pickColorItem.setIcon(R.drawable.ic_stop_grey_24dp);
+                        noteColor = getColor(R.color.LightGrey);
                     }
                 });
                 ImageButton buttonBlack = alertDialog.findViewById(R.id.colorBlack);
@@ -189,6 +227,7 @@ public class NewTextNoteActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         pickColorItem.setIcon(R.drawable.ic_stop_black_24dp);
+                        noteColor = getColor(R.color.Black);
                     }
                 });
                 ImageButton buttonOrange = alertDialog.findViewById(R.id.colorOrange);
@@ -196,6 +235,7 @@ public class NewTextNoteActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         pickColorItem.setIcon(R.drawable.ic_stop_orange_24dp);
+                        noteColor = getColor(R.color.Orange);
                     }
                 });
                 ImageButton buttonPurple = alertDialog.findViewById(R.id.colorPurple);
@@ -203,10 +243,18 @@ public class NewTextNoteActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         pickColorItem.setIcon(R.drawable.ic_stop_purple_24dp);
+                        noteColor = getColor(R.color.Purple);
                     }
                 });
 
 
+
+                break;
+
+            case R.id.editNote:
+
+                findViewById(R.id.editText).setEnabled(true);
+                findViewById(R.id.editTitle).setEnabled(true);
 
                 break;
         }
@@ -220,7 +268,7 @@ public class NewTextNoteActivity extends AppCompatActivity {
     }
 
     private double[] getLocation(){
-        if ( ContextCompat.checkSelfPermission( this, android.Manifest.permission.ACCESS_COARSE_LOCATION ) == PackageManager.PERMISSION_GRANTED ) {
+        if ( ContextCompat.checkSelfPermission( this, android.Manifest.permission.ACCESS_FINE_LOCATION ) == PackageManager.PERMISSION_GRANTED ) {
             LocationManager mLocationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
             MyLocationListener myLocationListener = new MyLocationListener();
             if (mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
@@ -244,7 +292,7 @@ public class NewTextNoteActivity extends AppCompatActivity {
         }
 
     private boolean checkPermission(){
-        if ( ContextCompat.checkSelfPermission( this, android.Manifest.permission.ACCESS_COARSE_LOCATION ) != PackageManager.PERMISSION_GRANTED ) {
+        if ( ContextCompat.checkSelfPermission( this, android.Manifest.permission.ACCESS_FINE_LOCATION ) != PackageManager.PERMISSION_GRANTED ) {
             return false;
         }
         else {
@@ -253,8 +301,8 @@ public class NewTextNoteActivity extends AppCompatActivity {
     }
 
     private void requestPermission(){
-        ActivityCompat.requestPermissions( this, new String[] { android.Manifest.permission.ACCESS_COARSE_LOCATION},
-                PERMISSION_COARSE_LOCATION);
+        ActivityCompat.requestPermissions( this, new String[] { android.Manifest.permission.ACCESS_FINE_LOCATION},
+                PERMISSION_FINE_LOCATION);
     }
 
     private void getIncomingIntent(){
