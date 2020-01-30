@@ -10,6 +10,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -42,7 +43,39 @@ public class NewTextNoteActivity extends AppCompatActivity {
         final CheckBox checkLocation = findViewById(R.id.checkBoxLoc);
 
         if(getIntent().hasExtra("flag")){
-            
+
+            checkLocation.setVisibility(View.INVISIBLE);
+            noteText.setEnabled(false);
+            noteTitle.setEnabled(false);
+
+            confirmSaveButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    TextNoteEntry myNewTextNote = new TextNoteEntry();
+
+                    if (noteTitle.getText().toString().equals("")) {
+                        myNewTextNote.setNoteTitle(getDateTime());
+                    } else {
+                        myNewTextNote.setNoteTitle(noteTitle.getText().toString());
+                    }
+                    myNewTextNote.setNoteText(noteText.getText().toString());
+                    myNewTextNote.setModDate(getDateTime());
+
+                    DatabaseHelper dbHelper = new DatabaseHelper(NewTextNoteActivity.this);
+                    Boolean checkInsert = dbHelper.updateNote(myNewTextNote, getIntent().getIntExtra("noteID", 0));
+
+                    if (checkInsert = true) {
+                        Toast.makeText(getApplicationContext(), "Note Saved", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(NewTextNoteActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        NewTextNoteActivity.this.finish();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Insertion Failed", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+
+
             getIncomingIntent();
 
         }else {
@@ -109,7 +142,20 @@ public class NewTextNoteActivity extends AppCompatActivity {
         return true;
     }
 
-     private String getDateTime() {
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()){
+            case R.id.editNote:
+
+                        findViewById(R.id.editText).setEnabled(true);
+                        findViewById(R.id.editTitle).setEnabled(true);
+
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
+    private String getDateTime() {
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date date = new Date();
         return dateFormat.format(date);
