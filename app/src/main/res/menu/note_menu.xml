@@ -12,7 +12,8 @@
 
     <item
         android:id="@+id/pickColor"
-        android:title="Color"
+        android:title="Pick Color"
+        android:icon="@drawable/ic_stop_white_24dp"
         app:showAsAction = "always"
         />
 
