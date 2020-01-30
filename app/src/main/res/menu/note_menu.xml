@@ -5,7 +5,7 @@
     <item
         android:id="@+id/pickColor"
         android:title="Pick Color"
-        android:icon="@drawable/ic_check_box_outline_blank__24dp"
+        android:icon="@drawable/ic_stop_white_24dp"
         app:showAsAction = "always"
         />
 </menu>

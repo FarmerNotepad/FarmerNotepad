@@ -1,39 +1,40 @@
 package com.example.android.farmernotepad;
 
-import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
+public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>{
 
     private static final String TAG = "RecyclerViewAdapter";
 
     private ArrayList<String> mTextNoteTitle = new ArrayList<>();
     private ArrayList<String> mTextNoteContent = new ArrayList<>();
-    private Context mContext;
+    private OnNoteListener mOnNoteListener;
+
+    private ArrayList<String> mTextNoteID = new ArrayList<>();
 
 
-    public RecyclerViewAdapter(ArrayList<String> mTextNoteTitle, ArrayList<String> mTextNoteContent, Context mContext) {
+
+    public RecyclerViewAdapter(ArrayList<String> mTextNoteTitle, ArrayList<String> mTextNoteContent, OnNoteListener onNoteListener) {
         this.mTextNoteTitle = mTextNoteTitle;
         this.mTextNoteContent = mTextNoteContent;
-        this.mContext = mContext;
+        this.mOnNoteListener = onNoteListener;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.text_note_item_layout, parent, false);
-        ViewHolder holder = new ViewHolder(view);
+        ViewHolder holder = new ViewHolder(view, mOnNoteListener);
         return holder;
     }
 
@@ -43,13 +44,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         holder.textNoteTitle.setText(mTextNoteTitle.get(position));
         holder.textNoteContent.setText(mTextNoteContent.get(position));
-
-        holder.parentLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(mContext, mTextNoteTitle.get(position), Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
     @Override
@@ -57,18 +51,32 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return mTextNoteTitle.size();
     }
 
-    public class  ViewHolder extends RecyclerView.ViewHolder{
+    public class  ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         TextView textNoteTitle;
         TextView textNoteContent;
         LinearLayout parentLayout;
 
+        OnNoteListener onNoteListener;
 
-        public ViewHolder(View itemView){
+
+        public ViewHolder(View itemView, OnNoteListener onNoteListener){
             super(itemView);
             textNoteTitle = itemView.findViewById(R.id.textNoteTitle);
             textNoteContent = itemView.findViewById(R.id.textNoteContent);
             parentLayout = itemView.findViewById(R.id.parent_layout);
+            this.onNoteListener = onNoteListener;
+
+            itemView.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View v) {
+            onNoteListener.onNoteClick(getAdapterPosition());
+        }
+    }
+
+    public interface OnNoteListener{
+        void onNoteClick(int position);
     }
 }

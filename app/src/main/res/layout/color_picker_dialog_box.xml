@@ -1,132 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="300dp"
-    android:layout_height="400dp"
-    android:layout_gravity="center"
-    >
+    android:layout_width="wrap_content"
+    android:layout_height="300dp"
+    android:layout_gravity="center">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="300dp"
+        android:layout_height="300dp">
+
+        <ImageButton
+            android:id="@+id/colorPurple"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
+            android:width="85dp"
+            android:height="85dp"
+            android:background="@color/Purple"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.962"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.944" />
+
+        <ImageButton
+            android:id="@+id/colorGrey"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
+            android:background="@color/LightGrey"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.962"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.479" />
+
+        <ImageButton
+            android:id="@+id/colorBlack"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
+            android:background="@color/Black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.06"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.944" />
+
+        <ImageButton
+            android:id="@+id/colorOrange"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
+            android:background="@color/Orange"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/colorPurple"
+            app:layout_constraintHorizontal_bias="0.521"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.944" />
+
+        <ImageButton
+            android:id="@+id/colorYellow"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
+            android:background="@color/Yellow"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.502"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.479" />
+
+        <ImageButton
+            android:id="@+id/colorGreen"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
+            android:background="@color/Green"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.06"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.479" />
+
+        <ImageButton
+            android:id="@+id/colorRed"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
+            android:background="@color/Red"
+            app:layout_constraintBottom_toBottomOf="@+id/colorPurple"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.962"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.039" />
+
+        <ImageButton
+            android:id="@+id/colorWhite"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
+            android:background="@color/White"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.037" />
+
+        <ImageButton
+            android:id="@+id/colorBlue"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
+            android:background="@color/Blue"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.06"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.037" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-    <ImageButton
-        android:id="@+id/colorBlue"
-        android:layout_width="85dp"
-        android:layout_height="85dp"
-        android:background="@color/Blue"
-
-        android:src="@drawable/ic_check_box_outline_blank__24dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.074"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.498" />
-
-    <ImageButton
-        android:id="@+id/colorWhite"
-        android:layout_width="85dp"
-        android:layout_height="85dp"
-        android:background="@color/White"
-        android:src="@drawable/ic_check_box_outline_blank__24dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.534"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.885" />
-
-    <ImageButton
-        android:id="@+id/colorRed"
-        android:layout_width="85dp"
-        android:layout_height="85dp"
-        android:background="@color/Red"
-        android:src="@drawable/ic_check_box_outline_blank__24dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.534"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.139" />
-
-    <ImageButton
-        android:id="@+id/colorGreen"
-        android:layout_width="85dp"
-        android:layout_height="85dp"
-        android:background="@color/Green"
-        android:src="@drawable/ic_check_box_outline_blank__24dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.967"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.139" />
-
-    <ImageButton
-        android:id="@+id/colorYellow"
-        android:layout_width="85dp"
-        android:layout_height="85dp"
-        android:background="@color/Yellow"
-        android:src="@drawable/ic_check_box_outline_blank__24dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.074"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.139" />
-
-    <ImageButton
-        android:id="@+id/colorOrange"
-        android:layout_width="85dp"
-        android:layout_height="85dp"
-        android:background="@color/Orange"
-        android:src="@drawable/ic_check_box_outline_blank__24dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.534"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.498" />
-
-    <ImageButton
-        android:id="@+id/colorBlack"
-        android:layout_width="85dp"
-        android:layout_height="85dp"
-        android:background="@color/Black"
-        android:src="@drawable/ic_check_box_outline_blank__24dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.074"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.888" />
-
-    <ImageButton
-        android:id="@+id/colorGrey"
-        android:layout_width="85dp"
-        android:layout_height="85dp"
-        android:background="@color/LightGrey"
-        android:src="@drawable/ic_check_box_outline_blank__24dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.967"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.498" />
-
-    <ImageButton
-        android:id="@+id/colorPurple"
-        android:layout_width="85dp"
-        android:layout_height="85dp"
-        android:background="@color/Purple"
-        android:src="@drawable/ic_check_box_outline_blank__24dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.967"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.885" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>
 
 
