@@ -49,6 +49,7 @@ public class NewTextNoteActivity extends AppCompatActivity {
     private Menu mMenu;
     private int noteColor;
     static NewTextNoteActivity activity;
+    private int noteIntentID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,13 +62,13 @@ public class NewTextNoteActivity extends AppCompatActivity {
         final EditText noteText = findViewById(R.id.editText);
         FloatingActionButton confirmSaveButton = findViewById(R.id.confirmSave);
         final CheckBox checkLocation = findViewById(R.id.checkBoxLoc);
-
-        if(getIntent().hasExtra("flag")){
+        noteIntentID = getIncomingIntent();
+        if(noteIntentID != 0){
 
             checkLocation.setVisibility(View.INVISIBLE);
             noteText.setEnabled(false);
             noteTitle.setEnabled(false);
-
+            loadEditableNote(noteIntentID);
             confirmSaveButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -96,7 +97,7 @@ public class NewTextNoteActivity extends AppCompatActivity {
             });
 
 
-            getIncomingIntent();
+
 
         }else {
 
@@ -116,7 +117,7 @@ public class NewTextNoteActivity extends AppCompatActivity {
                     myNewTextNote.setCreateDate(GenericUtils.getDateTime());
                     myNewTextNote.setModDate(GenericUtils.getDateTime());
                     myNewTextNote.setColor(noteColor);
-                    if (LocationFunctions.checkPermission(NewTextNoteActivity.this) && checkLocation.isChecked()) {
+                    if ( checkPermission && checkLocation.isChecked()) {
                         double[] myCoords = LocationFunctions.getLocation(NewTextNoteActivity.this);
                         if (myCoords != null) {
                             myNewTextNote.setLatitude(myCoords[0]);
@@ -158,7 +159,12 @@ public class NewTextNoteActivity extends AppCompatActivity {
 
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.note_menu, menu);
+        if (noteIntentID != 0) {
+            inflater.inflate(R.menu.edit_note_menu, menu);
+        }
+        else {
+            inflater.inflate(R.menu.note_menu,menu);
+        }
         this.mMenu = menu;
         return true;
     }
@@ -293,18 +299,19 @@ public class NewTextNoteActivity extends AppCompatActivity {
     }
 
 
-
-    private void getIncomingIntent(){
+    private int getIncomingIntent(){
         if(getIntent().hasExtra("flag")){
-            int noteID = getIntent().getIntExtra("noteID", 0);
-            loadEditableNote(noteID);
+            return getIntent().getIntExtra("noteID", 0);
+        }
+        else {
+            return 0;
         }
     }
 
 
+
     private void loadEditableNote(int noteID){
         DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
-        SQLiteDatabase db =dbHelper.getReadableDatabase();
         Cursor cursor = dbHelper.getNote(noteID);
 
         if (cursor != null)
@@ -312,6 +319,7 @@ public class NewTextNoteActivity extends AppCompatActivity {
 
                 String textNoteTitle = cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_noteTitle));
                 String textNoteText = cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_noteText));
+                noteColor = cursor.getInt(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_color));
 
         cursor.close();
 
