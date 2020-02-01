@@ -21,7 +21,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(FeedReaderContract.SQL_CREATE_TABLE);
+        db.execSQL(FeedReaderContract.SQL_CREATE_TABLE_Text_Note);
+        db.execSQL(FeedReaderContract.SQL_CREATE_TABLE_Checklist_Note);
+        db.execSQL(FeedReaderContract.SQL_CREATE_TABLE_Checklist_Items);
     }
 
     @Override
@@ -36,6 +38,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(FeedReaderContract.FeedTextNote.COLUMN_noteText,note.getNoteText());
         cv.put(FeedReaderContract.FeedTextNote.COLUMN_noteCreateDate,note.getCreateDate());
         cv.put(FeedReaderContract.FeedTextNote.COLUMN_noteModDate,note.getModDate());
+        cv.put(FeedReaderContract.FeedTextNote.COLUMN_color,note.getColor());
+        cv.put(FeedReaderContract.FeedTextNote.COLUMN_noteLatitude,note.getLatitude());
+        cv.put(FeedReaderContract.FeedTextNote.COLUMN_noteLongitude,note.getLongitude());
         long rowInserted = db.insert(FeedReaderContract.FeedTextNote.TABLE_NAME_Text_Note, null ,cv);
         if (rowInserted != -1)
             return true;
@@ -49,6 +54,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(FeedReaderContract.FeedTextNote.COLUMN_noteTitle,note.getNoteTitle());
         cv.put(FeedReaderContract.FeedTextNote.COLUMN_noteText,note.getNoteText());
         cv.put(FeedReaderContract.FeedTextNote.COLUMN_noteModDate,note.getModDate());
+        cv.put(FeedReaderContract.FeedTextNote.COLUMN_color,note.getColor());
         long rowUpdated = db.update(FeedReaderContract.FeedTextNote.TABLE_NAME_Text_Note, cv,FeedReaderContract.FeedTextNote.COLUMN_ID + "=?", new String[]{String.valueOf(noteId)});
         if (rowUpdated != -1)
             return true;
@@ -64,6 +70,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     Cursor getNote(int noteId){
         SQLiteDatabase db = getReadableDatabase();
         return  db.rawQuery("SELECT * FROM " + FeedReaderContract.FeedTextNote.TABLE_NAME_Text_Note + " WHERE " + FeedReaderContract.FeedTextNote.COLUMN_ID + "=?", new String[]{String.valueOf(noteId)});
+    }
+
+    public boolean deleteNote(int noteID){
+        SQLiteDatabase db = getWritableDatabase();
+        long rowDeleted = db.delete(FeedReaderContract.FeedTextNote.TABLE_NAME_Text_Note, FeedReaderContract.FeedTextNote.COLUMN_ID+ "= ?", new String[] {String.valueOf(noteID)});
+        if (rowDeleted > 0)
+            return true;
+        else
+            return false;
     }
 
 }

@@ -17,4 +17,10 @@
         app:showAsAction = "always"
         />
 
+    <item
+        android:id="@+id/deleteNote"
+        android:title="Delete Note"
+        app:showAsAction = "never"
+        />
+
 </menu>
