@@ -83,6 +83,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
                     public void onClick(View v) {
                         Intent intent = new Intent(MainActivity.this, NewTextNoteActivity.class);
                         startActivity(intent);
+                        alertDialog.dismiss();
                     }
                 });
 
