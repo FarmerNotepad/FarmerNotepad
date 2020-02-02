@@ -12,9 +12,9 @@ import java.util.ArrayList;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>{
+public class RecyclerViewAdapterMain extends RecyclerView.Adapter<RecyclerViewAdapterMain.ViewHolder>{
 
-    private static final String TAG = "RecyclerViewAdapter";
+    private static final String TAG = "RecyclerViewAdapterMain";
 
     private ArrayList<String> mTextNoteTitle = new ArrayList<>();
     private ArrayList<String> mTextNoteContent = new ArrayList<>();
@@ -24,7 +24,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
 
 
-    public RecyclerViewAdapter(ArrayList<String> mTextNoteTitle, ArrayList<String> mTextNoteContent, OnNoteListener onNoteListener) {
+    public RecyclerViewAdapterMain(ArrayList<String> mTextNoteTitle, ArrayList<String> mTextNoteContent, OnNoteListener onNoteListener) {
         this.mTextNoteTitle = mTextNoteTitle;
         this.mTextNoteContent = mTextNoteContent;
         this.mOnNoteListener = onNoteListener;

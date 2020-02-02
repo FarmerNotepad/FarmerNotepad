@@ -4,22 +4,64 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".NewChecklistActivity">
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/checklistTitleEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="76dp"
-        android:layout_marginBottom="292dp"
-        android:ems="10"
         android:inputType="textPersonName"
-        android:text="WRITE YOUR CHECKLIST"
+        android:hint="Checklist Title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <Button
+        android:id="@+id/addChecklistItemButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add Item"
+        android:textAlignment="textStart"
+        android:drawableLeft="@drawable/ic_add_button"
+        android:drawablePadding="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/checklistRecyclerView"
+        app:layout_constraintStart_toStartOf="@+id/checklistRecyclerView"
+        app:layout_constraintTop_toBottomOf="@+id/checklistRecyclerView" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/checklistRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/checklistTitleEditText"
+        tools:layout_editor_absoluteX="0dp"></androidx.recyclerview.widget.RecyclerView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/confirmSaveChecklist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.106"
+        app:layout_constraintHorizontal_bias="0.908"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.921" />
+        app:layout_constraintVertical_bias="0.923"
+        app:srcCompat="@android:drawable/checkbox_on_background" />
+
+    <CheckBox
+        android:id="@+id/checkBoxLocChecklist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Location"
+        android:textAlignment="viewStart"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.583"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.899" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
