@@ -97,6 +97,11 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
                 });
 
                 break;
+
+            case R.id.Feedback:
+                Intent intent = new Intent(MainActivity.this, FeedbackActivity.class);
+                startActivity(intent);
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -152,5 +157,8 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         startActivity(intent);
 
     }
+
+
+
 
 }
