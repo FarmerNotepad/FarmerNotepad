@@ -20,7 +20,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-public class MainActivity extends AppCompatActivity implements RecyclerViewAdapter.OnNoteListener{
+public class MainActivity extends AppCompatActivity implements RecyclerViewAdapterMain.OnNoteListener{
 
     private static final String TAG = "MainActivity";
 
@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         Log.d(TAG, "initRecyclerView: init recyclerview.");
 
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(mTextNoteTitle, mTextNoteContent, this);
+        RecyclerViewAdapterMain adapter = new RecyclerViewAdapterMain(mTextNoteTitle, mTextNoteContent, this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }

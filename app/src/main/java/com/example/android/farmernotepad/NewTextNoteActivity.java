@@ -1,48 +1,24 @@
 package com.example.android.farmernotepad;
 
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.view.menu.MenuBuilder;
-import androidx.appcompat.widget.ActivityChooserView;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
 import static android.widget.Toast.LENGTH_SHORT;
-import static com.example.android.farmernotepad.LocationFunctions.requestPermission;
-import static java.lang.String.valueOf;
 
 public class NewTextNoteActivity extends AppCompatActivity {
     private static final int PERMISSION_FINE_LOCATION = 177;
@@ -63,6 +39,7 @@ public class NewTextNoteActivity extends AppCompatActivity {
         FloatingActionButton confirmSaveButton = findViewById(R.id.confirmSave);
         final CheckBox checkLocation = findViewById(R.id.checkBoxLoc);
         noteIntentID = getIncomingIntent();
+
         if(noteIntentID != 0){
 
             checkLocation.setVisibility(View.INVISIBLE);
@@ -117,6 +94,7 @@ public class NewTextNoteActivity extends AppCompatActivity {
                     myNewTextNote.setCreateDate(GenericUtils.getDateTime());
                     myNewTextNote.setModDate(GenericUtils.getDateTime());
                     myNewTextNote.setColor(noteColor);
+
                     if ( checkPermission && checkLocation.isChecked()) {
                         double[] myCoords = LocationFunctions.getLocation(NewTextNoteActivity.this);
                         if (myCoords != null) {
