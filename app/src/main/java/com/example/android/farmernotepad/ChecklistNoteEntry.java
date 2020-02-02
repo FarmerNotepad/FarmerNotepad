@@ -8,8 +8,9 @@ public class ChecklistNoteEntry {
     private int color;
     private double latitude;
     private double longitude;
+    private String[] checklistItems;
 
-    public ChecklistNoteEntry(int noteID, String noteTitle, String createDate, String modDate, int color, double latitude, double longitude) {
+    public ChecklistNoteEntry(int noteID, String noteTitle, String createDate, String modDate, int color, double latitude, double longitude,String[] items) {
         this.noteID = noteID;
         this.noteTitle = noteTitle;
         this.createDate = createDate;
@@ -17,7 +18,10 @@ public class ChecklistNoteEntry {
         this.color = color;
         this.latitude = latitude;
         this.longitude = longitude;
+        this.checklistItems = items;
     }
+
+    public ChecklistNoteEntry() {}
 
     public int getNoteID() {
         return noteID;
@@ -74,4 +78,9 @@ public class ChecklistNoteEntry {
     public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
+
+    public void setChecklistItems(String [] items) {this.checklistItems = items;}
+
+    public String[] getChecklistItems() {
+        return checklistItems; }
 }

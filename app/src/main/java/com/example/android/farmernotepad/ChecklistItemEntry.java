@@ -11,8 +11,7 @@ public class ChecklistItemEntry {
         this.itemText = itemText;
     }
 
-    public int getItemID() {
-        return itemID;
+    public int getItemID() { return itemID;
     }
 
     public void setItemID(int itemID) {

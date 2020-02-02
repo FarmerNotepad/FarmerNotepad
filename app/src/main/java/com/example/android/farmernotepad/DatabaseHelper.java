@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.database.sqlite.SQLiteQuery;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -77,5 +78,39 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         else
             return false;
     }
+
+    public boolean insertChecklist(ChecklistNoteEntry checklist){
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(FeedReaderContract.FeedTextNote.COLUMN_noteTitle,checklist.getNoteTitle());
+        cv.put(FeedReaderContract.FeedTextNote.COLUMN_noteCreateDate,checklist.getCreateDate());
+        cv.put(FeedReaderContract.FeedTextNote.COLUMN_noteModDate,checklist.getModDate());
+        cv.put(FeedReaderContract.FeedTextNote.COLUMN_color,checklist.getColor());
+        cv.put(FeedReaderContract.FeedTextNote.COLUMN_noteLatitude,checklist.getLatitude());
+        cv.put(FeedReaderContract.FeedTextNote.COLUMN_noteLongitude,checklist.getLongitude());
+        long lastID = db.insert(FeedReaderContract.FeedTextNote.TABLE_NAME_Checklist_Note,null,cv);
+        if (lastID != -1){
+            int newID = (int) lastID;
+            ContentValues cvitems = new ContentValues();
+            String[] items = checklist.getChecklistItems();
+            if (items != null) {
+            for (int i = 0; i < items.length ; i++) {
+                cvitems.put(FeedReaderContract.FeedTextNote.COLUMN_Item_note_Rel,newID);
+                cvitems.put(FeedReaderContract.FeedTextNote.COLUMN_Item_Text,items[i]);
+                long checklistItemCheck =db.insert(FeedReaderContract.FeedTextNote.TABLE_NAME_Checklist_Items,null,cvitems);
+                cvitems.clear();
+                if (checklistItemCheck == -1) {
+                    break;
+                    }
+                }
+            }
+            return true;
+            } else {
+            return false;
+            }
+        }
+
+
+
 
 }
