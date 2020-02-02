@@ -20,8 +20,7 @@
     <TextView
         android:id="@+id/textNoteContent"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="Add your text here">
+        android:layout_height="wrap_content">
 
     </TextView>
 

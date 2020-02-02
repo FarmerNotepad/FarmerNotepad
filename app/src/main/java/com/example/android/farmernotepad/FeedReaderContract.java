@@ -6,7 +6,7 @@ public class FeedReaderContract {
     public static class FeedTextNote {
         public final static String TABLE_NAME_Text_Note = "TextNote";
         public final static String TABLE_NAME_Checklist_Note = "Checklist";
-        public final static String TABLE_NAME_Checklist_Items = "CheckListItems";
+        public final static String TABLE_NAME_Checklist_Items = "ChecklistItems";
         public final static String COLUMN_ID = "noteID";
         public final static String COLUMN_noteTitle = "noteTitle";
         public final static String COLUMN_noteText = "noteText";
@@ -37,7 +37,7 @@ public class FeedReaderContract {
 
     public static final String SQL_CREATE_TABLE_Checklist_Items =
             "CREATE TABLE IF NOT EXISTS " + FeedTextNote.TABLE_NAME_Checklist_Items + "(" + FeedTextNote.COLUMN_Item_ID +
-                    " INTEGER," + FeedTextNote.COLUMN_Item_Text + " TEXT," + FeedTextNote.COLUMN_Item_note_Rel + " INTEGER," +
+                    " INTEGER PRIMARY KEY AUTOINCREMENT," + FeedTextNote.COLUMN_Item_Text + " TEXT," + FeedTextNote.COLUMN_Item_note_Rel + " INTEGER," +
                     "FOREIGN KEY (" + FeedTextNote.COLUMN_Item_note_Rel + ") REFERENCES " +FeedTextNote.TABLE_NAME_Checklist_Note +"(" +
                     FeedTextNote.COLUMN_ID +"));";
 

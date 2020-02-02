@@ -21,7 +21,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import static android.widget.Toast.LENGTH_SHORT;
 
 public class NewTextNoteActivity extends AppCompatActivity {
-    private static final int PERMISSION_FINE_LOCATION = 177;
     private Menu mMenu;
     private int noteColor;
     static NewTextNoteActivity activity;
