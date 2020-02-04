@@ -1,5 +1,7 @@
 package com.example.android.farmernotepad;
 
+import java.util.ArrayList;
+
 public class ChecklistNoteEntry {
     private int noteID;
     private String noteTitle;
@@ -8,9 +10,9 @@ public class ChecklistNoteEntry {
     private int color;
     private double latitude;
     private double longitude;
-    private String[] checklistItems;
+    private ArrayList<String> checklistItems;
 
-    public ChecklistNoteEntry(int noteID, String noteTitle, String createDate, String modDate, int color, double latitude, double longitude,String[] items) {
+    public ChecklistNoteEntry(int noteID, String noteTitle, String createDate, String modDate, int color, double latitude, double longitude,ArrayList<String> items) {
         this.noteID = noteID;
         this.noteTitle = noteTitle;
         this.createDate = createDate;
@@ -79,8 +81,8 @@ public class ChecklistNoteEntry {
         this.longitude = longitude;
     }
 
-    public void setChecklistItems(String [] items) {this.checklistItems = items;}
+    public void setChecklistItems(ArrayList<String> items) {this.checklistItems = items;}
 
-    public String[] getChecklistItems() {
+    public ArrayList<String> getChecklistItems() {
         return checklistItems; }
 }

@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteQuery;
 
+import java.util.ArrayList;
+
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     public static final int DATABASE_VERSION = 1;
@@ -27,6 +29,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
 
+    }
+
+    @Override
+    public void onOpen(SQLiteDatabase db){
+        super.onOpen(db);
+        db.execSQL("PRAGMA foreign_keys=ON");
     }
 
     public boolean insertNote(TextNoteEntry note){
@@ -92,11 +100,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (lastID != -1){
             int newID = (int) lastID;
             ContentValues cvitems = new ContentValues();
-            String[] items = checklist.getChecklistItems();
+            ArrayList<String> items = checklist.getChecklistItems();
             if (items != null) {
-            for (int i = 0; i < items.length ; i++) {
+            for (int i = 0; i < items.size() ; i++) {
                 cvitems.put(FeedReaderContract.FeedTextNote.COLUMN_Item_note_Rel,newID);
-                cvitems.put(FeedReaderContract.FeedTextNote.COLUMN_Item_Text,items[i]);
+                cvitems.put(FeedReaderContract.FeedTextNote.COLUMN_Item_Text,items.get(i));
                 long checklistItemCheck =db.insert(FeedReaderContract.FeedTextNote.TABLE_NAME_Checklist_Items,null,cvitems);
                 cvitems.clear();
                 if (checklistItemCheck == -1) {
@@ -110,7 +118,37 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             }
         }
 
+        public boolean deleteChecklist(int checklistID){
+                SQLiteDatabase db = getWritableDatabase();
+                long rowDeleted = db.delete(FeedReaderContract.FeedTextNote.TABLE_NAME_Checklist_Note, FeedReaderContract.FeedTextNote.COLUMN_ID+ "= ?", new String[] {String.valueOf(checklistID)});
+                if (rowDeleted > 0)
+                    return true;
+                else
+                    return false;
+            }
 
+          /* public Cursor getAllChecklists(){
+                SQLiteDatabase db = getReadableDatabase();
+                 return db.rawQuery("SELECT * FROM "+ FeedReaderContract.FeedTextNote.TABLE_NAME_Checklist_Note + " INNER JOIN "+
+                        FeedReaderContract.FeedTextNote.TABLE_NAME_Checklist_Items + " ON " + FeedReaderContract.FeedTextNote.TABLE_NAME_Checklist_Note + "." +
+                        FeedReaderContract.FeedTextNote.COLUMN_ID + " = " +
+                        FeedReaderContract.FeedTextNote.TABLE_NAME_Checklist_Items + "." + FeedReaderContract.FeedTextNote.COLUMN_Item_note_Rel ,null);
+         } */
+          public Cursor getAllChecklists(){
+              SQLiteDatabase db = getReadableDatabase();
+              return db.rawQuery("SELECT * FROM " + FeedReaderContract.FeedTextNote.TABLE_NAME_Checklist_Note, null);
+          }
 
+          public Cursor getChecklistItems(int checklistID){
+              SQLiteDatabase db = getReadableDatabase();
+              return db.rawQuery("SELECT * FROM " + FeedReaderContract.FeedTextNote.TABLE_NAME_Checklist_Items
+                      + " WHERE " + FeedReaderContract.FeedTextNote.COLUMN_Item_note_Rel + "=?",new String[]{String.valueOf(checklistID)});
+
+          }
 
 }
+
+
+
+
+

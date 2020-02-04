@@ -15,18 +15,16 @@ import androidx.recyclerview.widget.RecyclerView;
 public class RecyclerViewAdapterMain extends RecyclerView.Adapter<RecyclerViewAdapterMain.ViewHolder>{
 
     private static final String TAG = "RecyclerViewAdapterMain";
-
-    private ArrayList<String> mTextNoteTitle = new ArrayList<>();
-    private ArrayList<String> mTextNoteContent = new ArrayList<>();
+    private ArrayList<TextNoteEntry> textNotes;
+    private ArrayList<Object> allNotesList;
     private OnNoteListener mOnNoteListener;
 
-    private ArrayList<String> mTextNoteID = new ArrayList<>();
 
 
 
-    public RecyclerViewAdapterMain(ArrayList<String> mTextNoteTitle, ArrayList<String> mTextNoteContent, OnNoteListener onNoteListener) {
-        this.mTextNoteTitle = mTextNoteTitle;
-        this.mTextNoteContent = mTextNoteContent;
+    public RecyclerViewAdapterMain( ArrayList<Object> allNotesList, ArrayList<TextNoteEntry> textNotes, OnNoteListener onNoteListener) {
+        this.allNotesList = allNotesList;
+        this.textNotes = textNotes;
         this.mOnNoteListener = onNoteListener;
     }
 
@@ -41,14 +39,15 @@ public class RecyclerViewAdapterMain extends RecyclerView.Adapter<RecyclerViewAd
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         Log.d(TAG, "onBindViewHolder: called.");
+        TextNoteEntry currentNote = textNotes.get(position);
 
-        holder.textNoteTitle.setText(mTextNoteTitle.get(position));
-        holder.textNoteContent.setText(mTextNoteContent.get(position));
+        holder.textNoteTitle.setText(currentNote.getNoteTitle());
+        holder.textNoteContent.setText(currentNote.getNoteText());
     }
 
     @Override
     public int getItemCount() {
-        return mTextNoteTitle.size();
+        return textNotes.size();
     }
 
     public class  ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{

@@ -39,7 +39,7 @@ public class FeedReaderContract {
             "CREATE TABLE IF NOT EXISTS " + FeedTextNote.TABLE_NAME_Checklist_Items + "(" + FeedTextNote.COLUMN_Item_ID +
                     " INTEGER PRIMARY KEY AUTOINCREMENT," + FeedTextNote.COLUMN_Item_Text + " TEXT," + FeedTextNote.COLUMN_Item_note_Rel + " INTEGER," +
                     "FOREIGN KEY (" + FeedTextNote.COLUMN_Item_note_Rel + ") REFERENCES " +FeedTextNote.TABLE_NAME_Checklist_Note +"(" +
-                    FeedTextNote.COLUMN_ID +"));";
+                    FeedTextNote.COLUMN_ID +") ON DELETE CASCADE);";
 
 
     public static final String SQL_DELETE_ENTRIES =
