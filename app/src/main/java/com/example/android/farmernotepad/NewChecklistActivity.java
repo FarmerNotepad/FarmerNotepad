@@ -3,6 +3,8 @@ package com.example.android.farmernotepad;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -88,10 +90,9 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
                         myNewChecklist.setLongitude(myCoords[1]);
                     }
                 }
-                String[] items = new String[mChecklistItem.size()];
-                for (int i=0; i < mChecklistItem.size(); i++) {
-                    items[i] = mChecklistItem.get(i);
-                }
+                ArrayList<String> items = new ArrayList<>();
+                    items.addAll(mChecklistItem);
+
                 myNewChecklist.setChecklistItems(items);
 
                 DatabaseHelper dbHelper = new DatabaseHelper(NewChecklistActivity.this);
@@ -165,4 +166,35 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
     public void onChecklistNoteClick(int position) {
         addItemDialogBox();
     }
-}
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+            inflater.inflate(R.menu.edit_note_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.deleteNote:
+                DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
+                Boolean checkDelete = dbHelper.deleteChecklist(1);
+                if (checkDelete) {
+                    Intent intent = new Intent(NewChecklistActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    NewChecklistActivity.this.finish();
+                    Toast.makeText(getApplicationContext(), "Checklist Deleted", LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Deletion failed", LENGTH_SHORT).show();
+                }
+
+
+                break;
+            }
+            return super.onOptionsItemSelected(item);
+        }
+
+    }
+
+
+
