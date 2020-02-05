@@ -1,6 +1,6 @@
 package com.example.android.farmernotepad;
 
-public class TextNoteEntry {
+public class TextNoteEntry implements  ListItem{
     private int noteID;
     private String noteTitle;
     private String noteText;
@@ -87,5 +87,8 @@ public class TextNoteEntry {
     public double getLatitude() {return latitude;}
 
 
-
+    @Override
+    public int getListItemType() {
+        return ListItem.typeText;
+    }
 }

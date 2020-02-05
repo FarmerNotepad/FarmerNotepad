@@ -20,13 +20,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-public class MainActivity extends AppCompatActivity implements RecyclerViewAdapterMain.OnNoteListener{
+public class MainActivity extends AppCompatActivity implements RecyclerViewAdapterMain.OnNoteListener {
 
     private static final String TAG = "MainActivity";
 
-    private ArrayList<String> mTextNoteTitle = new ArrayList<>();
-    private ArrayList<String> mTextNoteContent = new ArrayList<>();
-    private ArrayList<Integer> mTextNoteID = new ArrayList<>();
+
+    private ArrayList<ListItem> allNotesList = new ArrayList<>();
 
 
     @Override
@@ -46,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
 
         clearRecyclerView();
         loadNotes();
+        loadChecklistNotes();
     }
 
     @Override
@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.newNote:
                 final AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this);
                 View mView = getLayoutInflater().inflate(R.layout.add_note_dialog_box, null);
@@ -107,58 +107,113 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
     }
 
 
-    private void initRecyclerView(){
+    private void initRecyclerView() {
         Log.d(TAG, "initRecyclerView: init recyclerview.");
 
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
-        RecyclerViewAdapterMain adapter = new RecyclerViewAdapterMain(mTextNoteTitle, mTextNoteContent, this);
+        RecyclerViewAdapterMain adapter = new RecyclerViewAdapterMain(allNotesList, this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
-    private void loadNotes(){
+    private void loadNotes() {
         DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
-        SQLiteDatabase db =dbHelper.getReadableDatabase();
         Cursor cursor = dbHelper.getAllNotes();
 
         initRecyclerView();
 
-        if(cursor.moveToFirst()){
-            do{
-                String textNoteTitle = cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_noteTitle));
-                String textNoteText = cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_noteText));
-                //String textNoteID = cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_ID));
-                int textNoteID = cursor.getInt(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_ID));
 
-                mTextNoteTitle.add(textNoteTitle);
-                mTextNoteContent.add(textNoteText);
-                mTextNoteID.add(textNoteID);
+        if (cursor.moveToFirst()) {
+            do {
+                TextNoteEntry noteEntry = new TextNoteEntry();
+                noteEntry.setNoteTitle(cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_noteTitle)));
+                noteEntry.setNoteText(cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_noteText)));
+                noteEntry.setNoteID(cursor.getInt(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_ID)));
+                noteEntry.setColor(cursor.getInt(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_color)));
+                noteEntry.setCreateDate((cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_noteCreateDate))));
+                noteEntry.setModDate(cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_noteModDate)));
+                noteEntry.setLatitude(cursor.getDouble(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_noteLatitude)));
+                noteEntry.setLongitude(cursor.getDouble(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_noteLongitude)));
+                allNotesList.add(noteEntry);
             }
-            while(cursor.moveToNext());
+            while (cursor.moveToNext());
         }
         cursor.close();
     }
 
-    private void clearRecyclerView(){
-        if(mTextNoteContent!=null && mTextNoteTitle!=null) {
-            mTextNoteTitle.clear();
-            mTextNoteContent.clear();
-            mTextNoteID.clear();
+    private void loadChecklistNotes() {
+        DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
+        Cursor cursor = dbHelper.getAllChecklists();
+        initRecyclerView();
+        Cursor cursorItems;
+
+
+        if (cursor.moveToFirst()) {
+            do {
+
+                ChecklistNoteEntry noteEntry = new ChecklistNoteEntry();
+
+                noteEntry.setNoteTitle(cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_noteTitle)));
+                int current_id = (cursor.getInt(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_ID)));
+                noteEntry.setNoteID(current_id);
+                noteEntry.setColor(cursor.getInt(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_color)));
+                noteEntry.setCreateDate((cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_noteCreateDate))));
+                noteEntry.setModDate(cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_noteModDate)));
+                noteEntry.setLatitude(cursor.getDouble(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_noteLatitude)));
+                noteEntry.setLongitude(cursor.getDouble(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_noteLongitude)));
+                cursorItems = dbHelper.getChecklistItems(current_id);
+                ArrayList<String> checkItems = new ArrayList<>();
+                if (cursorItems.moveToFirst()) {
+                    do {
+                        checkItems.add(cursorItems.getString(cursorItems.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_Item_Text)));
+                    }
+                    while (cursorItems.moveToNext());
+                }
+
+                cursorItems.close();
+
+                noteEntry.setChecklistItems(checkItems);
+                allNotesList.add(noteEntry);
+            }
+            while (cursor.moveToNext());
+        }
+        cursor.close();
+    }
+
+
+    private void clearRecyclerView() {
+        if (allNotesList != null) {
+            allNotesList.clear();
         }
     }
 
     @Override
     public void onNoteClick(int position) {
 
-        Intent intent = new Intent(this, NewTextNoteActivity.class);
-        intent.putExtra("flag", "editNote");
-        int mNoteID = mTextNoteID.get(position).intValue();
-        intent.putExtra("noteID", mNoteID);
+        Intent intent;
+        int mNoteID;
+        
+        int noteType = allNotesList.get(position).getListItemType();
+
+        if (noteType == ListItem.typeText) {
+            TextNoteEntry textNote = (TextNoteEntry) allNotesList.get(position);
+            mNoteID = textNote.getNoteID();
+            intent = new Intent(this, NewTextNoteActivity.class);
+            intent.putExtra("noteID", mNoteID);
+            intent.putExtra("flag", "editNote");
+
+        }
+        else{
+            ChecklistNoteEntry checklistNote = (ChecklistNoteEntry) allNotesList.get(position);
+            mNoteID = checklistNote.getNoteID();
+            intent = new Intent(this, NewChecklistActivity.class);
+            intent.putExtra("noteID", mNoteID);
+            intent.putExtra("flag", "editNote");
+        }
+
+
         startActivity(intent);
-
     }
-
-
 
 
 }
