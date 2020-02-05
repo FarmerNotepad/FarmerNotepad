@@ -2,7 +2,7 @@ package com.example.android.farmernotepad;
 
 import java.util.ArrayList;
 
-public class ChecklistNoteEntry {
+public class ChecklistNoteEntry implements ListItem{
     private int noteID;
     private String noteTitle;
     private String createDate;
@@ -85,4 +85,9 @@ public class ChecklistNoteEntry {
 
     public ArrayList<String> getChecklistItems() {
         return checklistItems; }
+
+    @Override
+    public int getListItemType() {
+        return ListItem.typeChecklist;
+    }
 }
