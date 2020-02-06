@@ -12,6 +12,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.SearchView;
 
 import java.util.ArrayList;
 
@@ -26,6 +27,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
 
 
     private ArrayList<ListItem> allNotesList = new ArrayList<>();
+    RecyclerViewAdapterMain adapter;
 
 
     @Override
@@ -34,34 +36,34 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         setContentView(R.layout.activity_main);
 
         Log.d(TAG, "onCreate: started.");
-
-        loadNotes();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        setContentView(R.layout.activity_main);
-
-        clearRecyclerView();
         loadNotes();
         loadChecklistNotes();
     }
 
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        setContentView(R.layout.activity_main);
-
-        clearRecyclerView();
-        loadNotes();
-    }
 
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_menu, menu);
-        return true;
+
+        MenuItem searchItem = menu.findItem(R.id.searchNoteMenuItem);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adapter.getFilter().filter(newText);
+                return false;
+            }
+        });
+
+    return true;
     }
+
 
 
     @Override
@@ -111,8 +113,9 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         Log.d(TAG, "initRecyclerView: init recyclerview.");
 
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
-        RecyclerViewAdapterMain adapter = new RecyclerViewAdapterMain(allNotesList, this);
+        adapter = new RecyclerViewAdapterMain(allNotesList, this);
         recyclerView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
@@ -120,7 +123,6 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
         Cursor cursor = dbHelper.getAllNotes();
 
-        initRecyclerView();
 
 
         if (cursor.moveToFirst()) {
@@ -139,12 +141,12 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
             while (cursor.moveToNext());
         }
         cursor.close();
+        initRecyclerView();
     }
 
     private void loadChecklistNotes() {
         DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
         Cursor cursor = dbHelper.getAllChecklists();
-        initRecyclerView();
         Cursor cursorItems;
 
 
@@ -178,21 +180,16 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
             while (cursor.moveToNext());
         }
         cursor.close();
+        initRecyclerView();
     }
 
-
-    private void clearRecyclerView() {
-        if (allNotesList != null) {
-            allNotesList.clear();
-        }
-    }
 
     @Override
     public void onNoteClick(int position) {
 
         Intent intent;
         int mNoteID;
-        
+
         int noteType = allNotesList.get(position).getListItemType();
 
         if (noteType == ListItem.typeText) {
@@ -210,7 +207,6 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
             intent.putExtra("noteID", mNoteID);
             intent.putExtra("flag", "editNote");
         }
-
 
         startActivity(intent);
     }

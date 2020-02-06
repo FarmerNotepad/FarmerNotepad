@@ -90,4 +90,15 @@ public class ChecklistNoteEntry implements ListItem{
     public int getListItemType() {
         return ListItem.typeChecklist;
     }
+
+    @Override
+    public  String getInterfaceTitle(){
+        return noteTitle;
+    }
+
+    @Override
+    public String getInterfaceText(){
+        return checklistItems.toString();
+    }
+
 }
