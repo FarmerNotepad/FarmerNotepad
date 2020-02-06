@@ -91,4 +91,5 @@ public class TextNoteEntry implements  ListItem{
     public int getListItemType() {
         return ListItem.typeText;
     }
+
 }

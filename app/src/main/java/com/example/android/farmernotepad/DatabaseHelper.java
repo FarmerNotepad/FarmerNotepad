@@ -54,14 +54,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return false;
     }
 
-    public boolean updateNote(TextNoteEntry note,int noteId){
+    public boolean updateNote(TextNoteEntry note){
         SQLiteDatabase db = getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(FeedReaderContract.FeedTextNote.COLUMN_noteTitle,note.getNoteTitle());
         cv.put(FeedReaderContract.FeedTextNote.COLUMN_noteText,note.getNoteText());
         cv.put(FeedReaderContract.FeedTextNote.COLUMN_noteModDate,note.getModDate());
         cv.put(FeedReaderContract.FeedTextNote.COLUMN_color,note.getColor());
-        long rowUpdated = db.update(FeedReaderContract.FeedTextNote.TABLE_NAME_Text_Note, cv,FeedReaderContract.FeedTextNote.COLUMN_ID + "=?", new String[]{String.valueOf(noteId)});
+        long rowUpdated = db.update(FeedReaderContract.FeedTextNote.TABLE_NAME_Text_Note, cv,FeedReaderContract.FeedTextNote.COLUMN_ID + "=?", new String[]{String.valueOf(note.getNoteID())});
         if (rowUpdated != -1)
             return true;
         else
@@ -127,13 +127,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     return false;
             }
 
-          /* public Cursor getAllChecklists(){
-                SQLiteDatabase db = getReadableDatabase();
-                 return db.rawQuery("SELECT * FROM "+ FeedReaderContract.FeedTextNote.TABLE_NAME_Checklist_Note + " INNER JOIN "+
-                        FeedReaderContract.FeedTextNote.TABLE_NAME_Checklist_Items + " ON " + FeedReaderContract.FeedTextNote.TABLE_NAME_Checklist_Note + "." +
-                        FeedReaderContract.FeedTextNote.COLUMN_ID + " = " +
-                        FeedReaderContract.FeedTextNote.TABLE_NAME_Checklist_Items + "." + FeedReaderContract.FeedTextNote.COLUMN_Item_note_Rel ,null);
-         } */
+
           public Cursor getAllChecklists(){
               SQLiteDatabase db = getReadableDatabase();
               return db.rawQuery("SELECT * FROM " + FeedReaderContract.FeedTextNote.TABLE_NAME_Checklist_Note, null);
@@ -145,6 +139,38 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                       + " WHERE " + FeedReaderContract.FeedTextNote.COLUMN_Item_note_Rel + "=?",new String[]{String.valueOf(checklistID)});
 
           }
+
+          public Cursor getSingleChecklist(int checklistID){
+                SQLiteDatabase db = getReadableDatabase();
+                return db.rawQuery("SELECT * FROM " + FeedReaderContract.FeedTextNote.TABLE_NAME_Checklist_Note + " WHERE " +
+                        FeedReaderContract.FeedTextNote.COLUMN_ID + " =?",new String[]{String.valueOf(checklistID)});
+          }
+
+          public Cursor getSingleChecklistItems(int checklistID){
+                SQLiteDatabase db = getReadableDatabase();
+                return db.rawQuery("SELECT * FROM " + FeedReaderContract.FeedTextNote.TABLE_NAME_Checklist_Items + " WHERE " +
+                        FeedReaderContract.FeedTextNote.COLUMN_Item_note_Rel + "=?",new String[]{String.valueOf(checklistID)});
+          }
+
+    public boolean updateChecklist(ChecklistNoteEntry checklist) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(FeedReaderContract.FeedTextNote.COLUMN_noteTitle, checklist.getNoteTitle());
+        cv.put(FeedReaderContract.FeedTextNote.COLUMN_noteModDate, checklist.getModDate());
+        cv.put(FeedReaderContract.FeedTextNote.COLUMN_color, checklist.getColor());
+        long rowUpdated = db.update(FeedReaderContract.FeedTextNote.TABLE_NAME_Checklist_Note, cv, FeedReaderContract.FeedTextNote.COLUMN_ID + "=?", new String[]{String.valueOf(checklist.getNoteID())});
+        long rowDeleteItems = db.delete(FeedReaderContract.FeedTextNote.TABLE_NAME_Checklist_Items,  FeedReaderContract.FeedTextNote.COLUMN_Item_note_Rel + "=?", new String[]{String.valueOf(checklist.getNoteID())});
+        ContentValues cvItems = new ContentValues();
+        for (int i = 0; i < checklist.getChecklistItems().size(); i++){
+            cvItems.put(FeedReaderContract.FeedTextNote.COLUMN_Item_note_Rel,checklist.getNoteID());
+            cvItems.put(FeedReaderContract.FeedTextNote.COLUMN_Item_Text,checklist.getChecklistItems().get(i));
+            db.insert(FeedReaderContract.FeedTextNote.TABLE_NAME_Checklist_Items,null,cvItems);
+        }
+        if (rowUpdated != -1 && rowDeleteItems != 0)
+            return true;
+        else
+            return false;
+    }
 
 }
 

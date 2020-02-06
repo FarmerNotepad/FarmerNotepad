@@ -1,6 +1,7 @@
 package com.example.android.farmernotepad;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -39,11 +41,10 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
         final EditText checklistTitle = findViewById(R.id.checklistTitleEditText);
         final CheckBox checkLocation = findViewById(R.id.checkBoxLocChecklist);
         activity = this;
-
+        noteIntentID = getIncomingIntent();
 
         Button addItemButton = (Button) findViewById(R.id.addChecklistItemButton);
         FloatingActionButton saveChecklistButton = findViewById(R.id.confirmSaveChecklist);
-
 
         addItemButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,48 +66,86 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
                 }
             }
         });
+        if(noteIntentID != 0 ){
+            loadEditableChecklist(noteIntentID);
+
+            saveChecklistButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ChecklistNoteEntry myNewChecklist = new ChecklistNoteEntry();
+                    myNewChecklist.setNoteID(noteIntentID);
 
 
-        saveChecklistButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ChecklistNoteEntry myNewChecklist = new ChecklistNoteEntry();
-                Boolean checkPermission = LocationFunctions.checkPermission(NewChecklistActivity.this);
-
-                if (checklistTitle.getText().toString().equals("")) {
-                    myNewChecklist.setNoteTitle(GenericUtils.getDateTime());
-                } else {
-                    myNewChecklist.setNoteTitle(checklistTitle.getText().toString());
-                }
-
-                myNewChecklist.setCreateDate(GenericUtils.getDateTime());
-                myNewChecklist.setModDate(GenericUtils.getDateTime());
-                myNewChecklist.setColor(noteColor);
-
-                if ( checkPermission && checkLocation.isChecked()) {
-                    double[] myCoords = LocationFunctions.getLocation(NewChecklistActivity.this);
-                    if (myCoords != null) {
-                        myNewChecklist.setLatitude(myCoords[0]);
-                        myNewChecklist.setLongitude(myCoords[1]);
+                    if (checklistTitle.getText().toString().equals("")) {
+                        myNewChecklist.setNoteTitle(GenericUtils.getDateTime());
+                    } else {
+                        myNewChecklist.setNoteTitle(checklistTitle.getText().toString());
                     }
-                }
-                ArrayList<String> items = new ArrayList<>();
+
+                    myNewChecklist.setModDate(GenericUtils.getDateTime());
+                    myNewChecklist.setColor(noteColor);
+
+                    ArrayList<String> items = new ArrayList<>();
                     items.addAll(mChecklistItem);
 
-                myNewChecklist.setChecklistItems(items);
+                    myNewChecklist.setChecklistItems(items);
 
-                DatabaseHelper dbHelper = new DatabaseHelper(NewChecklistActivity.this);
-                Boolean checkInsert = dbHelper.insertChecklist(myNewChecklist);
-                if (checkInsert) {
-                    Toast.makeText(getApplicationContext(), "Checklist Saved", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(NewChecklistActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    NewChecklistActivity.this.finish();
-                } else {
-                    Toast.makeText(getApplicationContext(), "Insertion Failed", Toast.LENGTH_SHORT).show();
+                    DatabaseHelper dbHelper = new DatabaseHelper(NewChecklistActivity.this);
+                    Boolean checkUpdate = dbHelper.updateChecklist(myNewChecklist);
+                    if (checkUpdate) {
+                        Toast.makeText(getApplicationContext(), "Checklist Updated", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(NewChecklistActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        NewChecklistActivity.this.finish();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Update Failed", Toast.LENGTH_SHORT).show();
+                    }
                 }
-            }
-        });
+            });
+        }
+        else {
+
+            saveChecklistButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ChecklistNoteEntry myNewChecklist = new ChecklistNoteEntry();
+                    Boolean checkPermission = LocationFunctions.checkPermission(NewChecklistActivity.this);
+
+                    if (checklistTitle.getText().toString().equals("")) {
+                        myNewChecklist.setNoteTitle(GenericUtils.getDateTime());
+                    } else {
+                        myNewChecklist.setNoteTitle(checklistTitle.getText().toString());
+                    }
+
+                    myNewChecklist.setCreateDate(GenericUtils.getDateTime());
+                    myNewChecklist.setModDate(GenericUtils.getDateTime());
+                    myNewChecklist.setColor(noteColor);
+
+                    if (checkPermission && checkLocation.isChecked()) {
+                        double[] myCoords = LocationFunctions.getLocation(NewChecklistActivity.this);
+                        if (myCoords != null) {
+                            myNewChecklist.setLatitude(myCoords[0]);
+                            myNewChecklist.setLongitude(myCoords[1]);
+                        }
+                    }
+                    ArrayList<String> items = new ArrayList<>();
+                    items.addAll(mChecklistItem);
+
+                    myNewChecklist.setChecklistItems(items);
+
+                    DatabaseHelper dbHelper = new DatabaseHelper(NewChecklistActivity.this);
+                    Boolean checkInsert = dbHelper.insertChecklist(myNewChecklist);
+                    if (checkInsert) {
+                        Toast.makeText(getApplicationContext(), "Checklist Saved", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(NewChecklistActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        NewChecklistActivity.this.finish();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Insertion Failed", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        }
 
     }
 
@@ -122,15 +161,15 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
         initRecyclerViewAdapterChecklist();
     }
 
-    private void initRecyclerViewAdapterChecklist(){
+    private void initRecyclerViewAdapterChecklist() {
         RecyclerView recyclerView = findViewById(R.id.checklistRecyclerView);
-        RecyclerViewAdapterChecklist adapter = new RecyclerViewAdapterChecklist(mChecklistItem,this);
+        RecyclerViewAdapterChecklist adapter = new RecyclerViewAdapterChecklist(mChecklistItem, this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
 
-    private void addItemDialogBox(){
+    private void addItemDialogBox() {
         final AlertDialog.Builder alert = new AlertDialog.Builder(NewChecklistActivity.this);
         View mView = getLayoutInflater().inflate(R.layout.add_checklist_item_dialog_box, null);
         alert.setView(mView);
@@ -169,16 +208,21 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
 
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
+        if (noteIntentID != 0) {
             inflater.inflate(R.menu.edit_note_menu, menu);
+        } else {
+            inflater.inflate(R.menu.note_menu, menu);
+        }
+        this.mMenu = menu;
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
+        switch (item.getItemId()) {
             case R.id.deleteNote:
                 DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
-                Boolean checkDelete = dbHelper.deleteChecklist(1);
+                Boolean checkDelete = dbHelper.deleteChecklist(noteIntentID);
                 if (checkDelete) {
                     Intent intent = new Intent(NewChecklistActivity.this, MainActivity.class);
                     startActivity(intent);
@@ -190,11 +234,47 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
 
 
                 break;
-            }
-            return super.onOptionsItemSelected(item);
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
+    private int getIncomingIntent() {
+        if (getIntent().hasExtra("flag")) {
+            return getIntent().getIntExtra("noteID", 0);
+        } else {
+            return 0;
+        }
+    }
+
+    private void loadEditableChecklist(int noteID){
+        DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
+        Cursor cursor = dbHelper.getSingleChecklist(noteID);
+        Cursor cursorItems = dbHelper.getSingleChecklistItems(noteID);
+
+        if (cursor != null)
+            cursor.moveToFirst();
+
+        String textNoteTitle = cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_noteTitle));
+        noteColor = cursor.getInt(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_color));
+        cursor.close();
+
+        if (cursorItems.moveToFirst()){
+            do {
+                mChecklistItem.add(cursorItems.getString(cursorItems.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_Item_Text)));
+            } while (cursorItems.moveToNext());
         }
 
+
+        TextView title = findViewById(R.id.checklistTitleEditText);
+
+
+        title.setText(textNoteTitle);
+
+
     }
+
+}
 
 
 

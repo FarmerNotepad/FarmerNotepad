@@ -6,4 +6,5 @@ public interface ListItem {
     int typeChecklist = 2;
 
     int getListItemType();
+
 }
