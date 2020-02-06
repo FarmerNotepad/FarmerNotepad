@@ -6,5 +6,7 @@ public interface ListItem {
     int typeChecklist = 2;
 
     int getListItemType();
+    String getInterfaceTitle();
+    String getInterfaceText();
 
 }

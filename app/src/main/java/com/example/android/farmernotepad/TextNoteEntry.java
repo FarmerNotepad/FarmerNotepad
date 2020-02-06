@@ -92,4 +92,13 @@ public class TextNoteEntry implements  ListItem{
         return ListItem.typeText;
     }
 
+    @Override
+    public  String getInterfaceTitle(){
+        return noteTitle;
+    }
+    @Override
+    public String getInterfaceText(){
+        return noteText;
+}
+
 }

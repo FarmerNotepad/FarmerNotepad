@@ -66,7 +66,7 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
                 }
             }
         });
-        if(noteIntentID != 0 ){
+        if (noteIntentID != 0) {
             loadEditableChecklist(noteIntentID);
 
             saveChecklistButton.setOnClickListener(new View.OnClickListener() {
@@ -102,8 +102,7 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
                     }
                 }
             });
-        }
-        else {
+        } else {
 
             saveChecklistButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -247,7 +246,7 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
         }
     }
 
-    private void loadEditableChecklist(int noteID){
+    private void loadEditableChecklist(int noteID) {
         DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
         Cursor cursor = dbHelper.getSingleChecklist(noteID);
         Cursor cursorItems = dbHelper.getSingleChecklistItems(noteID);
@@ -259,7 +258,7 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
         noteColor = cursor.getInt(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_color));
         cursor.close();
 
-        if (cursorItems.moveToFirst()){
+        if (cursorItems.moveToFirst()) {
             do {
                 mChecklistItem.add(cursorItems.getString(cursorItems.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_Item_Text)));
             } while (cursorItems.moveToNext());
@@ -275,6 +274,3 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
     }
 
 }
-
-
-
