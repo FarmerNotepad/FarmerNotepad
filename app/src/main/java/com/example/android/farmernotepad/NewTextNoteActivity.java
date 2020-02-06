@@ -59,7 +59,7 @@ public class NewTextNoteActivity extends AppCompatActivity {
                     myNewTextNote.setModDate(GenericUtils.getDateTime());
 
                     DatabaseHelper dbHelper = new DatabaseHelper(NewTextNoteActivity.this);
-                    Boolean checkInsert = dbHelper.updateNote(myNewTextNote, getIntent().getIntExtra("noteID", 0));
+                    Boolean checkInsert = dbHelper.updateNote(myNewTextNote);
 
                     if (checkInsert == true) {
                         Toast.makeText(getApplicationContext(), "Note Updated", Toast.LENGTH_SHORT).show();
