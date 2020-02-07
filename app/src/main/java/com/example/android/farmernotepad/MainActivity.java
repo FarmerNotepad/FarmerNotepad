@@ -24,6 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class MainActivity extends AppCompatActivity implements RecyclerViewAdapterMain.OnNoteListener {
 
     private static final String TAG = "MainActivity";
+    boolean desc = false;
 
 
     private ArrayList<ListItem> allNotesList = new ArrayList<>();
@@ -104,6 +105,18 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
                 Intent intent = new Intent(MainActivity.this, FeedbackActivity.class);
                 startActivity(intent);
                 break;
+
+            case R.id.Sort:
+                //allNotesList = GenericUtils.sortByTitle(allNotesList,desc);
+                adapter.notifyDataSetChanged();
+                desc = !desc;
+                break;
+
+            case R.id.Backup:
+                Intent intentBackup = new Intent(MainActivity.this, Backup.class);
+                startActivity(intentBackup);
+                break;
+
         }
         return super.onOptionsItemSelected(item);
     }

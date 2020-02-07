@@ -1,5 +1,6 @@
 package com.example.android.farmernotepad;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -220,17 +221,32 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.deleteNote:
-                DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
-                Boolean checkDelete = dbHelper.deleteChecklist(noteIntentID);
-                if (checkDelete) {
-                    Intent intent = new Intent(NewChecklistActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    NewChecklistActivity.this.finish();
-                    Toast.makeText(getApplicationContext(), "Checklist Deleted", LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getApplicationContext(), "Deletion failed", LENGTH_SHORT).show();
-                }
-
+                final android.app.AlertDialog alertDeleteDialog = new android.app.AlertDialog.Builder(NewChecklistActivity.this).create();
+                alertDeleteDialog.setTitle("Delete Note");
+                alertDeleteDialog.setMessage("Delete this note?");
+                alertDeleteDialog.setButton(android.app.AlertDialog.BUTTON_POSITIVE, "YES",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
+                                Boolean checkDelete = dbHelper.deleteChecklist(noteIntentID);
+                                if (checkDelete) {
+                                    Intent intent = new Intent(NewChecklistActivity.this, MainActivity.class);
+                                    startActivity(intent);
+                                    NewChecklistActivity.this.finish();
+                                    Toast.makeText(getApplicationContext(), "Checklist Deleted", LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(getApplicationContext(), "Deletion failed", LENGTH_SHORT).show();
+                                }
+                                alertDeleteDialog.dismiss();
+                            }
+                        });
+                alertDeleteDialog.setButton(android.app.AlertDialog.BUTTON_NEGATIVE, "NO", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int which) {
+                        alertDeleteDialog.dismiss();
+                    }
+                });
+                alertDeleteDialog.show();
 
                 break;
         }

@@ -1,6 +1,7 @@
 package com.example.android.farmernotepad;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -255,20 +256,34 @@ public class NewTextNoteActivity extends AppCompatActivity {
                 break;
 
             case R.id.deleteNote:
-                if(getIntent().hasExtra("flag")){
-                    int noteID = getIntent().getIntExtra("noteID", 0);
-                    DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
-                    Boolean checkDelete = dbHelper.deleteNote(noteID);
-                    if (checkDelete){
-                        Intent intent = new Intent(NewTextNoteActivity.this, MainActivity.class);
-                        startActivity(intent);
-                        NewTextNoteActivity.this.finish();
-                        Toast.makeText(getApplicationContext(),"Note Deleted", LENGTH_SHORT).show();
+                final AlertDialog alertDeleteDialog = new AlertDialog.Builder(NewTextNoteActivity.this).create();
+                alertDeleteDialog.setTitle("Delete Note");
+                alertDeleteDialog.setMessage("Delete this note?");
+                alertDeleteDialog.setButton(AlertDialog.BUTTON_POSITIVE, "YES",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                int noteID = getIntent().getIntExtra("noteID", 0);
+                                DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
+                                Boolean checkDelete = dbHelper.deleteNote(noteID);
+                                if (checkDelete){
+                                    Intent intent = new Intent(NewTextNoteActivity.this, MainActivity.class);
+                                    startActivity(intent);
+                                    NewTextNoteActivity.this.finish();
+                                    Toast.makeText(getApplicationContext(),"Note Deleted", LENGTH_SHORT).show();
+                                }
+                                else{
+                                    Toast.makeText(getApplicationContext(),"Delete failed",LENGTH_SHORT).show();
+                                }
+                                alertDeleteDialog.dismiss();
+                            }
+                        });
+                alertDeleteDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "NO", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int which) {
+                        alertDeleteDialog.dismiss();
                     }
-                    else{
-                        Toast.makeText(getApplicationContext(),"Delete failed",LENGTH_SHORT).show();
-                    }
-                }
+                });
+                alertDeleteDialog.show();
 
                 break;
         }
