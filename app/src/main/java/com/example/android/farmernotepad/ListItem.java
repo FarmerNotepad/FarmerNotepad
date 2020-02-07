@@ -8,5 +8,8 @@ public interface ListItem {
     int getListItemType();
     String getInterfaceTitle();
     String getInterfaceText();
+    int getColor();
+    String getModDate();
+    String getCreateDate();
 
 }

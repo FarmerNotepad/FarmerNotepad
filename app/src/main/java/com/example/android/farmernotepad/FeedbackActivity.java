@@ -2,6 +2,7 @@ package com.example.android.farmernotepad;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,7 +17,7 @@ public class FeedbackActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feedback);
 
-        final EditText feedbackText = (EditText) findViewById(R.id.feebackText);
+
         Button sendButton = (Button) findViewById(R.id.sendFeedback);
 
         sendButton.setOnClickListener(new View.OnClickListener() {
@@ -29,6 +30,7 @@ public class FeedbackActivity extends AppCompatActivity {
     }
 
     public void sendEmail(View view){
+        final EditText feedbackText = (EditText) findViewById(R.id.feebackText);
         new Thread(new Runnable() {
 
             @Override
@@ -36,10 +38,15 @@ public class FeedbackActivity extends AppCompatActivity {
                 try {
                     EmailHandler sender = new EmailHandler("farmernotepad@gmail.com",
                             "farmernotepad123");
-                    sender.sendMail("Hello from JavaMail", "Body from JavaMail",
+                    sender.sendMail("User Feedback", feedbackText.getText().toString(),
                             "farmernotepad@gmail.com", "farmernotepad@gmail.com");
+                    Toast.makeText(FeedbackActivity.this,"Feedback sent to devs.",Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(FeedbackActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    FeedbackActivity.this.finish();
                 } catch (Exception e) {
                     Log.e("SendMail", e.getMessage(), e);
+                    Toast.makeText(FeedbackActivity.this,"Error sending email.",Toast.LENGTH_SHORT).show();
                 }
             }
 

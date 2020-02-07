@@ -54,6 +54,7 @@ public class TextNoteEntry implements  ListItem{
         this.noteText = noteText;
     }
 
+    @Override
     public String getCreateDate() {
         return createDate;
     }
@@ -62,6 +63,7 @@ public class TextNoteEntry implements  ListItem{
         this.createDate = createDate;
     }
 
+    @Override
     public String getModDate() {
         return modDate;
     }
@@ -70,6 +72,7 @@ public class TextNoteEntry implements  ListItem{
         this.modDate = modDate;
     }
 
+    @Override
     public int getColor() {
         return color;
     }

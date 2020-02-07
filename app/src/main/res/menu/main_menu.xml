@@ -33,4 +33,11 @@
         app:showAsAction="never"
         />
 
+    <item
+        android:id="@+id/Sort"
+        android:title = "Sort"
+        app:showAsAction="never"
+        />
+
+
 </menu>

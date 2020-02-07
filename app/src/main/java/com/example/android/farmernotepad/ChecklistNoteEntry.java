@@ -41,14 +41,17 @@ public class ChecklistNoteEntry implements ListItem{
         this.noteTitle = noteTitle;
     }
 
+    @Override
     public String getCreateDate() {
         return createDate;
     }
+
 
     public void setCreateDate(String createDate) {
         this.createDate = createDate;
     }
 
+    @Override
     public String getModDate() {
         return modDate;
     }
@@ -57,6 +60,7 @@ public class ChecklistNoteEntry implements ListItem{
         this.modDate = modDate;
     }
 
+    @Override
     public int getColor() {
         return color;
     }
