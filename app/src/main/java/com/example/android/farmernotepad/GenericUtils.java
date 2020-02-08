@@ -16,7 +16,7 @@ public class GenericUtils {
         return dateFormat.format(date);
     }
 
-    /*public static ArrayList<ListItem> sortByTitle( ArrayList<ListItem> myList, final boolean desc){
+    public static ArrayList<ListItem> sortByTitle( ArrayList<ListItem> myList, final boolean desc){
             Collections.sort(myList, new Comparator<ListItem>() {
 
                 @Override
@@ -31,7 +31,7 @@ public class GenericUtils {
 
             });
             return myList;
-        } */
+        }
 
     public static ArrayList<ListItem> sortByCreateDate( ArrayList<ListItem> myList, final boolean desc) {
         Collections.sort(myList, new Comparator<ListItem>() {

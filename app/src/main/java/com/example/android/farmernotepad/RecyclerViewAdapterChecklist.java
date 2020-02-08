@@ -33,8 +33,16 @@ public class RecyclerViewAdapterChecklist extends RecyclerView.Adapter<RecyclerV
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolderChecklist holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolderChecklist holder, final int position) {
         holder.checklistItemTextView.setText(mChecklistItem.get(position));
+
+        holder.deleteItemButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mChecklistItem.remove(position);
+                notifyItemRemoved(position);
+            }
+        });
     }
 
     @Override
@@ -58,6 +66,7 @@ public class RecyclerViewAdapterChecklist extends RecyclerView.Adapter<RecyclerV
             checklistItemTextView = itemView.findViewById(R.id.checklistItemTextView);
             deleteItemButton = itemView.findViewById(R.id.deleteItemButton);
             this.onChecklistItemListener = onChecklistItemListener;
+
 
             itemView.setOnClickListener(this);
         }

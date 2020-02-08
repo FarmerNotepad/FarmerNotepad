@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
                 break;
 
             case R.id.Sort:
-                //allNotesList = GenericUtils.sortByTitle(allNotesList,desc);
+                allNotesList = GenericUtils.sortByTitle(allNotesList,desc);
                 adapter.notifyDataSetChanged();
                 desc = !desc;
                 break;

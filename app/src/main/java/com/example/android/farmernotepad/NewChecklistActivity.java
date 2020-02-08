@@ -32,6 +32,7 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
     private int noteColor;
     static NewChecklistActivity activity;
     private int noteIntentID;
+    RecyclerViewAdapterChecklist adapter;
 
 
     @Override
@@ -163,7 +164,7 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
 
     private void initRecyclerViewAdapterChecklist() {
         RecyclerView recyclerView = findViewById(R.id.checklistRecyclerView);
-        RecyclerViewAdapterChecklist adapter = new RecyclerViewAdapterChecklist(mChecklistItem, this);
+        adapter = new RecyclerViewAdapterChecklist(mChecklistItem, this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
@@ -187,6 +188,7 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
                 String checklistItem = editText.getText().toString();
                 mChecklistItem.add(checklistItem);
                 alertDialog.dismiss();
+                adapter.notifyDataSetChanged();;
 
             }
         });
