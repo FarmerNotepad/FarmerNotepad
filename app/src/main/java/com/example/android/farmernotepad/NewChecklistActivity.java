@@ -68,6 +68,7 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
                 }
             }
         });
+
         if (noteIntentID != 0) {
             loadEditableChecklist(noteIntentID);
 
@@ -186,10 +187,54 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
             @Override
             public void onClick(View v) {
                 String checklistItem = editText.getText().toString();
-                mChecklistItem.add(checklistItem);
+                if (checklistItem.equals(null) || checklistItem.equals("")) {
+                    editText.getText().clear();
+                    alertDialog.dismiss();
+                } else {
+                    mChecklistItem.add(checklistItem);
+                    adapter.notifyDataSetChanged();
+                }
                 alertDialog.dismiss();
-                adapter.notifyDataSetChanged();;
+            }
+        });
 
+            cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editText.getText().clear();
+                alertDialog.dismiss();
+            }
+        });
+
+    }
+
+    private void editItemDialogBox(final String itemText, final int position) {
+        final AlertDialog.Builder alert = new AlertDialog.Builder(NewChecklistActivity.this);
+        View mView = getLayoutInflater().inflate(R.layout.add_checklist_item_dialog_box, null);
+        alert.setView(mView);
+        final AlertDialog alertDialog = alert.create();
+        alertDialog.setCanceledOnTouchOutside(true);
+        alertDialog.show();
+
+        Button okButton = (Button) alertDialog.findViewById(R.id.okButton);
+        Button cancelButton = (Button) alertDialog.findViewById(R.id.cancelButton);
+        final EditText editText = (EditText) alertDialog.findViewById(R.id.checklistEditText);
+
+        editText.setText(itemText);
+
+        okButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String checklistItem = editText.getText().toString();
+                if (checklistItem.equals(null) || checklistItem.equals("")) {
+                    editText.getText().clear();
+                    alertDialog.dismiss();
+                } else {
+                    String itemText = editText.getText().toString();
+                    mChecklistItem.set(position, itemText);
+                    adapter.notifyDataSetChanged();
+                }
+                alertDialog.dismiss();
             }
         });
 
@@ -203,9 +248,12 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
 
     }
 
+
+
     @Override
     public void onChecklistNoteClick(int position) {
-        addItemDialogBox();
+        String itemText = loadEditableItem(noteIntentID, position);
+        editItemDialogBox(itemText, position);
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -281,14 +329,25 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
                 mChecklistItem.add(cursorItems.getString(cursorItems.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_Item_Text)));
             } while (cursorItems.moveToNext());
         }
+        cursorItems.close();
 
-
-        TextView title = findViewById(R.id.checklistTitleEditText);
-
+        EditText title = findViewById(R.id.checklistTitleEditText);
 
         title.setText(textNoteTitle);
+    }
 
+    private String loadEditableItem(int noteID, int position){
+        DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
+        Cursor cursorItems = dbHelper.getSingleChecklistItems(noteID);
 
+        String itemText = new String();
+
+        if(cursorItems.moveToPosition(position)){
+            itemText = cursorItems.getString(cursorItems.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_Item_Text));
+        }
+        cursorItems.close();
+
+        return itemText;
     }
 
 }

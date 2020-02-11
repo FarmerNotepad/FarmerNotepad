@@ -50,6 +50,7 @@ public class NewTextNoteActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     TextNoteEntry myNewTextNote = new TextNoteEntry();
+                    myNewTextNote.setNoteID(noteIntentID);
 
                     if (noteTitle.getText().toString().equals("")) {
                         myNewTextNote.setNoteTitle(GenericUtils.getDateTime());
