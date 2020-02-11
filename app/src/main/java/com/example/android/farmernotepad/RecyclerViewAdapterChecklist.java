@@ -41,8 +41,10 @@ public class RecyclerViewAdapterChecklist extends RecyclerView.Adapter<RecyclerV
             public void onClick(View view) {
                 mChecklistItem.remove(position);
                 notifyItemRemoved(position);
+                notifyDataSetChanged();
             }
         });
+
     }
 
     @Override
