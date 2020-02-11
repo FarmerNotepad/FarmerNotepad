@@ -221,6 +221,7 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
         final EditText editText = (EditText) alertDialog.findViewById(R.id.checklistEditText);
 
         editText.setText(itemText);
+        //editText.setText(mChecklistItem.get(position));
 
         okButton.setOnClickListener(new View.OnClickListener() {
             @Override

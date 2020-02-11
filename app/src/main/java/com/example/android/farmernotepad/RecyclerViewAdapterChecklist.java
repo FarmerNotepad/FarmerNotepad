@@ -44,6 +44,7 @@ public class RecyclerViewAdapterChecklist extends RecyclerView.Adapter<RecyclerV
                 notifyDataSetChanged();
             }
         });
+
     }
 
     @Override

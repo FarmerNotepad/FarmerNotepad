@@ -136,6 +136,7 @@ public class NewTextNoteActivity extends AppCompatActivity {
 
 
 
+
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         if (noteIntentID != 0) {
