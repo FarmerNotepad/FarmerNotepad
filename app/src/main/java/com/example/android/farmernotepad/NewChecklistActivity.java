@@ -45,6 +45,7 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
         activity = this;
         noteIntentID = getIncomingIntent();
 
+
         Button addItemButton = (Button) findViewById(R.id.addChecklistItemButton);
         FloatingActionButton saveChecklistButton = findViewById(R.id.confirmSaveChecklist);
 
@@ -70,7 +71,11 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
         });
 
         if (noteIntentID != 0) {
+            checkLocation.setVisibility(View.INVISIBLE);
+            checklistTitle.setEnabled(false);
             loadEditableChecklist(noteIntentID);
+            addItemButton.setClickable(false);
+            addItemButton.setVisibility(View.INVISIBLE);
 
             saveChecklistButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -220,8 +225,8 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
         Button cancelButton = (Button) alertDialog.findViewById(R.id.cancelButton);
         final EditText editText = (EditText) alertDialog.findViewById(R.id.checklistEditText);
 
-        editText.setText(itemText);
-        //editText.setText(mChecklistItem.get(position));
+        //editText.setText(itemText);
+        editText.setText(mChecklistItem.get(position));
 
         okButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -299,6 +304,12 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
                 });
                 alertDeleteDialog.show();
 
+                break;
+
+            case R.id.editNote:
+                    findViewById(R.id.checklistTitleEditText).setEnabled(true);
+                    findViewById(R.id.addChecklistItemButton).setClickable(true);
+                    findViewById(R.id.addChecklistItemButton).setVisibility(View.VISIBLE);
                 break;
         }
         return super.onOptionsItemSelected(item);
