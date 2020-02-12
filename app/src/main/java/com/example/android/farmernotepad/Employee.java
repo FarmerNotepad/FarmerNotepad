@@ -6,6 +6,11 @@ public class Employee {
     int employeePhone;
     double employeeSum;
 
+    public Employee(String employeeName, double employeeSum) {
+        this.employeeName = employeeName;
+        this.employeeSum = employeeSum;
+    }
+
     public Employee(){};
 
     public void setEmployeeID(int ID){
