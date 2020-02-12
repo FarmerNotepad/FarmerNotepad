@@ -3,9 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/wageCalculator"
+        android:title="Wage Calculator"
+        app:showAsAction="never"
+        />
+
+    <item
         android:id="@+id/newNote"
-        android:title="New Note"
         android:icon="@drawable/ic_note_add_black_24dp"
+        android:title="New Note"
         app:showAsAction="always" />
 
     <item
@@ -15,29 +21,24 @@
         app:actionViewClass="android.widget.SearchView"
         app:showAsAction="always" />
 
-    <item
-            android:id="@+id/Backup"
-            android:title = "Backup Files"
-            app:showAsAction="never"
-        />
-
-    <item
-        android:id="@+id/Feedback"
-        android:title = "Feedback"
-        app:showAsAction="never"
-        />
-
-    <item
-        android:id="@+id/Settings"
-        android:title = "Settings"
-        app:showAsAction="never"
-        />
 
     <item
         android:id="@+id/Sort"
-        android:title = "Sort"
-        app:showAsAction="never"
-        />
+        android:title="Sort"
+        app:showAsAction="never" />
 
+    <item
+        android:id="@+id/Backup"
+        android:title="Backup Files"
+        app:showAsAction="never" />
 
+    <item
+        android:id="@+id/Feedback"
+        android:title="Feedback"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/Settings"
+        android:title="Settings"
+        app:showAsAction="never" />
 </menu>
