@@ -117,6 +117,11 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
                 startActivity(intentBackup);
                 break;
 
+            case R.id.wageCalculator:
+                Intent intentWage = new Intent(MainActivity.this, WageCalculatorActivity.class);
+                startActivity(intentWage);
+                break;
+
         }
         return super.onOptionsItemSelected(item);
     }

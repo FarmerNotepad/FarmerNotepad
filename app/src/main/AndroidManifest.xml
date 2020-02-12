@@ -16,7 +16,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
-        <activity android:name=".Backup"></activity>
+        <activity android:name=".EmployeeActivity"></activity>
+        <activity android:name=".WageCalculatorActivity" />
+        <activity android:name=".Backup" />
         <activity android:name=".FeedbackActivity" />
         <activity android:name=".NewChecklistActivity" />
         <activity
