@@ -18,7 +18,6 @@ public class WageCalculatorActivity extends AppCompatActivity implements Recycle
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    //RecyclerViewAdapterWage adapterWage;
     private ArrayList<Employee> employeesArrayList = new ArrayList<>();
 
     @Override
