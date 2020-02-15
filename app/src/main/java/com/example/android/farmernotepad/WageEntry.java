@@ -14,6 +14,12 @@ public class WageEntry {
     public WageEntry() {
     }
 
+    public WageEntry(double wageRate, String wageDesc, double wageHours, String wageWorkDate) {
+        this.wageRate = wageRate;
+        this.wageDesc = wageDesc;
+        this.wageHours = wageHours;
+        this.wageWorkDate = wageWorkDate;
+    }
 
     public int getWageID() {
         return wageID;
