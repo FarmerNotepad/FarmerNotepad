@@ -39,7 +39,7 @@ public class RecyclerViewAdapterWage extends RecyclerView.Adapter<RecyclerViewAd
         Employee currentEmployee = (Employee) employeesArrayList.get(position);
 
         holder.mEmployeeName.setText(currentEmployee.getEmployeeName());
-        //holder.mTotalDebt.setText((int) currentEmployee.getEmployeeSum());
+        holder.mTotalDebt.setText(String.valueOf(currentEmployee.getEmployeeSum()));
     }
 
     @Override

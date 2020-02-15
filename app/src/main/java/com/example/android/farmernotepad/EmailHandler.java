@@ -1,18 +1,24 @@
 package com.example.android.farmernotepad;
 
+import android.content.Context;
+
 import com.sun.mail.smtp.SMTPSSLTransport;
 import com.sun.mail.smtp.SMTPTransport;
 
+import java.io.File;
 import java.security.Security;
 import java.util.Properties;
 
 import javax.activation.DataHandler;
 import javax.mail.Message;
+import javax.mail.Multipart;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 
 public class EmailHandler extends javax.mail.Authenticator {
     private String mailhost = "smtp.gmail.com";
@@ -56,6 +62,34 @@ public class EmailHandler extends javax.mail.Authenticator {
         message.setSubject(subject);
         message.setDataHandler(handler);
         message.setText(body);
+
+        if (recipients.indexOf(',') > 0)
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipients));
+        else
+            message.setRecipient(Message.RecipientType.TO, new InternetAddress(recipients));
+
+        Transport.send(message);
+    }
+
+    public synchronized void exportDbOnline(String subject, String body,
+                                      String sender, String recipients, Context ctx) throws Exception {
+        MimeMessage message = new MimeMessage(session);
+        Multipart emailContent = new MimeMultipart();
+        MimeBodyPart textBodyPart = new MimeBodyPart();
+        textBodyPart.setText(body);
+
+        MimeBodyPart dbAttachmentPart = new MimeBodyPart();
+        dbAttachmentPart.attachFile(new File(ctx.getDatabasePath(DatabaseHelper.DATABASE_NAME).getAbsolutePath()));
+
+        emailContent.addBodyPart(textBodyPart);
+        emailContent.addBodyPart(dbAttachmentPart);
+
+        DataHandler handler = new DataHandler(new ByteArrayDataSource(body.getBytes(), "text/plain"));
+        message.setSender(new InternetAddress(sender));
+        message.setSubject(subject);
+        message.setDataHandler(handler);
+        message.setContent(emailContent);
+
 
         if (recipients.indexOf(',') > 0)
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipients));

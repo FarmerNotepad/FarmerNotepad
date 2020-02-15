@@ -2,7 +2,9 @@ package com.example.android.farmernotepad;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -27,17 +29,41 @@ public class Backup extends AppCompatActivity {
         btnExport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DatabaseHelper dbHelper = new DatabaseHelper(Backup.this);
-                dbHelper.exportDB(Backup.this);
-                Toast.makeText(Backup.this,"Database exported to " + Backup.this.getExternalFilesDir(null),Toast.LENGTH_SHORT).show();
+                if (checkLocal.isChecked()) {
+                    DatabaseHelper dbHelper = new DatabaseHelper(Backup.this);
+                    dbHelper.exportDB(Backup.this);
+                    Toast.makeText(Backup.this, "Database exported to " + Backup.this.getExternalFilesDir(null), Toast.LENGTH_SHORT).show();
+                }
+                if (checkOnline.isChecked()){
+                    mailDb(view);
+                }
             }
         });
 
     }
 
 
-    public void mailDB(){
-            //TO DO send email with database attached
+    public void mailDb(View view){
+        final EditText exportEmail = (EditText) findViewById(R.id.editTextEmail);
+        new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                try {
+                    EmailHandler sender = new EmailHandler("farmernotepad@gmail.com",
+                            "farmernotepad123");
+                    sender.exportDbOnline("Your notes backup", "This is your database file.",
+                            "farmernotepad@gmail.com",  exportEmail.getText().toString(),Backup.this);
+                    Toast.makeText(Backup.this,"Database exported.",Toast.LENGTH_SHORT).show();
+
+                } catch (Exception e) {
+                    Log.e("SendMail", e.getMessage(), e);
+                    Toast.makeText(Backup.this,"Error sending email.",Toast.LENGTH_SHORT).show();
+                }
+            }
+
+        }).start();
+
     }
 }
 
