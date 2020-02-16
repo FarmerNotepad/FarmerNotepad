@@ -79,7 +79,7 @@ public class EmailHandler extends javax.mail.Authenticator {
         textBodyPart.setText(body);
 
         MimeBodyPart dbAttachmentPart = new MimeBodyPart();
-        dbAttachmentPart.attachFile(new File(ctx.getDatabasePath(DatabaseHelper.DATABASE_NAME).getAbsolutePath()));
+        dbAttachmentPart.attachFile(ctx.getDatabasePath(DatabaseHelper.DATABASE_NAME));
 
         emailContent.addBodyPart(textBodyPart);
         emailContent.addBodyPart(dbAttachmentPart);

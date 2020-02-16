@@ -2,8 +2,10 @@ package com.example.android.farmernotepad;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -34,7 +36,7 @@ public class Backup extends AppCompatActivity {
                     dbHelper.exportDB(Backup.this);
                     Toast.makeText(Backup.this, "Database exported to " + Backup.this.getExternalFilesDir(null), Toast.LENGTH_SHORT).show();
                 }
-                if (checkOnline.isChecked()){
+                if (checkOnline.isChecked()) {
                     mailDb(view);
                 }
             }
@@ -43,28 +45,35 @@ public class Backup extends AppCompatActivity {
     }
 
 
-    public void mailDb(View view){
+    public void mailDb(View view) {
         final EditText exportEmail = (EditText) findViewById(R.id.editTextEmail);
+
         new Thread(new Runnable() {
 
             @Override
             public void run() {
-                try {
-                    EmailHandler sender = new EmailHandler("farmernotepad@gmail.com",
-                            "farmernotepad123");
-                    sender.exportDbOnline("Your notes backup", "This is your database file.",
-                            "farmernotepad@gmail.com",  exportEmail.getText().toString(),Backup.this);
-                    Toast.makeText(Backup.this,"Database exported.",Toast.LENGTH_SHORT).show();
+                if (GenericUtils.isOnline()) {
+                    try {
+                        EmailHandler sender = new EmailHandler("farmernotepad@gmail.com",
+                                "farmernotepad123");
+                        sender.exportDbOnline("Your notes backup", "This is your database file.",
+                                "farmernotepad@gmail.com", exportEmail.getText().toString(), Backup.this);
+                        //Toast.makeText(getApplicationContext(), "Database exported.", Toast.LENGTH_SHORT).show();
+                        GenericUtils.toast(getApplicationContext(),"Database Exported");
 
-                } catch (Exception e) {
-                    Log.e("SendMail", e.getMessage(), e);
-                    Toast.makeText(Backup.this,"Error sending email.",Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+                        Log.e("SendMail", e.getMessage(), e);
+                        Toast.makeText(getApplicationContext(), "Error sending email.", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    //Toast.makeText(getApplicationContext(), "No internet Connection found", Toast.LENGTH_SHORT).show();
+                    GenericUtils.toast(getApplicationContext(),"No Internet connection found");
                 }
             }
-
         }).start();
-
     }
+
+
 }
 
 

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -35,18 +36,25 @@ public class FeedbackActivity extends AppCompatActivity {
 
             @Override
             public void run() {
-                try {
-                    EmailHandler sender = new EmailHandler("farmernotepad@gmail.com",
-                            "farmernotepad123");
-                    sender.sendMail("User Feedback", feedbackText.getText().toString(),
-                            "farmernotepad@gmail.com", "farmernotepad@gmail.com");
-                    Toast.makeText(FeedbackActivity.this,"Feedback sent to devs.",Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(FeedbackActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    FeedbackActivity.this.finish();
-                } catch (Exception e) {
-                    Log.e("SendMail", e.getMessage(), e);
-                    Toast.makeText(FeedbackActivity.this,"Error sending email.",Toast.LENGTH_SHORT).show();
+                if (GenericUtils.isOnline()) {
+                    try {
+                        EmailHandler sender = new EmailHandler("farmernotepad@gmail.com",
+                                "farmernotepad123");
+                        sender.sendMail("User Feedback", feedbackText.getText().toString(),
+                                "farmernotepad@gmail.com", "farmernotepad@gmail.com");
+                        //Toast.makeText(FeedbackActivity.this, "Feedback sent to devs.", Toast.LENGTH_SHORT).show();
+                        GenericUtils.toast(getApplicationContext(),"Feedback sent to devs");
+                        Intent intent = new Intent(FeedbackActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        FeedbackActivity.this.finish();
+                    } catch (Exception e) {
+                        Log.e("SendMail", e.getMessage(), e);
+                        //Toast.makeText(FeedbackActivity.this, "Error sending email.", Toast.LENGTH_SHORT).show();
+                        GenericUtils.toast(getApplicationContext(),"Error sending email");
+                    }
+                }
+                else {
+                    GenericUtils.toast(getApplicationContext(),"No internet connection found");
                 }
             }
 

@@ -2,18 +2,32 @@ package com.example.android.farmernotepad;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class EmployeeActivity extends AppCompatActivity {
+import java.util.ArrayList;
+
+public class EmployeeActivity extends AppCompatActivity implements RecyclerViewAdapterEmployee.OnNoteListener {
+
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
+    ArrayList<WageEntry> mNewPaymentList = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employee);
+
+        mNewPaymentList.add(new WageEntry(3.5,"DEH",8,"14/2/2020"));
+
+        initRecyclerView();
 
         Button addPaymentDayOff = (Button) findViewById(R.id.addPaymentBtn);
 
@@ -53,4 +67,18 @@ public class EmployeeActivity extends AppCompatActivity {
 
     }
 
+    private void initRecyclerView(){
+
+        mRecyclerView = findViewById(R.id.addPaymentRecyclerView);
+        mLayoutManager = new LinearLayoutManager(this);
+        mAdapter = new RecyclerViewAdapterEmployee(mNewPaymentList, this);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setAdapter(mAdapter);
+
+    }
+
+    @Override
+    public void onNoteClick(int position) {
+
+    }
 }

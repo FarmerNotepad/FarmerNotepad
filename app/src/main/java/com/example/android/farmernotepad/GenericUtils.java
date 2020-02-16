@@ -2,6 +2,8 @@ package com.example.android.farmernotepad;
 
 import android.content.Context;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -10,6 +12,9 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.InetSocketAddress;
+import java.net.Socket;
+import java.net.SocketAddress;
 import java.nio.channels.FileChannel;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -124,6 +129,30 @@ public class GenericUtils {
                 }
             }
         }
+    }
+
+
+    public static boolean isOnline() {
+        try {
+            int timeoutMs = 1500;
+            Socket sock = new Socket();
+            SocketAddress sockaddr = new InetSocketAddress("8.8.8.8", 53);
+
+            sock.connect(sockaddr, timeoutMs);
+            sock.close();
+
+            return true;
+        } catch (IOException e) { return false; }
+    }
+
+
+    public static void toast(final Context context, final String text) {
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.post(new Runnable() {
+            public void run() {
+                Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 
