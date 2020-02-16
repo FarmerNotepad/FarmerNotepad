@@ -325,5 +325,11 @@ public class NewTextNoteActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(NewTextNoteActivity.this, MainActivity.class);
+        startActivity(intent);
+        NewTextNoteActivity.this.finish();
+    }
 }
 

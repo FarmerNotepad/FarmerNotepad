@@ -88,6 +88,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
                         Intent intent = new Intent(MainActivity.this, NewTextNoteActivity.class);
                         startActivity(intent);
                         alertDialog.dismiss();
+                        MainActivity.this.finish();
                     }
                 });
 
@@ -97,6 +98,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
                         Intent intent = new Intent(MainActivity.this, NewChecklistActivity.class);
                         startActivity(intent);
                         alertDialog.dismiss();
+                        MainActivity.this.finish();
                     }
                 });
 
@@ -228,6 +230,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         }
 
         startActivity(intent);
+        MainActivity.this.finish();
     }
 
 
