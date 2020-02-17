@@ -34,13 +34,13 @@ public class NewTextNoteActivity extends AppCompatActivity {
         noteColor = getColor(R.color.White);
         activity = this;
 
-        final EditText noteTitle =  findViewById(R.id.editTitle);
+        final EditText noteTitle = findViewById(R.id.editTitle);
         final EditText noteText = findViewById(R.id.editText);
         FloatingActionButton confirmSaveButton = findViewById(R.id.confirmSave);
         final CheckBox checkLocation = findViewById(R.id.checkBoxLoc);
         noteIntentID = getIncomingIntent();
 
-        if(noteIntentID != 0){
+        if (noteIntentID != 0) {
 
             checkLocation.setVisibility(View.INVISIBLE);
             noteText.setEnabled(false);
@@ -75,9 +75,7 @@ public class NewTextNoteActivity extends AppCompatActivity {
             });
 
 
-
-
-        }else {
+        } else {
 
 
             confirmSaveButton.setOnClickListener(new View.OnClickListener() {
@@ -96,7 +94,7 @@ public class NewTextNoteActivity extends AppCompatActivity {
                     myNewTextNote.setModDate(GenericUtils.getDateTime());
                     myNewTextNote.setColor(noteColor);
 
-                    if ( checkPermission && checkLocation.isChecked()) {
+                    if (checkPermission && checkLocation.isChecked()) {
                         double[] myCoords = LocationFunctions.getLocation(NewTextNoteActivity.this);
                         if (myCoords != null) {
                             myNewTextNote.setLatitude(myCoords[0]);
@@ -135,30 +133,33 @@ public class NewTextNoteActivity extends AppCompatActivity {
     }
 
 
-
-
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         if (noteIntentID != 0) {
             inflater.inflate(R.menu.edit_note_menu, menu);
-        }
-        else {
-            inflater.inflate(R.menu.note_menu,menu);
+        } else {
+            inflater.inflate(R.menu.note_menu, menu);
         }
         this.mMenu = menu;
         return true;
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu mMenu) {
+        mMenu.findItem(R.id.pickColor).setEnabled(false);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.pickColor:
                 final AlertDialog.Builder alert = new AlertDialog.Builder(NewTextNoteActivity.this);
-                View mView = getLayoutInflater().inflate(R.layout.color_picker_dialog_box,  null);
+                View mView = getLayoutInflater().inflate(R.layout.color_picker_dialog_box, null);
                 alert.setView(mView);
-                final MenuItem pickColorItem =  mMenu.findItem(R.id.pickColor);
+                final MenuItem pickColorItem = mMenu.findItem(R.id.pickColor);
 
-                final AlertDialog alertDialog =alert.create();
+                final AlertDialog alertDialog = alert.create();
 
                 alertDialog.setCanceledOnTouchOutside(true);
                 alertDialog.show();
@@ -247,13 +248,13 @@ public class NewTextNoteActivity extends AppCompatActivity {
                 });
 
 
-
                 break;
 
             case R.id.editNote:
 
                 findViewById(R.id.editText).setEnabled(true);
                 findViewById(R.id.editTitle).setEnabled(true);
+                mMenu.findItem(R.id.pickColor).setEnabled(true);
 
                 break;
 
@@ -267,14 +268,13 @@ public class NewTextNoteActivity extends AppCompatActivity {
                                 int noteID = getIntent().getIntExtra("noteID", 0);
                                 DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
                                 Boolean checkDelete = dbHelper.deleteNote(noteID);
-                                if (checkDelete){
+                                if (checkDelete) {
                                     Intent intent = new Intent(NewTextNoteActivity.this, MainActivity.class);
                                     startActivity(intent);
                                     NewTextNoteActivity.this.finish();
-                                    Toast.makeText(getApplicationContext(),"Note Deleted", LENGTH_SHORT).show();
-                                }
-                                else{
-                                    Toast.makeText(getApplicationContext(),"Delete failed",LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(), "Note Deleted", LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(getApplicationContext(), "Delete failed", LENGTH_SHORT).show();
                                 }
                                 alertDeleteDialog.dismiss();
                             }
@@ -293,27 +293,25 @@ public class NewTextNoteActivity extends AppCompatActivity {
     }
 
 
-    private int getIncomingIntent(){
-        if(getIntent().hasExtra("flag")){
+    private int getIncomingIntent() {
+        if (getIntent().hasExtra("flag")) {
             return getIntent().getIntExtra("noteID", 0);
-        }
-        else {
+        } else {
             return 0;
         }
     }
 
 
-
-    private void loadEditableNote(int noteID){
+    private void loadEditableNote(int noteID) {
         DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
         Cursor cursor = dbHelper.getNote(noteID);
 
         if (cursor != null)
             cursor.moveToFirst();
 
-                String textNoteTitle = cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_noteTitle));
-                String textNoteText = cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_noteText));
-                noteColor = cursor.getInt(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_color));
+        String textNoteTitle = cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_noteTitle));
+        String textNoteText = cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_noteText));
+        noteColor = cursor.getInt(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_color));
 
         cursor.close();
 
