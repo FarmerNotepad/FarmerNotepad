@@ -362,4 +362,11 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
         return itemText;
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(NewChecklistActivity.this, MainActivity.class);
+        startActivity(intent);
+        NewChecklistActivity.this.finish();
+    }
+
 }
