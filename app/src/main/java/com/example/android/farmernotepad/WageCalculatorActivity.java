@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -27,7 +28,8 @@ public class WageCalculatorActivity extends AppCompatActivity implements Recycle
 
         employeesArrayList.add(new Employee("Peter",111));
 
-        initRecyclerView();
+        //initRecyclerView();
+        loadEmployees();
 
         FloatingActionButton addEmployee = (FloatingActionButton) findViewById(R.id.addEmployeeBtn);
 
@@ -56,5 +58,23 @@ public class WageCalculatorActivity extends AppCompatActivity implements Recycle
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
 
+    }
+
+    private void loadEmployees(){
+        DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
+        Cursor cursor = dbHelper.getAllEmployees();
+
+        if (cursor.moveToFirst()) {
+            do{
+                Employee newEmployee = new Employee();
+                newEmployee.setEmployeeID(cursor.getInt(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_ID)));
+                newEmployee.setEmployeeName(cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_emp_Name)));
+                newEmployee.setEmployeePhone(cursor.getInt(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_emp_Phone)));
+                employeesArrayList.add(newEmployee);
+
+            }while(cursor.moveToNext());
+        }
+        cursor.close();
+        initRecyclerView();
     }
 }
