@@ -99,7 +99,6 @@ public class Backup extends AppCompatActivity {
                                 "farmernotepad123");
                         sender.exportDbOnline("Your notes backup", "This is your database file.",
                                 "farmernotepad@gmail.com", exportEmail.getText().toString(), Backup.this);
-                        //Toast.makeText(getApplicationContext(), "Database exported.", Toast.LENGTH_SHORT).show();
                         GenericUtils.toast(getApplicationContext(),"Database Exported");
 
                     } catch (Exception e) {
@@ -107,7 +106,6 @@ public class Backup extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Error sending email.", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    //Toast.makeText(getApplicationContext(), "No internet Connection found", Toast.LENGTH_SHORT).show();
                     GenericUtils.toast(getApplicationContext(),"No Internet connection found");
                 }
             }

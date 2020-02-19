@@ -288,6 +288,17 @@ public class NewTextNoteActivity extends AppCompatActivity {
                 alertDeleteDialog.show();
 
                 break;
+
+             case R.id.shareNote:
+                 EditText noteText = findViewById(R.id.editText);
+                 Intent sendIntent = new Intent();
+                 sendIntent.setAction(Intent.ACTION_SEND);
+                 sendIntent.putExtra(Intent.EXTRA_TEXT,
+                         noteText.getText().toString());
+                 sendIntent.setType("text/plain");
+                 startActivity(sendIntent);
+
+                 break;
         }
         return super.onOptionsItemSelected(item);
     }

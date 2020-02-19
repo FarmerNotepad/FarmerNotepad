@@ -311,6 +311,22 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
                     findViewById(R.id.addChecklistItemButton).setClickable(true);
                     findViewById(R.id.addChecklistItemButton).setVisibility(View.VISIBLE);
                 break;
+
+
+            case R.id.shareNote:
+                String toSend = "";
+                for (int i =0; i < mChecklistItem.size(); i++){
+                    toSend =toSend + mChecklistItem.get(i) + System.lineSeparator();
+                }
+
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT,
+                       toSend);
+                sendIntent.setType("text/plain");
+                startActivity(sendIntent);
+
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
