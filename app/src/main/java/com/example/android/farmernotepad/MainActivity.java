@@ -18,8 +18,10 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 
 public class MainActivity extends AppCompatActivity implements RecyclerViewAdapterMain.OnNoteListener {
@@ -138,6 +140,8 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        //recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        //recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2,1 ));
     }
 
     private void loadNotes() {

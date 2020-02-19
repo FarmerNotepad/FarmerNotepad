@@ -188,11 +188,33 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(FeedReaderContract.FeedTextNote.COLUMN_emp_Name, employee.getEmployeeName());
         cv.put(FeedReaderContract.FeedTextNote.COLUMN_emp_Phone, employee.getEmployeePhone());
         cv.put(FeedReaderContract.FeedTextNote.COLUMN_emp_Sum, employee.getEmployeeSum());
-        long checkInsert = db.insert(FeedReaderContract.FeedTextNote.TABLE_NAME_Employees, null, cv);
-        if (checkInsert != -1)
+        long lastID = db.insert(FeedReaderContract.FeedTextNote.TABLE_NAME_Employees, null, cv);
+        if (lastID != -1) {
+            int newID = (int) lastID;
+            ContentValues cvitems = new ContentValues();
+            ArrayList<WageEntry> wage = employee.getEmployeePaymentItems();
+            if (wage != null) {
+                for (int i = 0; i < wage.size(); i++) {
+                    cvitems.put(FeedReaderContract.FeedTextNote.COLUMN_wage_Rel, newID);
+                    cvitems.put(FeedReaderContract.FeedTextNote.COLUMN_wage_CreateDate, wage.get(i).getWageCreateDate());
+                    cvitems.put(FeedReaderContract.FeedTextNote.COLUMN_wage_Desc, wage.get(i).getWageDesc());
+                    cvitems.put(FeedReaderContract.FeedTextNote.COLUMN_wage_Date, wage.get(i).getWageWorkDate());
+                    cvitems.put(FeedReaderContract.FeedTextNote.COLUMN_wage_Hours, wage.get(i).getWageHours());
+                    cvitems.put(FeedReaderContract.FeedTextNote.COLUMN_wage_Rate, wage.get(i).getWageRate());
+                    cvitems.put(FeedReaderContract.FeedTextNote.COLUMN_wage_Type, wage.get(i).getWageType());
+                    long rowInserted = db.insert(FeedReaderContract.FeedTextNote.TABLE_NAME_Wages, null, cvitems);
+                    cvitems.clear();
+
+                    if (rowInserted != -1)
+                        return true;
+                    else
+                        return false;
+                }
+            }
             return true;
-        else
+        } else {
             return false;
+        }
     }
 
     public boolean updateEmployee(Employee employee) {

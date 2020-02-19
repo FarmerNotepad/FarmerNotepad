@@ -26,7 +26,7 @@ public class WageCalculatorActivity extends AppCompatActivity implements Recycle
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wage_calculator);
 
-        employeesArrayList.add(new Employee("Peter",111));
+        //employeesArrayList.add(new Employee("Peter",111));
 
         //initRecyclerView();
         loadEmployees();
@@ -70,6 +70,7 @@ public class WageCalculatorActivity extends AppCompatActivity implements Recycle
                 newEmployee.setEmployeeID(cursor.getInt(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_ID)));
                 newEmployee.setEmployeeName(cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_emp_Name)));
                 newEmployee.setEmployeePhone(cursor.getInt(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_emp_Phone)));
+                newEmployee.setEmployeeSum(cursor.getDouble(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_emp_Sum)));
                 employeesArrayList.add(newEmployee);
 
             }while(cursor.moveToNext());
