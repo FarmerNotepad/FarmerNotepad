@@ -123,19 +123,22 @@ public class Backup extends AppCompatActivity {
                 if(resultCode==RESULT_OK){
                     Uri uri = data.getData();
                     String realPath = FileUtils.getPathFromUri(Backup.this,uri);
-                    //EditText checkPath = findViewById(R.id.editTextEmail);
-                    //checkPath.setText(realPath);
+
+
                     if (realPath.endsWith("FarmerNotepad.db")) {
                         if (FileUtils.checkStoragePermission(Backup.this)){
                             File source = new File(realPath);
                             File dest = Backup.this.getDatabasePath(DatabaseHelper.DATABASE_NAME);
 
                             try {
-                                FileUtils.copyDatabase(source, dest);
-                                Toast.makeText(Backup.this, realPath, Toast.LENGTH_LONG).show();
+                                FileUtils.copyDatabase(source, dest,Backup.this);
+                                //GenericUtils.toast(Backup.this, realPath);
+                                Intent intent = new Intent(Backup.this, MainActivity.class);
+                                startActivity(intent);
+                                Backup.this.finish();
 
                             }
-                            catch (IOException e) {
+                            catch (Exception e) {
                                 Log.e("YOUR ERROR TAG HERE", "Copying failed", e);
                             }
 

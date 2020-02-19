@@ -148,9 +148,10 @@ public class FileUtils {
     }
 
 
-    public static void copyDatabase(File src, File dst) throws IOException {
+    public static void copyDatabase(File src, File dst, Context ctx) throws IOException {
         if (dst.exists()){
             dst.delete();
+            dst = new File(ctx.getDatabasePath(DatabaseHelper.DATABASE_NAME).toString());
         }
         InputStream in = new FileInputStream(src);
         try {
