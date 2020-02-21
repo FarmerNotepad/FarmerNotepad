@@ -266,7 +266,7 @@ public class NewTextNoteActivity extends AppCompatActivity {
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 int noteID = getIntent().getIntExtra("noteID", 0);
-                                DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
+                                DatabaseHelper dbHelper = new DatabaseHelper(NewTextNoteActivity.this);
                                 Boolean checkDelete = dbHelper.deleteNote(noteID);
                                 if (checkDelete) {
                                     Intent intent = new Intent(NewTextNoteActivity.this, MainActivity.class);
@@ -314,7 +314,7 @@ public class NewTextNoteActivity extends AppCompatActivity {
 
 
     private void loadEditableNote(int noteID) {
-        DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
+        DatabaseHelper dbHelper = new DatabaseHelper(NewTextNoteActivity.this);
         Cursor cursor = dbHelper.getNote(noteID);
 
         if (cursor != null)

@@ -141,7 +141,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
     }
 
     private void loadNotes() {
-        DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
+        DatabaseHelper dbHelper = new DatabaseHelper(MainActivity.this);
         Cursor cursor = dbHelper.getAllNotes();
 
 
@@ -166,7 +166,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
     }
 
     private void loadChecklistNotes() {
-        DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
+        DatabaseHelper dbHelper =new DatabaseHelper(MainActivity.this);
         Cursor cursor = dbHelper.getAllChecklists();
         Cursor cursorItems;
 

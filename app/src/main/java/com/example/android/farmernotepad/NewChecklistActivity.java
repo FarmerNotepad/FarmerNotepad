@@ -283,7 +283,7 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
                 alertDeleteDialog.setButton(android.app.AlertDialog.BUTTON_POSITIVE, "YES",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
+                                DatabaseHelper dbHelper = new DatabaseHelper(NewChecklistActivity.this);
                                 Boolean checkDelete = dbHelper.deleteChecklist(noteIntentID);
                                 if (checkDelete) {
                                     Intent intent = new Intent(NewChecklistActivity.this, MainActivity.class);
@@ -341,7 +341,7 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
     }
 
     private void loadEditableChecklist(int noteID) {
-        DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
+        DatabaseHelper dbHelper = new DatabaseHelper(NewChecklistActivity.this);
         Cursor cursor = dbHelper.getSingleChecklist(noteID);
         Cursor cursorItems = dbHelper.getSingleChecklistItems(noteID);
 
@@ -365,7 +365,7 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
     }
 
     private String loadEditableItem(int noteID, int position){
-        DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
+        DatabaseHelper dbHelper = new DatabaseHelper(NewChecklistActivity.this);
         Cursor cursorItems = dbHelper.getSingleChecklistItems(noteID);
 
         String itemText = new String();

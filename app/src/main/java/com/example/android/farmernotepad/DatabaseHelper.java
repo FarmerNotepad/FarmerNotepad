@@ -21,6 +21,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "FarmerNotepad.db";
 
+
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -58,10 +59,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(FeedReaderContract.FeedTextNote.COLUMN_noteLatitude, note.getLatitude());
         cv.put(FeedReaderContract.FeedTextNote.COLUMN_noteLongitude, note.getLongitude());
         long rowInserted = db.insert(FeedReaderContract.FeedTextNote.TABLE_NAME_Text_Note, null, cv);
-        if (rowInserted != -1)
-            return true;
-        else
+        if (rowInserted != -1) {
+            return true; }
+        else {
             return false;
+        }
+
     }
 
     public boolean updateNote(TextNoteEntry note) {
@@ -72,29 +75,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(FeedReaderContract.FeedTextNote.COLUMN_noteModDate, note.getModDate());
         cv.put(FeedReaderContract.FeedTextNote.COLUMN_color, note.getColor());
         long rowUpdated = db.update(FeedReaderContract.FeedTextNote.TABLE_NAME_Text_Note, cv, FeedReaderContract.FeedTextNote.COLUMN_ID + "=?", new String[]{String.valueOf(note.getNoteID())});
-        if (rowUpdated != -1)
-            return true;
-        else
-            return false;
+        if (rowUpdated != -1) {
+            return true; }
+        else {
+            return false; }
     }
 
     Cursor getAllNotes() {
         SQLiteDatabase db = getReadableDatabase();
-        return db.rawQuery("SELECT * FROM " + FeedReaderContract.FeedTextNote.TABLE_NAME_Text_Note, null);
+            return db.rawQuery("SELECT * FROM " + FeedReaderContract.FeedTextNote.TABLE_NAME_Text_Note, null);
     }
 
     Cursor getNote(int noteId) {
         SQLiteDatabase db = getReadableDatabase();
-        return db.rawQuery("SELECT * FROM " + FeedReaderContract.FeedTextNote.TABLE_NAME_Text_Note + " WHERE " + FeedReaderContract.FeedTextNote.COLUMN_ID + "=?", new String[]{String.valueOf(noteId)});
+            return db.rawQuery("SELECT * FROM " + FeedReaderContract.FeedTextNote.TABLE_NAME_Text_Note + " WHERE " + FeedReaderContract.FeedTextNote.COLUMN_ID + "=?", new String[]{String.valueOf(noteId)});
     }
 
     public boolean deleteNote(int noteID) {
         SQLiteDatabase db = getWritableDatabase();
         long rowDeleted = db.delete(FeedReaderContract.FeedTextNote.TABLE_NAME_Text_Note, FeedReaderContract.FeedTextNote.COLUMN_ID + "= ?", new String[]{String.valueOf(noteID)});
-        if (rowDeleted > 0)
-            return true;
-        else
+        if (rowDeleted > 0){
+            return true; }
+        else {
             return false;
+        }
+
     }
 
     public boolean insertChecklist(ChecklistNoteEntry checklist) {
@@ -131,35 +136,36 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public boolean deleteChecklist(int checklistID) {
         SQLiteDatabase db = getWritableDatabase();
         long rowDeleted = db.delete(FeedReaderContract.FeedTextNote.TABLE_NAME_Checklist_Note, FeedReaderContract.FeedTextNote.COLUMN_ID + "= ?", new String[]{String.valueOf(checklistID)});
-        if (rowDeleted > 0)
+        if (rowDeleted > 0) {
             return true;
-        else
+        }
+        else {
             return false;
+        }
     }
 
 
     public Cursor getAllChecklists() {
         SQLiteDatabase db = getReadableDatabase();
-        return db.rawQuery("SELECT * FROM " + FeedReaderContract.FeedTextNote.TABLE_NAME_Checklist_Note, null);
+            return db.rawQuery("SELECT * FROM " + FeedReaderContract.FeedTextNote.TABLE_NAME_Checklist_Note, null);
     }
 
     public Cursor getChecklistItems(int checklistID) {
         SQLiteDatabase db = getReadableDatabase();
-        return db.rawQuery("SELECT * FROM " + FeedReaderContract.FeedTextNote.TABLE_NAME_Checklist_Items
-                + " WHERE " + FeedReaderContract.FeedTextNote.COLUMN_Item_note_Rel + "=?", new String[]{String.valueOf(checklistID)});
-
+            return db.rawQuery("SELECT * FROM " + FeedReaderContract.FeedTextNote.TABLE_NAME_Checklist_Items
+                    + " WHERE " + FeedReaderContract.FeedTextNote.COLUMN_Item_note_Rel + "=?", new String[]{String.valueOf(checklistID)});
     }
 
     public Cursor getSingleChecklist(int checklistID) {
         SQLiteDatabase db = getReadableDatabase();
-        return db.rawQuery("SELECT * FROM " + FeedReaderContract.FeedTextNote.TABLE_NAME_Checklist_Note + " WHERE " +
-                FeedReaderContract.FeedTextNote.COLUMN_ID + " =?", new String[]{String.valueOf(checklistID)});
+            return db.rawQuery("SELECT * FROM " + FeedReaderContract.FeedTextNote.TABLE_NAME_Checklist_Note + " WHERE " +
+                    FeedReaderContract.FeedTextNote.COLUMN_ID + " =?", new String[]{String.valueOf(checklistID)});
     }
 
     public Cursor getSingleChecklistItems(int checklistID) {
         SQLiteDatabase db = getReadableDatabase();
-        return db.rawQuery("SELECT * FROM " + FeedReaderContract.FeedTextNote.TABLE_NAME_Checklist_Items + " WHERE " +
-                FeedReaderContract.FeedTextNote.COLUMN_Item_note_Rel + "=?", new String[]{String.valueOf(checklistID)});
+            return db.rawQuery("SELECT * FROM " + FeedReaderContract.FeedTextNote.TABLE_NAME_Checklist_Items + " WHERE " +
+                    FeedReaderContract.FeedTextNote.COLUMN_Item_note_Rel + "=?", new String[]{String.valueOf(checklistID)});
     }
 
     public boolean updateChecklist(ChecklistNoteEntry checklist) {
@@ -176,10 +182,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             cvItems.put(FeedReaderContract.FeedTextNote.COLUMN_Item_Text, checklist.getChecklistItems().get(i));
             db.insert(FeedReaderContract.FeedTextNote.TABLE_NAME_Checklist_Items, null, cvItems);
         }
-        if (rowUpdated != -1 && rowDeleteItems != 0)
+        if (rowUpdated != -1 && rowDeleteItems != 0) {
             return true;
-        else
+        }
+        else {
             return false;
+        }
     }
 
     public boolean insertEmployee(Employee employee) {
@@ -189,10 +197,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(FeedReaderContract.FeedTextNote.COLUMN_emp_Phone, employee.getEmployeePhone());
         cv.put(FeedReaderContract.FeedTextNote.COLUMN_emp_Sum, employee.getEmployeeSum());
         long checkInsert = db.insert(FeedReaderContract.FeedTextNote.TABLE_NAME_Employees, null, cv);
-        if (checkInsert != -1)
+        if (checkInsert != -1) {
             return true;
-        else
+        }
+        else {
             return false;
+        }
     }
 
     public boolean updateEmployee(Employee employee) {
@@ -202,29 +212,34 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(FeedReaderContract.FeedTextNote.COLUMN_emp_Phone, employee.getEmployeePhone());
         cv.put(FeedReaderContract.FeedTextNote.COLUMN_emp_Sum, employee.getEmployeeSum());
         long checkUpdate = db.update(FeedReaderContract.FeedTextNote.TABLE_NAME_Employees, cv,FeedReaderContract.FeedTextNote.COLUMN_ID + "=?", new String[]{String.valueOf(employee.getEmployeeID())});
-        if (checkUpdate != -1)
+        if (checkUpdate != -1) {
             return true;
-        else
+        }
+        else {
             return false;
+        }
     }
 
     Cursor getAllEmployees() {
         SQLiteDatabase db = getReadableDatabase();
-        return db.rawQuery("SELECT * FROM " + FeedReaderContract.FeedTextNote.TABLE_NAME_Employees, null);
+            return db.rawQuery("SELECT * FROM " + FeedReaderContract.FeedTextNote.TABLE_NAME_Employees, null);
     }
 
     Cursor getEmployee(int empID) {
         SQLiteDatabase db = getReadableDatabase();
-        return db.rawQuery("SELECT * FROM " + FeedReaderContract.FeedTextNote.TABLE_NAME_Employees + " WHERE " + FeedReaderContract.FeedTextNote.COLUMN_ID + "=?", new String[]{String.valueOf(empID)});
+                return db.rawQuery("SELECT * FROM " + FeedReaderContract.FeedTextNote.TABLE_NAME_Employees + " WHERE " + FeedReaderContract.FeedTextNote.COLUMN_ID + "=?", new String[]{String.valueOf(empID)});
+
     }
 
     public boolean deleteEmployee(int empID) {
         SQLiteDatabase db = getWritableDatabase();
         long rowDeleted = db.delete(FeedReaderContract.FeedTextNote.TABLE_NAME_Text_Note, FeedReaderContract.FeedTextNote.COLUMN_ID + "= ?", new String[]{String.valueOf(empID)});
-        if (rowDeleted > 0)
+        if (rowDeleted > 0) {
             return true;
-        else
+        }
+        else {
             return false;
+        }
     }
 
     public boolean insertWage(WageEntry wage, int relID) {
@@ -238,19 +253,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(FeedReaderContract.FeedTextNote.COLUMN_wage_Rate, wage.getWageRate());
         cv.put(FeedReaderContract.FeedTextNote.COLUMN_wage_Type, wage.getWageType());
         long rowInserted = db.insert(FeedReaderContract.FeedTextNote.TABLE_NAME_Wages, null, cv);
-        if (rowInserted != -1)
-            return true;
-        else
-            return false;
+        if (rowInserted != -1){
+            return true; }
+        else {
+            return false; }
     }
 
     public boolean deleteWage(int wageID) {
         SQLiteDatabase db = getWritableDatabase();
         long rowDeleted = db.delete(FeedReaderContract.FeedTextNote.TABLE_NAME_Wages, FeedReaderContract.FeedTextNote.COLUMN_ID + "= ?", new String[]{String.valueOf(wageID)});
-        if (rowDeleted > 0)
+        if (rowDeleted > 0){
             return true;
-        else
-            return false;
+        }
+            else {
+                return false;
+        }
     }
 
     public boolean updateWage(WageEntry wage) {
@@ -262,16 +279,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(FeedReaderContract.FeedTextNote.COLUMN_wage_Rate, wage.getWageRate());
         cv.put(FeedReaderContract.FeedTextNote.COLUMN_wage_Type, wage.getWageType());
         long checkUpdate = db.update(FeedReaderContract.FeedTextNote.TABLE_NAME_Wages, cv,FeedReaderContract.FeedTextNote.COLUMN_ID + "=?", new String[]{String.valueOf(wage.getWageID())});
-        if (checkUpdate != -1)
+        if (checkUpdate != -1) {
             return true;
-        else
+        }
+        else {
             return false;
+        }
     }
+
 
     Cursor getEmployeeWages(int empID){
         SQLiteDatabase db = getReadableDatabase();
-        return db.rawQuery("SELECT * FROM " + FeedReaderContract.FeedTextNote.TABLE_NAME_Wages + " WHERE "
-                + FeedReaderContract.FeedTextNote.COLUMN_wage_Rel + "=?", new String[] {String.valueOf(empID)});
+            return db.rawQuery("SELECT * FROM " + FeedReaderContract.FeedTextNote.TABLE_NAME_Wages + " WHERE "
+                    + FeedReaderContract.FeedTextNote.COLUMN_wage_Rel + "=?", new String[]{String.valueOf(empID)});
     }
 
     public void exportDB(Context ctx) {
@@ -281,9 +301,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
             String outFileName = ctx.getExternalFilesDir(null) + File.separator +
                     DATABASE_NAME ;
+            File outFile = new File(outFileName);
+            if (outFile.exists()){
+                outFile.delete();
+                outFile = new File(outFileName);
+            }
 
             // Open the empty db as the output stream
-            OutputStream output = new FileOutputStream(outFileName);
+            OutputStream output = new FileOutputStream(outFile);
 
             // Transfer bytes from the inputfile to the outputfile
             byte[] buffer = new byte[1024];
