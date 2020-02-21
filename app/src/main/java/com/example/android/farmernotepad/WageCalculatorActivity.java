@@ -26,9 +26,6 @@ public class WageCalculatorActivity extends AppCompatActivity implements Recycle
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wage_calculator);
 
-        //employeesArrayList.add(new Employee("Peter",111));
-
-        //initRecyclerView();
         loadEmployees();
 
         FloatingActionButton addEmployee = (FloatingActionButton) findViewById(R.id.addEmployeeBtn);
@@ -44,8 +41,14 @@ public class WageCalculatorActivity extends AppCompatActivity implements Recycle
 
     @Override
     public void onNoteClick(int position) {
-        employeesArrayList.get(position);
+        int mEmployeeID;
+        Employee mEmployee = (Employee) employeesArrayList.get(position);
         Intent intent = new Intent(WageCalculatorActivity.this, EmployeeActivity.class);
+        mEmployeeID = mEmployee.getEmployeeID();
+        intent.putExtra("employeeID", mEmployeeID);
+        intent.putExtra("flag", "editEmployee");
+
+
         startActivity(intent);
     }
 

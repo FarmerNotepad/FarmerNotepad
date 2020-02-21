@@ -205,10 +205,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     long rowInserted = db.insert(FeedReaderContract.FeedTextNote.TABLE_NAME_Wages, null, cvitems);
                     cvitems.clear();
 
-                    if (rowInserted != -1)
-                        return true;
-                    else
-                        return false;
+                    if (rowInserted == -1) {
+                        break;
+                    }
                 }
             }
             return true;
@@ -223,8 +222,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(FeedReaderContract.FeedTextNote.COLUMN_emp_Name, employee.getEmployeeName());
         cv.put(FeedReaderContract.FeedTextNote.COLUMN_emp_Phone, employee.getEmployeePhone());
         cv.put(FeedReaderContract.FeedTextNote.COLUMN_emp_Sum, employee.getEmployeeSum());
-        long checkUpdate = db.update(FeedReaderContract.FeedTextNote.TABLE_NAME_Employees, cv,FeedReaderContract.FeedTextNote.COLUMN_ID + "=?", new String[]{String.valueOf(employee.getEmployeeID())});
-        if (checkUpdate != -1)
+        long rowUpdated = db.update(FeedReaderContract.FeedTextNote.TABLE_NAME_Employees, cv, FeedReaderContract.FeedTextNote.COLUMN_ID + "=?", new String[]{String.valueOf(employee.getEmployeeID())});
+        long rowDeleteItems = db.delete(FeedReaderContract.FeedTextNote.TABLE_NAME_Wages, FeedReaderContract.FeedTextNote.COLUMN_ID + "= ?", new String[]{String.valueOf(employee.getEmployeeID())});
+        ContentValues cvItems = new ContentValues();
+        ArrayList<WageEntry> wage = employee.getEmployeePaymentItems();
+
+        for (int i = 0; i < wage.size(); i++) {
+            cvItems.put(FeedReaderContract.FeedTextNote.COLUMN_wage_Rel, employee.getEmployeeID());
+            cvItems.put(FeedReaderContract.FeedTextNote.COLUMN_wage_CreateDate, wage.get(i).getWageCreateDate());
+            cvItems.put(FeedReaderContract.FeedTextNote.COLUMN_wage_Desc, wage.get(i).getWageDesc());
+            cvItems.put(FeedReaderContract.FeedTextNote.COLUMN_wage_Date, wage.get(i).getWageWorkDate());
+            cvItems.put(FeedReaderContract.FeedTextNote.COLUMN_wage_Hours, wage.get(i).getWageHours());
+            cvItems.put(FeedReaderContract.FeedTextNote.COLUMN_wage_Rate, wage.get(i).getWageRate());
+            cvItems.put(FeedReaderContract.FeedTextNote.COLUMN_wage_Type, wage.get(i).getWageType());
+            db.insert(FeedReaderContract.FeedTextNote.TABLE_NAME_Wages, null, cvItems);
+        }
+        if (rowUpdated != -1 && rowDeleteItems != 0)
             return true;
         else
             return false;
@@ -283,17 +296,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(FeedReaderContract.FeedTextNote.COLUMN_wage_Hours, wage.getWageHours());
         cv.put(FeedReaderContract.FeedTextNote.COLUMN_wage_Rate, wage.getWageRate());
         cv.put(FeedReaderContract.FeedTextNote.COLUMN_wage_Type, wage.getWageType());
-        long checkUpdate = db.update(FeedReaderContract.FeedTextNote.TABLE_NAME_Wages, cv,FeedReaderContract.FeedTextNote.COLUMN_ID + "=?", new String[]{String.valueOf(wage.getWageID())});
+        long checkUpdate = db.update(FeedReaderContract.FeedTextNote.TABLE_NAME_Wages, cv, FeedReaderContract.FeedTextNote.COLUMN_ID + "=?", new String[]{String.valueOf(wage.getWageID())});
         if (checkUpdate != -1)
             return true;
         else
             return false;
     }
 
-    Cursor getEmployeeWages(int empID){
+    Cursor getEmployeeWages(int empID) {
         SQLiteDatabase db = getReadableDatabase();
         return db.rawQuery("SELECT * FROM " + FeedReaderContract.FeedTextNote.TABLE_NAME_Wages + " WHERE "
-                + FeedReaderContract.FeedTextNote.COLUMN_wage_Rel + "=?", new String[] {String.valueOf(empID)});
+                + FeedReaderContract.FeedTextNote.COLUMN_wage_Rel + "=?", new String[]{String.valueOf(empID)});
     }
 
     public void exportDB(Context ctx) {
@@ -302,7 +315,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             FileInputStream fis = new FileInputStream(dbFile);
 
             String outFileName = ctx.getExternalFilesDir(null) + File.separator +
-                    DATABASE_NAME ;
+                    DATABASE_NAME;
 
             // Open the empty db as the output stream
             OutputStream output = new FileOutputStream(outFileName);
@@ -323,8 +336,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             Log.e("dbBackup:", e.getMessage());
         }
     }
-
-
 
 
 }

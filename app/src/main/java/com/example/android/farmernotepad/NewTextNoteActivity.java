@@ -146,7 +146,9 @@ public class NewTextNoteActivity extends AppCompatActivity {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu mMenu) {
-        mMenu.findItem(R.id.pickColor).setEnabled(false);
+        if (noteIntentID != 0) {
+            mMenu.findItem(R.id.pickColor).setEnabled(false);
+        }
         return true;
     }
 
