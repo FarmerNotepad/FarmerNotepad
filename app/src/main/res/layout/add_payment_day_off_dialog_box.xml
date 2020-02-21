@@ -29,7 +29,8 @@
             android:layout_marginVertical="8dp"
             android:background="@color/cardview_light_background"
             android:hint="ADD DATE"
-            android:inputType="date"
+            android:clickable="true"
+            android:focusable="false"
             android:padding="5dp"
             android:textSize="15dp" />
 

@@ -41,6 +41,10 @@ public class RecyclerViewAdapterEmployee  extends RecyclerView.Adapter<RecyclerV
         holder.paymentWorkHours.setText(String.valueOf(currentWage.getWageHours()));
         holder.paymentRate.setText(String.valueOf(currentWage.getWageRate()));
         holder.paymentDescription.setText(currentWage.getWageDesc());
+        int hours = (int) currentWage.getWageHours();
+        int rate = (int) currentWage.getWageRate();
+        holder.paymentTotalDebt.setText(String.valueOf(hours*rate));
+
     }
 
     @Override
@@ -69,7 +73,7 @@ public class RecyclerViewAdapterEmployee  extends RecyclerView.Adapter<RecyclerV
             paymentWorkHours = itemView.findViewById(R.id.workHours);
             paymentRate = itemView.findViewById(R.id.rate);
             paymentDescription = itemView.findViewById(R.id.description);
-            paymentTotalDebt = itemView.findViewById(R.id.totalDebt);
+            paymentTotalDebt = itemView.findViewById(R.id.employmentDebt);
             this.onNoteListener = onNoteListener;
 
             itemView.setOnClickListener(this);
