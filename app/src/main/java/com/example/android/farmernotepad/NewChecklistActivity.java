@@ -183,7 +183,7 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
         final AlertDialog alertDialog = alert.create();
         alertDialog.setCanceledOnTouchOutside(true);
         alertDialog.show();
-
+        
         Button okButton = (Button) alertDialog.findViewById(R.id.okButton);
         Button cancelButton = (Button) alertDialog.findViewById(R.id.cancelButton);
         final EditText editText = (EditText) alertDialog.findViewById(R.id.checklistEditText);

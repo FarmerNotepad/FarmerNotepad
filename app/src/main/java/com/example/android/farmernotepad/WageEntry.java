@@ -1,5 +1,7 @@
 package com.example.android.farmernotepad;
 
+import java.util.ArrayList;
+
 public class WageEntry {
 
     int wageID;

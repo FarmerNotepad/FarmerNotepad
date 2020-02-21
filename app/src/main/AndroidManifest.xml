@@ -25,7 +25,7 @@
         <activity android:name=".NewChecklistActivity" />
         <activity
             android:name=".NewTextNoteActivity"
-            android:parentActivityName=".MainActivity"  />
+            />
         <activity android:name=".MainActivity"  >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
