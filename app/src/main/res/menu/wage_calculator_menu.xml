@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/employeesSearch"
+        android:icon="@drawable/ic_search_black_24dp"
+        android:title="Search"
+        app:actionViewClass="android.widget.SearchView"
+        app:showAsAction="always" />
+
+
+    <item
+        android:id="@+id/employeesSort"
+        android:icon="@drawable/ic_action_name"
+        android:title="Sort"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/employeesBackup"
+        android:title="Backup Files"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/employeesFeedback"
+        android:title="Feedback"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/employeesSettings"
+        android:title="Settings"
+        app:showAsAction="never" />
+</menu>

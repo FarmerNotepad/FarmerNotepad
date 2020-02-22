@@ -11,8 +11,9 @@
 
     <item
         android:id="@+id/sortPayments"
+        android:icon="@drawable/ic_action_name"
         android:title="Sort"
-        app:showAsAction="never" />
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/deleteEmployee"

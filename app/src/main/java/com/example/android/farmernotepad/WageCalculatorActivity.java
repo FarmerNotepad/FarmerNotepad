@@ -1,25 +1,30 @@
 package com.example.android.farmernotepad;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.widget.SearchView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 public class WageCalculatorActivity extends AppCompatActivity implements RecyclerViewAdapterWage.OnNoteListener {
 
     private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
+    private RecyclerViewAdapterWage mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private ArrayList<Employee> employeesArrayList = new ArrayList<>();
+    boolean desc = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +40,7 @@ public class WageCalculatorActivity extends AppCompatActivity implements Recycle
             public void onClick(View v) {
                 Intent intent = new Intent(WageCalculatorActivity.this, EmployeeActivity.class);
                 startActivity(intent);
+                WageCalculatorActivity.this.finish();
             }
         });
     }
@@ -48,11 +54,11 @@ public class WageCalculatorActivity extends AppCompatActivity implements Recycle
         intent.putExtra("employeeID", mEmployeeID);
         intent.putExtra("flag", "editEmployee");
 
-
         startActivity(intent);
+        WageCalculatorActivity.this.finish();
     }
 
-    private void initRecyclerView(){
+    private void initRecyclerView() {
 
         mRecyclerView = findViewById(R.id.wageCalculatorRecyclerView);
         mLayoutManager = new LinearLayoutManager(this);
@@ -63,12 +69,61 @@ public class WageCalculatorActivity extends AppCompatActivity implements Recycle
 
     }
 
-    private void loadEmployees(){
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.wage_calculator_menu, menu);
+
+        MenuItem searchItem = menu.findItem(R.id.employeesSearch);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                mAdapter.getFilter().filter(newText);
+                return false;
+            }
+        });
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.employeesSort:
+                employeesArrayList = GenericUtils.sortByTotalDebt(employeesArrayList,desc);
+                mAdapter.notifyDataSetChanged();
+                desc = !desc;
+                break;
+
+            case R.id.employeesBackup:
+                Intent intentBackup = new Intent(WageCalculatorActivity.this, Backup.class);
+                startActivity(intentBackup);
+                break;
+
+            case R.id.employeesFeedback:
+                Intent intent = new Intent(WageCalculatorActivity.this, FeedbackActivity.class);
+                startActivity(intent);
+                break;
+
+
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void loadEmployees() {
         DatabaseHelper dbHelper = new DatabaseHelper(WageCalculatorActivity.this);
         Cursor cursor = dbHelper.getAllEmployees();
 
         if (cursor.moveToFirst()) {
-            do{
+            do {
                 Employee newEmployee = new Employee();
                 newEmployee.setEmployeeID(cursor.getInt(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_ID)));
                 newEmployee.setEmployeeName(cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_emp_Name)));
@@ -76,7 +131,7 @@ public class WageCalculatorActivity extends AppCompatActivity implements Recycle
                 newEmployee.setEmployeeSum(cursor.getDouble(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_emp_Sum)));
                 employeesArrayList.add(newEmployee);
 
-            }while(cursor.moveToNext());
+            } while (cursor.moveToNext());
         }
         cursor.close();
         initRecyclerView();
