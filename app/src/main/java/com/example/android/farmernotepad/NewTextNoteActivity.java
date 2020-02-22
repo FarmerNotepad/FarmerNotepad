@@ -26,6 +26,8 @@ public class NewTextNoteActivity extends AppCompatActivity {
     private int noteColor;
     static NewTextNoteActivity activity;
     private int noteIntentID;
+    private double[] noteCoords = new double[2];
+    private String mNoteTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -301,6 +303,19 @@ public class NewTextNoteActivity extends AppCompatActivity {
                  startActivity(sendIntent);
 
                  break;
+
+            case R.id.showOnMap:
+                if(noteCoords[0] == 0 && noteCoords[1] == 0) {
+                    GenericUtils.toast(NewTextNoteActivity.this,"Note has no location.");
+                }
+                else {
+                    Intent mapIntent = new Intent(NewTextNoteActivity.this, MapsActivity.class);
+                    mapIntent.putExtra("NoteLat", noteCoords[0]);
+                    mapIntent.putExtra("NoteLong", noteCoords[1]);
+                    mapIntent.putExtra("Title",mNoteTitle);
+                    startActivity(mapIntent);
+                }
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -325,6 +340,9 @@ public class NewTextNoteActivity extends AppCompatActivity {
         String textNoteTitle = cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_noteTitle));
         String textNoteText = cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_noteText));
         noteColor = cursor.getInt(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_color));
+        noteCoords[0] = cursor.getDouble(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_noteLatitude));
+        noteCoords[1] = cursor.getDouble(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_noteLongitude));
+        mNoteTitle = textNoteTitle;
 
         cursor.close();
 

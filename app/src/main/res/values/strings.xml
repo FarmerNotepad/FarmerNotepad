@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">FarmerNotepad</string>
     <string name="title_activity_new_checklist">NewChecklistActivity</string>
+
+    <string name="google_maps_API_key">AIzaSyCclnpVns_5DdY-qsHrnbstgJVhb8j5I74</string>
+    <string name="title_activity_maps" translatable="false">Map</string>
 </resources>
