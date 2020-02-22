@@ -33,6 +33,8 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
     static NewChecklistActivity activity;
     private int noteIntentID;
     RecyclerViewAdapterChecklist adapter;
+    private double[] noteCoords = new double[2];
+    private String mNoteTitle;
 
 
     @Override
@@ -283,7 +285,7 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
                 alertDeleteDialog.setButton(android.app.AlertDialog.BUTTON_POSITIVE, "YES",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
+                                DatabaseHelper dbHelper = new DatabaseHelper(NewChecklistActivity.this);
                                 Boolean checkDelete = dbHelper.deleteChecklist(noteIntentID);
                                 if (checkDelete) {
                                     Intent intent = new Intent(NewChecklistActivity.this, MainActivity.class);
@@ -327,6 +329,19 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
                 startActivity(sendIntent);
 
                 break;
+
+            case R.id.showOnMap:
+                if(noteCoords[0] == 0 && noteCoords[1] == 0) {
+                    GenericUtils.toast(NewChecklistActivity.this,"Note has no location.");
+                }
+                else {
+                    Intent mapIntent = new Intent(NewChecklistActivity.this, MapsActivity.class);
+                    mapIntent.putExtra("NoteLat", noteCoords[0]);
+                    mapIntent.putExtra("NoteLong", noteCoords[1]);
+                    mapIntent.putExtra("Title", mNoteTitle);
+                    startActivity(mapIntent);
+                }
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -341,7 +356,7 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
     }
 
     private void loadEditableChecklist(int noteID) {
-        DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
+        DatabaseHelper dbHelper = new DatabaseHelper(NewChecklistActivity.this);
         Cursor cursor = dbHelper.getSingleChecklist(noteID);
         Cursor cursorItems = dbHelper.getSingleChecklistItems(noteID);
 
@@ -350,6 +365,9 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
 
         String textNoteTitle = cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_noteTitle));
         noteColor = cursor.getInt(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_color));
+        noteCoords[0] = cursor.getDouble(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_noteLatitude));
+        noteCoords[1] = cursor.getDouble(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_noteLongitude));
+        mNoteTitle = textNoteTitle;
         cursor.close();
 
         if (cursorItems.moveToFirst()) {
@@ -365,7 +383,7 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
     }
 
     private String loadEditableItem(int noteID, int position){
-        DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
+        DatabaseHelper dbHelper = new DatabaseHelper(NewChecklistActivity.this);
         Cursor cursorItems = dbHelper.getSingleChecklistItems(noteID);
 
         String itemText = new String();

@@ -309,36 +309,44 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + FeedReaderContract.FeedTextNote.COLUMN_wage_Rel + "=?", new String[]{String.valueOf(empID)});
     }
 
-    public void exportDB(Context ctx) {
-        try {
-            File dbFile = new File(ctx.getDatabasePath(DATABASE_NAME).getAbsolutePath());
-            FileInputStream fis = new FileInputStream(dbFile);
+        public void exportDB (Context ctx){
+            try {
+                File dbFile = new File(ctx.getDatabasePath(DATABASE_NAME).getAbsolutePath());
+                FileInputStream fis = new FileInputStream(dbFile);
 
-            String outFileName = ctx.getExternalFilesDir(null) + File.separator +
-                    DATABASE_NAME;
+                String outFileName = ctx.getExternalFilesDir(null) + File.separator +
+                        DATABASE_NAME;
+                File outFile = new File(outFileName);
+                if (outFile.exists()) {
+                    outFile.delete();
+                    outFile = new File(outFileName);
+                }
 
-            // Open the empty db as the output stream
-            OutputStream output = new FileOutputStream(outFileName);
+                // Open the empty db as the output stream
+                OutputStream output = new FileOutputStream(outFile);
 
-            // Transfer bytes from the inputfile to the outputfile
-            byte[] buffer = new byte[1024];
-            int length;
-            while ((length = fis.read(buffer)) > 0) {
-                output.write(buffer, 0, length);
+                // Transfer bytes from the inputfile to the outputfile
+                byte[] buffer = new byte[1024];
+                int length;
+                while ((length = fis.read(buffer)) > 0) {
+                    output.write(buffer, 0, length);
+                }
+                // Close the streams
+                output.flush();
+                output.close();
+                fis.close();
+
+
+            } catch (IOException e) {
+                Log.e("dbBackup:", e.getMessage());
             }
-            // Close the streams
-            output.flush();
-            output.close();
-            fis.close();
-
-
-        } catch (IOException e) {
-            Log.e("dbBackup:", e.getMessage());
         }
-    }
 
 
 }
+
+
+
 
 
 

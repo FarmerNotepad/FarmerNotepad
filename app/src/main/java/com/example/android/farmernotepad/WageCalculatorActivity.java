@@ -64,7 +64,7 @@ public class WageCalculatorActivity extends AppCompatActivity implements Recycle
     }
 
     private void loadEmployees(){
-        DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
+        DatabaseHelper dbHelper = new DatabaseHelper(WageCalculatorActivity.this);
         Cursor cursor = dbHelper.getAllEmployees();
 
         if (cursor.moveToFirst()) {
