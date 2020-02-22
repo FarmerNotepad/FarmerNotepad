@@ -28,6 +28,13 @@
         app:showAsAction="never" />
 
     <item
+        android:id="@+id/showOnMap"
+        android:title="Show on map"
+        android:icon="@drawable/ic_pin_drop_red_24dp"
+        app:showAsAction = "ifRoom"
+        />
+
+    <item
         android:id="@+id/Backup"
         android:title="Backup Files"
         app:showAsAction="never" />

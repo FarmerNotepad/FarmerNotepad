@@ -19,6 +19,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
+
 import static android.widget.Toast.LENGTH_SHORT;
 
 public class NewTextNoteActivity extends AppCompatActivity {
@@ -26,8 +28,10 @@ public class NewTextNoteActivity extends AppCompatActivity {
     private int noteColor;
     static NewTextNoteActivity activity;
     private int noteIntentID;
-    private double[] noteCoords = new double[2];
-    private String mNoteTitle;
+
+    ArrayList<Double> noteLat = new ArrayList<Double>();
+    ArrayList<Double> noteLong = new ArrayList<Double>();
+    ArrayList<String> mNoteTitle = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -305,13 +309,13 @@ public class NewTextNoteActivity extends AppCompatActivity {
                  break;
 
             case R.id.showOnMap:
-                if(noteCoords[0] == 0 && noteCoords[1] == 0) {
+                if(noteLat.get(0) == 0 && noteLong.get(0) == 0) {
                     GenericUtils.toast(NewTextNoteActivity.this,"Note has no location.");
                 }
                 else {
                     Intent mapIntent = new Intent(NewTextNoteActivity.this, MapsActivity.class);
-                    mapIntent.putExtra("NoteLat", noteCoords[0]);
-                    mapIntent.putExtra("NoteLong", noteCoords[1]);
+                    mapIntent.putExtra("NoteLat", noteLat);
+                    mapIntent.putExtra("NoteLong", noteLong);
                     mapIntent.putExtra("Title",mNoteTitle);
                     startActivity(mapIntent);
                 }
@@ -340,9 +344,10 @@ public class NewTextNoteActivity extends AppCompatActivity {
         String textNoteTitle = cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_noteTitle));
         String textNoteText = cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_noteText));
         noteColor = cursor.getInt(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_color));
-        noteCoords[0] = cursor.getDouble(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_noteLatitude));
-        noteCoords[1] = cursor.getDouble(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_noteLongitude));
-        mNoteTitle = textNoteTitle;
+
+        noteLat.add(cursor.getDouble(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_noteLatitude)));
+        noteLong.add(cursor.getDouble(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_noteLongitude)));
+        mNoteTitle.add(textNoteTitle);
 
         cursor.close();
 

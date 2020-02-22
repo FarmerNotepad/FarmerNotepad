@@ -69,6 +69,7 @@ public class ChecklistNoteEntry implements ListItem{
         this.color = color;
     }
 
+    @Override
     public double getLatitude() {
         return latitude;
     }
@@ -77,6 +78,7 @@ public class ChecklistNoteEntry implements ListItem{
         this.latitude = latitude;
     }
 
+    @Override
     public double getLongitude() {
         return longitude;
     }

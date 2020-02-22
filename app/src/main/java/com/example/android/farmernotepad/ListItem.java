@@ -12,4 +12,7 @@ public interface ListItem {
     String getModDate();
     String getCreateDate();
 
+    double getLatitude();
+    double getLongitude();
+
 }

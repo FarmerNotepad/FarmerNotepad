@@ -127,6 +127,28 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
                 startActivity(intentWage);
                 break;
 
+            case R.id.showOnMap:
+                ArrayList<Double> noteLat = new ArrayList<Double>();
+                ArrayList<Double> noteLong = new ArrayList<Double>();
+                ArrayList<String> mNoteTitles = new ArrayList<String>();
+                for (int i =0; i < allNotesList.size(); i++) {
+                    if (allNotesList.get(i).getLatitude() != 0 || allNotesList.get(i).getLongitude() != 0) {
+                        noteLat.add(allNotesList.get(i).getLatitude());
+                        noteLong.add(allNotesList.get(i).getLongitude());
+                        mNoteTitles.add(allNotesList.get(i).getInterfaceTitle());
+                    }
+                }
+                Intent mapIntent = new Intent(MainActivity.this, MapsActivity.class);
+                mapIntent.putExtra("NoteLat", noteLat);
+                mapIntent.putExtra("NoteLong", noteLong);
+                mapIntent.putExtra("Title",mNoteTitles);
+                startActivity(mapIntent);
+                break;
+
+            case R.id.Settings:
+                Intent intentSettings = new Intent (MainActivity.this,SettingsActivity.class);
+                startActivity(intentSettings);
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

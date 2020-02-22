@@ -12,6 +12,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
@@ -19,7 +20,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleMap mMap;
     private ArrayList<Double> latCoords = new ArrayList<>();
     private ArrayList<Double> longCoords = new ArrayList<>();
-    private String markerTitle;
+    private ArrayList<String> markerTitle = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,16 +31,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        if (getIntent().hasExtra("NoteLat")){
-            latCoords.add(getIntent().getDoubleExtra("NoteLat",90));
+        if (getIntent().hasExtra("NoteLat")) {
+            latCoords = (ArrayList<Double>) getIntent().getSerializableExtra("NoteLat");
+            //latCoords.add(getIntent().getDoubleArrayListExtra("NoteLat"));
         }
 
-        if (getIntent().hasExtra("NoteLong")){
-            longCoords.add(getIntent().getDoubleExtra("NoteLong",90));
+        if (getIntent().hasExtra("NoteLong")) {
+            longCoords = (ArrayList<Double>) getIntent().getSerializableExtra("NoteLong");
         }
 
-        if (getIntent().hasExtra("Title")){
-            markerTitle = getIntent().getStringExtra("Title");
+        if (getIntent().hasExtra("Title")) {
+            markerTitle = getIntent().getStringArrayListExtra("Title");
         }
     }
 
@@ -58,9 +60,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLng myNote = new LatLng(latCoords.get(0), longCoords.get(0));
-        mMap.addMarker(new MarkerOptions().position(myNote).title(markerTitle));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(myNote));
-        GenericUtils.toast(MapsActivity.this,myNote.toString());
+        for (int i = 0; i < latCoords.size(); i++) {
+            LatLng myNote = new LatLng(latCoords.get(i), longCoords.get(i));
+            mMap.addMarker(new MarkerOptions().position(myNote).title(markerTitle.get(i)));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(myNote));
+            GenericUtils.toast(MapsActivity.this, myNote.toString());
+        }
     }
 }

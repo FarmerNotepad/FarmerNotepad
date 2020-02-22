@@ -1,5 +1,6 @@
 package com.example.android.farmernotepad;
 
+import android.content.res.Resources;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class RecyclerViewAdapterMain extends RecyclerView.Adapter implements Filterable {
@@ -52,9 +54,14 @@ public class RecyclerViewAdapterMain extends RecyclerView.Adapter implements Fil
         switch (getItemViewType(position)) {
             case ListItem.typeText:
                 ((TextNoteViewHolder) holder).bindView(position);
+                //((TextNoteViewHolder) holder).textNoteTitle.setBackgroundColor(allNotesList.get(position).getColor());
+                //((TextNoteViewHolder) holder).textNoteContent.setBackgroundColor(allNotesList.get(position).getColor());
+
                 break;
             case ListItem.typeChecklist:
                 ((ChecklistViewHolder) holder).bindView(position);
+                //((TextNoteViewHolder) holder).textNoteTitle.setBackgroundColor(allNotesList.get(position).getColor());
+                //((TextNoteViewHolder) holder).textNoteContent.setBackgroundColor(allNotesList.get(position).getColor());
                 break;
         }
 
@@ -165,6 +172,7 @@ public class RecyclerViewAdapterMain extends RecyclerView.Adapter implements Fil
                 result += " \u2022" + s;
             }
             textNoteContent.setText(result);
+            textNoteContent.setBackgroundColor(checklistNote.getColor());
         }
 
         @Override

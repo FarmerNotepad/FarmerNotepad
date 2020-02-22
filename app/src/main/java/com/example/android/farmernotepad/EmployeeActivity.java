@@ -105,7 +105,7 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
                         Toast.makeText(getApplicationContext(), "Fill Employee Name", Toast.LENGTH_SHORT).show();
                     } else {
                         mNewEmployee.setEmployeeName(employeeFullName.getText().toString().trim());
-                        mNewEmployee.setEmployeePhone(Double.parseDouble(employeePhoneNumber.getText().toString()));
+                            mNewEmployee.setEmployeePhone(Double.parseDouble(employeePhoneNumber.getText().toString()));
                         //mNewEmployee .setEmployeeSum();
 
                         ArrayList<WageEntry> employeePaymentItems = new ArrayList<>();

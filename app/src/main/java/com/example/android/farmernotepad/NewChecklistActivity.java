@@ -33,8 +33,10 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
     static NewChecklistActivity activity;
     private int noteIntentID;
     RecyclerViewAdapterChecklist adapter;
-    private double[] noteCoords = new double[2];
-    private String mNoteTitle;
+
+    ArrayList<Double> noteLat = new ArrayList<Double>();
+    ArrayList<Double> noteLong = new ArrayList<Double>();
+    ArrayList<String> mNoteTitle = new ArrayList<String>();
 
 
     @Override
@@ -260,7 +262,7 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
 
     @Override
     public void onChecklistNoteClick(int position) {
-        String itemText = loadEditableItem(noteIntentID, position);
+        String itemText = mChecklistItem.get(position);
         editItemDialogBox(itemText, position);
     }
 
@@ -331,14 +333,14 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
                 break;
 
             case R.id.showOnMap:
-                if(noteCoords[0] == 0 && noteCoords[1] == 0) {
+                if(noteLat.get(0) == 0 && noteLong.get(0) == 0) {
                     GenericUtils.toast(NewChecklistActivity.this,"Note has no location.");
                 }
                 else {
                     Intent mapIntent = new Intent(NewChecklistActivity.this, MapsActivity.class);
-                    mapIntent.putExtra("NoteLat", noteCoords[0]);
-                    mapIntent.putExtra("NoteLong", noteCoords[1]);
-                    mapIntent.putExtra("Title", mNoteTitle);
+                    mapIntent.putExtra("NoteLat", noteLat);
+                    mapIntent.putExtra("NoteLong", noteLong);
+                    mapIntent.putExtra("Title",mNoteTitle);
                     startActivity(mapIntent);
                 }
                 break;
@@ -365,9 +367,11 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
 
         String textNoteTitle = cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_noteTitle));
         noteColor = cursor.getInt(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_color));
-        noteCoords[0] = cursor.getDouble(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_noteLatitude));
-        noteCoords[1] = cursor.getDouble(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_noteLongitude));
-        mNoteTitle = textNoteTitle;
+
+        noteLat.add(cursor.getDouble(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_noteLatitude)));
+        noteLong.add(cursor.getDouble(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_noteLongitude)));
+        mNoteTitle.add(textNoteTitle);
+
         cursor.close();
 
         if (cursorItems.moveToFirst()) {
