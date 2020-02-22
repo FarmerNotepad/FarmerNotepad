@@ -3,19 +3,15 @@ package com.example.android.farmernotepad;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.Filter;
-import android.widget.Filterable;
+import android.widget.Button;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class RecyclerViewAdapterEmployee  extends RecyclerView.Adapter<RecyclerViewAdapterEmployee.ViewHolder> implements Filterable {
+public class RecyclerViewAdapterEmployee extends RecyclerView.Adapter<RecyclerViewAdapterEmployee.ViewHolder> {
 
     private ArrayList<WageEntry> mNewPaymentList = new ArrayList<>();
     private OnNoteListener mOnNoteListener;
@@ -34,16 +30,25 @@ public class RecyclerViewAdapterEmployee  extends RecyclerView.Adapter<RecyclerV
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         WageEntry currentWage = (WageEntry) mNewPaymentList.get(position);
 
         holder.paymentDate.setText(currentWage.getWageWorkDate());
         holder.paymentWorkHours.setText(String.valueOf(currentWage.getWageHours()));
         holder.paymentRate.setText(String.valueOf(currentWage.getWageRate()));
         holder.paymentDescription.setText(currentWage.getWageDesc());
-        int hours = (int) currentWage.getWageHours();
-        int rate = (int) currentWage.getWageRate();
-        holder.paymentTotalDebt.setText(String.valueOf(hours*rate));
+        float hours = (float) currentWage.getWageHours();
+        float rate = (float) currentWage.getWageRate();
+        holder.paymentTotalDebt.setText(String.valueOf(hours * rate));
+
+        holder.paymentDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mNewPaymentList.remove(position);
+                notifyItemRemoved(position);
+                notifyDataSetChanged();
+            }
+        });
 
     }
 
@@ -52,18 +57,15 @@ public class RecyclerViewAdapterEmployee  extends RecyclerView.Adapter<RecyclerV
         return mNewPaymentList.size();
     }
 
-    @Override
-    public Filter getFilter() {
-        return null;
-    }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView paymentDate;
         TextView paymentWorkHours;
         TextView paymentRate;
         TextView paymentDescription;
         TextView paymentTotalDebt;
+        Button paymentDelete;
         OnNoteListener onNoteListener;
 
         public ViewHolder(@NonNull View itemView, OnNoteListener onNoteListener) {
@@ -74,6 +76,7 @@ public class RecyclerViewAdapterEmployee  extends RecyclerView.Adapter<RecyclerV
             paymentRate = itemView.findViewById(R.id.rate);
             paymentDescription = itemView.findViewById(R.id.description);
             paymentTotalDebt = itemView.findViewById(R.id.employmentDebt);
+            paymentDelete = itemView.findViewById(R.id.deletePayment);
             this.onNoteListener = onNoteListener;
 
             itemView.setOnClickListener(this);
@@ -85,7 +88,7 @@ public class RecyclerViewAdapterEmployee  extends RecyclerView.Adapter<RecyclerV
         }
     }
 
-    public interface OnNoteListener{
+    public interface OnNoteListener {
         void onNoteClick(int position);
     }
 }

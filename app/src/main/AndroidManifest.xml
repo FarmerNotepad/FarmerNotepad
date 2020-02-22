@@ -23,9 +23,7 @@
         <activity android:name=".Backup" />
         <activity android:name=".FeedbackActivity" />
         <activity android:name=".NewChecklistActivity" />
-        <activity
-            android:name=".NewTextNoteActivity"
-            android:parentActivityName=".MainActivity"  />
+        <activity android:name=".NewTextNoteActivity" />
         <activity android:name=".MainActivity"  >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
