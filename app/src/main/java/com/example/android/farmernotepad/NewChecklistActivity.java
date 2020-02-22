@@ -260,7 +260,7 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
 
     @Override
     public void onChecklistNoteClick(int position) {
-        String itemText = loadEditableItem(noteIntentID, position);
+        String itemText = mChecklistItem.get(position);
         editItemDialogBox(itemText, position);
     }
 
@@ -382,19 +382,6 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
         title.setText(textNoteTitle);
     }
 
-    private String loadEditableItem(int noteID, int position){
-        DatabaseHelper dbHelper = new DatabaseHelper(NewChecklistActivity.this);
-        Cursor cursorItems = dbHelper.getSingleChecklistItems(noteID);
-
-        String itemText = new String();
-
-        if(cursorItems.moveToPosition(position)){
-            itemText = cursorItems.getString(cursorItems.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_Item_Text));
-        }
-        cursorItems.close();
-
-        return itemText;
-    }
 
     @Override
     public void onBackPressed() {

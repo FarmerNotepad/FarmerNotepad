@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class RecyclerViewAdapterWage extends RecyclerView.Adapter<RecyclerViewAdapterWage.WageViewHolder> implements Filterable {
 
+    private final ArrayList<Employee> employeesArrayListFull;
     private ArrayList<Employee> employeesArrayList = new ArrayList<>();
     private OnNoteListener mOnNoteListener;
 
@@ -29,6 +30,7 @@ public class RecyclerViewAdapterWage extends RecyclerView.Adapter<RecyclerViewAd
 
     public RecyclerViewAdapterWage(ArrayList<Employee> employeesArrayList, OnNoteListener onNoteListener) {
         this.employeesArrayList = employeesArrayList;
+        this.employeesArrayListFull = new ArrayList<>(employeesArrayList);
         this.mOnNoteListener = onNoteListener;
     }
 
@@ -47,8 +49,39 @@ public class RecyclerViewAdapterWage extends RecyclerView.Adapter<RecyclerViewAd
 
     @Override
     public Filter getFilter() {
-        return null;
+        return employeesFilter;
     }
+
+    private Filter employeesFilter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            ArrayList<Employee> filteredList = new ArrayList<>();
+
+            if (constraint == null || constraint.length() == 0) {
+                filteredList.addAll(employeesArrayListFull);
+            } else {
+                String filterPattern = constraint.toString().toLowerCase().trim();
+
+                for (Employee item : employeesArrayListFull) {
+                    if (item.getEmployeeName().toLowerCase().contains(filterPattern)) {
+                        filteredList.add(item);
+                    }
+                }
+            }
+
+            FilterResults results = new FilterResults();
+            results.values = filteredList;
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            employeesArrayList.clear();
+            employeesArrayList.addAll((ArrayList) results.values);
+            notifyDataSetChanged();
+        }
+    };
+
 
     public static class WageViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView mEmployeeName;
