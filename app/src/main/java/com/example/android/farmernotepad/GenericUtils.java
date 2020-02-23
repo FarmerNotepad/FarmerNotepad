@@ -1,21 +1,21 @@
 package com.example.android.farmernotepad;
 
 import android.content.Context;
-import android.os.Environment;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
+import android.view.MenuItem;
 import android.widget.Toast;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import androidx.annotation.ColorRes;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
+
 import java.io.IOException;
-import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketAddress;
-import java.nio.channels.FileChannel;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -32,24 +32,40 @@ public class GenericUtils {
         return dateFormat.format(date);
     }
 
-    public static ArrayList<ListItem> sortByTitle( ArrayList<ListItem> myList, final boolean desc){
-            Collections.sort(myList, new Comparator<ListItem>() {
+    public static ArrayList<ListItem> sortByTitle(ArrayList<ListItem> myList, final boolean desc) {
+        Collections.sort(myList, new Comparator<ListItem>() {
 
-                @Override
-                public int compare(ListItem note1, ListItem note2) {
-                    if (!desc) {
-                        return note1.getInterfaceTitle().toUpperCase().compareTo(note2.getInterfaceTitle().toUpperCase());
-                    }
-                    else {
-                        return note2.getInterfaceTitle().toUpperCase().compareTo(note1.getInterfaceTitle().toUpperCase());
-                    }
+            @Override
+            public int compare(ListItem note1, ListItem note2) {
+                if (!desc) {
+                    return note1.getInterfaceTitle().toUpperCase().compareTo(note2.getInterfaceTitle().toUpperCase());
+                } else {
+                    return note2.getInterfaceTitle().toUpperCase().compareTo(note1.getInterfaceTitle().toUpperCase());
                 }
+            }
 
-            });
-            return myList;
-        }
+        });
+        return myList;
+    }
 
-    public static ArrayList<ListItem> sortByCreateDate( ArrayList<ListItem> myList, final boolean desc) {
+    public static ArrayList<Employee> sortByEmployeeName(ArrayList<Employee> myList, final boolean desc) {
+        Collections.sort(myList, new Comparator<Employee>() {
+
+            @Override
+            public int compare(Employee note1, Employee note2) {
+                if (!desc) {
+                    return note1.getEmployeeName().toUpperCase().compareTo(note2.getEmployeeName().toUpperCase());
+                } else {
+                    return note2.getEmployeeName().toUpperCase().compareTo(note1.getEmployeeName().toUpperCase());
+                }
+            }
+
+        });
+        return myList;
+    }
+
+
+    public static ArrayList<ListItem> sortByCreateDate(ArrayList<ListItem> myList, final boolean desc) {
         Collections.sort(myList, new Comparator<ListItem>() {
             DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
             Date date1, date2;
@@ -62,17 +78,17 @@ public class GenericUtils {
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                    if (!desc) {
-                        return date1.compareTo(date2);
-                    } else {
-                        return date2.compareTo(date1);
-                    }
+                if (!desc) {
+                    return date1.compareTo(date2);
+                } else {
+                    return date2.compareTo(date1);
+                }
             }
         });
         return myList;
     }
 
-    public static ArrayList<ListItem> sortByModDate( ArrayList<ListItem> myList, final boolean desc) {
+    public static ArrayList<ListItem> sortByModDate(ArrayList<ListItem> myList, final boolean desc) {
         Collections.sort(myList, new Comparator<ListItem>() {
             DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
             Date date1, date2;
@@ -102,9 +118,25 @@ public class GenericUtils {
             public int compare(ListItem note1, ListItem note2) {
 
                 if (!desc) {
-                    return Integer.compare(note1.getColor(),note2.getColor());
+                    return Integer.compare(note1.getColor(), note2.getColor());
                 } else {
-                    return Integer.compare(note2.getColor(),note1.getColor());
+                    return Integer.compare(note2.getColor(), note1.getColor());
+                }
+            }
+        });
+        return myList;
+    }
+
+    public static ArrayList<Employee> sortByTotalDebt(ArrayList<Employee> myList, final boolean desc) {
+        Collections.sort(myList, new Comparator<Employee>() {
+
+            @Override
+            public int compare(Employee note1, Employee note2) {
+
+                if (!desc) {
+                    return Integer.compare((int) note1.getEmployeeSum(), (int) note2.getEmployeeSum());
+                } else {
+                    return Integer.compare((int) note2.getEmployeeSum(), (int) note1.getEmployeeSum());
                 }
             }
         });
@@ -122,7 +154,9 @@ public class GenericUtils {
             sock.close();
 
             return true;
-        } catch (IOException e) { return false; }
+        } catch (IOException e) {
+            return false;
+        }
     }
 
 
@@ -135,8 +169,25 @@ public class GenericUtils {
         });
     }
 
+    public static boolean isNumeric(final String str) {
+
+        // null or empty
+        if (str == null || str.length() == 0) {
+            return false;
+        }
+
+        return str.chars().allMatch(Character::isDigit);
+
+    }
+
+    public static void tintMenuIcon(Context context, MenuItem item, int color) {
+        Drawable normalDrawable = item.getIcon();
+        Drawable wrapDrawable = DrawableCompat.wrap(normalDrawable);
+        DrawableCompat.setTint(wrapDrawable, color );
 
 
+        item.setIcon(wrapDrawable);
+    }
 }
 
 

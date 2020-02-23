@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -273,6 +274,12 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
         } else {
             inflater.inflate(R.menu.note_menu, menu);
         }
+
+        MenuItem colorPicker = menu.findItem(R.id.pickColor);
+        if (colorPicker != null) {
+            GenericUtils.tintMenuIcon(NewChecklistActivity.this, colorPicker, noteColor);
+        }
+
         this.mMenu = menu;
         return true;
     }
@@ -307,6 +314,102 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
                     }
                 });
                 alertDeleteDialog.show();
+
+                break;
+
+            case R.id.pickColor:
+                final AlertDialog.Builder alert = new AlertDialog.Builder(NewChecklistActivity.this);
+                View mView = getLayoutInflater().inflate(R.layout.color_picker_dialog_box, null);
+                alert.setView(mView);
+                final MenuItem pickColorItem = mMenu.findItem(R.id.pickColor);
+
+                final AlertDialog alertDialog = alert.create();
+
+                alertDialog.setCanceledOnTouchOutside(true);
+                alertDialog.show();
+
+                ImageButton buttonWhite = alertDialog.findViewById(R.id.colorWhite);
+                buttonWhite.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        noteColor = getColor(R.color.White);
+                        GenericUtils.tintMenuIcon(NewChecklistActivity.this,pickColorItem,noteColor);
+                        alertDialog.dismiss();
+                    }
+                });
+                ImageButton buttonRed = alertDialog.findViewById(R.id.colorRed);
+                buttonRed.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        noteColor = getColor(R.color.Red);
+                        GenericUtils.tintMenuIcon(NewChecklistActivity.this,pickColorItem,noteColor);
+                        alertDialog.dismiss();
+                    }
+                });
+                ImageButton buttonBlue = alertDialog.findViewById(R.id.colorBlue);
+                buttonBlue.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        noteColor = getColor(R.color.Blue);
+                        GenericUtils.tintMenuIcon(NewChecklistActivity.this,pickColorItem,noteColor);
+                        alertDialog.dismiss();
+                    }
+                });
+                ImageButton buttonGreen = alertDialog.findViewById(R.id.colorGreen);
+                buttonGreen.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        noteColor = getColor(R.color.Green);
+                        GenericUtils.tintMenuIcon(NewChecklistActivity.this,pickColorItem,noteColor);
+                        alertDialog.dismiss();
+                    }
+                });
+                ImageButton buttonYellow = alertDialog.findViewById(R.id.colorYellow);
+                buttonYellow.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        noteColor = getColor(R.color.Yellow);
+                        GenericUtils.tintMenuIcon(NewChecklistActivity.this,pickColorItem,noteColor);
+                        alertDialog.dismiss();
+                    }
+                });
+                ImageButton buttonGrey = alertDialog.findViewById(R.id.colorGrey);
+                buttonGrey.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        noteColor = getColor(R.color.LightGrey);
+                        GenericUtils.tintMenuIcon(NewChecklistActivity.this,pickColorItem,noteColor);
+                        alertDialog.dismiss();
+                    }
+                });
+                ImageButton buttonBlack = alertDialog.findViewById(R.id.colorBlack);
+                buttonBlack.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        noteColor = getColor(R.color.Black);
+                        GenericUtils.tintMenuIcon(NewChecklistActivity.this,pickColorItem,noteColor);
+                        alertDialog.dismiss();
+                    }
+                });
+                ImageButton buttonOrange = alertDialog.findViewById(R.id.colorOrange);
+                buttonOrange.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        noteColor = getColor(R.color.Orange);
+                        GenericUtils.tintMenuIcon(NewChecklistActivity.this,pickColorItem,noteColor);
+                        alertDialog.dismiss();
+                    }
+                });
+                ImageButton buttonPurple = alertDialog.findViewById(R.id.colorPurple);
+                buttonPurple.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        noteColor = getColor(R.color.Purple);
+                        GenericUtils.tintMenuIcon(NewChecklistActivity.this,pickColorItem,noteColor);
+                        alertDialog.dismiss();
+                    }
+                });
+
 
                 break;
 
@@ -386,19 +489,6 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
         title.setText(textNoteTitle);
     }
 
-    private String loadEditableItem(int noteID, int position){
-        DatabaseHelper dbHelper = new DatabaseHelper(NewChecklistActivity.this);
-        Cursor cursorItems = dbHelper.getSingleChecklistItems(noteID);
-
-        String itemText = new String();
-
-        if(cursorItems.moveToPosition(position)){
-            itemText = cursorItems.getString(cursorItems.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_Item_Text));
-        }
-        cursorItems.close();
-
-        return itemText;
-    }
 
     @Override
     public void onBackPressed() {

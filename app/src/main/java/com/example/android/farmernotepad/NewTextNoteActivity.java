@@ -65,6 +65,7 @@ public class NewTextNoteActivity extends AppCompatActivity {
                     }
                     myNewTextNote.setNoteText(noteText.getText().toString());
                     myNewTextNote.setModDate(GenericUtils.getDateTime());
+                    myNewTextNote.setColor(noteColor);
 
                     DatabaseHelper dbHelper = new DatabaseHelper(NewTextNoteActivity.this);
                     Boolean checkInsert = dbHelper.updateNote(myNewTextNote);
@@ -146,6 +147,11 @@ public class NewTextNoteActivity extends AppCompatActivity {
         } else {
             inflater.inflate(R.menu.note_menu, menu);
         }
+        MenuItem colorPicker = menu.findItem(R.id.pickColor);
+        if (colorPicker != null) {
+            GenericUtils.tintMenuIcon(NewTextNoteActivity.this, colorPicker, noteColor);
+        }
+
         this.mMenu = menu;
         return true;
     }
@@ -171,14 +177,13 @@ public class NewTextNoteActivity extends AppCompatActivity {
 
                 alertDialog.setCanceledOnTouchOutside(true);
                 alertDialog.show();
-                //Window window = alertDialog.getWindow();
-                //window.setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+
                 ImageButton buttonWhite = alertDialog.findViewById(R.id.colorWhite);
                 buttonWhite.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        pickColorItem.setIcon(R.drawable.ic_stop_white_24dp);
                         noteColor = getColor(R.color.White);
+                        GenericUtils.tintMenuIcon(NewTextNoteActivity.this,pickColorItem,noteColor);
                         alertDialog.dismiss();
                     }
                 });
@@ -186,8 +191,8 @@ public class NewTextNoteActivity extends AppCompatActivity {
                 buttonRed.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        pickColorItem.setIcon(R.drawable.ic_stop_red_24dp);
                         noteColor = getColor(R.color.Red);
+                        GenericUtils.tintMenuIcon(NewTextNoteActivity.this,pickColorItem,noteColor);
                         alertDialog.dismiss();
                     }
                 });
@@ -195,8 +200,8 @@ public class NewTextNoteActivity extends AppCompatActivity {
                 buttonBlue.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        pickColorItem.setIcon(R.drawable.ic_stop_blue_24dp);
                         noteColor = getColor(R.color.Blue);
+                        GenericUtils.tintMenuIcon(NewTextNoteActivity.this,pickColorItem,noteColor);
                         alertDialog.dismiss();
                     }
                 });
@@ -204,8 +209,8 @@ public class NewTextNoteActivity extends AppCompatActivity {
                 buttonGreen.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        pickColorItem.setIcon(R.drawable.ic_stop_green_24dp);
                         noteColor = getColor(R.color.Green);
+                        GenericUtils.tintMenuIcon(NewTextNoteActivity.this,pickColorItem,noteColor);
                         alertDialog.dismiss();
                     }
                 });
@@ -213,8 +218,8 @@ public class NewTextNoteActivity extends AppCompatActivity {
                 buttonYellow.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        pickColorItem.setIcon(R.drawable.ic_stop_yellow_24dp);
                         noteColor = getColor(R.color.Yellow);
+                        GenericUtils.tintMenuIcon(NewTextNoteActivity.this,pickColorItem,noteColor);
                         alertDialog.dismiss();
                     }
                 });
@@ -222,8 +227,8 @@ public class NewTextNoteActivity extends AppCompatActivity {
                 buttonGrey.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        pickColorItem.setIcon(R.drawable.ic_stop_grey_24dp);
                         noteColor = getColor(R.color.LightGrey);
+                        GenericUtils.tintMenuIcon(NewTextNoteActivity.this,pickColorItem,noteColor);
                         alertDialog.dismiss();
                     }
                 });
@@ -231,8 +236,8 @@ public class NewTextNoteActivity extends AppCompatActivity {
                 buttonBlack.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        pickColorItem.setIcon(R.drawable.ic_stop_black_24dp);
                         noteColor = getColor(R.color.Black);
+                        GenericUtils.tintMenuIcon(NewTextNoteActivity.this,pickColorItem,noteColor);
                         alertDialog.dismiss();
                     }
                 });
@@ -240,8 +245,8 @@ public class NewTextNoteActivity extends AppCompatActivity {
                 buttonOrange.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        pickColorItem.setIcon(R.drawable.ic_stop_orange_24dp);
                         noteColor = getColor(R.color.Orange);
+                        GenericUtils.tintMenuIcon(NewTextNoteActivity.this,pickColorItem,noteColor);
                         alertDialog.dismiss();
                     }
                 });
@@ -249,8 +254,8 @@ public class NewTextNoteActivity extends AppCompatActivity {
                 buttonPurple.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        pickColorItem.setIcon(R.drawable.ic_stop_purple_24dp);
                         noteColor = getColor(R.color.Purple);
+                        GenericUtils.tintMenuIcon(NewTextNoteActivity.this,pickColorItem,noteColor);
                         alertDialog.dismiss();
                     }
                 });

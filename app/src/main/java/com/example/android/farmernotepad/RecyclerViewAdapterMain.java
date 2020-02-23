@@ -54,14 +54,9 @@ public class RecyclerViewAdapterMain extends RecyclerView.Adapter implements Fil
         switch (getItemViewType(position)) {
             case ListItem.typeText:
                 ((TextNoteViewHolder) holder).bindView(position);
-                //((TextNoteViewHolder) holder).textNoteTitle.setBackgroundColor(allNotesList.get(position).getColor());
-                //((TextNoteViewHolder) holder).textNoteContent.setBackgroundColor(allNotesList.get(position).getColor());
-
                 break;
             case ListItem.typeChecklist:
                 ((ChecklistViewHolder) holder).bindView(position);
-                //((TextNoteViewHolder) holder).textNoteTitle.setBackgroundColor(allNotesList.get(position).getColor());
-                //((TextNoteViewHolder) holder).textNoteContent.setBackgroundColor(allNotesList.get(position).getColor());
                 break;
         }
 
@@ -134,6 +129,7 @@ public class RecyclerViewAdapterMain extends RecyclerView.Adapter implements Fil
             TextNoteEntry textNote = (TextNoteEntry) allNotesList.get(position);
             textNoteTitle.setText(textNote.getNoteTitle());
             textNoteContent.setText(textNote.getNoteText());
+            //parentLayout.setBackgroundColor(allNotesList.get(position).getColor());
         }
 
         @Override
@@ -172,7 +168,7 @@ public class RecyclerViewAdapterMain extends RecyclerView.Adapter implements Fil
                 result += " \u2022" + s;
             }
             textNoteContent.setText(result);
-            textNoteContent.setBackgroundColor(checklistNote.getColor());
+            //parentLayout.setBackgroundColor(allNotesList.get(position).getColor());
         }
 
         @Override

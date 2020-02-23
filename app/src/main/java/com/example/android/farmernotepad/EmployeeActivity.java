@@ -39,6 +39,7 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
     private Menu mMenu;
     static EmployeeActivity activity;
     private int employeeIntentID;
+    boolean desc = false;
 
 
     @Override
@@ -52,13 +53,24 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
         activity = this;
         employeeIntentID = getIncomingIntent();
 
+        Button addPaymentDayOff = (Button) findViewById(R.id.addPaymentBtn);
+        addPaymentDayOff.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addPaymentDialogBox();
+            }
+        });
+
+        mNewPaymentList.add(new WageEntry(1,"sad",1,"s"));
+
+
 
         initRecyclerView();
 
         if (employeeIntentID != 0) {
 
             final Float totalDebt = loadEditableEmployee(employeeIntentID);
-                TextView employeeTotalDebt = findViewById(R.id.employeeTotalDebt);
+            TextView employeeTotalDebt = findViewById(R.id.employeeTotalDebt);
             employeeTotalDebt.setText(totalDebt.toString());
 
             confirmSaveButton.setOnClickListener(new View.OnClickListener() {
@@ -71,7 +83,15 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
                         Toast.makeText(getApplicationContext(), "Fill Employee Name", Toast.LENGTH_SHORT).show();
                     } else {
                         mNewEmployee.setEmployeeName(employeeFullName.getText().toString().trim());
-                        mNewEmployee.setEmployeePhone(Double.parseDouble(employeePhoneNumber.getText().toString()));
+
+                        String employeeName = employeePhoneNumber.getText().toString();
+
+                        if(GenericUtils.isNumeric(employeeName)) {
+                            mNewEmployee.setEmployeePhone(Double.parseDouble(employeeName));
+                        }else{
+                            GenericUtils.toast(EmployeeActivity.this, "INVALID PHONE NUMBER");
+                        }
+
                         mNewEmployee.setEmployeeSum(totalDebt);
 
                         ArrayList<WageEntry> employeePaymentItems = new ArrayList<>();
@@ -87,6 +107,7 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
                             Intent intent = new Intent(EmployeeActivity.this, WageCalculatorActivity.class);
                             startActivity(intent);
                             dbHelper.close();
+                            EmployeeActivity.this.finish();
                         } else {
                             Toast.makeText(getApplicationContext(), "Insertion Failed", Toast.LENGTH_SHORT).show();
                         }
@@ -105,7 +126,14 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
                         Toast.makeText(getApplicationContext(), "Fill Employee Name", Toast.LENGTH_SHORT).show();
                     } else {
                         mNewEmployee.setEmployeeName(employeeFullName.getText().toString().trim());
-                            mNewEmployee.setEmployeePhone(Double.parseDouble(employeePhoneNumber.getText().toString()));
+
+                        String employeeName = employeePhoneNumber.getText().toString();
+
+                        if(GenericUtils.isNumeric(employeeName)) {
+                            mNewEmployee.setEmployeePhone(Double.parseDouble(employeeName));
+                        }else{
+                            GenericUtils.toast(EmployeeActivity.this, "INVALID PHONE NUMBER");
+                        }
                         //mNewEmployee .setEmployeeSum();
 
                         ArrayList<WageEntry> employeePaymentItems = new ArrayList<>();
@@ -121,6 +149,7 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
                             Intent intent = new Intent(EmployeeActivity.this, WageCalculatorActivity.class);
                             startActivity(intent);
                             dbHelper.close();
+                            EmployeeActivity.this.finish();
                         } else {
                             Toast.makeText(getApplicationContext(), "Insertion Failed", Toast.LENGTH_SHORT).show();
                         }
@@ -128,23 +157,16 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
                 }
             });
 
-            mNewPaymentList.add(new WageEntry());
-
-            Button addPaymentDayOff = (Button) findViewById(R.id.addPaymentBtn);
-            addPaymentDayOff.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    addPaymentDialogBox();
-                }
-            });
         }
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         if (employeeIntentID != 0) {
             inflater.inflate(R.menu.employee_edit_menu, menu);
+
         } else {
             //inflater.inflate(R.menu.note_menu, menu);
         }
@@ -192,8 +214,12 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
                 //findViewById(R.id.addChecklistItemButton).setVisibility(View.VISIBLE);
                 break;
 
+            case R.id.sortPayments:
+                
+                break;
+
         }
-            return super.onOptionsItemSelected(item);
+        return super.onOptionsItemSelected(item);
     }
 
     private void addPaymentDialogBox() {
@@ -249,9 +275,8 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
                     mNewWageEntry.setWageHours(Double.parseDouble(newPaymentWorkHours.getText().toString()));
                     mNewWageEntry.setWageRate(Double.parseDouble(newPaymentRate.getText().toString()));
                     mNewWageEntry.setWageDesc(newPaymentDescription.getText().toString());
-                    int hours = Integer.parseInt(newPaymentWorkHours.getText().toString());
-                    int rate = Integer.parseInt(newPaymentRate.getText().toString());
-                    employmentDebt.setText(String.valueOf(hours * rate));
+                    float hours = Float.parseFloat(newPaymentWorkHours.getText().toString());
+                    float rate = Float.parseFloat(newPaymentRate.getText().toString());
 
                     if (dayOffCheckedTextView.isChecked()) {
                         mNewWageEntry.setWageType(2);
@@ -262,6 +287,7 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
                     Toast.makeText(getApplicationContext(), "Payment Added", Toast.LENGTH_SHORT).show();
                     mAdapter.notifyDataSetChanged();
                     alertDialog.dismiss();
+                    employmentDebt.setText(String.valueOf(hours * rate));
                 }
             }
         });
@@ -315,8 +341,9 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
         });
 
         newPaymentDate.setText(paymentItem.getWageWorkDate());
-        newPaymentWorkHours.setText(String.valueOf((int) paymentItem.getWageHours()));
-        newPaymentRate.setText(String.valueOf((int) paymentItem.getWageRate()));
+        newPaymentDate.setText(paymentItem.getWageWorkDate());
+        newPaymentWorkHours.setText(String.valueOf((float) paymentItem.getWageHours()));
+        newPaymentRate.setText(String.valueOf((float) paymentItem.getWageRate()));
         newPaymentDescription.setText(paymentItem.getWageDesc());
 
         okButton.setOnClickListener(new View.OnClickListener() {
@@ -333,8 +360,8 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
                     mNewWageEntry.setWageHours(Double.parseDouble(newPaymentWorkHours.getText().toString()));
                     mNewWageEntry.setWageRate(Double.parseDouble(newPaymentRate.getText().toString()));
                     mNewWageEntry.setWageDesc(newPaymentDescription.getText().toString());
-                    int hours = Integer.parseInt(newPaymentWorkHours.getText().toString());
-                    int rate = Integer.parseInt(newPaymentRate.getText().toString());
+                    float hours = Float.parseFloat(newPaymentWorkHours.getText().toString());
+                    float rate = Float.parseFloat(newPaymentRate.getText().toString());
                     employmentDebt.setText(String.valueOf(hours * rate));
 
                     if (dayOffCheckedTextView.isChecked()) {
@@ -370,7 +397,10 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
 
     @Override
     public void onNoteClick(int position) {
-        WageEntry paymentItem = loadEditablePaymentItem(employeeIntentID, position);
+        //WageEntry paymentItem = loadEditablePaymentItem(employeeIntentID, position);
+        //editPaymentDialogBox(paymentItem, position);
+
+        WageEntry paymentItem = mNewPaymentList.get(position);
         editPaymentDialogBox(paymentItem, position);
     }
 
@@ -425,26 +455,16 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
         employeeNameEditText.setText(employeeFullName);
         employeePhoneEditText.setText(employeePhone);
 
+        dbHelper.close();
+
         return totalEmployeeDebt;
     }
 
-    private WageEntry loadEditablePaymentItem(int employeeID, int position) {
-
-        WageEntry wageItem = new WageEntry();
-
-        DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
-        Cursor cursorItems = dbHelper.getEmployeeWages(employeeID);
-
-        if (cursorItems.moveToPosition(position)) {
-            wageItem.setWageWorkDate(cursorItems.getString(cursorItems.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_wage_Date)));
-            wageItem.setWageType(cursorItems.getInt(cursorItems.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_wage_Type)));
-            wageItem.setWageDesc(cursorItems.getString(cursorItems.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_wage_Desc)));
-            wageItem.setWageHours(cursorItems.getDouble(cursorItems.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_wage_Hours)));
-            wageItem.setWageRate(cursorItems.getDouble(cursorItems.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_wage_Rate)));
-        }
-        cursorItems.close();
-
-        return wageItem;
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(EmployeeActivity.this, WageCalculatorActivity.class);
+        startActivity(intent);
+        EmployeeActivity.this.finish();
     }
-
 }
