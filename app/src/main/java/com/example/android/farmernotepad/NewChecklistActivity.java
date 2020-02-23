@@ -285,6 +285,14 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu mMenu) {
+        if (noteIntentID != 0) {
+            mMenu.findItem(R.id.pickColor).setEnabled(false);
+        }
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.deleteNote:
@@ -417,6 +425,7 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
                     findViewById(R.id.checklistTitleEditText).setEnabled(true);
                     findViewById(R.id.addChecklistItemButton).setClickable(true);
                     findViewById(R.id.addChecklistItemButton).setVisibility(View.VISIBLE);
+                    mMenu.findItem(R.id.pickColor).setEnabled(true);
                 break;
 
 

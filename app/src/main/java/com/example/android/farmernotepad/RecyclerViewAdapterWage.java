@@ -3,6 +3,7 @@ package com.example.android.farmernotepad;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.LinearLayout;
@@ -40,6 +41,8 @@ public class RecyclerViewAdapterWage extends RecyclerView.Adapter<RecyclerViewAd
 
         holder.mEmployeeName.setText(currentEmployee.getEmployeeName());
         holder.mTotalDebt.setText(String.valueOf(currentEmployee.getEmployeeSum()));
+
+
     }
 
     @Override
@@ -88,6 +91,7 @@ public class RecyclerViewAdapterWage extends RecyclerView.Adapter<RecyclerViewAd
         public TextView mTotalDebt;
         LinearLayout parentLayout;
         OnNoteListener onNoteListener;
+
 
         public WageViewHolder(@NonNull View itemView, OnNoteListener onNoteListener) {
             super(itemView);

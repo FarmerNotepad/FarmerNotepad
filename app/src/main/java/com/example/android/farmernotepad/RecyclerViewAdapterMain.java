@@ -1,5 +1,6 @@
 package com.example.android.farmernotepad;
 
+import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;

@@ -57,7 +57,7 @@ public class FeedReaderContract {
                     FeedTextNote.COLUMN_ID + ") ON DELETE CASCADE);";
 
     public static final String SQL_CREATE_TABLE_Employees = "CREATE TABLE IF NOT EXISTS " + FeedTextNote.TABLE_NAME_Employees + "(" + FeedTextNote.COLUMN_ID +
-            " INTEGER PRIMARY KEY AUTOINCREMENT," + FeedTextNote.COLUMN_emp_Name + " TEXT," + FeedTextNote.COLUMN_emp_Phone + " INTEGER,"
+            " INTEGER PRIMARY KEY AUTOINCREMENT," + FeedTextNote.COLUMN_emp_Name + " TEXT," + FeedTextNote.COLUMN_emp_Phone + " TEXT,"
             + FeedTextNote.COLUMN_emp_Sum + " REAL);";
 
     public static final String SQL_CREATE_TABLE_Wages = "CREATE TABLE IF NOT EXISTS " + FeedTextNote.TABLE_NAME_Wages + "(" + FeedTextNote.COLUMN_ID +

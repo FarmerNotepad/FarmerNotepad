@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Employee {
     int employeeID;
     String employeeName;
-    double employeePhone;
+    String employeePhone;
     double employeeSum;
     ArrayList<WageEntry> employeePaymentItems;
 
@@ -34,11 +34,11 @@ public class Employee {
         return employeeName;
     }
 
-    public void setEmployeePhone(double phoneNumber) {
+    public void setEmployeePhone(String phoneNumber) {
         this.employeePhone = phoneNumber;
     }
 
-    public double getEmployeePhone() {
+    public String getEmployeePhone() {
         return employeePhone;
     }
 
@@ -57,4 +57,6 @@ public class Employee {
     public void setEmployeePaymentItems(ArrayList<WageEntry> employeePaymentItems) {
         this.employeePaymentItems = employeePaymentItems;
     }
+
+
 }
