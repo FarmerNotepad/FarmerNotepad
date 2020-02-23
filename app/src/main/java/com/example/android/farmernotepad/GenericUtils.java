@@ -1,9 +1,16 @@
 package com.example.android.farmernotepad;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Looper;
+import android.view.MenuItem;
 import android.widget.Toast;
+
+import androidx.annotation.ColorRes;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -171,6 +178,15 @@ public class GenericUtils {
 
         return str.chars().allMatch(Character::isDigit);
 
+    }
+
+    public static void tintMenuIcon(Context context, MenuItem item, int color) {
+        Drawable normalDrawable = item.getIcon();
+        Drawable wrapDrawable = DrawableCompat.wrap(normalDrawable);
+        DrawableCompat.setTint(wrapDrawable, color );
+
+
+        item.setIcon(wrapDrawable);
     }
 }
 

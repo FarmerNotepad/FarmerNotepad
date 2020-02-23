@@ -19,6 +19,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
+
 import static android.widget.Toast.LENGTH_SHORT;
 
 public class NewTextNoteActivity extends AppCompatActivity {
@@ -26,8 +28,10 @@ public class NewTextNoteActivity extends AppCompatActivity {
     private int noteColor;
     static NewTextNoteActivity activity;
     private int noteIntentID;
-    private double[] noteCoords = new double[2];
-    private String mNoteTitle;
+
+    ArrayList<Double> noteLat = new ArrayList<Double>();
+    ArrayList<Double> noteLong = new ArrayList<Double>();
+    ArrayList<String> mNoteTitle = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +65,7 @@ public class NewTextNoteActivity extends AppCompatActivity {
                     }
                     myNewTextNote.setNoteText(noteText.getText().toString());
                     myNewTextNote.setModDate(GenericUtils.getDateTime());
+                    myNewTextNote.setColor(noteColor);
 
                     DatabaseHelper dbHelper = new DatabaseHelper(NewTextNoteActivity.this);
                     Boolean checkInsert = dbHelper.updateNote(myNewTextNote);
@@ -142,6 +147,11 @@ public class NewTextNoteActivity extends AppCompatActivity {
         } else {
             inflater.inflate(R.menu.note_menu, menu);
         }
+        MenuItem colorPicker = menu.findItem(R.id.pickColor);
+        if (colorPicker != null) {
+            GenericUtils.tintMenuIcon(NewTextNoteActivity.this, colorPicker, noteColor);
+        }
+
         this.mMenu = menu;
         return true;
     }
@@ -167,14 +177,13 @@ public class NewTextNoteActivity extends AppCompatActivity {
 
                 alertDialog.setCanceledOnTouchOutside(true);
                 alertDialog.show();
-                //Window window = alertDialog.getWindow();
-                //window.setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+
                 ImageButton buttonWhite = alertDialog.findViewById(R.id.colorWhite);
                 buttonWhite.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        pickColorItem.setIcon(R.drawable.ic_stop_white_24dp);
                         noteColor = getColor(R.color.White);
+                        GenericUtils.tintMenuIcon(NewTextNoteActivity.this,pickColorItem,noteColor);
                         alertDialog.dismiss();
                     }
                 });
@@ -182,8 +191,8 @@ public class NewTextNoteActivity extends AppCompatActivity {
                 buttonRed.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        pickColorItem.setIcon(R.drawable.ic_stop_red_24dp);
                         noteColor = getColor(R.color.Red);
+                        GenericUtils.tintMenuIcon(NewTextNoteActivity.this,pickColorItem,noteColor);
                         alertDialog.dismiss();
                     }
                 });
@@ -191,8 +200,8 @@ public class NewTextNoteActivity extends AppCompatActivity {
                 buttonBlue.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        pickColorItem.setIcon(R.drawable.ic_stop_blue_24dp);
                         noteColor = getColor(R.color.Blue);
+                        GenericUtils.tintMenuIcon(NewTextNoteActivity.this,pickColorItem,noteColor);
                         alertDialog.dismiss();
                     }
                 });
@@ -200,8 +209,8 @@ public class NewTextNoteActivity extends AppCompatActivity {
                 buttonGreen.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        pickColorItem.setIcon(R.drawable.ic_stop_green_24dp);
                         noteColor = getColor(R.color.Green);
+                        GenericUtils.tintMenuIcon(NewTextNoteActivity.this,pickColorItem,noteColor);
                         alertDialog.dismiss();
                     }
                 });
@@ -209,8 +218,8 @@ public class NewTextNoteActivity extends AppCompatActivity {
                 buttonYellow.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        pickColorItem.setIcon(R.drawable.ic_stop_yellow_24dp);
                         noteColor = getColor(R.color.Yellow);
+                        GenericUtils.tintMenuIcon(NewTextNoteActivity.this,pickColorItem,noteColor);
                         alertDialog.dismiss();
                     }
                 });
@@ -218,8 +227,8 @@ public class NewTextNoteActivity extends AppCompatActivity {
                 buttonGrey.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        pickColorItem.setIcon(R.drawable.ic_stop_grey_24dp);
                         noteColor = getColor(R.color.LightGrey);
+                        GenericUtils.tintMenuIcon(NewTextNoteActivity.this,pickColorItem,noteColor);
                         alertDialog.dismiss();
                     }
                 });
@@ -227,8 +236,8 @@ public class NewTextNoteActivity extends AppCompatActivity {
                 buttonBlack.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        pickColorItem.setIcon(R.drawable.ic_stop_black_24dp);
                         noteColor = getColor(R.color.Black);
+                        GenericUtils.tintMenuIcon(NewTextNoteActivity.this,pickColorItem,noteColor);
                         alertDialog.dismiss();
                     }
                 });
@@ -236,8 +245,8 @@ public class NewTextNoteActivity extends AppCompatActivity {
                 buttonOrange.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        pickColorItem.setIcon(R.drawable.ic_stop_orange_24dp);
                         noteColor = getColor(R.color.Orange);
+                        GenericUtils.tintMenuIcon(NewTextNoteActivity.this,pickColorItem,noteColor);
                         alertDialog.dismiss();
                     }
                 });
@@ -245,8 +254,8 @@ public class NewTextNoteActivity extends AppCompatActivity {
                 buttonPurple.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        pickColorItem.setIcon(R.drawable.ic_stop_purple_24dp);
                         noteColor = getColor(R.color.Purple);
+                        GenericUtils.tintMenuIcon(NewTextNoteActivity.this,pickColorItem,noteColor);
                         alertDialog.dismiss();
                     }
                 });
@@ -305,13 +314,13 @@ public class NewTextNoteActivity extends AppCompatActivity {
                  break;
 
             case R.id.showOnMap:
-                if(noteCoords[0] == 0 && noteCoords[1] == 0) {
+                if(noteLat.get(0) == 0 && noteLong.get(0) == 0) {
                     GenericUtils.toast(NewTextNoteActivity.this,"Note has no location.");
                 }
                 else {
                     Intent mapIntent = new Intent(NewTextNoteActivity.this, MapsActivity.class);
-                    mapIntent.putExtra("NoteLat", noteCoords[0]);
-                    mapIntent.putExtra("NoteLong", noteCoords[1]);
+                    mapIntent.putExtra("NoteLat", noteLat);
+                    mapIntent.putExtra("NoteLong", noteLong);
                     mapIntent.putExtra("Title",mNoteTitle);
                     startActivity(mapIntent);
                 }
@@ -340,9 +349,10 @@ public class NewTextNoteActivity extends AppCompatActivity {
         String textNoteTitle = cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_noteTitle));
         String textNoteText = cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_noteText));
         noteColor = cursor.getInt(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_color));
-        noteCoords[0] = cursor.getDouble(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_noteLatitude));
-        noteCoords[1] = cursor.getDouble(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_noteLongitude));
-        mNoteTitle = textNoteTitle;
+
+        noteLat.add(cursor.getDouble(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_noteLatitude)));
+        noteLong.add(cursor.getDouble(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_noteLongitude)));
+        mNoteTitle.add(textNoteTitle);
 
         cursor.close();
 

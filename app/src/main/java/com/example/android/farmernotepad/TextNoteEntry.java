@@ -85,8 +85,10 @@ public class TextNoteEntry implements  ListItem{
 
     public void setLatitude(double latitude) {this.latitude = latitude;}
 
+    @Override
     public double getLongitude() {return longitude;}
 
+    @Override
     public double getLatitude() {return latitude;}
 
 
