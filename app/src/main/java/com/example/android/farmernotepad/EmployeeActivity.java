@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -40,6 +41,7 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
     static EmployeeActivity activity;
     private int employeeIntentID;
     boolean desc = false;
+    private Employee mEmployee = new Employee();
 
 
     @Override
@@ -80,20 +82,16 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
                     } else {
                         mNewEmployee.setEmployeeName(employeeFullName.getText().toString().trim());
 
-                        String employeeName = employeePhoneNumber.getText().toString();
 
-                        if (GenericUtils.isNumeric(employeeName)) {
-                            mNewEmployee.setEmployeePhone(Double.parseDouble(employeeName));
-                        } else {
-                            GenericUtils.toast(EmployeeActivity.this, "INVALID PHONE NUMBER");
-                        }
+
+
+                        mNewEmployee.setEmployeePhone(employeePhoneNumber.getText().toString());
+
 
                         mNewEmployee.setEmployeeSum(Double.parseDouble(employeeTotalDebt.getText().toString()));
 
-                        ArrayList<WageEntry> employeePaymentItems = new ArrayList<>();
 
-                        employeePaymentItems.addAll(mNewPaymentList);
-                        mNewEmployee.setEmployeePaymentItems(employeePaymentItems);
+                        mNewEmployee.setEmployeePaymentItems(mNewPaymentList);
 
                         DatabaseHelper dbHelper = new DatabaseHelper(EmployeeActivity.this);
                         Boolean checkInsert = dbHelper.updateEmployee(mNewEmployee);
@@ -123,23 +121,16 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
                     } else {
                         mNewEmployee.setEmployeeName(employeeFullName.getText().toString().trim());
 
-                        String employeeName = employeePhoneNumber.getText().toString();
 
-                        if (GenericUtils.isNumeric(employeeName)) {
-                            mNewEmployee.setEmployeePhone(Double.parseDouble(employeeName));
-                        } else {
-                            GenericUtils.toast(EmployeeActivity.this, "INVALID PHONE NUMBER");
-                        }
+                        mNewEmployee.setEmployeePhone(employeePhoneNumber.getText().toString());
+
 
                         String employeeDebt = employeeTotalDebt.getText().toString();
                         if (GenericUtils.isNumeric(employeeDebt)) {
                             mNewEmployee.setEmployeeSum(Double.parseDouble(employeeDebt));
                         }
 
-                        ArrayList<WageEntry> employeePaymentItems = new ArrayList<>();
-
-                        employeePaymentItems.addAll(mNewPaymentList);
-                        mNewEmployee.setEmployeePaymentItems(employeePaymentItems);
+                        mNewEmployee.setEmployeePaymentItems(mNewPaymentList);
 
                         DatabaseHelper dbHelper = new DatabaseHelper(EmployeeActivity.this);
                         Boolean checkInsert = dbHelper.insertEmployee(mNewEmployee);
@@ -422,6 +413,14 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
         mRecyclerView = findViewById(R.id.addPaymentRecyclerView);
         mLayoutManager = new LinearLayoutManager(this);
         mAdapter = new RecyclerViewAdapterEmployee(mNewPaymentList, this);
+        mAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver()
+        {
+            @Override
+            public void onChanged()
+            {
+                calcDebt();
+            }
+        });
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.notifyDataSetChanged();
@@ -448,7 +447,7 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
         }
     }
 
-    private float loadEditableEmployee(int employeeID) {
+    private void loadEditableEmployee(int employeeID) {
 
         EditText employeeNameEditText = findViewById(R.id.employeeFullName);
         EditText employeePhoneEditText = findViewById(R.id.employeePhoneNumber);
@@ -456,14 +455,17 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
         DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
         Cursor cursor = dbHelper.getEmployee(employeeID);
         Cursor cursorItems = dbHelper.getEmployeeWages(employeeID);
-        float totalEmployeeDebt = 0;
+
 
         if (cursor != null)
             cursor.moveToFirst();
 
-        String employeeFullName = cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_emp_Name));
-        String employeePhone = cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_emp_Phone));
-        String employeeTotalDebt = cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_emp_Sum));
+        //String employeeFullName = cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_emp_Name));
+        mEmployee.setEmployeeName(cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_emp_Name)));
+        //String employeePhone = cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_emp_Phone));
+        mEmployee.setEmployeePhone(cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_emp_Phone)));
+        //String employeeTotalDebt = cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_emp_Sum));
+        mEmployee.setEmployeeSum(cursor.getDouble(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_emp_Sum)));
         cursor.close();
 
         if (cursorItems.moveToFirst()) {
@@ -477,19 +479,31 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
                 wageItems.setWageWage(cursorItems.getDouble(cursorItems.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_wage_Wage)));
                 mNewPaymentList.add(wageItems);
 
-                totalEmployeeDebt += (float) (wageItems.getWageHours() * wageItems.getWageWage());
+
 
             } while (cursorItems.moveToNext());
         }
         cursorItems.close();
 
-        employeeNameEditText.setText(employeeFullName);
-        employeePhoneEditText.setText(employeePhone);
-        employeeTotalDebtTextView.setText(employeeTotalDebt);
+        mEmployee.setEmployeePaymentItems(mNewPaymentList);
+        employeeNameEditText.setText(mEmployee.getEmployeeName());
+        employeePhoneEditText.setText(mEmployee.getEmployeePhone());
+        employeeTotalDebtTextView.setText(String.valueOf(mEmployee.getEmployeeSum()));
 
         dbHelper.close();
 
-        return totalEmployeeDebt;
+    }
+
+    public void calcDebt() {
+        double debt = 0;
+        for (int i =0; i < mNewPaymentList.size(); i++){
+            if (mNewPaymentList.get(i).getWageType() == 1) {
+                debt = debt + mNewPaymentList.get(i).getWageWage();
+            }
+        }
+        TextView employeeTotalDebt = findViewById(R.id.employeeTotalDebt);
+        employeeTotalDebt.setText(String.valueOf(debt));
+
     }
 
     @Override
@@ -499,4 +513,5 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
         startActivity(intent);
         EmployeeActivity.this.finish();
     }
+
 }

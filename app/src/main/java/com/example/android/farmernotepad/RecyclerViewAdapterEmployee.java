@@ -42,15 +42,10 @@ public class RecyclerViewAdapterEmployee extends RecyclerView.Adapter<RecyclerVi
         holder.paymentDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               //String debt = holder.total.getText().toString();
-               //double wage = currentWage.wageWage;
-                //double newTotal = Double.parseDouble(debt) - wage;
-
                 mNewPaymentList.remove(position);
                 notifyItemRemoved(position);
                 notifyDataSetChanged();
 
-                //holder.total.setText(String.valueOf(newTotal));
             }
         });
 
