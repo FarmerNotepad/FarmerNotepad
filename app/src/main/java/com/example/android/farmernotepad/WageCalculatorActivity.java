@@ -134,6 +134,7 @@ public class WageCalculatorActivity extends AppCompatActivity implements Recycle
             } while (cursor.moveToNext());
         }
         cursor.close();
+        dbHelper.close();
         initRecyclerView();
     }
 }
