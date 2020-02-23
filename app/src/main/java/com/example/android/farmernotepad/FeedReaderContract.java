@@ -25,7 +25,7 @@ public class FeedReaderContract {
         public final static String COLUMN_emp_Phone = "EmployeePhone";
         public final static String COLUMN_emp_Sum = "EmployeeSum";
         public final static String COLUMN_wage_Rel = "EmployeeID";
-        public final static String COLUMN_wage_Rate = "wageRate";
+        public final static String COLUMN_wage_Wage = "wageWage";
         public final static String COLUMN_wage_Desc = "wageDesc";
         public final static String COLUMN_wage_Hours = "workHours";
         public final static String COLUMN_wage_Date = "dateOfWork";
@@ -61,7 +61,7 @@ public class FeedReaderContract {
             + FeedTextNote.COLUMN_emp_Sum + " REAL);";
 
     public static final String SQL_CREATE_TABLE_Wages = "CREATE TABLE IF NOT EXISTS " + FeedTextNote.TABLE_NAME_Wages + "(" + FeedTextNote.COLUMN_ID +
-            " INTEGER PRIMARY KEY AUTOINCREMENT," + FeedTextNote.COLUMN_wage_Desc + " TEXT," + FeedTextNote.COLUMN_wage_Rate + " REAL,"
+            " INTEGER PRIMARY KEY AUTOINCREMENT," + FeedTextNote.COLUMN_wage_Desc + " TEXT," + FeedTextNote.COLUMN_wage_Wage + " REAL,"
             + FeedTextNote.COLUMN_wage_Hours + " REAL," + FeedTextNote.COLUMN_wage_Date + " TEXT," + FeedTextNote.COLUMN_wage_CreateDate + " TEXT," +
             FeedTextNote.COLUMN_wage_Type + " INTEGER," + FeedTextNote.COLUMN_wage_Rel + " INTEGER," +
             "FOREIGN KEY (" + FeedTextNote.COLUMN_wage_Rel + ") REFERENCES " + FeedTextNote.TABLE_NAME_Employees + "(" +

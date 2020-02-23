@@ -176,7 +176,7 @@ public class GenericUtils {
             return false;
         }
 
-        return str.chars().allMatch(Character::isDigit);
+            return str.chars().allMatch(Character::isDigit);
 
     }
 

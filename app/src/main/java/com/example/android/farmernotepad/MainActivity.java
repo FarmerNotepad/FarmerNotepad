@@ -189,6 +189,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         }
         cursor.close();
         initRecyclerView();
+        dbHelper.close();
     }
 
     private void loadChecklistNotes() {
@@ -228,6 +229,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         }
         cursor.close();
         initRecyclerView();
+        dbHelper.close();
     }
 
 
