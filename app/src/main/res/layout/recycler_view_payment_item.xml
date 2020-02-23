@@ -26,31 +26,12 @@
 
         <TextView
             android:id="@+id/workHours"
-            android:hint="HOURS"
-            android:inputType="number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textAlignment="center"
-            />
-
-        <TextView
-            android:text="X"
-            android:layout_marginHorizontal="5dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.8"
-            />
-
-        <TextView
-            android:id="@+id/rate"
-            android:hint="RATE"
+            android:hint="HOURS"
             android:inputType="number"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:textAlignment="center"
-            />
+            android:textAlignment="center" />
 
     </LinearLayout>
 

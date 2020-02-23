@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -35,18 +36,21 @@ public class RecyclerViewAdapterEmployee extends RecyclerView.Adapter<RecyclerVi
 
         holder.paymentDate.setText(currentWage.getWageWorkDate());
         holder.paymentWorkHours.setText(String.valueOf(currentWage.getWageHours()));
-        holder.paymentRate.setText(String.valueOf(currentWage.getWageRate()));
         holder.paymentDescription.setText(currentWage.getWageDesc());
-        float hours = (float) currentWage.getWageHours();
-        float rate = (float) currentWage.getWageRate();
-        holder.paymentTotalDebt.setText(String.valueOf(hours * rate));
+        holder.paymentTotalDebt.setText(String.valueOf(currentWage.getWageWage()));
 
         holder.paymentDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+               //String debt = holder.total.getText().toString();
+               //double wage = currentWage.wageWage;
+                //double newTotal = Double.parseDouble(debt) - wage;
+
                 mNewPaymentList.remove(position);
                 notifyItemRemoved(position);
                 notifyDataSetChanged();
+
+                //holder.total.setText(String.valueOf(newTotal));
             }
         });
 
@@ -62,10 +66,10 @@ public class RecyclerViewAdapterEmployee extends RecyclerView.Adapter<RecyclerVi
 
         TextView paymentDate;
         TextView paymentWorkHours;
-        TextView paymentRate;
         TextView paymentDescription;
         TextView paymentTotalDebt;
         Button paymentDelete;
+        //EditText total;
         OnNoteListener onNoteListener;
 
         public ViewHolder(@NonNull View itemView, OnNoteListener onNoteListener) {
@@ -73,10 +77,10 @@ public class RecyclerViewAdapterEmployee extends RecyclerView.Adapter<RecyclerVi
 
             paymentDate = itemView.findViewById(R.id.date);
             paymentWorkHours = itemView.findViewById(R.id.workHours);
-            paymentRate = itemView.findViewById(R.id.rate);
             paymentDescription = itemView.findViewById(R.id.description);
             paymentTotalDebt = itemView.findViewById(R.id.employmentDebt);
             paymentDelete = itemView.findViewById(R.id.deletePayment);
+            //total = itemView.findViewById(R.id.employeeTotalDebt);
             this.onNoteListener = onNoteListener;
 
             itemView.setOnClickListener(this);

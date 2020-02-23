@@ -4,7 +4,10 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="10dp"
-    android:id="@+id/parent_layout">
+    android:layout_marginHorizontal="3dp"
+    android:layout_marginVertical="3dp"
+    android:id="@+id/parent_layout"
+    >
 
     <TextView
         android:layout_width="wrap_content"
@@ -14,7 +17,6 @@
         android:layout_marginBottom="8dp"
         android:textStyle="bold"
         android:textSize="19dp">
-
     </TextView>
 
     <TextView

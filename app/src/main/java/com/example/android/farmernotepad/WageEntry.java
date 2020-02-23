@@ -1,12 +1,10 @@
 package com.example.android.farmernotepad;
 
-import java.util.ArrayList;
-
 public class WageEntry {
 
     int wageID;
     int employee_rel_ID;
-    double wageRate;
+    double wageWage;
     String wageDesc;
     double wageHours;
     String wageWorkDate;
@@ -16,8 +14,8 @@ public class WageEntry {
     public WageEntry() {
     }
 
-    public WageEntry(double wageRate, String wageDesc, double wageHours, String wageWorkDate) {
-        this.wageRate = wageRate;
+    public WageEntry(double wageWage, String wageDesc, double wageHours, String wageWorkDate) {
+        this.wageWage = wageWage;
         this.wageDesc = wageDesc;
         this.wageHours = wageHours;
         this.wageWorkDate = wageWorkDate;
@@ -35,12 +33,12 @@ public class WageEntry {
         this.employee_rel_ID = employee_rel_ID;
     }
 
-    public double getWageRate() {
-        return wageRate;
+    public double getWageWage() {
+        return wageWage;
     }
 
-    public void setWageRate(double wageRate) {
-        this.wageRate = wageRate;
+    public void setWageWage(double wageWage) {
+        this.wageWage = wageWage;
     }
 
     public String getWageDesc() {

@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.database.sqlite.SQLiteQuery;
 import android.util.Log;
 
 import java.io.File;
@@ -200,7 +199,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     cvitems.put(FeedReaderContract.FeedTextNote.COLUMN_wage_Desc, wage.get(i).getWageDesc());
                     cvitems.put(FeedReaderContract.FeedTextNote.COLUMN_wage_Date, wage.get(i).getWageWorkDate());
                     cvitems.put(FeedReaderContract.FeedTextNote.COLUMN_wage_Hours, wage.get(i).getWageHours());
-                    cvitems.put(FeedReaderContract.FeedTextNote.COLUMN_wage_Rate, wage.get(i).getWageRate());
+                    cvitems.put(FeedReaderContract.FeedTextNote.COLUMN_wage_Wage, wage.get(i).getWageWage());
                     cvitems.put(FeedReaderContract.FeedTextNote.COLUMN_wage_Type, wage.get(i).getWageType());
                     long rowInserted = db.insert(FeedReaderContract.FeedTextNote.TABLE_NAME_Wages, null, cvitems);
                     cvitems.clear();
@@ -232,7 +231,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             cvItems.put(FeedReaderContract.FeedTextNote.COLUMN_wage_Desc, wage.get(i).getWageDesc());
             cvItems.put(FeedReaderContract.FeedTextNote.COLUMN_wage_Date, wage.get(i).getWageWorkDate());
             cvItems.put(FeedReaderContract.FeedTextNote.COLUMN_wage_Hours, wage.get(i).getWageHours());
-            cvItems.put(FeedReaderContract.FeedTextNote.COLUMN_wage_Rate, wage.get(i).getWageRate());
+            cvItems.put(FeedReaderContract.FeedTextNote.COLUMN_wage_Wage, wage.get(i).getWageWage());
             cvItems.put(FeedReaderContract.FeedTextNote.COLUMN_wage_Type, wage.get(i).getWageType());
             db.insert(FeedReaderContract.FeedTextNote.TABLE_NAME_Wages, null, cvItems);
         }
@@ -270,7 +269,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(FeedReaderContract.FeedTextNote.COLUMN_wage_Desc, wage.getWageDesc());
         cv.put(FeedReaderContract.FeedTextNote.COLUMN_wage_Date, wage.getWageWorkDate());
         cv.put(FeedReaderContract.FeedTextNote.COLUMN_wage_Hours, wage.getWageHours());
-        cv.put(FeedReaderContract.FeedTextNote.COLUMN_wage_Rate, wage.getWageRate());
+        cv.put(FeedReaderContract.FeedTextNote.COLUMN_wage_Wage, wage.getWageWage());
         cv.put(FeedReaderContract.FeedTextNote.COLUMN_wage_Type, wage.getWageType());
         long rowInserted = db.insert(FeedReaderContract.FeedTextNote.TABLE_NAME_Wages, null, cv);
         if (rowInserted != -1)
@@ -294,7 +293,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(FeedReaderContract.FeedTextNote.COLUMN_wage_Desc, wage.getWageDesc());
         cv.put(FeedReaderContract.FeedTextNote.COLUMN_wage_Date, wage.getWageWorkDate());
         cv.put(FeedReaderContract.FeedTextNote.COLUMN_wage_Hours, wage.getWageHours());
-        cv.put(FeedReaderContract.FeedTextNote.COLUMN_wage_Rate, wage.getWageRate());
+        cv.put(FeedReaderContract.FeedTextNote.COLUMN_wage_Wage, wage.getWageWage());
         cv.put(FeedReaderContract.FeedTextNote.COLUMN_wage_Type, wage.getWageType());
         long checkUpdate = db.update(FeedReaderContract.FeedTextNote.TABLE_NAME_Wages, cv, FeedReaderContract.FeedTextNote.COLUMN_ID + "=?", new String[]{String.valueOf(wage.getWageID())});
         if (checkUpdate != -1)

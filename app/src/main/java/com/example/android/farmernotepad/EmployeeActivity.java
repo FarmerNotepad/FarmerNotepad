@@ -50,6 +50,7 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
         FloatingActionButton confirmSaveButton = findViewById(R.id.saveEmployeeBtn);
         final EditText employeeFullName = (EditText) findViewById(R.id.employeeFullName);
         final EditText employeePhoneNumber = (EditText) findViewById(R.id.employeePhoneNumber);
+        TextView employeeTotalDebt = findViewById(R.id.employeeTotalDebt);
         activity = this;
         employeeIntentID = getIncomingIntent();
 
@@ -61,17 +62,12 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
             }
         });
 
-        mNewPaymentList.add(new WageEntry(1,"sad",1,"s"));
-
-
 
         initRecyclerView();
 
         if (employeeIntentID != 0) {
 
-            final Float totalDebt = loadEditableEmployee(employeeIntentID);
-            TextView employeeTotalDebt = findViewById(R.id.employeeTotalDebt);
-            employeeTotalDebt.setText(totalDebt.toString());
+            loadEditableEmployee(employeeIntentID);
 
             confirmSaveButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -86,13 +82,13 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
 
                         String employeeName = employeePhoneNumber.getText().toString();
 
-                        if(GenericUtils.isNumeric(employeeName)) {
+                        if (GenericUtils.isNumeric(employeeName)) {
                             mNewEmployee.setEmployeePhone(Double.parseDouble(employeeName));
-                        }else{
+                        } else {
                             GenericUtils.toast(EmployeeActivity.this, "INVALID PHONE NUMBER");
                         }
 
-                        mNewEmployee.setEmployeeSum(totalDebt);
+                        mNewEmployee.setEmployeeSum(Double.parseDouble(employeeTotalDebt.getText().toString()));
 
                         ArrayList<WageEntry> employeePaymentItems = new ArrayList<>();
 
@@ -129,12 +125,16 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
 
                         String employeeName = employeePhoneNumber.getText().toString();
 
-                        if(GenericUtils.isNumeric(employeeName)) {
+                        if (GenericUtils.isNumeric(employeeName)) {
                             mNewEmployee.setEmployeePhone(Double.parseDouble(employeeName));
-                        }else{
+                        } else {
                             GenericUtils.toast(EmployeeActivity.this, "INVALID PHONE NUMBER");
                         }
-                        //mNewEmployee .setEmployeeSum();
+
+                        String employeeDebt = employeeTotalDebt.getText().toString();
+                        if (GenericUtils.isNumeric(employeeDebt)) {
+                            mNewEmployee.setEmployeeSum(Double.parseDouble(employeeDebt));
+                        }
 
                         ArrayList<WageEntry> employeePaymentItems = new ArrayList<>();
 
@@ -215,7 +215,7 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
                 break;
 
             case R.id.sortPayments:
-                
+
                 break;
 
         }
@@ -234,12 +234,14 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
         Button cancelButton = (Button) alertDialog.findViewById(R.id.addPaymentCancel);
 
         final EditText newPaymentWorkHours = alertDialog.findViewById(R.id.newPaymentWorkHours);
-        final EditText newPaymentRate = alertDialog.findViewById(R.id.newPaymentRate);
+        final EditText newPaymentWage = alertDialog.findViewById(R.id.newPaymentWage);
         final EditText newPaymentDescription = alertDialog.findViewById(R.id.newPaymentDescription);
         final CheckedTextView dayOffCheckedTextView = alertDialog.findViewById(R.id.dayOffCheckedTextView);
         final Calendar myCalendar = Calendar.getInstance();
         final EditText newPaymentDate = (EditText) alertDialog.findViewById(R.id.newPaymentDate);
-        final TextView employmentDebt = (TextView) findViewById(R.id.employmentDebt);
+        //final TextView employmentDebt = (TextView) findViewById(R.id.employmentDebt);
+        final TextView totalDebt = (TextView) findViewById(R.id.employeeTotalDebt);
+
 
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -267,16 +269,31 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
 
                 WageEntry mNewWageEntry = new WageEntry();
 
-                if (newPaymentWorkHours == null || newPaymentRate == null) {
+                if (newPaymentWorkHours == null || newPaymentWage == null) {
                     Toast.makeText(getApplicationContext(), "Update Failed", Toast.LENGTH_SHORT).show();
                 } else {
                     mNewWageEntry.setWageCreateDate(GenericUtils.getDateTime());
                     mNewWageEntry.setWageWorkDate(newPaymentDate.getText().toString());
-                    mNewWageEntry.setWageHours(Double.parseDouble(newPaymentWorkHours.getText().toString()));
-                    mNewWageEntry.setWageRate(Double.parseDouble(newPaymentRate.getText().toString()));
                     mNewWageEntry.setWageDesc(newPaymentDescription.getText().toString());
-                    float hours = Float.parseFloat(newPaymentWorkHours.getText().toString());
-                    float rate = Float.parseFloat(newPaymentRate.getText().toString());
+
+                    String hours = newPaymentWorkHours.getText().toString().trim();
+                    String wage = newPaymentWage.getText().toString().trim();
+                    String total = totalDebt.getText().toString().trim();
+
+                    if (!wage.equals("") || !(wage == null) || !(wage.length() == 0) || !wage.isEmpty() || !(wage == "0.0")) {
+                        mNewWageEntry.setWageWage(Double.parseDouble(wage));
+
+                        if (total.equals("") || total.equals(null)) {
+                            totalDebt.setText(wage);
+                        } else {
+                            double newTotal = Double.valueOf(total) + Double.valueOf(wage);
+                            totalDebt.setText(String.valueOf(newTotal));
+                        }
+                    }
+
+                    if (GenericUtils.isNumeric(hours)) {
+                        mNewWageEntry.setWageHours(Double.parseDouble(hours));
+                    }
 
                     if (dayOffCheckedTextView.isChecked()) {
                         mNewWageEntry.setWageType(2);
@@ -287,7 +304,6 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
                     Toast.makeText(getApplicationContext(), "Payment Added", Toast.LENGTH_SHORT).show();
                     mAdapter.notifyDataSetChanged();
                     alertDialog.dismiss();
-                    employmentDebt.setText(String.valueOf(hours * rate));
                 }
             }
         });
@@ -314,12 +330,13 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
         Button cancelButton = (Button) alertDialog.findViewById(R.id.addPaymentCancel);
 
         final EditText newPaymentWorkHours = alertDialog.findViewById(R.id.newPaymentWorkHours);
-        final EditText newPaymentRate = alertDialog.findViewById(R.id.newPaymentRate);
+        final EditText newPaymentWage = alertDialog.findViewById(R.id.newPaymentWage);
         final EditText newPaymentDescription = alertDialog.findViewById(R.id.newPaymentDescription);
         final CheckedTextView dayOffCheckedTextView = alertDialog.findViewById(R.id.dayOffCheckedTextView);
         final Calendar myCalendar = Calendar.getInstance();
         final EditText newPaymentDate = (EditText) alertDialog.findViewById(R.id.newPaymentDate);
-        final TextView employmentDebt = (TextView) findViewById(R.id.employmentDebt);
+        final TextView totalDebt = (TextView) findViewById(R.id.employeeTotalDebt);
+        //final TextView employmentDebt = (TextView) findViewById(R.id.employmentDebt);
 
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -343,8 +360,9 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
         newPaymentDate.setText(paymentItem.getWageWorkDate());
         newPaymentDate.setText(paymentItem.getWageWorkDate());
         newPaymentWorkHours.setText(String.valueOf((float) paymentItem.getWageHours()));
-        newPaymentRate.setText(String.valueOf((float) paymentItem.getWageRate()));
+        newPaymentWage.setText(String.valueOf((float) paymentItem.getWageWage()));
         newPaymentDescription.setText(paymentItem.getWageDesc());
+        Double wage = paymentItem.wageWage;
 
         okButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -352,17 +370,31 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
 
                 WageEntry mNewWageEntry = new WageEntry();
 
-                if (newPaymentWorkHours == null || newPaymentRate == null) {
+                if (newPaymentWorkHours == null || newPaymentWage == null) {
                     Toast.makeText(getApplicationContext(), "Update Failed", Toast.LENGTH_SHORT).show();
                 } else {
                     mNewWageEntry.setWageCreateDate(GenericUtils.getDateTime());
                     mNewWageEntry.setWageWorkDate(newPaymentDate.getText().toString());
-                    mNewWageEntry.setWageHours(Double.parseDouble(newPaymentWorkHours.getText().toString()));
-                    mNewWageEntry.setWageRate(Double.parseDouble(newPaymentRate.getText().toString()));
+                    String hours = newPaymentWorkHours.getText().toString().trim();
+                    String newWage = newPaymentWage.getText().toString().trim();
+                    String total = totalDebt.getText().toString().trim();
+
+                    if (!newWage.equals("") || !(newWage == null) || !(newWage.length() == 0) || !newWage.isEmpty() || !(newWage == "0.0")) {
+                        mNewWageEntry.setWageWage(Double.parseDouble(newWage));
+
+                        if (total.equals("") || total.equals(null)) {
+                            totalDebt.setText(newWage);
+                        } else {
+                            double newTotal = Double.valueOf(total) - wage + Double.valueOf(newWage);
+                            totalDebt.setText(String.valueOf(newTotal));
+                        }
+                    }
+
+                    if (GenericUtils.isNumeric(hours)) {
+                        mNewWageEntry.setWageHours(Double.parseDouble(hours));
+                    }
+
                     mNewWageEntry.setWageDesc(newPaymentDescription.getText().toString());
-                    float hours = Float.parseFloat(newPaymentWorkHours.getText().toString());
-                    float rate = Float.parseFloat(newPaymentRate.getText().toString());
-                    employmentDebt.setText(String.valueOf(hours * rate));
 
                     if (dayOffCheckedTextView.isChecked()) {
                         mNewWageEntry.setWageType(2);
@@ -397,9 +429,6 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
 
     @Override
     public void onNoteClick(int position) {
-        //WageEntry paymentItem = loadEditablePaymentItem(employeeIntentID, position);
-        //editPaymentDialogBox(paymentItem, position);
-
         WageEntry paymentItem = mNewPaymentList.get(position);
         editPaymentDialogBox(paymentItem, position);
     }
@@ -423,6 +452,7 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
 
         EditText employeeNameEditText = findViewById(R.id.employeeFullName);
         EditText employeePhoneEditText = findViewById(R.id.employeePhoneNumber);
+        TextView employeeTotalDebtTextView = findViewById(R.id.employeeTotalDebt);
         DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
         Cursor cursor = dbHelper.getEmployee(employeeID);
         Cursor cursorItems = dbHelper.getEmployeeWages(employeeID);
@@ -433,6 +463,7 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
 
         String employeeFullName = cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_emp_Name));
         String employeePhone = cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_emp_Phone));
+        String employeeTotalDebt = cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_emp_Sum));
         cursor.close();
 
         if (cursorItems.moveToFirst()) {
@@ -443,10 +474,10 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
                 wageItems.setWageType(cursorItems.getInt(cursorItems.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_wage_Type)));
                 wageItems.setWageDesc(cursorItems.getString(cursorItems.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_wage_Desc)));
                 wageItems.setWageHours(cursorItems.getDouble(cursorItems.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_wage_Hours)));
-                wageItems.setWageRate(cursorItems.getDouble(cursorItems.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_wage_Rate)));
+                wageItems.setWageWage(cursorItems.getDouble(cursorItems.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_wage_Wage)));
                 mNewPaymentList.add(wageItems);
 
-                totalEmployeeDebt += (float) (wageItems.getWageHours() * wageItems.getWageRate());
+                totalEmployeeDebt += (float) (wageItems.getWageHours() * wageItems.getWageWage());
 
             } while (cursorItems.moveToNext());
         }
@@ -454,6 +485,7 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
 
         employeeNameEditText.setText(employeeFullName);
         employeePhoneEditText.setText(employeePhone);
+        employeeTotalDebtTextView.setText(employeeTotalDebt);
 
         dbHelper.close();
 
