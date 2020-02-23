@@ -105,6 +105,7 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
                         } else {
                             Toast.makeText(getApplicationContext(), "Insertion Failed", Toast.LENGTH_SHORT).show();
                         }
+                        dbHelper.close();
                     }
                 }
             });
@@ -144,6 +145,7 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
                         } else {
                             Toast.makeText(getApplicationContext(), "Insertion Failed", Toast.LENGTH_SHORT).show();
                         }
+                        dbHelper.close();
                     }
                 }
             });

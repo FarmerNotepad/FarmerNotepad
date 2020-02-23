@@ -113,6 +113,7 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
                     } else {
                         Toast.makeText(getApplicationContext(), "Update Failed", Toast.LENGTH_SHORT).show();
                     }
+                    dbHelper.close();
                 }
             });
         } else {
@@ -155,6 +156,7 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
                     } else {
                         Toast.makeText(getApplicationContext(), "Insertion Failed", Toast.LENGTH_SHORT).show();
                     }
+                    dbHelper.close();
                 }
             });
         }
@@ -313,6 +315,7 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
                                     Toast.makeText(getApplicationContext(), "Deletion failed", LENGTH_SHORT).show();
                                 }
                                 alertDeleteDialog.dismiss();
+                                dbHelper.close();
                             }
                         });
                 alertDeleteDialog.setButton(android.app.AlertDialog.BUTTON_NEGATIVE, "NO", new DialogInterface.OnClickListener() {
@@ -492,6 +495,7 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
             } while (cursorItems.moveToNext());
         }
         cursorItems.close();
+        dbHelper.close();
 
         EditText title = findViewById(R.id.checklistTitleEditText);
 

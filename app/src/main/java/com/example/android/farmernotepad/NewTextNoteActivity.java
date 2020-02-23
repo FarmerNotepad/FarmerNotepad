@@ -118,6 +118,7 @@ public class NewTextNoteActivity extends AppCompatActivity {
                     } else {
                         Toast.makeText(getApplicationContext(), "Insertion Failed", Toast.LENGTH_SHORT).show();
                     }
+                    dbHelper.close();
                 }
             });
 
@@ -290,6 +291,7 @@ public class NewTextNoteActivity extends AppCompatActivity {
                                     Toast.makeText(getApplicationContext(), "Delete failed", LENGTH_SHORT).show();
                                 }
                                 alertDeleteDialog.dismiss();
+                                dbHelper.close();
                             }
                         });
                 alertDeleteDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "NO", new DialogInterface.OnClickListener() {
@@ -361,6 +363,8 @@ public class NewTextNoteActivity extends AppCompatActivity {
 
         title.setText(textNoteTitle);
         text.setText(textNoteText);
+
+        dbHelper.close();
 
     }
 
