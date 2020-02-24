@@ -41,7 +41,7 @@
             android:layout_marginVertical="8dp"
             android:background="@color/cardview_light_background"
             android:hint="ADD HOURS OF WORK"
-            android:inputType="numberDecimal"
+            android:inputType="number"
             android:padding="5dp"
             android:textSize="15dp" />
 
@@ -54,7 +54,6 @@
             android:hint="ADD TOTAL WAGE"
             android:inputType="numberDecimal"
             android:padding="5dp"
-            android:text="0"
             android:textSize="15dp" />
 
         <EditText
