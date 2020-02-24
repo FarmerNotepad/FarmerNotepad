@@ -28,7 +28,7 @@
             android:id="@+id/colorGrey"
             android:layout_width="85dp"
             android:layout_height="85dp"
-            android:background="@color/LightGrey"
+            android:background="@color/Grey"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.962"

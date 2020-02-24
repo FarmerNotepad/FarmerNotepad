@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -388,7 +387,7 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
                 buttonGrey.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        noteColor = getColor(R.color.LightGrey);
+                        noteColor = getColor(R.color.Grey);
                         GenericUtils.tintMenuIcon(NewChecklistActivity.this,pickColorItem,noteColor);
                         alertDialog.dismiss();
                     }
