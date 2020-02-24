@@ -1,6 +1,6 @@
 package com.example.android.farmernotepad;
 
-import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +13,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class RecyclerViewAdapterMain extends RecyclerView.Adapter implements Filterable {
@@ -128,7 +130,11 @@ public class RecyclerViewAdapterMain extends RecyclerView.Adapter implements Fil
             TextNoteEntry textNote = (TextNoteEntry) allNotesList.get(position);
             textNoteTitle.setText(textNote.getNoteTitle());
             textNoteContent.setText(textNote.getNoteText());
-            parentLayout.setBackgroundColor(allNotesList.get(position).getColor());
+            //parentLayout.setBackgroundColor(allNotesList.get(position).getColor());
+            Drawable unwrappedDrawable = ContextCompat.getDrawable(parentLayout.getContext(), R.drawable.rounded_corners);
+            Drawable wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable);
+            DrawableCompat.setTint(wrappedDrawable, allNotesList.get(position).getColor());
+            parentLayout.setBackground(wrappedDrawable);
         }
 
         @Override
@@ -167,7 +173,10 @@ public class RecyclerViewAdapterMain extends RecyclerView.Adapter implements Fil
                 result += " \u2022" + s;
             }
             textNoteContent.setText(result);
-            parentLayout.setBackgroundColor(allNotesList.get(position).getColor());
+            Drawable unwrappedDrawable = ContextCompat.getDrawable(parentLayout.getContext(), R.drawable.rounded_corners);
+            Drawable wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable);
+            DrawableCompat.setTint(wrappedDrawable, allNotesList.get(position).getColor());
+            parentLayout.setBackground(wrappedDrawable);
         }
 
         @Override
