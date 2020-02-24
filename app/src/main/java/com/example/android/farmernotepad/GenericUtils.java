@@ -143,6 +143,24 @@ public class GenericUtils {
         return myList;
     }
 
+    public static ArrayList<WageEntry> sortByPayment(ArrayList<WageEntry> myList, final boolean desc) {
+        Collections.sort(myList, new Comparator<WageEntry>() {
+
+            @Override
+            public int compare(WageEntry note1, WageEntry note2) {
+
+                if (!desc) {
+                    return Integer.compare((int) note1.getWageWage(), (int) note2.getWageWage());
+                } else {
+                    return Integer.compare((int) note2.getWageWage(), (int) note1.getWageWage());
+                }
+            }
+        });
+        return myList;
+    }
+
+
+
 
     public static boolean isOnline() {
         try {

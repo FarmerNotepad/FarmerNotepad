@@ -189,7 +189,7 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
         final AlertDialog alertDialog = alert.create();
         alertDialog.setCanceledOnTouchOutside(true);
         alertDialog.show();
-        
+
         Button okButton = (Button) alertDialog.findViewById(R.id.okButton);
         Button cancelButton = (Button) alertDialog.findViewById(R.id.cancelButton);
         final EditText editText = (EditText) alertDialog.findViewById(R.id.checklistEditText);
@@ -209,7 +209,7 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
             }
         });
 
-            cancelButton.setOnClickListener(new View.OnClickListener() {
+        cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 editText.getText().clear();
@@ -259,7 +259,6 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
         });
 
     }
-
 
 
     @Override
@@ -343,7 +342,7 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
                     @Override
                     public void onClick(View v) {
                         noteColor = getColor(R.color.White);
-                        GenericUtils.tintMenuIcon(NewChecklistActivity.this,pickColorItem,noteColor);
+                        GenericUtils.tintMenuIcon(NewChecklistActivity.this, pickColorItem, noteColor);
                         alertDialog.dismiss();
                     }
                 });
@@ -352,7 +351,7 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
                     @Override
                     public void onClick(View view) {
                         noteColor = getColor(R.color.Red);
-                        GenericUtils.tintMenuIcon(NewChecklistActivity.this,pickColorItem,noteColor);
+                        GenericUtils.tintMenuIcon(NewChecklistActivity.this, pickColorItem, noteColor);
                         alertDialog.dismiss();
                     }
                 });
@@ -361,7 +360,7 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
                     @Override
                     public void onClick(View view) {
                         noteColor = getColor(R.color.Blue);
-                        GenericUtils.tintMenuIcon(NewChecklistActivity.this,pickColorItem,noteColor);
+                        GenericUtils.tintMenuIcon(NewChecklistActivity.this, pickColorItem, noteColor);
                         alertDialog.dismiss();
                     }
                 });
@@ -370,7 +369,7 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
                     @Override
                     public void onClick(View view) {
                         noteColor = getColor(R.color.Green);
-                        GenericUtils.tintMenuIcon(NewChecklistActivity.this,pickColorItem,noteColor);
+                        GenericUtils.tintMenuIcon(NewChecklistActivity.this, pickColorItem, noteColor);
                         alertDialog.dismiss();
                     }
                 });
@@ -379,7 +378,7 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
                     @Override
                     public void onClick(View view) {
                         noteColor = getColor(R.color.Yellow);
-                        GenericUtils.tintMenuIcon(NewChecklistActivity.this,pickColorItem,noteColor);
+                        GenericUtils.tintMenuIcon(NewChecklistActivity.this, pickColorItem, noteColor);
                         alertDialog.dismiss();
                     }
                 });
@@ -388,7 +387,7 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
                     @Override
                     public void onClick(View view) {
                         noteColor = getColor(R.color.Grey);
-                        GenericUtils.tintMenuIcon(NewChecklistActivity.this,pickColorItem,noteColor);
+                        GenericUtils.tintMenuIcon(NewChecklistActivity.this, pickColorItem, noteColor);
                         alertDialog.dismiss();
                     }
                 });
@@ -397,7 +396,7 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
                     @Override
                     public void onClick(View view) {
                         noteColor = getColor(R.color.Black);
-                        GenericUtils.tintMenuIcon(NewChecklistActivity.this,pickColorItem,noteColor);
+                        GenericUtils.tintMenuIcon(NewChecklistActivity.this, pickColorItem, noteColor);
                         alertDialog.dismiss();
                     }
                 });
@@ -406,7 +405,7 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
                     @Override
                     public void onClick(View view) {
                         noteColor = getColor(R.color.Orange);
-                        GenericUtils.tintMenuIcon(NewChecklistActivity.this,pickColorItem,noteColor);
+                        GenericUtils.tintMenuIcon(NewChecklistActivity.this, pickColorItem, noteColor);
                         alertDialog.dismiss();
                     }
                 });
@@ -415,7 +414,7 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
                     @Override
                     public void onClick(View view) {
                         noteColor = getColor(R.color.Purple);
-                        GenericUtils.tintMenuIcon(NewChecklistActivity.this,pickColorItem,noteColor);
+                        GenericUtils.tintMenuIcon(NewChecklistActivity.this, pickColorItem, noteColor);
                         alertDialog.dismiss();
                     }
                 });
@@ -424,37 +423,36 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
                 break;
 
             case R.id.editNote:
-                    findViewById(R.id.checklistTitleEditText).setEnabled(true);
-                    findViewById(R.id.addChecklistItemButton).setClickable(true);
-                    findViewById(R.id.addChecklistItemButton).setVisibility(View.VISIBLE);
-                    mMenu.findItem(R.id.pickColor).setEnabled(true);
+                findViewById(R.id.checklistTitleEditText).setEnabled(true);
+                findViewById(R.id.addChecklistItemButton).setClickable(true);
+                findViewById(R.id.addChecklistItemButton).setVisibility(View.VISIBLE);
+                mMenu.findItem(R.id.pickColor).setEnabled(true);
                 break;
 
 
             case R.id.shareNote:
                 String toSend = "";
-                for (int i =0; i < mChecklistItem.size(); i++){
-                    toSend =toSend + mChecklistItem.get(i) + System.lineSeparator();
+                for (int i = 0; i < mChecklistItem.size(); i++) {
+                    toSend = toSend + mChecklistItem.get(i) + System.lineSeparator();
                 }
 
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
                 sendIntent.putExtra(Intent.EXTRA_TEXT,
-                       toSend);
+                        toSend);
                 sendIntent.setType("text/plain");
                 startActivity(sendIntent);
 
                 break;
 
             case R.id.showOnMap:
-                if(noteLat.get(0) == 0 && noteLong.get(0) == 0) {
-                    GenericUtils.toast(NewChecklistActivity.this,"Note has no location.");
-                }
-                else {
+                if (noteLat.get(0) == 0 && noteLong.get(0) == 0) {
+                    GenericUtils.toast(NewChecklistActivity.this, "Note has no location.");
+                } else {
                     Intent mapIntent = new Intent(NewChecklistActivity.this, MapsActivity.class);
                     mapIntent.putExtra("NoteLat", noteLat);
                     mapIntent.putExtra("NoteLong", noteLong);
-                    mapIntent.putExtra("Title",mNoteTitle);
+                    mapIntent.putExtra("Title", mNoteTitle);
                     startActivity(mapIntent);
                 }
                 break;

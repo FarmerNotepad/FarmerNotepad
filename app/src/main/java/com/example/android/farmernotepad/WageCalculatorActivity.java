@@ -104,12 +104,19 @@ public class WageCalculatorActivity extends AppCompatActivity implements Recycle
 
             case R.id.employeesBackup:
                 Intent intentBackup = new Intent(WageCalculatorActivity.this, Backup.class);
+                intentBackup.putExtra("lastActivity", "wageCalc");
                 startActivity(intentBackup);
+                WageCalculatorActivity.this.finish();
                 break;
 
             case R.id.employeesFeedback:
-                Intent intent = new Intent(WageCalculatorActivity.this, FeedbackActivity.class);
-                startActivity(intent);
+                Intent intentFeedBack = new Intent(WageCalculatorActivity.this, FeedbackActivity.class);
+                startActivity(intentFeedBack);
+                break;
+
+            case R.id.employeesSettings:
+                Intent intentSettings = new Intent(WageCalculatorActivity.this, SettingsActivity.class);
+                startActivity(intentSettings);
                 break;
 
 

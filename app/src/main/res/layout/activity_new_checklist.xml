@@ -33,8 +33,7 @@
         android:id="@+id/checklistRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/checklistTitleEditText"
-        tools:layout_editor_absoluteX="0dp"></androidx.recyclerview.widget.RecyclerView>
+        app:layout_constraintTop_toBottomOf="@+id/checklistTitleEditText"></androidx.recyclerview.widget.RecyclerView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/confirmSaveChecklist"

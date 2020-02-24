@@ -119,7 +119,9 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
 
             case R.id.Backup:
                 Intent intentBackup = new Intent(MainActivity.this, Backup.class);
+                intentBackup.putExtra("lastActivity", "main");
                 startActivity(intentBackup);
+                MainActivity.this.finish();
                 break;
 
             case R.id.wageCalculator:

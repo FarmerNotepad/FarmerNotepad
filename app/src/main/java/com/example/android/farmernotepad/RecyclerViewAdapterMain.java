@@ -1,6 +1,9 @@
 package com.example.android.farmernotepad;
 
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +12,8 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -135,6 +140,10 @@ public class RecyclerViewAdapterMain extends RecyclerView.Adapter implements Fil
             Drawable wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable);
             DrawableCompat.setTint(wrappedDrawable, allNotesList.get(position).getColor());
             parentLayout.setBackground(wrappedDrawable);
+            if(allNotesList.get(position).getColor() == Color.BLACK){
+                textNoteTitle.setTextColor(Color.WHITE);
+                textNoteContent.setTextColor(Color.WHITE);
+            }
         }
 
         @Override
@@ -177,6 +186,11 @@ public class RecyclerViewAdapterMain extends RecyclerView.Adapter implements Fil
             Drawable wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable);
             DrawableCompat.setTint(wrappedDrawable, allNotesList.get(position).getColor());
             parentLayout.setBackground(wrappedDrawable);
+            if(allNotesList.get(position).getColor() == Color.BLACK){
+                textNoteTitle.setTextColor(Color.WHITE);
+                textNoteContent.setTextColor(Color.WHITE);
+            }
+
         }
 
         @Override
