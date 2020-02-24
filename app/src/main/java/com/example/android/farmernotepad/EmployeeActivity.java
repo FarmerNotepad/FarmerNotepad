@@ -4,7 +4,6 @@ import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -53,10 +52,10 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
         final EditText employeeFullName = (EditText) findViewById(R.id.employeeFullName);
         final EditText employeePhoneNumber = (EditText) findViewById(R.id.employeePhoneNumber);
         TextView employeeTotalDebt = findViewById(R.id.employeeTotalDebt);
+        Button addPaymentDayOff = (Button) findViewById(R.id.addPaymentBtn);
         activity = this;
         employeeIntentID = getIncomingIntent();
 
-        Button addPaymentDayOff = (Button) findViewById(R.id.addPaymentBtn);
         addPaymentDayOff.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,6 +67,11 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
         initRecyclerView();
 
         if (employeeIntentID != 0) {
+            employeeFullName.setEnabled(false);
+            employeePhoneNumber.setEnabled(false);
+            addPaymentDayOff.setClickable(false);
+            addPaymentDayOff.setVisibility(View.INVISIBLE);
+
 
             loadEditableEmployee(employeeIntentID);
 
@@ -81,8 +85,6 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
                         Toast.makeText(getApplicationContext(), "Fill Employee Name", Toast.LENGTH_SHORT).show();
                     } else {
                         mNewEmployee.setEmployeeName(employeeFullName.getText().toString().trim());
-
-
 
 
                         mNewEmployee.setEmployeePhone(employeePhoneNumber.getText().toString());
@@ -199,13 +201,16 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
                 break;
 
             case R.id.editEmployee:
-                //findViewById(R.id.checklistTitleEditText).setEnabled(true);
-                //findViewById(R.id.addChecklistItemButton).setClickable(true);
-                //findViewById(R.id.addChecklistItemButton).setVisibility(View.VISIBLE);
+                findViewById(R.id.employeeFullName).setEnabled(true);
+                findViewById(R.id.employeePhoneNumber).setEnabled(true);
+                findViewById(R.id.addPaymentBtn).setVisibility(View.VISIBLE);
+                findViewById(R.id.addPaymentBtn).setClickable(true);
                 break;
 
             case R.id.sortPayments:
-
+                GenericUtils.sortByPayment(mNewPaymentList, desc);
+                mAdapter.notifyDataSetChanged();
+                desc = !desc;
                 break;
 
         }
@@ -272,8 +277,7 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
 
                     if (newPaymentWage.getText().toString().equals("")) {
                         mNewWageEntry.setWageWage(0);
-                    }
-                        else {
+                    } else {
                         mNewWageEntry.setWageWage(Double.parseDouble(newPaymentWage.getText().toString()));
 
                     }
@@ -366,8 +370,7 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
 
                     if (newPaymentWage.getText().toString().equals("")) {
                         mNewWageEntry.setWageWage(0);
-                    }
-                    else {
+                    } else {
                         mNewWageEntry.setWageWage(Double.parseDouble(newPaymentWage.getText().toString()));
                     }
 
@@ -403,11 +406,9 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
         mRecyclerView = findViewById(R.id.addPaymentRecyclerView);
         mLayoutManager = new LinearLayoutManager(this);
         mAdapter = new RecyclerViewAdapterEmployee(mNewPaymentList, this);
-        mAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver()
-        {
+        mAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
             @Override
-            public void onChanged()
-            {
+            public void onChanged() {
                 calcDebt();
             }
         });
@@ -468,7 +469,6 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
                 mNewPaymentList.add(wageItems);
 
 
-
             } while (cursorItems.moveToNext());
         }
         cursorItems.close();
@@ -484,7 +484,7 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
 
     public void calcDebt() {
         double debt = 0;
-        for (int i =0; i < mNewPaymentList.size(); i++){
+        for (int i = 0; i < mNewPaymentList.size(); i++) {
             if (mNewPaymentList.get(i).getWageType() == 1) {
                 debt = debt + mNewPaymentList.get(i).getWageWage();
             }

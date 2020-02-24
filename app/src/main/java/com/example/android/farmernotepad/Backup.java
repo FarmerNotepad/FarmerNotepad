@@ -1,14 +1,10 @@
 package com.example.android.farmernotepad;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -18,16 +14,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
-import java.io.IOException;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class Backup extends AppCompatActivity {
     private static Backup activity;
     public static final int REQUEST_CODE = 5;
+    String lastActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_backup);
+        lastActivity = getIncomingIntent();
         activity = this;
 
         final Button btnExport = findViewById(R.id.exportButton);
@@ -37,7 +36,7 @@ public class Backup extends AppCompatActivity {
         final CheckBox checkOnline = findViewById(R.id.checkBoxOnline);
         final TextView localPath = findViewById(R.id.textViewPath);
 
-        if (!FileUtils.checkStoragePermission(Backup.this)){
+        if (!FileUtils.checkStoragePermission(Backup.this)) {
             FileUtils.requestStoragePermission(activity);
         }
 
@@ -99,14 +98,14 @@ public class Backup extends AppCompatActivity {
                                 "farmernotepad123");
                         sender.exportDbOnline("Your notes backup", "This is your database file.",
                                 "farmernotepad@gmail.com", exportEmail.getText().toString(), Backup.this);
-                        GenericUtils.toast(getApplicationContext(),"Database Exported");
+                        GenericUtils.toast(getApplicationContext(), "Database Exported");
 
                     } catch (Exception e) {
                         Log.e("SendMail", e.getMessage(), e);
                         Toast.makeText(getApplicationContext(), "Error sending email.", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    GenericUtils.toast(getApplicationContext(),"No Internet connection found");
+                    GenericUtils.toast(getApplicationContext(), "No Internet connection found");
                 }
             }
         }).start();
@@ -116,40 +115,68 @@ public class Backup extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        switch(requestCode){
+        switch (requestCode) {
             case REQUEST_CODE:
-                if(resultCode==RESULT_OK){
+                if (resultCode == RESULT_OK) {
                     Uri uri = data.getData();
-                    String realPath = FileUtils.getPathFromUri(Backup.this,uri);
+                    String realPath = FileUtils.getPathFromUri(Backup.this, uri);
 
 
                     if (realPath.endsWith("FarmerNotepad.db")) {
-                        if (FileUtils.checkStoragePermission(Backup.this)){
+                        if (FileUtils.checkStoragePermission(Backup.this)) {
                             File source = new File(realPath);
                             File dest = Backup.this.getDatabasePath(DatabaseHelper.DATABASE_NAME);
 
                             try {
-                                FileUtils.copyDatabase(source, dest,Backup.this);
+                                FileUtils.copyDatabase(source, dest, Backup.this);
                                 //GenericUtils.toast(Backup.this, realPath);
-                                Intent intent = new Intent(Backup.this, MainActivity.class);
+                                Intent intent = new Intent();
+
+                                if (lastActivity.matches("main")) {
+                                    intent = new Intent(Backup.this, MainActivity.class);
+                                } else if (lastActivity.matches("wageCalc")) {
+                                    intent = new Intent(Backup.this, WageCalculatorActivity.class);
+
+                                }
                                 startActivity(intent);
                                 Backup.this.finish();
 
-                            }
-                            catch (Exception e) {
+                            } catch (Exception e) {
                                 Log.e("YOUR ERROR TAG HERE", "Copying failed", e);
                             }
 
+                        } else {
+                            Toast.makeText(Backup.this, "Requires external storage permission", Toast.LENGTH_LONG).show();
                         }
-                        else { Toast.makeText(Backup.this,"Requires external storage permission",Toast.LENGTH_LONG).show(); }
-                    }
-                    else {
-                        Toast.makeText(Backup.this,"Error: Select a FarmerNotepad.db file", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(Backup.this, "Error: Select a FarmerNotepad.db file", Toast.LENGTH_LONG).show();
                     }
                 }
                 break;
 
         }
+    }
+
+    private String getIncomingIntent() {
+        if (getIntent().hasExtra("lastActivity")) {
+            return getIntent().getStringExtra("lastActivity");
+        } else {
+            return "WRONG";
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent();
+
+        if (lastActivity.matches("main")) {
+            intent = new Intent(Backup.this, MainActivity.class);
+        } else if (lastActivity.matches("wageCalc")) {
+            intent = new Intent(Backup.this, WageCalculatorActivity.class);
+
+        }
+        startActivity(intent);
+        Backup.this.finish();
     }
 
 
