@@ -126,10 +126,7 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
                         mNewEmployee.setEmployeePhone(employeePhoneNumber.getText().toString());
 
 
-                        String employeeDebt = employeeTotalDebt.getText().toString();
-                        if (GenericUtils.isNumeric(employeeDebt)) {
-                            mNewEmployee.setEmployeeSum(Double.parseDouble(employeeDebt));
-                        }
+                        mNewEmployee.setEmployeeSum(Double.parseDouble(employeeTotalDebt.getText().toString()));
 
                         mNewEmployee.setEmployeePaymentItems(mNewPaymentList);
 
@@ -270,22 +267,19 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
                     mNewWageEntry.setWageDesc(newPaymentDescription.getText().toString());
 
                     String hours = newPaymentWorkHours.getText().toString().trim();
-                    String wage = newPaymentWage.getText().toString().trim();
-                    String total = totalDebt.getText().toString().trim();
+                    // String wage = newPaymentWage.getText().toString().trim();
+                    //String total = totalDebt.getText().toString().trim();
 
-                    if (!wage.equals("") || !(wage == null) || !(wage.length() == 0) || !wage.isEmpty() || !(wage == "0.0")) {
-                        mNewWageEntry.setWageWage(Double.parseDouble(wage));
+                    if (newPaymentWage.getText().toString().equals("")) {
+                        mNewWageEntry.setWageWage(0);
+                    }
+                        else {
+                        mNewWageEntry.setWageWage(Double.parseDouble(newPaymentWage.getText().toString()));
 
-                        if (total.equals("") || total.equals(null)) {
-                            totalDebt.setText(wage);
-                        } else {
-                            double newTotal = Double.valueOf(total) + Double.valueOf(wage);
-                            totalDebt.setText(String.valueOf(newTotal));
-                        }
                     }
 
                     if (GenericUtils.isNumeric(hours)) {
-                        mNewWageEntry.setWageHours(Double.parseDouble(hours));
+                        mNewWageEntry.setWageHours(Integer.parseInt(hours));
                     }
 
                     if (dayOffCheckedTextView.isChecked()) {
@@ -329,7 +323,6 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
         final Calendar myCalendar = Calendar.getInstance();
         final EditText newPaymentDate = (EditText) alertDialog.findViewById(R.id.newPaymentDate);
         final TextView totalDebt = (TextView) findViewById(R.id.employeeTotalDebt);
-        //final TextView employmentDebt = (TextView) findViewById(R.id.employmentDebt);
 
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -350,12 +343,12 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
             }
         });
 
+
         newPaymentDate.setText(paymentItem.getWageWorkDate());
-        newPaymentDate.setText(paymentItem.getWageWorkDate());
-        newPaymentWorkHours.setText(String.valueOf((float) paymentItem.getWageHours()));
-        newPaymentWage.setText(String.valueOf((float) paymentItem.getWageWage()));
+        newPaymentWorkHours.setText(String.valueOf((paymentItem.getWageHours())));
+        newPaymentWage.setText(String.valueOf(paymentItem.getWageWage()));
         newPaymentDescription.setText(paymentItem.getWageDesc());
-        Double wage = paymentItem.wageWage;
+
 
         okButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -369,22 +362,17 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
                     mNewWageEntry.setWageCreateDate(GenericUtils.getDateTime());
                     mNewWageEntry.setWageWorkDate(newPaymentDate.getText().toString());
                     String hours = newPaymentWorkHours.getText().toString().trim();
-                    String newWage = newPaymentWage.getText().toString().trim();
-                    String total = totalDebt.getText().toString().trim();
 
-                    if (!newWage.equals("") || !(newWage == null) || !(newWage.length() == 0) || !newWage.isEmpty() || !(newWage == "0.0")) {
-                        mNewWageEntry.setWageWage(Double.parseDouble(newWage));
 
-                        if (total.equals("") || total.equals(null)) {
-                            totalDebt.setText(newWage);
-                        } else {
-                            double newTotal = Double.valueOf(total) - wage + Double.valueOf(newWage);
-                            totalDebt.setText(String.valueOf(newTotal));
-                        }
+                    if (newPaymentWage.getText().toString().equals("")) {
+                        mNewWageEntry.setWageWage(0);
+                    }
+                    else {
+                        mNewWageEntry.setWageWage(Double.parseDouble(newPaymentWage.getText().toString()));
                     }
 
                     if (GenericUtils.isNumeric(hours)) {
-                        mNewWageEntry.setWageHours(Double.parseDouble(hours));
+                        mNewWageEntry.setWageHours(Integer.parseInt(hours));
                     }
 
                     mNewWageEntry.setWageDesc(newPaymentDescription.getText().toString());
@@ -462,11 +450,9 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
         if (cursor != null)
             cursor.moveToFirst();
 
-        //String employeeFullName = cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_emp_Name));
+
         mEmployee.setEmployeeName(cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_emp_Name)));
-        //String employeePhone = cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_emp_Phone));
         mEmployee.setEmployeePhone(cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_emp_Phone)));
-        //String employeeTotalDebt = cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_emp_Sum));
         mEmployee.setEmployeeSum(cursor.getDouble(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_emp_Sum)));
         cursor.close();
 
@@ -477,7 +463,7 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
                 wageItems.setWageWorkDate(cursorItems.getString(cursorItems.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_wage_Date)));
                 wageItems.setWageType(cursorItems.getInt(cursorItems.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_wage_Type)));
                 wageItems.setWageDesc(cursorItems.getString(cursorItems.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_wage_Desc)));
-                wageItems.setWageHours(cursorItems.getDouble(cursorItems.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_wage_Hours)));
+                wageItems.setWageHours(cursorItems.getInt(cursorItems.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_wage_Hours)));
                 wageItems.setWageWage(cursorItems.getDouble(cursorItems.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_wage_Wage)));
                 mNewPaymentList.add(wageItems);
 

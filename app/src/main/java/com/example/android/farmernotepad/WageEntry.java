@@ -6,7 +6,7 @@ public class WageEntry {
     int employee_rel_ID;
     double wageWage;
     String wageDesc;
-    double wageHours;
+    int wageHours;
     String wageWorkDate;
     String wageCreateDate;
     int wageType;
@@ -14,7 +14,7 @@ public class WageEntry {
     public WageEntry() {
     }
 
-    public WageEntry(double wageWage, String wageDesc, double wageHours, String wageWorkDate) {
+    public WageEntry(double wageWage, String wageDesc, int wageHours, String wageWorkDate) {
         this.wageWage = wageWage;
         this.wageDesc = wageDesc;
         this.wageHours = wageHours;
@@ -49,11 +49,11 @@ public class WageEntry {
         this.wageDesc = wageDesc;
     }
 
-    public double getWageHours() {
+    public int getWageHours() {
         return wageHours;
     }
 
-    public void setWageHours(double wageHours) {
+    public void setWageHours(int wageHours) {
         this.wageHours = wageHours;
     }
 
