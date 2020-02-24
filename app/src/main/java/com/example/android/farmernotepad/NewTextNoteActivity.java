@@ -228,7 +228,7 @@ public class NewTextNoteActivity extends AppCompatActivity {
                 buttonGrey.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        noteColor = getColor(R.color.LightGrey);
+                        noteColor = getColor(R.color.Grey);
                         GenericUtils.tintMenuIcon(NewTextNoteActivity.this,pickColorItem,noteColor);
                         alertDialog.dismiss();
                     }
