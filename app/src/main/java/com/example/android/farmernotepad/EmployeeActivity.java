@@ -225,6 +225,7 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
         alertDialog.setCanceledOnTouchOutside(true);
         alertDialog.show();
 
+
         Button okButton = (Button) alertDialog.findViewById(R.id.addPaymentOk);
         Button cancelButton = (Button) alertDialog.findViewById(R.id.addPaymentCancel);
 
@@ -233,9 +234,10 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
         final EditText newPaymentDescription = alertDialog.findViewById(R.id.newPaymentDescription);
         final CheckedTextView dayOffCheckedTextView = alertDialog.findViewById(R.id.dayOffCheckedTextView);
         final Calendar myCalendar = Calendar.getInstance();
-        final EditText newPaymentDate = (EditText) alertDialog.findViewById(R.id.newPaymentDate);
-        //final TextView employmentDebt = (TextView) findViewById(R.id.employmentDebt);
-        final TextView totalDebt = (TextView) findViewById(R.id.employeeTotalDebt);
+        final EditText newPaymentDate = alertDialog.findViewById(R.id.newPaymentDate);
+
+
+
 
 
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
@@ -272,8 +274,6 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
                     mNewWageEntry.setWageDesc(newPaymentDescription.getText().toString());
 
                     String hours = newPaymentWorkHours.getText().toString().trim();
-                    // String wage = newPaymentWage.getText().toString().trim();
-                    //String total = totalDebt.getText().toString().trim();
 
                     if (newPaymentWage.getText().toString().equals("")) {
                         mNewWageEntry.setWageWage(0);
@@ -299,6 +299,14 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
             }
         });
 
+        alertDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                okButton.callOnClick();
+                dialog.dismiss();
+            }
+        });
+
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -317,16 +325,16 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
         alertDialog.setCanceledOnTouchOutside(true);
         alertDialog.show();
 
-        Button okButton = (Button) alertDialog.findViewById(R.id.addPaymentOk);
-        Button cancelButton = (Button) alertDialog.findViewById(R.id.addPaymentCancel);
+        Button okButton = alertDialog.findViewById(R.id.addPaymentOk);
+        Button cancelButton =  alertDialog.findViewById(R.id.addPaymentCancel);
 
         final EditText newPaymentWorkHours = alertDialog.findViewById(R.id.newPaymentWorkHours);
         final EditText newPaymentWage = alertDialog.findViewById(R.id.newPaymentWage);
         final EditText newPaymentDescription = alertDialog.findViewById(R.id.newPaymentDescription);
         final CheckedTextView dayOffCheckedTextView = alertDialog.findViewById(R.id.dayOffCheckedTextView);
         final Calendar myCalendar = Calendar.getInstance();
-        final EditText newPaymentDate = (EditText) alertDialog.findViewById(R.id.newPaymentDate);
-        final TextView totalDebt = (TextView) findViewById(R.id.employeeTotalDebt);
+        final EditText newPaymentDate = alertDialog.findViewById(R.id.newPaymentDate);
+
 
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -390,6 +398,14 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
                     Toast.makeText(getApplicationContext(), "Payment Added", Toast.LENGTH_SHORT).show();
                     alertDialog.dismiss();
                 }
+            }
+        });
+
+        alertDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                okButton.callOnClick();
+                dialog.dismiss();
             }
         });
 
