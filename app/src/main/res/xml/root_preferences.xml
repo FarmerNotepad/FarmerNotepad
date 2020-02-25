@@ -19,21 +19,79 @@
 
     <PreferenceCategory
         app:key="visuals_category"
-        app:title="Visual Options">
+        app:title="General">
+
         <ListPreference
-            app:key="default_color"
-            app:useSimpleSummaryProvider="true"
-            app:title="Default Note Color"
+            app:key="default_home_screen"
+            app:title="Default Home Screen"/>
+
+        <ListPreference
             app:defaultValue="#FFFFFF"
             app:entries="@array/color_array"
-            app:entryValues="@array/color_array_values"/>
+            app:entryValues="@array/color_array_values"
+            app:key="default_color"
+            app:title="Default Note Color"
+            app:useSimpleSummaryProvider="true" />
+
+        <ListPreference
+            app:key="default_wageCalc_sort_order"
+            app:title="Default Wage Calculator sort order" />
+        <ListPreference
+            app:key="default_employee_sort_order"
+            app:title="Default Employee sort order" />
+        <ListPreference
+            app:key="default_font_size"
+            app:title="Default font size"/>
 
 
         <SwitchPreferenceCompat
             app:key="dark_mode"
-            app:title="Dark mode"/>
+            app:title="Dark Mode" />
 
 
     </PreferenceCategory>
+
+    <PreferenceCategory
+        app:key="sort_category"
+        app:title="Sort"
+        app:allowDividerAbove="true"
+        app:allowDividerBelow="true">
+
+        <ListPreference
+            app:key="default_note_sort_order"
+            app:title="Default Notes sort order"/>
+
+        <ListPreference
+            app:key="default_wageCalc_sort_order"
+            app:title="Default Wage Calculator sort order" />
+
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:key="backup_category"
+        app:title="Backup">
+
+        <EditTextPreference
+            app:key="backup"
+            app:title="Backup now"/>
+
+        <CheckBoxPreference
+            app:key="auto_backup"
+            app:title="Auto Backup"/>
+
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:key="about_category"
+        app:title="About">
+
+        <EditTextPreference
+            app:key="app_info"
+            app:title="App Info"/>
+
+    </PreferenceCategory>
+
 
 </PreferenceScreen>
