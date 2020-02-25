@@ -2,8 +2,11 @@ package com.example.android.farmernotepad;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -43,11 +46,14 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_checklist);
-        noteColor = getColor(R.color.White);
         final EditText checklistTitle = findViewById(R.id.checklistTitleEditText);
         final CheckBox checkLocation = findViewById(R.id.checkBoxLocChecklist);
         activity = this;
         noteIntentID = getIncomingIntent();
+
+        SharedPreferences sharedPreferences =
+                PreferenceManager.getDefaultSharedPreferences(this);
+        noteColor = Color.parseColor(sharedPreferences.getString("default_color", ""));
 
 
         Button addItemButton = (Button) findViewById(R.id.addChecklistItemButton);
@@ -209,6 +215,14 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
             }
         });
 
+        alertDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                okButton.callOnClick();
+                dialog.dismiss();
+            }
+        });
+
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -231,7 +245,6 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
         Button cancelButton = (Button) alertDialog.findViewById(R.id.cancelButton);
         final EditText editText = (EditText) alertDialog.findViewById(R.id.checklistEditText);
 
-        //editText.setText(itemText);
         editText.setText(mChecklistItem.get(position));
 
         okButton.setOnClickListener(new View.OnClickListener() {
@@ -247,6 +260,14 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
                     adapter.notifyDataSetChanged();
                 }
                 alertDialog.dismiss();
+            }
+        });
+
+        alertDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                okButton.callOnClick();
+                dialog.dismiss();
             }
         });
 

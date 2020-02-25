@@ -3,8 +3,11 @@ package com.example.android.farmernotepad;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -37,7 +40,11 @@ public class NewTextNoteActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_note);
-        noteColor = getColor(R.color.White);
+        SharedPreferences sharedPreferences =
+                PreferenceManager.getDefaultSharedPreferences(this);
+        //String defColor = sharedPreferences.getString("default_color", "");
+
+        noteColor = Color.parseColor(sharedPreferences.getString("default_color", ""));
         activity = this;
 
         final EditText noteTitle = findViewById(R.id.editTitle);
