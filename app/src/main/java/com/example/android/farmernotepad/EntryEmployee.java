@@ -2,19 +2,19 @@ package com.example.android.farmernotepad;
 
 import java.util.ArrayList;
 
-public class Employee {
+public class EntryEmployee {
     int employeeID;
     String employeeName;
     String employeePhone;
     double employeeSum;
-    ArrayList<WageEntry> employeePaymentItems;
+    ArrayList<EntryWage> employeePaymentItems;
 
-    public Employee(String employeeName, double employeeSum) {
+    public EntryEmployee(String employeeName, double employeeSum) {
         this.employeeName = employeeName;
         this.employeeSum = employeeSum;
     }
 
-    public Employee() {
+    public EntryEmployee() {
     }
 
 
@@ -50,11 +50,11 @@ public class Employee {
         return employeeSum;
     }
 
-    public ArrayList<WageEntry> getEmployeePaymentItems() {
+    public ArrayList<EntryWage> getEmployeePaymentItems() {
         return employeePaymentItems;
     }
 
-    public void setEmployeePaymentItems(ArrayList<WageEntry> employeePaymentItems) {
+    public void setEmployeePaymentItems(ArrayList<EntryWage> employeePaymentItems) {
         this.employeePaymentItems = employeePaymentItems;
     }
 

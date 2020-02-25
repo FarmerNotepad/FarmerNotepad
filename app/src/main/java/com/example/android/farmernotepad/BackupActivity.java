@@ -17,8 +17,8 @@ import java.io.File;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class Backup extends AppCompatActivity {
-    private static Backup activity;
+public class BackupActivity extends AppCompatActivity {
+    private static BackupActivity activity;
     public static final int REQUEST_CODE = 5;
     String lastActivity;
 
@@ -36,7 +36,7 @@ public class Backup extends AppCompatActivity {
         final CheckBox checkOnline = findViewById(R.id.checkBoxOnline);
         final TextView localPath = findViewById(R.id.textViewPath);
 
-        if (!FileUtils.checkStoragePermission(Backup.this)) {
+        if (!FileUtils.checkStoragePermission(BackupActivity.this)) {
             FileUtils.requestStoragePermission(activity);
         }
 
@@ -44,9 +44,9 @@ public class Backup extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (checkLocal.isChecked()) {
-                    DatabaseHelper dbHelper = new DatabaseHelper(Backup.this);
-                    dbHelper.exportDB(Backup.this);
-                    Toast.makeText(Backup.this, "Database exported to " + Backup.this.getExternalFilesDir(null), Toast.LENGTH_SHORT).show();
+                    DatabaseHelper dbHelper = new DatabaseHelper(BackupActivity.this);
+                    dbHelper.exportDB(BackupActivity.this);
+                    Toast.makeText(BackupActivity.this, "Database exported to " + BackupActivity.this.getExternalFilesDir(null), Toast.LENGTH_SHORT).show();
                 }
                 if (checkOnline.isChecked()) {
                     mailDb(view);
@@ -57,7 +57,7 @@ public class Backup extends AppCompatActivity {
         btnImport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog alertDialog = new AlertDialog.Builder(Backup.this).create();
+                AlertDialog alertDialog = new AlertDialog.Builder(BackupActivity.this).create();
                 alertDialog.setTitle("Warning");
                 alertDialog.setMessage("This will delete your current notes");
                 alertDialog.setCanceledOnTouchOutside(true);
@@ -97,7 +97,7 @@ public class Backup extends AppCompatActivity {
                         EmailHandler sender = new EmailHandler("farmernotepad@gmail.com",
                                 "farmernotepad123");
                         sender.exportDbOnline("Your notes backup", "This is your database file.",
-                                "farmernotepad@gmail.com", exportEmail.getText().toString(), Backup.this);
+                                "farmernotepad@gmail.com", exportEmail.getText().toString(), BackupActivity.this);
                         GenericUtils.toast(getApplicationContext(), "Database Exported");
 
                     } catch (Exception e) {
@@ -119,37 +119,37 @@ public class Backup extends AppCompatActivity {
             case REQUEST_CODE:
                 if (resultCode == RESULT_OK) {
                     Uri uri = data.getData();
-                    String realPath = FileUtils.getPathFromUri(Backup.this, uri);
+                    String realPath = FileUtils.getPathFromUri(BackupActivity.this, uri);
 
 
                     if (realPath.endsWith("FarmerNotepad.db")) {
-                        if (FileUtils.checkStoragePermission(Backup.this)) {
+                        if (FileUtils.checkStoragePermission(BackupActivity.this)) {
                             File source = new File(realPath);
-                            File dest = Backup.this.getDatabasePath(DatabaseHelper.DATABASE_NAME);
+                            File dest = BackupActivity.this.getDatabasePath(DatabaseHelper.DATABASE_NAME);
 
                             try {
-                                FileUtils.copyDatabase(source, dest, Backup.this);
+                                FileUtils.copyDatabase(source, dest, BackupActivity.this);
                                 //GenericUtils.toast(Backup.this, realPath);
                                 Intent intent = new Intent();
 
                                 if (lastActivity.matches("main")) {
-                                    intent = new Intent(Backup.this, MainActivity.class);
+                                    intent = new Intent(BackupActivity.this, MainActivity.class);
                                 } else if (lastActivity.matches("wageCalc")) {
-                                    intent = new Intent(Backup.this, WageCalculatorActivity.class);
+                                    intent = new Intent(BackupActivity.this, WageCalculatorActivity.class);
 
                                 }
                                 startActivity(intent);
-                                Backup.this.finish();
+                                BackupActivity.this.finish();
 
                             } catch (Exception e) {
                                 Log.e("YOUR ERROR TAG HERE", "Copying failed", e);
                             }
 
                         } else {
-                            Toast.makeText(Backup.this, "Requires external storage permission", Toast.LENGTH_LONG).show();
+                            Toast.makeText(BackupActivity.this, "Requires external storage permission", Toast.LENGTH_LONG).show();
                         }
                     } else {
-                        Toast.makeText(Backup.this, "Error: Select a FarmerNotepad.db file", Toast.LENGTH_LONG).show();
+                        Toast.makeText(BackupActivity.this, "Error: Select a FarmerNotepad.db file", Toast.LENGTH_LONG).show();
                     }
                 }
                 break;
@@ -170,13 +170,13 @@ public class Backup extends AppCompatActivity {
         Intent intent = new Intent();
 
         if (lastActivity.matches("main")) {
-            intent = new Intent(Backup.this, MainActivity.class);
+            intent = new Intent(BackupActivity.this, MainActivity.class);
         } else if (lastActivity.matches("wageCalc")) {
-            intent = new Intent(Backup.this, WageCalculatorActivity.class);
+            intent = new Intent(BackupActivity.this, WageCalculatorActivity.class);
 
         }
         startActivity(intent);
-        Backup.this.finish();
+        BackupActivity.this.finish();
     }
 
 

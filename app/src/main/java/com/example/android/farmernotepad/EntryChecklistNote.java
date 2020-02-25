@@ -1,34 +1,29 @@
 package com.example.android.farmernotepad;
 
-public class TextNoteEntry implements  ListItem{
+import java.util.ArrayList;
+
+public class EntryChecklistNote implements ListItem{
     private int noteID;
     private String noteTitle;
-    private String noteText;
     private String createDate;
     private String modDate;
     private int color;
     private double latitude;
     private double longitude;
+    private ArrayList<String> checklistItems;
 
-
-
-
-    public TextNoteEntry(int noteID, String noteTitle, String noteText, String createDate, String modDate, int color, double longitude, double latitude) {
-
+    public EntryChecklistNote(int noteID, String noteTitle, String createDate, String modDate, int color, double latitude, double longitude, ArrayList<String> items) {
         this.noteID = noteID;
         this.noteTitle = noteTitle;
-        this.noteText = noteText;
         this.createDate = createDate;
         this.modDate = modDate;
         this.color = color;
         this.latitude = latitude;
         this.longitude = longitude;
-
+        this.checklistItems = items;
     }
 
-
-    public TextNoteEntry(){  //NULL Constructor for testing purposes
-    }
+    public EntryChecklistNote() {}
 
     public int getNoteID() {
         return noteID;
@@ -46,18 +41,11 @@ public class TextNoteEntry implements  ListItem{
         this.noteTitle = noteTitle;
     }
 
-    public String getNoteText() {
-        return noteText;
-    }
-
-    public void setNoteText(String noteText) {
-        this.noteText = noteText;
-    }
-
     @Override
     public String getCreateDate() {
         return createDate;
     }
+
 
     public void setCreateDate(String createDate) {
         this.createDate = createDate;
@@ -81,29 +69,42 @@ public class TextNoteEntry implements  ListItem{
         this.color = color;
     }
 
-    public void setLongitude(double longitude) {this.longitude = longitude;}
+    @Override
+    public double getLatitude() {
+        return latitude;
+    }
 
-    public void setLatitude(double latitude) {this.latitude = latitude;}
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
 
     @Override
-    public double getLongitude() {return longitude;}
+    public double getLongitude() {
+        return longitude;
+    }
 
-    @Override
-    public double getLatitude() {return latitude;}
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
 
+    public void setChecklistItems(ArrayList<String> items) {this.checklistItems = items;}
+
+    public ArrayList<String> getChecklistItems() {
+        return checklistItems; }
 
     @Override
     public int getListItemType() {
-        return ListItem.typeText;
+        return ListItem.typeChecklist;
     }
 
     @Override
     public  String getInterfaceTitle(){
         return noteTitle;
     }
+
     @Override
     public String getInterfaceText(){
-        return noteText;
-}
+        return checklistItems.toString();
+    }
 
 }

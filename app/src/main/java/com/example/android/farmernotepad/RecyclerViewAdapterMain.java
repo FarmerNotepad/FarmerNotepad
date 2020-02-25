@@ -1,9 +1,7 @@
 package com.example.android.farmernotepad;
 
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.GradientDrawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,8 +10,6 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -132,7 +128,7 @@ public class RecyclerViewAdapterMain extends RecyclerView.Adapter implements Fil
         }
 
         void bindView(int position) {
-            TextNoteEntry textNote = (TextNoteEntry) allNotesList.get(position);
+            EntryTextNote textNote = (EntryTextNote) allNotesList.get(position);
             textNoteTitle.setText(textNote.getNoteTitle());
             textNoteContent.setText(textNote.getNoteText());
             //parentLayout.setBackgroundColor(allNotesList.get(position).getColor());
@@ -174,7 +170,7 @@ public class RecyclerViewAdapterMain extends RecyclerView.Adapter implements Fil
         }
 
         void bindView(int position) {
-            ChecklistNoteEntry checklistNote = (ChecklistNoteEntry) allNotesList.get(position);
+            EntryChecklistNote checklistNote = (EntryChecklistNote) allNotesList.get(position);
             textNoteTitle.setText(checklistNote.getNoteTitle());
 
             String result = "";

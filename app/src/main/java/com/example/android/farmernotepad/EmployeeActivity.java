@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -35,12 +36,12 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private ArrayList<WageEntry> mNewPaymentList = new ArrayList<>();
+    private ArrayList<EntryWage> mNewPaymentList = new ArrayList<>();
     private Menu mMenu;
     static EmployeeActivity activity;
     private int employeeIntentID;
     boolean desc = false;
-    private Employee mEmployee = new Employee();
+    private EntryEmployee mEntryEmployee = new EntryEmployee();
 
 
     @Override
@@ -78,25 +79,19 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
             confirmSaveButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Employee mNewEmployee = new Employee();
-                    mNewEmployee.setEmployeeID(employeeIntentID);
+                    EntryEmployee mNewEntryEmployee = new EntryEmployee();
+                    mNewEntryEmployee.setEmployeeID(employeeIntentID);
 
                     if (employeeFullName.getText().toString().trim().equals("") || employeeFullName.getText().toString().equals(null)) {
                         Toast.makeText(getApplicationContext(), "Fill Employee Name", Toast.LENGTH_SHORT).show();
                     } else {
-                        mNewEmployee.setEmployeeName(employeeFullName.getText().toString().trim());
-
-
-                        mNewEmployee.setEmployeePhone(employeePhoneNumber.getText().toString());
-
-
-                        mNewEmployee.setEmployeeSum(Double.parseDouble(employeeTotalDebt.getText().toString()));
-
-
-                        mNewEmployee.setEmployeePaymentItems(mNewPaymentList);
+                        mNewEntryEmployee.setEmployeeName(employeeFullName.getText().toString().trim());
+                        mNewEntryEmployee.setEmployeePhone(employeePhoneNumber.getText().toString());
+                        mNewEntryEmployee.setEmployeeSum(Double.parseDouble(employeeTotalDebt.getText().toString()));
+                        mNewEntryEmployee.setEmployeePaymentItems(mNewPaymentList);
 
                         DatabaseHelper dbHelper = new DatabaseHelper(EmployeeActivity.this);
-                        Boolean checkInsert = dbHelper.updateEmployee(mNewEmployee);
+                        Boolean checkInsert = dbHelper.updateEmployee(mNewEntryEmployee);
 
                         if (checkInsert) {
                             Toast.makeText(getApplicationContext(), "Employee Saved", Toast.LENGTH_SHORT).show();
@@ -117,23 +112,18 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
             confirmSaveButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Employee mNewEmployee = new Employee();
+                    EntryEmployee mNewEntryEmployee = new EntryEmployee();
 
                     if (employeeFullName.getText().toString().trim().equals("") || employeeFullName.getText().toString().equals(null)) {
                         Toast.makeText(getApplicationContext(), "Fill Employee Name", Toast.LENGTH_SHORT).show();
                     } else {
-                        mNewEmployee.setEmployeeName(employeeFullName.getText().toString().trim());
-
-
-                        mNewEmployee.setEmployeePhone(employeePhoneNumber.getText().toString());
-
-
-                        mNewEmployee.setEmployeeSum(Double.parseDouble(employeeTotalDebt.getText().toString()));
-
-                        mNewEmployee.setEmployeePaymentItems(mNewPaymentList);
+                        mNewEntryEmployee.setEmployeeName(employeeFullName.getText().toString().trim());
+                        mNewEntryEmployee.setEmployeePhone(employeePhoneNumber.getText().toString());
+                        mNewEntryEmployee.setEmployeeSum(Double.parseDouble(employeeTotalDebt.getText().toString()));
+                        mNewEntryEmployee.setEmployeePaymentItems(mNewPaymentList);
 
                         DatabaseHelper dbHelper = new DatabaseHelper(EmployeeActivity.this);
-                        Boolean checkInsert = dbHelper.insertEmployee(mNewEmployee);
+                        Boolean checkInsert = dbHelper.insertEmployee(mNewEntryEmployee);
 
                         if (checkInsert) {
                             Toast.makeText(getApplicationContext(), "Employee Saved", Toast.LENGTH_SHORT).show();
@@ -259,39 +249,47 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
             }
         });
 
+        dayOffCheckedTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dayOffChecked(alertDialog);
+            }
+        });
+
 
         okButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                WageEntry mNewWageEntry = new WageEntry();
+                EntryWage mNewEntryWage = new EntryWage();
 
                 if (newPaymentWorkHours == null || newPaymentWage == null) {
                     Toast.makeText(getApplicationContext(), "Update Failed", Toast.LENGTH_SHORT).show();
                 } else {
-                    mNewWageEntry.setWageCreateDate(GenericUtils.getDateTime());
-                    mNewWageEntry.setWageWorkDate(newPaymentDate.getText().toString());
-                    mNewWageEntry.setWageDesc(newPaymentDescription.getText().toString());
+                    mNewEntryWage.setWageCreateDate(GenericUtils.getDateTime());
+                    mNewEntryWage.setWageWorkDate(newPaymentDate.getText().toString());
+                    mNewEntryWage.setWageDesc(newPaymentDescription.getText().toString());
 
                     String hours = newPaymentWorkHours.getText().toString().trim();
 
                     if (newPaymentWage.getText().toString().equals("")) {
-                        mNewWageEntry.setWageWage(0);
+                        mNewEntryWage.setWageWage(0);
                     } else {
-                        mNewWageEntry.setWageWage(Double.parseDouble(newPaymentWage.getText().toString()));
+                        mNewEntryWage.setWageWage(Double.parseDouble(newPaymentWage.getText().toString()));
 
                     }
 
                     if (GenericUtils.isNumeric(hours)) {
-                        mNewWageEntry.setWageHours(Integer.parseInt(hours));
+                        mNewEntryWage.setWageHours(Integer.parseInt(hours));
                     }
 
                     if (dayOffCheckedTextView.isChecked()) {
-                        mNewWageEntry.setWageType(2);
+                        mNewEntryWage.setWageType(2);
+                        mNewEntryWage.setWageDesc("DAY OFF");
                     } else {
-                        mNewWageEntry.setWageType(1);
+                        mNewEntryWage.setWageType(1);
                     }
-                    mNewPaymentList.add(mNewWageEntry);
+                    mNewPaymentList.add(mNewEntryWage);
                     Toast.makeText(getApplicationContext(), "Payment Added", Toast.LENGTH_SHORT).show();
                     mAdapter.notifyDataSetChanged();
                     alertDialog.dismiss();
@@ -316,7 +314,7 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
 
     }
 
-    private void editPaymentDialogBox(WageEntry paymentItem, final int position) {
+    private void editPaymentDialogBox(EntryWage paymentItem, final int position) {
 
         final AlertDialog.Builder alert = new AlertDialog.Builder(EmployeeActivity.this);
         View mView = getLayoutInflater().inflate(R.layout.add_payment_day_off_dialog_box, null);
@@ -355,45 +353,57 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
             }
         });
 
+        if(paymentItem.getWageType() != 2) {
+            newPaymentDate.setText(paymentItem.getWageWorkDate());
+            newPaymentWorkHours.setText(String.valueOf((paymentItem.getWageHours())));
+            newPaymentWage.setText(String.valueOf(paymentItem.getWageWage()));
+            newPaymentDescription.setText(paymentItem.getWageDesc());
+        } else{
+            dayOffChecked(alertDialog);
+        }
 
-        newPaymentDate.setText(paymentItem.getWageWorkDate());
-        newPaymentWorkHours.setText(String.valueOf((paymentItem.getWageHours())));
-        newPaymentWage.setText(String.valueOf(paymentItem.getWageWage()));
-        newPaymentDescription.setText(paymentItem.getWageDesc());
+        dayOffCheckedTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dayOffChecked(alertDialog);
+            }
+        });
+
 
 
         okButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                WageEntry mNewWageEntry = new WageEntry();
+                EntryWage mNewEntryWage = new EntryWage();
 
                 if (newPaymentWorkHours == null || newPaymentWage == null) {
                     Toast.makeText(getApplicationContext(), "Update Failed", Toast.LENGTH_SHORT).show();
                 } else {
-                    mNewWageEntry.setWageCreateDate(GenericUtils.getDateTime());
-                    mNewWageEntry.setWageWorkDate(newPaymentDate.getText().toString());
+                    mNewEntryWage.setWageCreateDate(GenericUtils.getDateTime());
+                    mNewEntryWage.setWageWorkDate(newPaymentDate.getText().toString());
                     String hours = newPaymentWorkHours.getText().toString().trim();
 
 
                     if (newPaymentWage.getText().toString().equals("")) {
-                        mNewWageEntry.setWageWage(0);
+                        mNewEntryWage.setWageWage(0);
                     } else {
-                        mNewWageEntry.setWageWage(Double.parseDouble(newPaymentWage.getText().toString()));
+                        mNewEntryWage.setWageWage(Double.parseDouble(newPaymentWage.getText().toString()));
                     }
 
                     if (GenericUtils.isNumeric(hours)) {
-                        mNewWageEntry.setWageHours(Integer.parseInt(hours));
+                        mNewEntryWage.setWageHours(Integer.parseInt(hours));
                     }
 
-                    mNewWageEntry.setWageDesc(newPaymentDescription.getText().toString());
+                    mNewEntryWage.setWageDesc(newPaymentDescription.getText().toString());
 
                     if (dayOffCheckedTextView.isChecked()) {
-                        mNewWageEntry.setWageType(2);
+                        mNewEntryWage.setWageType(2);
+                        mNewEntryWage.setWageDesc("DAY OFF");
                     } else {
-                        mNewWageEntry.setWageType(1);
+                        mNewEntryWage.setWageType(1);
                     }
-                    mNewPaymentList.set(position, mNewWageEntry);
+                    mNewPaymentList.set(position, mNewEntryWage);
                     mAdapter.notifyDataSetChanged();
                     Toast.makeText(getApplicationContext(), "Payment Added", Toast.LENGTH_SHORT).show();
                     alertDialog.dismiss();
@@ -435,7 +445,7 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
 
     @Override
     public void onNoteClick(int position) {
-        WageEntry paymentItem = mNewPaymentList.get(position);
+        EntryWage paymentItem = mNewPaymentList.get(position);
         editPaymentDialogBox(paymentItem, position);
     }
 
@@ -468,14 +478,14 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
             cursor.moveToFirst();
 
 
-        mEmployee.setEmployeeName(cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_emp_Name)));
-        mEmployee.setEmployeePhone(cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_emp_Phone)));
-        mEmployee.setEmployeeSum(cursor.getDouble(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_emp_Sum)));
+        mEntryEmployee.setEmployeeName(cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_emp_Name)));
+        mEntryEmployee.setEmployeePhone(cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_emp_Phone)));
+        mEntryEmployee.setEmployeeSum(cursor.getDouble(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_emp_Sum)));
         cursor.close();
 
         if (cursorItems.moveToFirst()) {
             do {
-                WageEntry wageItems = new WageEntry();
+                EntryWage wageItems = new EntryWage();
 
                 wageItems.setWageWorkDate(cursorItems.getString(cursorItems.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_wage_Date)));
                 wageItems.setWageType(cursorItems.getInt(cursorItems.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_wage_Type)));
@@ -489,10 +499,10 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
         }
         cursorItems.close();
 
-        mEmployee.setEmployeePaymentItems(mNewPaymentList);
-        employeeNameEditText.setText(mEmployee.getEmployeeName());
-        employeePhoneEditText.setText(mEmployee.getEmployeePhone());
-        employeeTotalDebtTextView.setText(String.valueOf(mEmployee.getEmployeeSum()));
+        mEntryEmployee.setEmployeePaymentItems(mNewPaymentList);
+        employeeNameEditText.setText(mEntryEmployee.getEmployeeName());
+        employeePhoneEditText.setText(mEntryEmployee.getEmployeePhone());
+        employeeTotalDebtTextView.setText(String.valueOf(mEntryEmployee.getEmployeeSum()));
 
         dbHelper.close();
 
@@ -516,6 +526,36 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
         Intent intent = new Intent(EmployeeActivity.this, WageCalculatorActivity.class);
         startActivity(intent);
         EmployeeActivity.this.finish();
+    }
+
+    private void dayOffChecked(AlertDialog alertDialog){
+        final CheckedTextView dayOffCheckedTextView = alertDialog.findViewById(R.id.dayOffCheckedTextView);
+        final EditText newPaymentWorkHours = alertDialog.findViewById(R.id.newPaymentWorkHours);
+        final EditText newPaymentWage = alertDialog.findViewById(R.id.newPaymentWage);
+        final EditText newPaymentDescription = alertDialog.findViewById(R.id.newPaymentDescription);
+
+        if(!dayOffCheckedTextView.isChecked()){
+            newPaymentWorkHours.getText().clear();
+            newPaymentWage.getText().clear();
+            newPaymentDescription.getText().clear();
+            newPaymentWorkHours.setPaintFlags(newPaymentWorkHours.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            newPaymentWage.setPaintFlags(newPaymentWage.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            newPaymentDescription.setPaintFlags(newPaymentDescription.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            newPaymentWorkHours.setEnabled(false);
+            newPaymentWage.setEnabled(false);
+            newPaymentDescription.setEnabled(false);
+            dayOffCheckedTextView.setCheckMarkDrawable(R.drawable.ic_checked);
+            dayOffCheckedTextView.setChecked(true);
+        } else{
+            newPaymentWorkHours.setPaintFlags(newPaymentWorkHours.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
+            newPaymentWage.setPaintFlags(newPaymentWage.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
+            newPaymentDescription.setPaintFlags(newPaymentDescription.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
+            newPaymentWorkHours.setEnabled(true);
+            newPaymentWage.setEnabled(true);
+            newPaymentDescription.setEnabled(true);
+            dayOffCheckedTextView.setCheckMarkDrawable(null);
+            dayOffCheckedTextView.setChecked(false);
+        }
     }
 
 }

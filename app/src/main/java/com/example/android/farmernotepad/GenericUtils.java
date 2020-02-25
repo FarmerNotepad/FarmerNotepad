@@ -1,15 +1,12 @@
 package com.example.android.farmernotepad;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import androidx.annotation.ColorRes;
-import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 
 import java.io.IOException;
@@ -48,11 +45,11 @@ public class GenericUtils {
         return myList;
     }
 
-    public static ArrayList<Employee> sortByEmployeeName(ArrayList<Employee> myList, final boolean desc) {
-        Collections.sort(myList, new Comparator<Employee>() {
+    public static ArrayList<EntryEmployee> sortByEmployeeName(ArrayList<EntryEmployee> myList, final boolean desc) {
+        Collections.sort(myList, new Comparator<EntryEmployee>() {
 
             @Override
-            public int compare(Employee note1, Employee note2) {
+            public int compare(EntryEmployee note1, EntryEmployee note2) {
                 if (!desc) {
                     return note1.getEmployeeName().toUpperCase().compareTo(note2.getEmployeeName().toUpperCase());
                 } else {
@@ -127,11 +124,11 @@ public class GenericUtils {
         return myList;
     }
 
-    public static ArrayList<Employee> sortByTotalDebt(ArrayList<Employee> myList, final boolean desc) {
-        Collections.sort(myList, new Comparator<Employee>() {
+    public static ArrayList<EntryEmployee> sortByTotalDebt(ArrayList<EntryEmployee> myList, final boolean desc) {
+        Collections.sort(myList, new Comparator<EntryEmployee>() {
 
             @Override
-            public int compare(Employee note1, Employee note2) {
+            public int compare(EntryEmployee note1, EntryEmployee note2) {
 
                 if (!desc) {
                     return Integer.compare((int) note1.getEmployeeSum(), (int) note2.getEmployeeSum());
@@ -143,11 +140,11 @@ public class GenericUtils {
         return myList;
     }
 
-    public static ArrayList<WageEntry> sortByPayment(ArrayList<WageEntry> myList, final boolean desc) {
-        Collections.sort(myList, new Comparator<WageEntry>() {
+    public static ArrayList<EntryWage> sortByPayment(ArrayList<EntryWage> myList, final boolean desc) {
+        Collections.sort(myList, new Comparator<EntryWage>() {
 
             @Override
-            public int compare(WageEntry note1, WageEntry note2) {
+            public int compare(EntryWage note1, EntryWage note2) {
 
                 if (!desc) {
                     return Integer.compare((int) note1.getWageWage(), (int) note2.getWageWage());
