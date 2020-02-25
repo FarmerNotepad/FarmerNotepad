@@ -90,7 +90,7 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
             saveChecklistButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    ChecklistNoteEntry myNewChecklist = new ChecklistNoteEntry();
+                    EntryChecklistNote myNewChecklist = new EntryChecklistNote();
                     myNewChecklist.setNoteID(noteIntentID);
 
 
@@ -126,7 +126,7 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
             saveChecklistButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    ChecklistNoteEntry myNewChecklist = new ChecklistNoteEntry();
+                    EntryChecklistNote myNewChecklist = new EntryChecklistNote();
                     Boolean checkPermission = LocationFunctions.checkPermission(NewChecklistActivity.this);
 
                     if (checklistTitle.getText().toString().equals("")) {

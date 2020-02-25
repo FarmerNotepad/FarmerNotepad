@@ -3,7 +3,6 @@ package com.example.android.farmernotepad;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.LinearLayout;
@@ -16,8 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class RecyclerViewAdapterWage extends RecyclerView.Adapter<RecyclerViewAdapterWage.WageViewHolder> implements Filterable {
 
-    private final ArrayList<Employee> employeesArrayListFull;
-    private ArrayList<Employee> employeesArrayList = new ArrayList<>();
+    private final ArrayList<EntryEmployee> employeesArrayListFull;
+    private ArrayList<EntryEmployee> employeesArrayList = new ArrayList<>();
     private OnNoteListener mOnNoteListener;
 
 
@@ -29,7 +28,7 @@ public class RecyclerViewAdapterWage extends RecyclerView.Adapter<RecyclerViewAd
         return holder;
     }
 
-    public RecyclerViewAdapterWage(ArrayList<Employee> employeesArrayList, OnNoteListener onNoteListener) {
+    public RecyclerViewAdapterWage(ArrayList<EntryEmployee> employeesArrayList, OnNoteListener onNoteListener) {
         this.employeesArrayList = employeesArrayList;
         this.employeesArrayListFull = new ArrayList<>(employeesArrayList);
         this.mOnNoteListener = onNoteListener;
@@ -37,10 +36,10 @@ public class RecyclerViewAdapterWage extends RecyclerView.Adapter<RecyclerViewAd
 
     @Override
     public void onBindViewHolder(@NonNull WageViewHolder holder, int position) {
-        Employee currentEmployee = (Employee) employeesArrayList.get(position);
+        EntryEmployee currentEntryEmployee = (EntryEmployee) employeesArrayList.get(position);
 
-        holder.mEmployeeName.setText(currentEmployee.getEmployeeName());
-        holder.mTotalDebt.setText(String.valueOf(currentEmployee.getEmployeeSum()));
+        holder.mEmployeeName.setText(currentEntryEmployee.getEmployeeName());
+        holder.mTotalDebt.setText(String.valueOf(currentEntryEmployee.getEmployeeSum()));
 
 
     }
@@ -58,14 +57,14 @@ public class RecyclerViewAdapterWage extends RecyclerView.Adapter<RecyclerViewAd
     private Filter employeesFilter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
-            ArrayList<Employee> filteredList = new ArrayList<>();
+            ArrayList<EntryEmployee> filteredList = new ArrayList<>();
 
             if (constraint == null || constraint.length() == 0) {
                 filteredList.addAll(employeesArrayListFull);
             } else {
                 String filterPattern = constraint.toString().toLowerCase().trim();
 
-                for (Employee item : employeesArrayListFull) {
+                for (EntryEmployee item : employeesArrayListFull) {
                     if (item.getEmployeeName().toLowerCase().contains(filterPattern)) {
                         filteredList.add(item);
                     }

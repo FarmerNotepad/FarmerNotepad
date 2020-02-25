@@ -62,7 +62,7 @@ public class NewTextNoteActivity extends AppCompatActivity {
             confirmSaveButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    TextNoteEntry myNewTextNote = new TextNoteEntry();
+                    EntryTextNote myNewTextNote = new EntryTextNote();
                     myNewTextNote.setNoteID(noteIntentID);
 
                     if (noteTitle.getText().toString().equals("")) {
@@ -95,7 +95,7 @@ public class NewTextNoteActivity extends AppCompatActivity {
             confirmSaveButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    TextNoteEntry myNewTextNote = new TextNoteEntry();
+                    EntryTextNote myNewTextNote = new EntryTextNote();
                     Boolean checkPermission = LocationFunctions.checkPermission(NewTextNoteActivity.this);
 
                     if (noteTitle.getText().toString().equals("")) {

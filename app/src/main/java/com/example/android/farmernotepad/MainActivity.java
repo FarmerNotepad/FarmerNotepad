@@ -4,7 +4,6 @@ package com.example.android.farmernotepad;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -13,15 +12,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.SearchView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 
 public class MainActivity extends AppCompatActivity implements RecyclerViewAdapterMain.OnNoteListener {
@@ -118,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
                 break;
 
             case R.id.Backup:
-                Intent intentBackup = new Intent(MainActivity.this, Backup.class);
+                Intent intentBackup = new Intent(MainActivity.this, BackupActivity.class);
                 intentBackup.putExtra("lastActivity", "main");
                 startActivity(intentBackup);
                 MainActivity.this.finish();
@@ -176,7 +172,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
 
         if (cursor.moveToFirst()) {
             do {
-                TextNoteEntry noteEntry = new TextNoteEntry();
+                EntryTextNote noteEntry = new EntryTextNote();
                 noteEntry.setNoteTitle(cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_noteTitle)));
                 noteEntry.setNoteText(cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_noteText)));
                 noteEntry.setNoteID(cursor.getInt(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_ID)));
@@ -203,7 +199,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         if (cursor.moveToFirst()) {
             do {
 
-                ChecklistNoteEntry noteEntry = new ChecklistNoteEntry();
+                EntryChecklistNote noteEntry = new EntryChecklistNote();
 
                 noteEntry.setNoteTitle(cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_noteTitle)));
                 int current_id = (cursor.getInt(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_ID)));
@@ -244,7 +240,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         int noteType = allNotesList.get(position).getListItemType();
 
         if (noteType == ListItem.typeText) {
-            TextNoteEntry textNote = (TextNoteEntry) allNotesList.get(position);
+            EntryTextNote textNote = (EntryTextNote) allNotesList.get(position);
             mNoteID = textNote.getNoteID();
             intent = new Intent(this, NewTextNoteActivity.class);
             intent.putExtra("noteID", mNoteID);
@@ -252,7 +248,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
 
         }
         else{
-            ChecklistNoteEntry checklistNote = (ChecklistNoteEntry) allNotesList.get(position);
+            EntryChecklistNote checklistNote = (EntryChecklistNote) allNotesList.get(position);
             mNoteID = checklistNote.getNoteID();
             intent = new Intent(this, NewChecklistActivity.class);
             intent.putExtra("noteID", mNoteID);

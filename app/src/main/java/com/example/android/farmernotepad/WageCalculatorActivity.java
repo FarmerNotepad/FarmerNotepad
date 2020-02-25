@@ -22,7 +22,7 @@ public class WageCalculatorActivity extends AppCompatActivity implements Recycle
     private RecyclerView mRecyclerView;
     private RecyclerViewAdapterWage mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private ArrayList<Employee> employeesArrayList = new ArrayList<>();
+    private ArrayList<EntryEmployee> employeesArrayList = new ArrayList<>();
     boolean desc = false;
 
 
@@ -48,9 +48,9 @@ public class WageCalculatorActivity extends AppCompatActivity implements Recycle
     @Override
     public void onNoteClick(int position) {
         int mEmployeeID;
-        Employee mEmployee = (Employee) employeesArrayList.get(position);
+        EntryEmployee mEntryEmployee = (EntryEmployee) employeesArrayList.get(position);
         Intent intent = new Intent(WageCalculatorActivity.this, EmployeeActivity.class);
-        mEmployeeID = mEmployee.getEmployeeID();
+        mEmployeeID = mEntryEmployee.getEmployeeID();
         intent.putExtra("employeeID", mEmployeeID);
         intent.putExtra("flag", "editEmployee");
 
@@ -103,7 +103,7 @@ public class WageCalculatorActivity extends AppCompatActivity implements Recycle
                 break;
 
             case R.id.employeesBackup:
-                Intent intentBackup = new Intent(WageCalculatorActivity.this, Backup.class);
+                Intent intentBackup = new Intent(WageCalculatorActivity.this, BackupActivity.class);
                 intentBackup.putExtra("lastActivity", "wageCalc");
                 startActivity(intentBackup);
                 WageCalculatorActivity.this.finish();
@@ -131,12 +131,12 @@ public class WageCalculatorActivity extends AppCompatActivity implements Recycle
 
         if (cursor.moveToFirst()) {
             do {
-                Employee newEmployee = new Employee();
-                newEmployee.setEmployeeID(cursor.getInt(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_ID)));
-                newEmployee.setEmployeeName(cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_emp_Name)));
-                newEmployee.setEmployeePhone(cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_emp_Phone)));
-                newEmployee.setEmployeeSum(cursor.getDouble(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_emp_Sum)));
-                employeesArrayList.add(newEmployee);
+                EntryEmployee newEntryEmployee = new EntryEmployee();
+                newEntryEmployee.setEmployeeID(cursor.getInt(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_ID)));
+                newEntryEmployee.setEmployeeName(cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_emp_Name)));
+                newEntryEmployee.setEmployeePhone(cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_emp_Phone)));
+                newEntryEmployee.setEmployeeSum(cursor.getDouble(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_emp_Sum)));
+                employeesArrayList.add(newEntryEmployee);
 
             } while (cursor.moveToNext());
         }

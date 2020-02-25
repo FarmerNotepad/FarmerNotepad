@@ -46,7 +46,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("PRAGMA foreign_keys=ON");
     }
 
-    public boolean insertNote(TextNoteEntry note) {
+    public boolean insertNote(EntryTextNote note) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(FeedReaderContract.FeedTextNote.COLUMN_noteTitle, note.getNoteTitle());
@@ -63,7 +63,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return false;
     }
 
-    public boolean updateNote(TextNoteEntry note) {
+    public boolean updateNote(EntryTextNote note) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(FeedReaderContract.FeedTextNote.COLUMN_noteTitle, note.getNoteTitle());
@@ -96,7 +96,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return false;
     }
 
-    public boolean insertChecklist(ChecklistNoteEntry checklist) {
+    public boolean insertChecklist(EntryChecklistNote checklist) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(FeedReaderContract.FeedTextNote.COLUMN_noteTitle, checklist.getNoteTitle());
@@ -161,7 +161,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 FeedReaderContract.FeedTextNote.COLUMN_Item_note_Rel + "=?", new String[]{String.valueOf(checklistID)});
     }
 
-    public boolean updateChecklist(ChecklistNoteEntry checklist) {
+    public boolean updateChecklist(EntryChecklistNote checklist) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(FeedReaderContract.FeedTextNote.COLUMN_noteTitle, checklist.getNoteTitle());
@@ -181,17 +181,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return false;
     }
 
-    public boolean insertEmployee(Employee employee) {
+    public boolean insertEmployee(EntryEmployee entryEmployee) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put(FeedReaderContract.FeedTextNote.COLUMN_emp_Name, employee.getEmployeeName());
-        cv.put(FeedReaderContract.FeedTextNote.COLUMN_emp_Phone, employee.getEmployeePhone());
-        cv.put(FeedReaderContract.FeedTextNote.COLUMN_emp_Sum, employee.getEmployeeSum());
+        cv.put(FeedReaderContract.FeedTextNote.COLUMN_emp_Name, entryEmployee.getEmployeeName());
+        cv.put(FeedReaderContract.FeedTextNote.COLUMN_emp_Phone, entryEmployee.getEmployeePhone());
+        cv.put(FeedReaderContract.FeedTextNote.COLUMN_emp_Sum, entryEmployee.getEmployeeSum());
         long lastID = db.insert(FeedReaderContract.FeedTextNote.TABLE_NAME_Employees, null, cv);
         if (lastID != -1) {
             int newID = (int) lastID;
             ContentValues cvitems = new ContentValues();
-            ArrayList<WageEntry> wage = employee.getEmployeePaymentItems();
+            ArrayList<EntryWage> wage = entryEmployee.getEmployeePaymentItems();
             if (wage != null) {
                 for (int i = 0; i < wage.size(); i++) {
                     cvitems.put(FeedReaderContract.FeedTextNote.COLUMN_wage_Rel, newID);
@@ -215,19 +215,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public boolean updateEmployee(Employee employee) {
+    public boolean updateEmployee(EntryEmployee entryEmployee) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put(FeedReaderContract.FeedTextNote.COLUMN_emp_Name, employee.getEmployeeName());
-        cv.put(FeedReaderContract.FeedTextNote.COLUMN_emp_Phone, employee.getEmployeePhone());
-        cv.put(FeedReaderContract.FeedTextNote.COLUMN_emp_Sum, employee.getEmployeeSum());
-        long rowUpdated = db.update(FeedReaderContract.FeedTextNote.TABLE_NAME_Employees, cv, FeedReaderContract.FeedTextNote.COLUMN_ID + "=?", new String[]{String.valueOf(employee.getEmployeeID())});
-        long rowDeleteItems = db.delete(FeedReaderContract.FeedTextNote.TABLE_NAME_Wages, FeedReaderContract.FeedTextNote.COLUMN_wage_Rel + "= ?", new String[]{String.valueOf(employee.getEmployeeID())});
+        cv.put(FeedReaderContract.FeedTextNote.COLUMN_emp_Name, entryEmployee.getEmployeeName());
+        cv.put(FeedReaderContract.FeedTextNote.COLUMN_emp_Phone, entryEmployee.getEmployeePhone());
+        cv.put(FeedReaderContract.FeedTextNote.COLUMN_emp_Sum, entryEmployee.getEmployeeSum());
+        long rowUpdated = db.update(FeedReaderContract.FeedTextNote.TABLE_NAME_Employees, cv, FeedReaderContract.FeedTextNote.COLUMN_ID + "=?", new String[]{String.valueOf(entryEmployee.getEmployeeID())});
+        long rowDeleteItems = db.delete(FeedReaderContract.FeedTextNote.TABLE_NAME_Wages, FeedReaderContract.FeedTextNote.COLUMN_wage_Rel + "= ?", new String[]{String.valueOf(entryEmployee.getEmployeeID())});
         ContentValues cvItems = new ContentValues();
-        ArrayList<WageEntry> wage = employee.getEmployeePaymentItems();
+        ArrayList<EntryWage> wage = entryEmployee.getEmployeePaymentItems();
 
         for (int i = 0; i < wage.size(); i++) {
-            cvItems.put(FeedReaderContract.FeedTextNote.COLUMN_wage_Rel, employee.getEmployeeID());
+            cvItems.put(FeedReaderContract.FeedTextNote.COLUMN_wage_Rel, entryEmployee.getEmployeeID());
             cvItems.put(FeedReaderContract.FeedTextNote.COLUMN_wage_Desc, wage.get(i).getWageDesc());
             cvItems.put(FeedReaderContract.FeedTextNote.COLUMN_wage_Date, wage.get(i).getWageWorkDate());
             cvItems.put(FeedReaderContract.FeedTextNote.COLUMN_wage_Hours, wage.get(i).getWageHours());
@@ -261,7 +261,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return false;
     }
 
-    public boolean insertWage(WageEntry wage, int relID) {
+    public boolean insertWage(EntryWage wage, int relID) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(FeedReaderContract.FeedTextNote.COLUMN_wage_Rel, relID);
@@ -287,7 +287,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return false;
     }
 
-    public boolean updateWage(WageEntry wage) {
+    public boolean updateWage(EntryWage wage) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(FeedReaderContract.FeedTextNote.COLUMN_wage_Desc, wage.getWageDesc());

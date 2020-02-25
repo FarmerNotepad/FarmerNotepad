@@ -1,6 +1,6 @@
 package com.example.android.farmernotepad;
 
-public class WageEntry {
+public class EntryWage {
 
     int wageID;
     int employee_rel_ID;
@@ -11,10 +11,10 @@ public class WageEntry {
     String wageCreateDate;
     int wageType;
 
-    public WageEntry() {
+    public EntryWage() {
     }
 
-    public WageEntry(double wageWage, String wageDesc, int wageHours, String wageWorkDate) {
+    public EntryWage(double wageWage, String wageDesc, int wageHours, String wageWorkDate) {
         this.wageWage = wageWage;
         this.wageDesc = wageDesc;
         this.wageHours = wageHours;

@@ -31,7 +31,7 @@
             android:label="@string/title_activity_maps" />
         <activity android:name=".EmployeeActivity" />
         <activity android:name=".WageCalculatorActivity" />
-        <activity android:name=".Backup" />
+        <activity android:name=".BackupActivity" />
         <activity android:name=".FeedbackActivity" />
         <activity android:name=".NewChecklistActivity" />
         <activity android:name=".NewTextNoteActivity" />
