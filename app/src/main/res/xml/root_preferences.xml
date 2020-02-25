@@ -19,7 +19,8 @@
 
     <PreferenceCategory
         app:key="visuals_category"
-        app:title="General">
+        app:title="General"
+        app:allowDividerBelow="true">
 
         <ListPreference
             app:key="default_home_screen"
@@ -70,7 +71,9 @@
 
     <PreferenceCategory
         app:key="backup_category"
-        app:title="Backup">
+        app:title="Backup"
+        app:allowDividerAbove="true"
+        app:allowDividerBelow="true">
 
         <EditTextPreference
             app:key="backup"
@@ -85,7 +88,8 @@
 
     <PreferenceCategory
         app:key="about_category"
-        app:title="About">
+        app:title="About"
+        app:allowDividerAbove="true">
 
         <EditTextPreference
             app:key="app_info"
