@@ -53,7 +53,7 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
 
         SharedPreferences sharedPreferences =
                 PreferenceManager.getDefaultSharedPreferences(this);
-        noteColor = Color.parseColor(sharedPreferences.getString("default_color", ""));
+        noteColor = Color.parseColor(sharedPreferences.getString("default_color", "#FFFFFF"));
 
 
         Button addItemButton = (Button) findViewById(R.id.addChecklistItemButton);

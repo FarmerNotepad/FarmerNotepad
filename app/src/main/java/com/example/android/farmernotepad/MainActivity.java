@@ -3,8 +3,11 @@ package com.example.android.farmernotepad;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -12,8 +15,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.SearchView;
+import androidx.appcompat.app.ActionBar;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -38,6 +46,12 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         Log.d(TAG, "onCreate: started.");
         loadNotes();
         loadChecklistNotes();
+
+        autoBackupHandler();
+
+
+
+
     }
 
 
@@ -257,6 +271,64 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
 
         startActivity(intent);
         MainActivity.this.finish();
+    }
+
+
+   public void autoBackupHandler(){
+        SharedPreferences sharedPreferences =
+                PreferenceManager.getDefaultSharedPreferences(this);
+       SharedPreferences.Editor editor = sharedPreferences.edit();
+        if (sharedPreferences.getBoolean("backup_check", false)){
+            String receiverEmail = sharedPreferences.getString("backup_email","");
+            if (!receiverEmail.equals("")){
+                String currentTime = GenericUtils.getDateTime();
+                String previousBackupDate = sharedPreferences.getString("backup_date","");
+
+                if (!previousBackupDate.equals("")){
+                    DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                    try {
+                        Date currentDate = dateFormat.parse(currentTime);
+                        Date prevBackup = dateFormat.parse(previousBackupDate);
+                        prevBackup = GenericUtils.addMonth(prevBackup);
+                        if (currentDate.after(prevBackup)){
+
+                            new Thread(new Runnable() {
+
+                                @Override
+                                public void run() {
+                                    if (GenericUtils.isOnline()) {
+                                        try {
+                                            EmailHandler sender = new EmailHandler("farmernotepad@gmail.com",
+                                                    "farmernotepad123");
+                                            sender.exportDbOnline("Your notes auto backup", "Auto-backed up database.",
+                                                    "farmernotepad@gmail.com", receiverEmail, MainActivity.this);
+                                            GenericUtils.toast(getApplicationContext(), "Database Exported");
+                                        } catch (Exception e) {
+                                            Log.e("SendMail", e.getMessage(), e);
+                                            GenericUtils.toast(getApplicationContext(), "Error sending email.");
+                                        }
+                                    } else {
+                                        GenericUtils.toast(getApplicationContext(), "No Internet connection found");
+                                    }
+                                }
+                            }).start();
+
+                            editor.putString("backup_date",currentTime);
+                            editor.apply();
+                        }
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                }
+                else {
+                    editor.putString("backup_date",currentTime);
+                    editor.apply();
+                }
+            }
+            else {
+                GenericUtils.toast(this,"Set email address for auto-backup.");
+            }
+        }
     }
 
 

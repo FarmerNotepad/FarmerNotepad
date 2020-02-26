@@ -76,12 +76,14 @@
         app:allowDividerBelow="true">
 
         <EditTextPreference
-            app:key="backup"
-            app:title="Backup now"/>
+            app:key="backup_email"
+            app:title="Set backup receiver email."
+            app:useSimpleSummaryProvider="true"/>
 
         <CheckBoxPreference
-            app:key="auto_backup"
-            app:title="Auto Backup"/>
+            app:key="backup_check"
+            app:title="Auto Backup"
+            />
 
 
     </PreferenceCategory>
