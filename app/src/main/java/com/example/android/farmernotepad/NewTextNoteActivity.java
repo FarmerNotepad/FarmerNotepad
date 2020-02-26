@@ -44,7 +44,7 @@ public class NewTextNoteActivity extends AppCompatActivity {
                 PreferenceManager.getDefaultSharedPreferences(this);
         //String defColor = sharedPreferences.getString("default_color", "");
 
-        noteColor = Color.parseColor(sharedPreferences.getString("default_color", ""));
+        noteColor = Color.parseColor(sharedPreferences.getString("default_color", "#FFFFFF"));
         activity = this;
 
         final EditText noteTitle = findViewById(R.id.editTitle);

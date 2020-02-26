@@ -17,6 +17,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -27,6 +28,14 @@ public class GenericUtils {
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date date = new Date();
         return dateFormat.format(date);
+    }
+
+    public static Date addMonth(Date dateToIncrease){
+        Calendar myCal = Calendar.getInstance();
+        myCal.setTime(dateToIncrease);
+        myCal.add(Calendar.MONTH, +1);
+        dateToIncrease = myCal.getTime();
+        return dateToIncrease;
     }
 
     public static ArrayList<ListItem> sortByTitle(ArrayList<ListItem> myList, final boolean desc) {

@@ -1,6 +1,7 @@
 package com.example.android.farmernotepad;
 
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
