@@ -224,10 +224,12 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
                 noteEntry.setLatitude(cursor.getDouble(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_noteLatitude)));
                 noteEntry.setLongitude(cursor.getDouble(cursor.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_noteLongitude)));
                 cursorItems = dbHelper.getChecklistItems(current_id);
-                ArrayList<String> checkItems = new ArrayList<>();
+                ArrayList<ChecklistItemEntry> checkItems = new ArrayList<>();
                 if (cursorItems.moveToFirst()) {
                     do {
-                        checkItems.add(cursorItems.getString(cursorItems.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_Item_Text)));
+                        ChecklistItemEntry itemToLoad = new ChecklistItemEntry();
+                        itemToLoad.setItemText(cursorItems.getString(cursorItems.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_Item_Text)));
+                        checkItems.add(itemToLoad);
                     }
                     while (cursorItems.moveToNext());
                 }

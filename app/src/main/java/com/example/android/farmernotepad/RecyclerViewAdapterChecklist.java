@@ -1,5 +1,6 @@
 package com.example.android.farmernotepad;
 
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,10 +16,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class RecyclerViewAdapterChecklist extends RecyclerView.Adapter<RecyclerViewAdapterChecklist.ViewHolderChecklist>{
 
-    private ArrayList<String> mChecklistItem = new ArrayList<>();
+    private ArrayList<ChecklistItemEntry> mChecklistItem = new ArrayList<>();
     private OnChecklistItemListener mOnChecklistItemListener;
 
-    public RecyclerViewAdapterChecklist(ArrayList<String> mChecklistItem,OnChecklistItemListener onChecklistItemListener) {
+    public RecyclerViewAdapterChecklist(ArrayList<ChecklistItemEntry> mChecklistItem, OnChecklistItemListener onChecklistItemListener) {
         this.mChecklistItem = mChecklistItem;
         this.mOnChecklistItemListener = onChecklistItemListener;
 
@@ -34,7 +35,16 @@ public class RecyclerViewAdapterChecklist extends RecyclerView.Adapter<RecyclerV
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolderChecklist holder, final int position) {
-        holder.checklistItemTextView.setText(mChecklistItem.get(position));
+        holder.checklistItemTextView.setText(mChecklistItem.get(position).getItemText());
+        int isItChecked = mChecklistItem.get(position).getIsChecked();
+        if (isItChecked == 1){
+            holder.checklistItemTextView.setPaintFlags(holder.checklistItemTextView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            //newPaymentWorkHours.setPaintFlags(newPaymentWorkHours.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG); add
+            //newPaymentWorkHours.setPaintFlags(newPaymentWorkHours.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG)); remove
+        }
+        else if (isItChecked == 0){
+            holder.checklistItemTextView.setPaintFlags(holder.checklistItemTextView.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
+        }
 
         holder.deleteItemButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -174,8 +174,8 @@ public class RecyclerViewAdapterMain extends RecyclerView.Adapter implements Fil
             textNoteTitle.setText(checklistNote.getNoteTitle());
 
             String result = "";
-            for (String s : checklistNote.getChecklistItems()) {
-                result += " \u2022" + s;
+            for (ChecklistItemEntry s : checklistNote.getChecklistItems()) {
+                result += " \u2022" + s.getItemText();
             }
             textNoteContent.setText(result);
             Drawable unwrappedDrawable = ContextCompat.getDrawable(parentLayout.getContext(), R.drawable.rounded_corners);

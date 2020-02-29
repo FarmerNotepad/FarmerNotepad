@@ -31,6 +31,7 @@ public class FeedReaderContract {
         public final static String COLUMN_wage_Date = "dateOfWork";
         public final static String COLUMN_wage_Type = "wageType";
         public final static String COLUMN_wage_CreateDate = "wageCreateDate";
+        public final static String COLUMN_isChecked = "checkedItem";
 
     }
 
@@ -52,7 +53,8 @@ public class FeedReaderContract {
 
     public static final String SQL_CREATE_TABLE_Checklist_Items =
             "CREATE TABLE IF NOT EXISTS " + FeedTextNote.TABLE_NAME_Checklist_Items + "(" + FeedTextNote.COLUMN_Item_ID +
-                    " INTEGER PRIMARY KEY AUTOINCREMENT," + FeedTextNote.COLUMN_Item_Text + " TEXT," + FeedTextNote.COLUMN_Item_note_Rel + " INTEGER," +
+                    " INTEGER PRIMARY KEY AUTOINCREMENT," + FeedTextNote.COLUMN_Item_Text + " TEXT," + FeedTextNote.COLUMN_isChecked + " INTEGER,"
+                    + FeedTextNote.COLUMN_Item_note_Rel + " INTEGER," +
                     "FOREIGN KEY (" + FeedTextNote.COLUMN_Item_note_Rel + ") REFERENCES " + FeedTextNote.TABLE_NAME_Checklist_Note + "(" +
                     FeedTextNote.COLUMN_ID + ") ON DELETE CASCADE);";
 

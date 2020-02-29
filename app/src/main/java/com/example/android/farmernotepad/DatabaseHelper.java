@@ -109,11 +109,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (lastID != -1) {
             int newID = (int) lastID;
             ContentValues cvitems = new ContentValues();
-            ArrayList<String> items = checklist.getChecklistItems();
+            ArrayList<ChecklistItemEntry> items = checklist.getChecklistItems();
             if (items != null) {
                 for (int i = 0; i < items.size(); i++) {
                     cvitems.put(FeedReaderContract.FeedTextNote.COLUMN_Item_note_Rel, newID);
-                    cvitems.put(FeedReaderContract.FeedTextNote.COLUMN_Item_Text, items.get(i));
+                    cvitems.put(FeedReaderContract.FeedTextNote.COLUMN_Item_Text, items.get(i).getItemText());
+                    cvitems.put(FeedReaderContract.FeedTextNote.COLUMN_isChecked, items.get(i).getIsChecked());
                     long checklistItemCheck = db.insert(FeedReaderContract.FeedTextNote.TABLE_NAME_Checklist_Items, null, cvitems);
                     cvitems.clear();
                     if (checklistItemCheck == -1) {
@@ -172,7 +173,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues cvItems = new ContentValues();
         for (int i = 0; i < checklist.getChecklistItems().size(); i++) {
             cvItems.put(FeedReaderContract.FeedTextNote.COLUMN_Item_note_Rel, checklist.getNoteID());
-            cvItems.put(FeedReaderContract.FeedTextNote.COLUMN_Item_Text, checklist.getChecklistItems().get(i));
+            cvItems.put(FeedReaderContract.FeedTextNote.COLUMN_Item_Text, checklist.getChecklistItems().get(i).getItemText());
+            cvItems.put(FeedReaderContract.FeedTextNote.COLUMN_isChecked, checklist.getChecklistItems().get(i).getIsChecked());
             db.insert(FeedReaderContract.FeedTextNote.TABLE_NAME_Checklist_Items, null, cvItems);
         }
         if (rowUpdated != -1 && rowDeleteItems != 0)
