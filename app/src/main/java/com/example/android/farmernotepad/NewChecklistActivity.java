@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.Menu;
@@ -30,12 +31,13 @@ import static android.widget.Toast.LENGTH_SHORT;
 
 public class NewChecklistActivity extends AppCompatActivity implements RecyclerViewAdapterChecklist.OnChecklistItemListener {
 
-    private ArrayList<String> mChecklistItem = new ArrayList<>();
+    private ArrayList<ChecklistItemEntry> mChecklistItem = new ArrayList<>();
     private Menu mMenu;
     private int noteColor;
     static NewChecklistActivity activity;
     private int noteIntentID;
     RecyclerViewAdapterChecklist adapter;
+    private boolean editable;
 
     ArrayList<Double> noteLat = new ArrayList<Double>();
     ArrayList<Double> noteLong = new ArrayList<Double>();
@@ -50,6 +52,7 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
         final CheckBox checkLocation = findViewById(R.id.checkBoxLocChecklist);
         activity = this;
         noteIntentID = getIncomingIntent();
+
 
         SharedPreferences sharedPreferences =
                 PreferenceManager.getDefaultSharedPreferences(this);
@@ -103,10 +106,9 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
                     myNewChecklist.setModDate(GenericUtils.getDateTime());
                     myNewChecklist.setColor(noteColor);
 
-                    ArrayList<String> items = new ArrayList<>();
-                    items.addAll(mChecklistItem);
 
-                    myNewChecklist.setChecklistItems(items);
+
+                    myNewChecklist.setChecklistItems(mChecklistItem);
 
                     DatabaseHelper dbHelper = new DatabaseHelper(NewChecklistActivity.this);
                     Boolean checkUpdate = dbHelper.updateChecklist(myNewChecklist);
@@ -146,10 +148,9 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
                             myNewChecklist.setLongitude(myCoords[1]);
                         }
                     }
-                    ArrayList<String> items = new ArrayList<>();
-                    items.addAll(mChecklistItem);
 
-                    myNewChecklist.setChecklistItems(items);
+
+                    myNewChecklist.setChecklistItems(mChecklistItem);
 
                     DatabaseHelper dbHelper = new DatabaseHelper(NewChecklistActivity.this);
                     Boolean checkInsert = dbHelper.insertChecklist(myNewChecklist);
@@ -208,7 +209,10 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
                     editText.getText().clear();
                     alertDialog.dismiss();
                 } else {
-                    mChecklistItem.add(checklistItem);
+                    ChecklistItemEntry mNewItem = new ChecklistItemEntry();
+                    mNewItem.setItemText(checklistItem);
+                    mNewItem.setIsChecked(0);
+                    mChecklistItem.add(mNewItem);
                     adapter.notifyDataSetChanged();
                 }
                 alertDialog.dismiss();
@@ -245,7 +249,7 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
         Button cancelButton = (Button) alertDialog.findViewById(R.id.cancelButton);
         final EditText editText = (EditText) alertDialog.findViewById(R.id.checklistEditText);
 
-        editText.setText(mChecklistItem.get(position));
+        editText.setText(mChecklistItem.get(position).getItemText());
 
         okButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -255,8 +259,9 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
                     editText.getText().clear();
                     alertDialog.dismiss();
                 } else {
-                    String itemText = editText.getText().toString();
-                    mChecklistItem.set(position, itemText);
+                    //String itemText = editText.getText().toString();
+                    //mChecklistItem.set(position, itemText);
+                    mChecklistItem.get(position).setItemText(checklistItem);
                     adapter.notifyDataSetChanged();
                 }
                 alertDialog.dismiss();
@@ -284,8 +289,21 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
 
     @Override
     public void onChecklistNoteClick(int position) {
-        String itemText = mChecklistItem.get(position);
-        editItemDialogBox(itemText, position);
+        if (editable) {
+            String itemText = mChecklistItem.get(position).getItemText();
+            editItemDialogBox(itemText, position);
+        }
+        else {
+
+            int isItChecked = mChecklistItem.get(position).getIsChecked();
+            if (isItChecked == 0){
+                mChecklistItem.get(position).setIsChecked(1);
+            }
+            else {
+                mChecklistItem.get(position).setIsChecked(0);
+            }
+            adapter.notifyDataSetChanged();
+        }
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -444,6 +462,7 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
                 break;
 
             case R.id.editNote:
+                editable = true;
                 findViewById(R.id.checklistTitleEditText).setEnabled(true);
                 findViewById(R.id.addChecklistItemButton).setClickable(true);
                 findViewById(R.id.addChecklistItemButton).setVisibility(View.VISIBLE);
@@ -454,7 +473,7 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
             case R.id.shareNote:
                 String toSend = "";
                 for (int i = 0; i < mChecklistItem.size(); i++) {
-                    toSend = toSend + mChecklistItem.get(i) + System.lineSeparator();
+                    toSend = toSend + mChecklistItem.get(i).getItemText() + System.lineSeparator();
                 }
 
                 Intent sendIntent = new Intent();
@@ -484,8 +503,10 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
 
     private int getIncomingIntent() {
         if (getIntent().hasExtra("flag")) {
+            editable = false;
             return getIntent().getIntExtra("noteID", 0);
         } else {
+            editable = true;
             return 0;
         }
     }
@@ -509,7 +530,10 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
 
         if (cursorItems.moveToFirst()) {
             do {
-                mChecklistItem.add(cursorItems.getString(cursorItems.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_Item_Text)));
+                ChecklistItemEntry mItemToLoad = new ChecklistItemEntry();
+                mItemToLoad.setItemText(cursorItems.getString(cursorItems.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_Item_Text)));
+                mItemToLoad.setIsChecked(cursorItems.getInt(cursorItems.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_isChecked)));
+                mChecklistItem.add(mItemToLoad);
             } while (cursorItems.moveToNext());
         }
         cursorItems.close();

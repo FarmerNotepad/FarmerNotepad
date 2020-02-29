@@ -10,9 +10,9 @@ public class EntryChecklistNote implements ListItem{
     private int color;
     private double latitude;
     private double longitude;
-    private ArrayList<String> checklistItems;
+    private ArrayList<ChecklistItemEntry> checklistItems;
 
-    public EntryChecklistNote(int noteID, String noteTitle, String createDate, String modDate, int color, double latitude, double longitude, ArrayList<String> items) {
+    public EntryChecklistNote(int noteID, String noteTitle, String createDate, String modDate, int color, double latitude, double longitude, ArrayList<ChecklistItemEntry> items) {
         this.noteID = noteID;
         this.noteTitle = noteTitle;
         this.createDate = createDate;
@@ -87,9 +87,9 @@ public class EntryChecklistNote implements ListItem{
         this.longitude = longitude;
     }
 
-    public void setChecklistItems(ArrayList<String> items) {this.checklistItems = items;}
+    public void setChecklistItems(ArrayList<ChecklistItemEntry> items) {this.checklistItems = items;}
 
-    public ArrayList<String> getChecklistItems() {
+    public ArrayList<ChecklistItemEntry> getChecklistItems() {
         return checklistItems; }
 
     @Override
