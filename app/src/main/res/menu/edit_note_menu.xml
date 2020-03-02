@@ -30,6 +30,12 @@
         />
 
     <item
+        android:id="@+id/pinStatusBar"
+        android:title="Pin to status bar"
+        app:showAsAction = "never"
+        />
+
+    <item
         android:id="@+id/shareNote"
         android:title="Share"
         app:showAsAction = "never"

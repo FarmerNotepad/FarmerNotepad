@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         setContentView(R.layout.activity_main);
 
         Log.d(TAG, "onCreate: started.");
+        GenericUtils.createNotificationChannel(MainActivity.this);
         loadNotes();
         loadChecklistNotes();
 

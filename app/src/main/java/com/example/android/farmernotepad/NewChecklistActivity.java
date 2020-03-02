@@ -1,5 +1,8 @@
 package com.example.android.farmernotepad;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -16,6 +19,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -24,10 +28,13 @@ import java.util.ArrayList;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import static android.widget.Toast.LENGTH_SHORT;
+import static com.example.android.farmernotepad.GenericUtils.CHANNEL_ID;
 
 public class NewChecklistActivity extends AppCompatActivity implements RecyclerViewAdapterChecklist.OnChecklistItemListener {
 
@@ -38,6 +45,7 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
     private int noteIntentID;
     RecyclerViewAdapterChecklist adapter;
     private boolean editable;
+
 
     ArrayList<Double> noteLat = new ArrayList<Double>();
     ArrayList<Double> noteLong = new ArrayList<Double>();
@@ -84,6 +92,7 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
         });
 
         if (noteIntentID != 0) {
+
             checkLocation.setVisibility(View.INVISIBLE);
             checklistTitle.setEnabled(false);
             loadEditableChecklist(noteIntentID);
@@ -495,6 +504,30 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
                     mapIntent.putExtra("Title", mNoteTitle);
                     startActivity(mapIntent);
                 }
+                break;
+
+            case R.id.pinStatusBar:
+                NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, CHANNEL_ID);
+                TextView checklistTitle = findViewById(R.id.checklistTitleEditText);
+                String checklistText = "";
+                for (ChecklistItemEntry s : mChecklistItem){
+                            checklistText += " \u2022" + s.getItemText();
+                }
+
+
+
+                notificationBuilder.setAutoCancel(true)
+                        .setDefaults(Notification.DEFAULT_ALL)
+                        .setWhen(System.currentTimeMillis())
+                        .setSmallIcon(R.drawable.ic_assignment_late_black_24dp)
+                        .setTicker(checklistTitle.getText().toString())
+                        .setPriority(Notification.PRIORITY_DEFAULT) // this is deprecated in API 26 but you can still use for below 26. check below update for 26 API
+                        .setContentTitle(checklistTitle.getText().toString())
+                        .setContentText(checklistText)
+                        .setContentInfo("Info");
+
+                NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
+                notificationManager.notify(1, notificationBuilder.build());
                 break;
         }
         return super.onOptionsItemSelected(item);

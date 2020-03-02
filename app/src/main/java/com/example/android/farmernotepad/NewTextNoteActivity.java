@@ -1,10 +1,14 @@
 package com.example.android.farmernotepad;
 
 import android.app.AlertDialog;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -21,16 +25,20 @@ import android.widget.Toast;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import java.util.ArrayList;
 
 import static android.widget.Toast.LENGTH_SHORT;
+import static com.example.android.farmernotepad.GenericUtils.CHANNEL_ID;
 
 public class NewTextNoteActivity extends AppCompatActivity {
     private Menu mMenu;
     private int noteColor;
     static NewTextNoteActivity activity;
     private int noteIntentID;
+
 
     ArrayList<Double> noteLat = new ArrayList<Double>();
     ArrayList<Double> noteLong = new ArrayList<Double>();
@@ -333,6 +341,26 @@ public class NewTextNoteActivity extends AppCompatActivity {
                     mapIntent.putExtra("Title",mNoteTitle);
                     startActivity(mapIntent);
                 }
+                break;
+
+            case R.id.pinStatusBar:
+                NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, CHANNEL_ID);
+                TextView title = findViewById(R.id.editTitle);
+                TextView text = findViewById(R.id.editText);
+
+                notificationBuilder.setAutoCancel(true)
+                        .setDefaults(Notification.DEFAULT_ALL)
+                        .setWhen(System.currentTimeMillis())
+                        .setSmallIcon(R.drawable.ic_assignment_late_black_24dp)
+                        .setTicker(title.getText().toString())
+                        .setPriority(Notification.PRIORITY_MAX) // this is deprecated in API 26 but you can still use for below 26. check below update for 26 API
+                        .setContentTitle(title.getText().toString())
+                        .setContentText(text.getText().toString())
+                        .setContentInfo("Info");
+
+                NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
+                notificationManager.notify(1, notificationBuilder.build());
+
                 break;
         }
         return super.onOptionsItemSelected(item);

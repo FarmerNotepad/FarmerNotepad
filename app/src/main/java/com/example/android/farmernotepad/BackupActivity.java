@@ -45,7 +45,7 @@ public class BackupActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (checkLocal.isChecked()) {
                     DatabaseHelper dbHelper = new DatabaseHelper(BackupActivity.this);
-                    dbHelper.exportDB(BackupActivity.this);
+                        dbHelper.exportDB(BackupActivity.this);
                     Toast.makeText(BackupActivity.this, "Database exported to " + BackupActivity.this.getExternalFilesDir(null), Toast.LENGTH_SHORT).show();
                 }
                 if (checkOnline.isChecked()) {
