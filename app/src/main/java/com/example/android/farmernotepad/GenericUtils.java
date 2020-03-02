@@ -1,7 +1,10 @@
 package com.example.android.farmernotepad;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.MenuItem;
@@ -22,7 +25,10 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 
+import static androidx.core.content.ContextCompat.getSystemService;
+
 public class GenericUtils {
+    public static final String CHANNEL_ID = "channel1";
 
     public static String getDateTime() {
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -211,6 +217,19 @@ public class GenericUtils {
 
 
         item.setIcon(wrapDrawable);
+    }
+
+    public static void createNotificationChannel(Context ctx){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            NotificationChannel channel1 = new NotificationChannel(
+                    CHANNEL_ID,"Channel 1 ",
+                    NotificationManager.IMPORTANCE_DEFAULT
+            );
+            channel1.setDescription("Pin to status bar channel.");
+
+            NotificationManager manager = getSystemService(ctx,NotificationManager.class);
+            manager.createNotificationChannel(channel1);
+        }
     }
 }
 
