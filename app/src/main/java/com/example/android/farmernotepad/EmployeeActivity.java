@@ -227,9 +227,6 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
         final EditText newPaymentDate = alertDialog.findViewById(R.id.newPaymentDate);
 
 
-
-
-
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -324,7 +321,7 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
         alertDialog.show();
 
         Button okButton = alertDialog.findViewById(R.id.addPaymentOk);
-        Button cancelButton =  alertDialog.findViewById(R.id.addPaymentCancel);
+        Button cancelButton = alertDialog.findViewById(R.id.addPaymentCancel);
 
         final EditText newPaymentWorkHours = alertDialog.findViewById(R.id.newPaymentWorkHours);
         final EditText newPaymentWage = alertDialog.findViewById(R.id.newPaymentWage);
@@ -353,12 +350,12 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
             }
         });
 
-        if(paymentItem.getWageType() != 2) {
+        if (paymentItem.getWageType() != 2) {
             newPaymentDate.setText(paymentItem.getWageWorkDate());
             newPaymentWorkHours.setText(String.valueOf((paymentItem.getWageHours())));
             newPaymentWage.setText(String.valueOf(paymentItem.getWageWage()));
             newPaymentDescription.setText(paymentItem.getWageDesc());
-        } else{
+        } else {
             dayOffChecked(alertDialog);
         }
 
@@ -368,7 +365,6 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
                 dayOffChecked(alertDialog);
             }
         });
-
 
 
         okButton.setOnClickListener(new View.OnClickListener() {
@@ -528,13 +524,13 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
         EmployeeActivity.this.finish();
     }
 
-    private void dayOffChecked(AlertDialog alertDialog){
+    private void dayOffChecked(AlertDialog alertDialog) {
         final CheckedTextView dayOffCheckedTextView = alertDialog.findViewById(R.id.dayOffCheckedTextView);
         final EditText newPaymentWorkHours = alertDialog.findViewById(R.id.newPaymentWorkHours);
         final EditText newPaymentWage = alertDialog.findViewById(R.id.newPaymentWage);
         final EditText newPaymentDescription = alertDialog.findViewById(R.id.newPaymentDescription);
 
-        if(!dayOffCheckedTextView.isChecked()){
+        if (!dayOffCheckedTextView.isChecked()) {
             newPaymentWorkHours.getText().clear();
             newPaymentWage.getText().clear();
             newPaymentDescription.getText().clear();
@@ -546,7 +542,7 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
             newPaymentDescription.setEnabled(false);
             dayOffCheckedTextView.setCheckMarkDrawable(R.drawable.ic_checked);
             dayOffCheckedTextView.setChecked(true);
-        } else{
+        } else {
             newPaymentWorkHours.setPaintFlags(newPaymentWorkHours.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
             newPaymentWage.setPaintFlags(newPaymentWage.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
             newPaymentDescription.setPaintFlags(newPaymentDescription.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));

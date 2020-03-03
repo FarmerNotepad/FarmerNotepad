@@ -76,9 +76,8 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
             }
         });
 
-    return true;
+        return true;
     }
-
 
 
     @Override
@@ -123,7 +122,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
                 break;
 
             case R.id.Sort:
-                allNotesList = GenericUtils.sortByTitle(allNotesList,desc);
+                allNotesList = GenericUtils.sortByTitle(allNotesList, desc);
                 adapter.notifyDataSetChanged();
                 desc = !desc;
                 break;
@@ -144,7 +143,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
                 ArrayList<Double> noteLat = new ArrayList<Double>();
                 ArrayList<Double> noteLong = new ArrayList<Double>();
                 ArrayList<String> mNoteTitles = new ArrayList<String>();
-                for (int i =0; i < allNotesList.size(); i++) {
+                for (int i = 0; i < allNotesList.size(); i++) {
                     if (allNotesList.get(i).getLatitude() != 0 || allNotesList.get(i).getLongitude() != 0) {
                         noteLat.add(allNotesList.get(i).getLatitude());
                         noteLong.add(allNotesList.get(i).getLongitude());
@@ -154,12 +153,12 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
                 Intent mapIntent = new Intent(MainActivity.this, MapsActivity.class);
                 mapIntent.putExtra("NoteLat", noteLat);
                 mapIntent.putExtra("NoteLong", noteLong);
-                mapIntent.putExtra("Title",mNoteTitles);
+                mapIntent.putExtra("Title", mNoteTitles);
                 startActivity(mapIntent);
                 break;
 
             case R.id.Settings:
-                Intent intentSettings = new Intent (MainActivity.this,SettingsActivity.class);
+                Intent intentSettings = new Intent(MainActivity.this, SettingsActivity.class);
                 startActivity(intentSettings);
                 break;
         }
@@ -184,7 +183,6 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         Cursor cursor = dbHelper.getAllNotes();
 
 
-
         if (cursor.moveToFirst()) {
             do {
                 EntryTextNote noteEntry = new EntryTextNote();
@@ -206,7 +204,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
     }
 
     private void loadChecklistNotes() {
-        DatabaseHelper dbHelper =new DatabaseHelper(MainActivity.this);
+        DatabaseHelper dbHelper = new DatabaseHelper(MainActivity.this);
         Cursor cursor = dbHelper.getAllChecklists();
         Cursor cursorItems;
 
@@ -263,8 +261,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
             intent.putExtra("noteID", mNoteID);
             intent.putExtra("flag", "editNote");
 
-        }
-        else{
+        } else {
             EntryChecklistNote checklistNote = (EntryChecklistNote) allNotesList.get(position);
             mNoteID = checklistNote.getNoteID();
             intent = new Intent(this, NewChecklistActivity.class);

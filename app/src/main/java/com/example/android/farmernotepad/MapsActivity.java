@@ -1,7 +1,5 @@
 package com.example.android.farmernotepad;
 
-import androidx.fragment.app.FragmentActivity;
-
 import android.os.Bundle;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -12,8 +10,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+
+import androidx.fragment.app.FragmentActivity;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 

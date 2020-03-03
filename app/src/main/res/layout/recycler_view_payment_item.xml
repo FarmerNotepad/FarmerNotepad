@@ -39,8 +39,7 @@
         android:layout_marginTop="8dp"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/description"
@@ -61,9 +60,9 @@
         <Button
             android:id="@+id/deletePayment"
             android:layout_width="15dp"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:layout_weight="1"
-            android:background="@drawable/ic_remove_button"
+            android:foreground="@drawable/ic_remove_button"
             android:padding="10dp"/>
 
     </LinearLayout>

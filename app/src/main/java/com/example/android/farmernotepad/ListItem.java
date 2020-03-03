@@ -6,13 +6,19 @@ public interface ListItem {
     int typeChecklist = 2;
 
     int getListItemType();
+
     String getInterfaceTitle();
+
     String getInterfaceText();
+
     int getColor();
+
     String getModDate();
+
     String getCreateDate();
 
     double getLatitude();
+
     double getLongitude();
 
 }

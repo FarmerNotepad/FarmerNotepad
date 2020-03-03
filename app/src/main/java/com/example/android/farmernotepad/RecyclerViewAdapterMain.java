@@ -136,7 +136,11 @@ public class RecyclerViewAdapterMain extends RecyclerView.Adapter implements Fil
             Drawable wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable);
             DrawableCompat.setTint(wrappedDrawable, allNotesList.get(position).getColor());
             parentLayout.setBackground(wrappedDrawable);
-            if(allNotesList.get(position).getColor() == Color.BLACK){
+            Drawable unwrappedDrawable2 = ContextCompat.getDrawable(parentLayout.getContext(), R.drawable.recycler_view_items_outline);
+            Drawable wrappedDrawable2 = DrawableCompat.wrap(unwrappedDrawable2);
+            parentLayout.setForeground(wrappedDrawable2);
+
+            if (allNotesList.get(position).getColor() == Color.BLACK) {
                 textNoteTitle.setTextColor(Color.WHITE);
                 textNoteContent.setTextColor(Color.WHITE);
             }
@@ -182,7 +186,11 @@ public class RecyclerViewAdapterMain extends RecyclerView.Adapter implements Fil
             Drawable wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable);
             DrawableCompat.setTint(wrappedDrawable, allNotesList.get(position).getColor());
             parentLayout.setBackground(wrappedDrawable);
-            if(allNotesList.get(position).getColor() == Color.BLACK){
+            Drawable unwrappedDrawable2 = ContextCompat.getDrawable(parentLayout.getContext(), R.drawable.recycler_view_items_outline);
+            Drawable wrappedDrawable2 = DrawableCompat.wrap(unwrappedDrawable2);
+            parentLayout.setForeground(wrappedDrawable2);
+
+            if (allNotesList.get(position).getColor() == Color.BLACK) {
                 textNoteTitle.setTextColor(Color.WHITE);
                 textNoteContent.setTextColor(Color.WHITE);
             }
