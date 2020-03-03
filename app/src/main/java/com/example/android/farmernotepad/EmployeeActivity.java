@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.SimpleDateFormat;
@@ -160,7 +161,7 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.deleteEmployee:
-                final android.app.AlertDialog alertDeleteDialog = new android.app.AlertDialog.Builder(EmployeeActivity.this).create();
+                final AlertDialog alertDeleteDialog = new MaterialAlertDialogBuilder(EmployeeActivity.this).create();
                 alertDeleteDialog.setTitle("Delete Employee");
                 alertDeleteDialog.setMessage("Delete this Employee?");
                 alertDeleteDialog.setButton(android.app.AlertDialog.BUTTON_POSITIVE, "YES",

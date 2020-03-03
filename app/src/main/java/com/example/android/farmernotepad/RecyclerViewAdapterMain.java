@@ -131,7 +131,6 @@ public class RecyclerViewAdapterMain extends RecyclerView.Adapter implements Fil
             EntryTextNote textNote = (EntryTextNote) allNotesList.get(position);
             textNoteTitle.setText(textNote.getNoteTitle());
             textNoteContent.setText(textNote.getNoteText());
-            //parentLayout.setBackgroundColor(allNotesList.get(position).getColor());
             Drawable unwrappedDrawable = ContextCompat.getDrawable(parentLayout.getContext(), R.drawable.rounded_corners);
             Drawable wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable);
             DrawableCompat.setTint(wrappedDrawable, allNotesList.get(position).getColor());
@@ -143,6 +142,9 @@ public class RecyclerViewAdapterMain extends RecyclerView.Adapter implements Fil
             if (allNotesList.get(position).getColor() == Color.BLACK) {
                 textNoteTitle.setTextColor(Color.WHITE);
                 textNoteContent.setTextColor(Color.WHITE);
+            } else {
+                textNoteTitle.setTextColor(Color.DKGRAY);
+                textNoteContent.setTextColor(Color.DKGRAY);
             }
         }
 
@@ -193,6 +195,10 @@ public class RecyclerViewAdapterMain extends RecyclerView.Adapter implements Fil
             if (allNotesList.get(position).getColor() == Color.BLACK) {
                 textNoteTitle.setTextColor(Color.WHITE);
                 textNoteContent.setTextColor(Color.WHITE);
+            } else {
+                textNoteTitle.setTextColor(Color.DKGRAY);
+                textNoteContent.setTextColor(Color.DKGRAY);
+
             }
 
         }
@@ -210,5 +216,9 @@ public class RecyclerViewAdapterMain extends RecyclerView.Adapter implements Fil
     @Override
     public int getItemViewType(int position) {
         return allNotesList.get(position).getListItemType();
+    }
+
+    private void recyclerViewColors(){
+
     }
 }

@@ -31,6 +31,17 @@ public class WageCalculatorActivity extends AppCompatActivity implements Recycle
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wage_calculator);
 
+        findViewById(R.id.wage_calculator).setOnTouchListener(new OnSwipeTouchListener(WageCalculatorActivity.this) {
+
+            public void onSwipeRight() {
+                Intent intent = new Intent(WageCalculatorActivity.this, MainActivity.class);
+                startActivity(intent);
+                WageCalculatorActivity.this.finish();
+            }
+
+        });
+
+
         loadEmployees();
 
         FloatingActionButton addEmployee = (FloatingActionButton) findViewById(R.id.addEmployeeBtn);

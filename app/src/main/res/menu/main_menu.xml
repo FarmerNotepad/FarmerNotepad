@@ -9,12 +9,6 @@
         />
 
     <item
-        android:id="@+id/newNote"
-        android:icon="@drawable/ic_note_add_black_24dp"
-        android:title="New Note"
-        app:showAsAction="always" />
-
-    <item
         android:id="@+id/searchNoteMenuItem"
         android:icon="@drawable/ic_search_black_24dp"
         android:title="Search"
@@ -25,7 +19,8 @@
     <item
         android:id="@+id/Sort"
         android:title="Sort"
-        app:showAsAction="never" />
+        app:showAsAction="never"
+        android:icon="@drawable/ic_action_name"/>
 
     <item
         android:id="@+id/showOnMap"
