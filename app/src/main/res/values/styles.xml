@@ -12,6 +12,7 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:colorBackground">@color/background</item>
         <item name="android:transition">@id/normal</item>
+        <item name="dialogCornerRadius">20dp</item>
 
     </style>
 

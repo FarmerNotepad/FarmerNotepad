@@ -7,7 +7,6 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -15,7 +14,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.SearchView;
-import androidx.appcompat.app.ActionBar;
+import android.widget.Toast;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -33,15 +34,61 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
     private static final String TAG = "MainActivity";
     boolean desc = false;
 
-
     private ArrayList<ListItem> allNotesList = new ArrayList<>();
     RecyclerViewAdapterMain adapter;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        findViewById(R.id.main).setOnTouchListener(new OnSwipeTouchListener(MainActivity.this) {
+
+            public void onSwipeLeft() {
+                Intent intent = new Intent(MainActivity.this, WageCalculatorActivity.class);
+                startActivity(intent);
+                MainActivity.this.finish();
+            }
+            
+        });
+
+        FloatingActionButton addNote = findViewById(R.id.addNote);
+
+        addNote.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this);
+                View mView = getLayoutInflater().inflate(R.layout.add_note_dialog_box, null);
+                alert.setView(mView);
+                final AlertDialog alertDialog = alert.create();
+                alertDialog.setCanceledOnTouchOutside(true);
+                alertDialog.show();
+
+                Button text = (Button) alertDialog.findViewById(R.id.addTextNoteButton);
+                Button checklist = (Button) alertDialog.findViewById(R.id.addChecklistNoteButton);
+
+                text.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(MainActivity.this, NewTextNoteActivity.class);
+                        startActivity(intent);
+                        alertDialog.dismiss();
+                        MainActivity.this.finish();
+                    }
+                });
+
+                checklist.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(MainActivity.this, NewChecklistActivity.class);
+                        startActivity(intent);
+                        alertDialog.dismiss();
+                        MainActivity.this.finish();
+                    }
+                });
+
+            }
+        });
 
         Log.d(TAG, "onCreate: started.");
         GenericUtils.createNotificationChannel(MainActivity.this);
@@ -49,8 +96,6 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         loadChecklistNotes();
 
         autoBackupHandler();
-
-
 
 
     }
@@ -83,39 +128,6 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.newNote:
-                final AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this);
-                View mView = getLayoutInflater().inflate(R.layout.add_note_dialog_box, null);
-                alert.setView(mView);
-                final AlertDialog alertDialog = alert.create();
-                alertDialog.setCanceledOnTouchOutside(true);
-                alertDialog.show();
-
-                Button text = (Button) alertDialog.findViewById(R.id.addTextNoteButton);
-                Button checklist = (Button) alertDialog.findViewById(R.id.addChecklistNoteButton);
-
-                text.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(MainActivity.this, NewTextNoteActivity.class);
-                        startActivity(intent);
-                        alertDialog.dismiss();
-                        MainActivity.this.finish();
-                    }
-                });
-
-                checklist.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(MainActivity.this, NewChecklistActivity.class);
-                        startActivity(intent);
-                        alertDialog.dismiss();
-                        MainActivity.this.finish();
-                    }
-                });
-
-                break;
-
             case R.id.Feedback:
                 Intent intent = new Intent(MainActivity.this, FeedbackActivity.class);
                 startActivity(intent);
@@ -274,23 +286,23 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
     }
 
 
-   public void autoBackupHandler(){
+    public void autoBackupHandler() {
         SharedPreferences sharedPreferences =
                 PreferenceManager.getDefaultSharedPreferences(this);
-       SharedPreferences.Editor editor = sharedPreferences.edit();
-        if (sharedPreferences.getBoolean("backup_check", false)){
-            String receiverEmail = sharedPreferences.getString("backup_email","");
-            if (!receiverEmail.equals("")){
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        if (sharedPreferences.getBoolean("backup_check", false)) {
+            String receiverEmail = sharedPreferences.getString("backup_email", "");
+            if (!receiverEmail.equals("")) {
                 String currentTime = GenericUtils.getDateTime();
-                String previousBackupDate = sharedPreferences.getString("backup_date","");
+                String previousBackupDate = sharedPreferences.getString("backup_date", "");
 
-                if (!previousBackupDate.equals("")){
+                if (!previousBackupDate.equals("")) {
                     DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
                     try {
                         Date currentDate = dateFormat.parse(currentTime);
                         Date prevBackup = dateFormat.parse(previousBackupDate);
                         prevBackup = GenericUtils.addMonth(prevBackup);
-                        if (currentDate.after(prevBackup)){
+                        if (currentDate.after(prevBackup)) {
 
                             new Thread(new Runnable() {
 
@@ -313,20 +325,18 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
                                 }
                             }).start();
 
-                            editor.putString("backup_date",currentTime);
+                            editor.putString("backup_date", currentTime);
                             editor.apply();
                         }
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
-                }
-                else {
-                    editor.putString("backup_date",currentTime);
+                } else {
+                    editor.putString("backup_date", currentTime);
                     editor.apply();
                 }
-            }
-            else {
-                GenericUtils.toast(this,"Set email address for auto-backup.");
+            } else {
+                GenericUtils.toast(this, "Set email address for auto-backup.");
             }
         }
     }
