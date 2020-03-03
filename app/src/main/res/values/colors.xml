@@ -1,8 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+
+    //MAIN THEME
+    <color name="colorPrimary">#607d8b</color>
+    <color name="colorPrimaryDark">#34515e</color>
+    <color name="colorPrimaryVariant">#8eacbb</color>
+    <color name="colorSecondary">#ffab40</color>
+    <color name="colorSecondaryDark">#c77c02</color>
+    <color name="colorSecondaryVariant">#ffdd71</color>
+    <color name="colorAccent">#c77c02</color>
+    <color name="background">#f2ffff</color>
+    <color name="navigationBarColor"></color>
+
+    //TEXT
+
+    //WIDGETS
+    <color name="colorControlHighlight">#ffe54c</color>
+    <color name="colorControlActivated">#ffb300</color>
+    <color name="colorControlNormal">#c68400</color>
+    <color name="colorButtonNormal">#c68400</color>
+
+
+    //COLOR PICKER
     <color name="White" >#FFFFFF</color>
     <color name="Black">#000000</color>
     <color name="Red">#FF0000</color>
@@ -10,8 +29,7 @@
     <color name="Blue">#0000FF</color>
     <color name="Yellow">#FFFF00</color>
     <color name="Orange">#FFA500</color>
-    <color name="Grey">#CCCCCC</color>
+    <color name="Grey">#3C3F41</color>
     <color name="Purple">#720B98</color>
-    <color name="Main_Background">#CCFFFDE7</color>
-    <color name="Transparent_White">#B7FFFFFF</color>
+    <color name="Transparent_White">#BFFFFFFF</color>
 </resources>

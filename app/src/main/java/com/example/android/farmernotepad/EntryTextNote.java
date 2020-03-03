@@ -1,6 +1,6 @@
 package com.example.android.farmernotepad;
 
-public class EntryTextNote implements  ListItem{
+public class EntryTextNote implements ListItem {
     private int noteID;
     private String noteTitle;
     private String noteText;
@@ -9,8 +9,6 @@ public class EntryTextNote implements  ListItem{
     private int color;
     private double latitude;
     private double longitude;
-
-
 
 
     public EntryTextNote(int noteID, String noteTitle, String noteText, String createDate, String modDate, int color, double longitude, double latitude) {
@@ -27,7 +25,7 @@ public class EntryTextNote implements  ListItem{
     }
 
 
-    public EntryTextNote(){  //NULL Constructor for testing purposes
+    public EntryTextNote() {  //NULL Constructor for testing purposes
     }
 
     public int getNoteID() {
@@ -81,15 +79,23 @@ public class EntryTextNote implements  ListItem{
         this.color = color;
     }
 
-    public void setLongitude(double longitude) {this.longitude = longitude;}
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
 
-    public void setLatitude(double latitude) {this.latitude = latitude;}
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
 
     @Override
-    public double getLongitude() {return longitude;}
+    public double getLongitude() {
+        return longitude;
+    }
 
     @Override
-    public double getLatitude() {return latitude;}
+    public double getLatitude() {
+        return latitude;
+    }
 
 
     @Override
@@ -98,12 +104,13 @@ public class EntryTextNote implements  ListItem{
     }
 
     @Override
-    public  String getInterfaceTitle(){
+    public String getInterfaceTitle() {
         return noteTitle;
     }
+
     @Override
-    public String getInterfaceText(){
+    public String getInterfaceText() {
         return noteText;
-}
+    }
 
 }

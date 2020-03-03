@@ -2,10 +2,6 @@ package com.example.android.farmernotepad;
 
 import android.content.Context;
 
-import com.sun.mail.smtp.SMTPSSLTransport;
-import com.sun.mail.smtp.SMTPTransport;
-
-import java.io.File;
 import java.security.Security;
 import java.util.Properties;
 
@@ -72,7 +68,7 @@ public class EmailHandler extends javax.mail.Authenticator {
     }
 
     public synchronized void exportDbOnline(String subject, String body,
-                                      String sender, String recipients, Context ctx) throws Exception {
+                                            String sender, String recipients, Context ctx) throws Exception {
         MimeMessage message = new MimeMessage(session);
         Multipart emailContent = new MimeMultipart();
         MimeBodyPart textBodyPart = new MimeBodyPart();

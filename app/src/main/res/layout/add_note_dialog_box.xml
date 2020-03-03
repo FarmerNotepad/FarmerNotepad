@@ -24,13 +24,13 @@
 
         <Button
             android:id="@+id/addTextNoteButton"
-            android:layout_width="105dp"
+            android:layout_width="109dp"
             android:layout_height="wrap_content"
             android:text="Text"
             android:textSize="15dp" />
 
         <Button
-            android:layout_width="105dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/addChecklistNoteButton"
             android:text="Checklist"

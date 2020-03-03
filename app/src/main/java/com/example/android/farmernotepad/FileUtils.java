@@ -12,15 +12,15 @@ import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 public class FileUtils {
     private static final int PERMISSION_REQUEST_STORAGE = 1;
@@ -67,7 +67,7 @@ public class FileUtils {
                 }
 
                 final String selection = "_id=?";
-                final String[] selectionArgs = new String[] {
+                final String[] selectionArgs = new String[]{
                         split[1]
                 };
 
@@ -149,7 +149,7 @@ public class FileUtils {
 
 
     public static void copyDatabase(File src, File dst, Context ctx) throws IOException {
-        if (dst.exists()){
+        if (dst.exists()) {
             dst.delete();
             dst = new File(ctx.getDatabasePath(DatabaseHelper.DATABASE_NAME).toString());
         }
@@ -163,13 +163,10 @@ public class FileUtils {
                 while ((len = in.read(buf)) > 0) {
                     out.write(buf, 0, len);
                 }
-            }
-            finally {
+            } finally {
                 out.close();
             }
-        }
-
-        finally {
+        } finally {
             in.close();
         }
 
@@ -185,8 +182,8 @@ public class FileUtils {
     }
 
 
-    public static void requestStoragePermission(Activity act){
-        ActivityCompat.requestPermissions( act, new String[] { Manifest.permission.WRITE_EXTERNAL_STORAGE},
+    public static void requestStoragePermission(Activity act) {
+        ActivityCompat.requestPermissions(act, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                 PERMISSION_REQUEST_STORAGE);
     }
 

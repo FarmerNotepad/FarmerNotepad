@@ -95,9 +95,9 @@ public class WageCalculatorActivity extends AppCompatActivity implements Recycle
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.employeesSort:
-                employeesArrayList = GenericUtils.sortByTotalDebt(employeesArrayList,desc);
+                employeesArrayList = GenericUtils.sortByTotalDebt(employeesArrayList, desc);
                 mAdapter.notifyDataSetChanged();
                 desc = !desc;
                 break;

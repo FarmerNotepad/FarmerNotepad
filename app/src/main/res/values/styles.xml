@@ -1,20 +1,35 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="LightModeTheme" parent="Theme.MaterialComponents.Light">
         <!-- Customize your theme here. -->
+        //MAIN THEME
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
+        <item name="colorSecondary">@color/colorSecondary</item>
+        <item name="colorSecondaryVariant">@color/colorSecondaryVariant</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:colorBackground">@color/background</item>
+        <item name="android:transition">@id/normal</item>
+
     </style>
 
-    <style name="NoActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
+
+
+    <style name="DarkModeTheme" parent="Theme.MaterialComponents">
+        <!-- Customize your theme here. -->
+
+    </style>
+
+
+    <style name="NoActionBar" parent="Theme.MaterialComponents.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppBarOverlay" parent="ThemeOverlay.MaterialComponents.ActionBar" />
 
-    <style name="PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="PopupOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar" />
 
 </resources>

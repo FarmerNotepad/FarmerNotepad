@@ -19,11 +19,10 @@
 
     <Button
         android:id="@+id/deleteItemButton"
-
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_weight="1"
-        android:background="@drawable/ic_remove_button" />
+        android:foreground="@drawable/ic_delete"/>
 
 
 </LinearLayout>

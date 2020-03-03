@@ -27,7 +27,6 @@
         android:id="@+id/editTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:editable="true"
         android:ems="10"
         android:hint="Note Title"
         android:inputType="textPersonName"
@@ -51,7 +50,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.923"
-        app:srcCompat="@android:drawable/checkbox_on_background" />
+        app:srcCompat="@drawable/ic_checked" />
 
     <CheckBox
         android:id="@+id/checkBoxLoc"
