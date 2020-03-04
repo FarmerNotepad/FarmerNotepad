@@ -1,6 +1,7 @@
 package com.example.android.farmernotepad;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -87,27 +88,40 @@ public class BackupActivity extends AppCompatActivity {
 
     public void mailDb(View view) {
         final EditText exportEmail = (EditText) findViewById(R.id.editTextEmail);
+        ProgressDialog pDialog = new ProgressDialog(BackupActivity.this);
+        pDialog.setMessage("Loading");
+        pDialog.setCancelable(false);
+        pDialog.show();
 
         new Thread(new Runnable() {
 
             @Override
             public void run() {
-                if (GenericUtils.isOnline()) {
-                    try {
-                        EmailHandler sender = new EmailHandler("farmernotepad@gmail.com",
-                                "farmernotepad123");
-                        sender.exportDbOnline("Your notes backup", "This is your database file.",
-                                "farmernotepad@gmail.com", exportEmail.getText().toString(), BackupActivity.this);
-                        GenericUtils.toast(getApplicationContext(), "Database Exported");
 
-                    } catch (Exception e) {
-                        Log.e("SendMail", e.getMessage(), e);
-                        Toast.makeText(getApplicationContext(), "Error sending email.", Toast.LENGTH_SHORT).show();
+                if (GenericUtils.isOnline()) {
+                    if (!exportEmail.getText().toString().equals("")) {
+                        try {
+                            EmailHandler sender = new EmailHandler("farmernotepad@gmail.com",
+                                    "farmernotepad123");
+                            sender.exportDbOnline("Your notes backup", "This is your database file.",
+                                    "farmernotepad@gmail.com", exportEmail.getText().toString(), BackupActivity.this);
+                            pDialog.dismiss();
+                            GenericUtils.toast(getApplicationContext(), "Database Exported");
+
+                        } catch (Exception e) {
+                            Log.e("SendMail", e.getMessage(), e);
+                            pDialog.dismiss();
+                            Toast.makeText(getApplicationContext(), "Error sending email.", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        pDialog.dismiss();
+                        GenericUtils.toast(getApplicationContext(),"Please specify an email adress.");
                     }
-                } else {
-                    GenericUtils.toast(getApplicationContext(), "No Internet connection found");
+                } else{
+                        pDialog.dismiss();
+                        GenericUtils.toast(getApplicationContext(), "No Internet connection found");
+                    }
                 }
-            }
         }).start();
     }
 
