@@ -1,5 +1,6 @@
 package com.example.android.farmernotepad;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,6 +31,11 @@ public class FeedbackActivity extends AppCompatActivity {
 
     public void sendEmail(View view) {
         final EditText feedbackText = (EditText) findViewById(R.id.feebackText);
+
+        ProgressDialog pDialog = new ProgressDialog(FeedbackActivity.this);
+        pDialog.setMessage("Loading");
+        pDialog.setCancelable(false);
+        pDialog.show();
         new Thread(new Runnable() {
 
             @Override
@@ -40,17 +46,18 @@ public class FeedbackActivity extends AppCompatActivity {
                                 "farmernotepad123");
                         sender.sendMail("User Feedback", feedbackText.getText().toString(),
                                 "farmernotepad@gmail.com", "farmernotepad@gmail.com");
-                        //Toast.makeText(FeedbackActivity.this, "Feedback sent to devs.", Toast.LENGTH_SHORT).show();
+                        pDialog.dismiss();
                         GenericUtils.toast(getApplicationContext(), "Feedback sent to devs");
                         Intent intent = new Intent(FeedbackActivity.this, MainActivity.class);
                         startActivity(intent);
                         FeedbackActivity.this.finish();
                     } catch (Exception e) {
                         Log.e("SendMail", e.getMessage(), e);
-                        //Toast.makeText(FeedbackActivity.this, "Error sending email.", Toast.LENGTH_SHORT).show();
+                        pDialog.dismiss();
                         GenericUtils.toast(getApplicationContext(), "Error sending email");
                     }
                 } else {
+                    pDialog.dismiss();
                     GenericUtils.toast(getApplicationContext(), "No internet connection found");
                 }
             }
