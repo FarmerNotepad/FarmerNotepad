@@ -108,7 +108,7 @@ public class RecyclerViewAdapterMain extends RecyclerView.Adapter implements Fil
         }
     };
 
-    public class TextNoteViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class TextNoteViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
 
         TextView textNoteTitle;
         TextView textNoteContent;
@@ -125,6 +125,7 @@ public class RecyclerViewAdapterMain extends RecyclerView.Adapter implements Fil
             this.onNoteListener = onNoteListener;
 
             itemView.setOnClickListener(this);
+            itemView.setOnLongClickListener(this);
         }
 
         void bindView(int position) {
@@ -153,9 +154,15 @@ public class RecyclerViewAdapterMain extends RecyclerView.Adapter implements Fil
             onNoteListener.onNoteClick(getAdapterPosition());
         }
 
+        @Override
+        public boolean onLongClick(View view) {
+            onNoteListener.onNoteLongClick(getAdapterPosition());
+
+            return true;
+        }
     }
 
-    public class ChecklistViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ChecklistViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
 
         TextView textNoteTitle;
         TextView textNoteContent;
@@ -173,6 +180,7 @@ public class RecyclerViewAdapterMain extends RecyclerView.Adapter implements Fil
             this.onNoteListener = onNoteListener;
 
             itemView.setOnClickListener(this);
+            itemView.setOnLongClickListener(this);
         }
 
         void bindView(int position) {
@@ -207,10 +215,17 @@ public class RecyclerViewAdapterMain extends RecyclerView.Adapter implements Fil
         public void onClick(View v) {
             onNoteListener.onNoteClick(getAdapterPosition());
         }
+
+        @Override
+        public boolean onLongClick(View view) {
+            onNoteListener.onNoteLongClick(getAdapterPosition());
+            return true;
+        }
     }
 
     public interface OnNoteListener {
         void onNoteClick(int position);
+        boolean onNoteLongClick(int position);
     }
 
     @Override
@@ -218,7 +233,4 @@ public class RecyclerViewAdapterMain extends RecyclerView.Adapter implements Fil
         return allNotesList.get(position).getListItemType();
     }
 
-    private void recyclerViewColors(){
-
-    }
 }

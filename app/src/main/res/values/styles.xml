@@ -13,6 +13,7 @@
         <item name="android:colorBackground">@color/background</item>
         <item name="android:transition">@id/normal</item>
         <item name="dialogCornerRadius">20dp</item>
+        <item name="actionModeBackground">@color/colorPrimaryVariant</item>
 
     </style>
 
