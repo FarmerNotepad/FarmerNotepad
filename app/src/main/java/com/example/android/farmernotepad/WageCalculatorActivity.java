@@ -155,4 +155,12 @@ public class WageCalculatorActivity extends AppCompatActivity implements Recycle
         dbHelper.close();
         initRecyclerView();
     }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(WageCalculatorActivity.this, MainActivity.class);
+        startActivity(intent);
+        WageCalculatorActivity.this.finish();
+    }
+
 }

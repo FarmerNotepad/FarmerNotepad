@@ -14,7 +14,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.SearchView;
-import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -25,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.ActionMode;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -36,11 +36,14 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
 
     private ArrayList<ListItem> allNotesList = new ArrayList<>();
     RecyclerViewAdapterMain adapter;
+    private ActionMode mActionMode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        FloatingActionButton addNote = findViewById(R.id.addNote);
 
         findViewById(R.id.main).setOnTouchListener(new OnSwipeTouchListener(MainActivity.this) {
 
@@ -49,10 +52,9 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
                 startActivity(intent);
                 MainActivity.this.finish();
             }
-            
+
         });
 
-        FloatingActionButton addNote = findViewById(R.id.addNote);
 
         addNote.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -149,6 +151,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
             case R.id.wageCalculator:
                 Intent intentWage = new Intent(MainActivity.this, WageCalculatorActivity.class);
                 startActivity(intentWage);
+                MainActivity.this.finish();
                 break;
 
             case R.id.showOnMap:
@@ -284,6 +287,61 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         startActivity(intent);
         MainActivity.this.finish();
     }
+
+    @Override
+    public boolean onNoteLongClick(int position) {
+        FloatingActionButton addNote = findViewById(R.id.addNote);
+        addNote.setVisibility(View.INVISIBLE);
+
+        if (mActionMode != null) {
+            return false;
+        }
+
+        mActionMode = startSupportActionMode(mActionModeCallback);
+
+        return true;
+    }
+
+    private ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
+
+        int selectedItems = 1;
+
+        @Override
+        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+            mode.getMenuInflater().inflate(R.menu.contextual_menu, menu);
+            mode.setTitle(selectedItems + "/" + allNotesList.size());
+            return true;
+        }
+
+        @Override
+        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+            return false;
+        }
+
+        @Override
+        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+
+            switch (item.getItemId()){
+                case R.id.deleteNotes:
+                    mode.finish();
+                    return true;
+                case R.id.setReminder:
+                    mode.finish();
+                    return true;
+                case R.id.share:
+                    mode.finish();
+                    return true;
+                default:
+                    return false;
+            }
+
+        }
+
+        @Override
+        public void onDestroyActionMode(ActionMode mode) {
+            mActionMode = null;
+        }
+    };
 
 
     public void autoBackupHandler() {
