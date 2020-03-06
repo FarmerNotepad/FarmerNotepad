@@ -18,6 +18,8 @@ import java.io.File;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import javax.mail.internet.AddressException;
+
 public class BackupActivity extends AppCompatActivity {
     private static BackupActivity activity;
     public static final int REQUEST_CODE = 5;
@@ -110,7 +112,7 @@ public class BackupActivity extends AppCompatActivity {
                         } catch (Exception e) {
                             Log.e("SendMail", e.getMessage(), e);
                             pDialog.dismiss();
-                            Toast.makeText(getApplicationContext(), "Error sending email.", Toast.LENGTH_SHORT).show();
+                            GenericUtils.toast(getApplicationContext(),"Error sending email.");
                         }
                     } else {
                         pDialog.dismiss();

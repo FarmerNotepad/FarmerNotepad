@@ -145,8 +145,6 @@ public class NewTextNoteActivity extends AppCompatActivity {
                         if (checkPerm == false) {
                             LocationFunctions.requestPermission(activity);
                         }
-                    } else {
-                        Toast.makeText(NewTextNoteActivity.this, "Check after onclick", LENGTH_SHORT).show();
                     }
                 }
             });

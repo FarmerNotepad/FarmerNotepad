@@ -1,6 +1,9 @@
 package com.example.android.farmernotepad;
 
 import android.content.Context;
+import android.os.Looper;
+import android.util.Log;
+import android.widget.Toast;
 
 import java.security.Security;
 import java.util.Properties;
@@ -11,6 +14,7 @@ import javax.mail.Multipart;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
+import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
@@ -86,13 +90,18 @@ public class EmailHandler extends javax.mail.Authenticator {
         message.setDataHandler(handler);
         message.setContent(emailContent);
 
+            try {
+                if (recipients.indexOf(',') > 0)
+                    message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipients));
+                else
+                    message.setRecipient(Message.RecipientType.TO, new InternetAddress(recipients));
 
-        if (recipients.indexOf(',') > 0)
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipients));
-        else
-            message.setRecipient(Message.RecipientType.TO, new InternetAddress(recipients));
+                Transport.send(message);
+            }
+            catch (AddressException e){
+                Log.e("AddressError", "Invalid address.", e);
+            }
 
-        Transport.send(message);
     }
 }
 

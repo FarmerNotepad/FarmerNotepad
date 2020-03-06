@@ -85,8 +85,6 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
                     if (checkPerm == false) {
                         LocationFunctions.requestPermission(activity);
                     }
-                } else {
-                    Toast.makeText(NewChecklistActivity.this, "Check after onclick", LENGTH_SHORT).show();
                 }
             }
         });
