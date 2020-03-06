@@ -30,7 +30,7 @@ public class FeedbackActivity extends AppCompatActivity {
     }
 
     public void sendEmail(View view) {
-        final EditText feedbackText = (EditText) findViewById(R.id.feebackText);
+        final EditText feedbackText = (EditText) findViewById(R.id.feedbackText);
 
         ProgressDialog pDialog = new ProgressDialog(FeedbackActivity.this);
         pDialog.setMessage("Loading");

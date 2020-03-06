@@ -19,14 +19,14 @@
     <item
         android:id="@+id/Sort"
         android:title="Sort"
-        app:showAsAction="never"
+        app:showAsAction="always"
         android:icon="@drawable/ic_action_name"/>
 
     <item
         android:id="@+id/showOnMap"
         android:title="Show on map"
         android:icon="@drawable/ic_pin_drop_red_24dp"
-        app:showAsAction = "ifRoom"
+        app:showAsAction = "always"
         />
 
     <item

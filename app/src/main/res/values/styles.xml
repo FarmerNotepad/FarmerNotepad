@@ -18,6 +18,13 @@
     </style>
 
 
+    <style name="ColorPicker" parent="Theme.MaterialComponents.Light.Dialog.Alert">
+        <item name="android:layout_width">104dp</item>
+        <item name="android:layout_height">104dp</item>
+        <item name="android:layout_margin">6dp</item>
+        <item name="android:foreground">@drawable/color_picker_outline</item>
+    </style>
+
 
     <style name="DarkModeTheme" parent="Theme.MaterialComponents">
         <!-- Customize your theme here. -->
@@ -25,9 +32,21 @@
     </style>
 
 
-    <style name="NoActionBar" parent="Theme.MaterialComponents.NoActionBar">
+    <style name="NoActionBar" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
+        <item name="colorSecondary">@color/colorSecondary</item>
+        <item name="colorSecondaryVariant">@color/colorSecondaryVariant</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:colorBackground">@color/background</item>
+        <item name="android:transition">@id/normal</item>
+        <item name="dialogCornerRadius">20dp</item>
+        <item name="actionModeBackground">@color/colorPrimaryVariant</item>
+
     </style>
 
     <style name="AppBarOverlay" parent="ThemeOverlay.MaterialComponents.ActionBar" />
