@@ -303,7 +303,6 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
     }
 
     private ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
-
         int selectedItems = 1;
 
         @Override

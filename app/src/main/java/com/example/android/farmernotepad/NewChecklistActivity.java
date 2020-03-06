@@ -375,12 +375,12 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
                 break;
 
             case R.id.pickColor:
-                final AlertDialog.Builder alert = new AlertDialog.Builder(NewChecklistActivity.this);
+                final android.app.AlertDialog.Builder alert = new android.app.AlertDialog.Builder(NewChecklistActivity.this);
                 View mView = getLayoutInflater().inflate(R.layout.color_picker_dialog_box, null);
                 alert.setView(mView);
                 final MenuItem pickColorItem = mMenu.findItem(R.id.pickColor);
 
-                final AlertDialog alertDialog = alert.create();
+                final android.app.AlertDialog alertDialog = alert.create();
 
                 alertDialog.setCanceledOnTouchOutside(true);
                 alertDialog.show();

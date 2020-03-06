@@ -21,5 +21,20 @@
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
 
+    //FeedBack Layout
+    <string name="feedback_title">Send us your Feedback:</string>
+    <string name="feedback_button">Send Feedback</string>
+    <string name="feedback_hint">Write your feedback here.....</string>
+
+    //Backup Layout
+    <string name="backup_export_title">Export your Notes:</string>
+    <string name="backup_import_title">Import previews Notes:</string>
+    <string name="backup_email_checkbox">Export to Email:</string>
+    <string name="backup_local_checkbox">Export Locally</string>
+    <string name="backup_export_button">EXPORT NOTES</string>
+    <string name="backup_import_button">IMPORT NOTES</string>
+    <string name="backup_email_hint">Write your email</string>
+
+
 
 </resources>

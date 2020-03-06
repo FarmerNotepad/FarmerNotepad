@@ -1,129 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:layout_height="300dp"
-    android:layout_gravity="center">
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:columnCount="3"
+    android:rowCount="3"
+    android:padding="5dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="300dp"
-        android:layout_height="300dp">
+    <ImageButton
+        android:id="@+id/colorBlack"
+        style="@style/ColorPicker"
+        android:background="@color/Black" />
 
-        <ImageButton
-            android:id="@+id/colorPurple"
-            android:layout_width="85dp"
-            android:layout_height="85dp"
-            android:width="85dp"
-            android:height="85dp"
-            android:background="@color/Purple"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.962"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.944" />
+    <ImageButton
+        android:id="@+id/colorGrey"
+        style="@style/ColorPicker"
+        android:background="@color/Grey"
+        />
 
-        <ImageButton
-            android:id="@+id/colorGrey"
-            android:layout_width="85dp"
-            android:layout_height="85dp"
-            android:background="@color/Grey"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.962"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.479" />
+    <ImageButton
+        android:id="@+id/colorWhite"
+        style="@style/ColorPicker"
+        android:background="@color/White"/>
 
-        <ImageButton
-            android:id="@+id/colorBlack"
-            android:layout_width="85dp"
-            android:layout_height="85dp"
-            android:background="@color/Black"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.06"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.944" />
-
-        <ImageButton
-            android:id="@+id/colorOrange"
-            android:layout_width="85dp"
-            android:layout_height="85dp"
-            android:background="@color/Orange"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/colorPurple"
-            app:layout_constraintHorizontal_bias="0.521"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.944" />
-
-        <ImageButton
-            android:id="@+id/colorYellow"
-            android:layout_width="85dp"
-            android:layout_height="85dp"
-            android:background="@color/Yellow"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.502"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.479" />
-
-        <ImageButton
-            android:id="@+id/colorGreen"
-            android:layout_width="85dp"
-            android:layout_height="85dp"
-            android:background="@color/Green"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.06"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.479" />
-
-        <ImageButton
-            android:id="@+id/colorRed"
-            android:layout_width="85dp"
-            android:layout_height="85dp"
-            android:background="@color/Red"
-            app:layout_constraintBottom_toBottomOf="@+id/colorPurple"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.962"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.039" />
-
-        <ImageButton
-            android:id="@+id/colorWhite"
-            android:layout_width="85dp"
-            android:layout_height="85dp"
-            android:background="@color/White"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.037" />
-
-        <ImageButton
-            android:id="@+id/colorBlue"
-            android:layout_width="85dp"
-            android:layout_height="85dp"
-            android:background="@color/Blue"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.06"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.037" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <ImageButton
+        android:id="@+id/colorPurple"
+        style="@style/ColorPicker"
+        android:background="@color/Purple" />
 
 
+    <ImageButton
+        android:id="@+id/colorOrange"
+        style="@style/ColorPicker"
+        android:background="@color/Orange" />
+
+    <ImageButton
+        android:id="@+id/colorYellow"
+        style="@style/ColorPicker"
+        android:background="@color/Yellow" />
+
+    <ImageButton
+        android:id="@+id/colorGreen"
+        style="@style/ColorPicker"
+        android:background="@color/Green" />
+
+    <ImageButton
+        android:id="@+id/colorRed"
+        style="@style/ColorPicker"
+        android:background="@color/Red" />
 
 
-</RelativeLayout>
+    <ImageButton
+        android:id="@+id/colorBlue"
+        style="@style/ColorPicker"
+        android:background="@color/Blue" />
+
+</GridLayout>
 
 

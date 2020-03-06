@@ -184,12 +184,12 @@ public class NewTextNoteActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.pickColor:
-                final AlertDialog.Builder alert = new AlertDialog.Builder(NewTextNoteActivity.this);
+                final android.app.AlertDialog.Builder alert = new android.app.AlertDialog.Builder(NewTextNoteActivity.this);
                 View mView = getLayoutInflater().inflate(R.layout.color_picker_dialog_box, null);
                 alert.setView(mView);
                 final MenuItem pickColorItem = mMenu.findItem(R.id.pickColor);
 
-                final AlertDialog alertDialog = alert.create();
+                final android.app.AlertDialog alertDialog = alert.create();
 
                 alertDialog.setCanceledOnTouchOutside(true);
                 alertDialog.show();
@@ -288,10 +288,10 @@ public class NewTextNoteActivity extends AppCompatActivity {
                 break;
 
             case R.id.deleteNote:
-                final AlertDialog alertDeleteDialog = new AlertDialog.Builder(NewTextNoteActivity.this).create();
+                final android.app.AlertDialog alertDeleteDialog = new android.app.AlertDialog.Builder(NewTextNoteActivity.this).create();
                 alertDeleteDialog.setTitle("Delete Note");
                 alertDeleteDialog.setMessage("Delete this note?");
-                alertDeleteDialog.setButton(AlertDialog.BUTTON_POSITIVE, "YES",
+                alertDeleteDialog.setButton(android.app.AlertDialog.BUTTON_POSITIVE, "YES",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 int noteID = getIntent().getIntExtra("noteID", 0);
@@ -309,7 +309,7 @@ public class NewTextNoteActivity extends AppCompatActivity {
                                 dbHelper.close();
                             }
                         });
-                alertDeleteDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "NO", new DialogInterface.OnClickListener() {
+                alertDeleteDialog.setButton(android.app.AlertDialog.BUTTON_NEGATIVE, "NO", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int which) {
                         alertDeleteDialog.dismiss();

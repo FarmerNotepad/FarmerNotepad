@@ -35,7 +35,6 @@ public class BackupActivity extends AppCompatActivity {
         final EditText exportEmail = findViewById((R.id.editTextEmail));
         final CheckBox checkLocal = findViewById(R.id.checkBoxLocal);
         final CheckBox checkOnline = findViewById(R.id.checkBoxOnline);
-        final TextView localPath = findViewById(R.id.textViewPath);
 
         if (!FileUtils.checkStoragePermission(BackupActivity.this)) {
             FileUtils.requestStoragePermission(activity);
