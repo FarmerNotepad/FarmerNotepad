@@ -24,10 +24,16 @@
 
         <ListPreference
             app:key="default_home_screen"
-            app:title="Default Home Screen"/>
+            app:defaultValue="Main"
+            app:entries="@array/launch_array"
+            app:entryValues="@array/launch_array_values"
+            app:title="Default Home Screen"
+            app:useSimpleSummaryProvider="true"/>
 
         <ListPreference
             app:key="default_notes_layout"
+            app:entries="@array/launch_array"
+            app:entryValues="@array/launch_array_values"
             app:title="Default Notes Layout" />
 
 

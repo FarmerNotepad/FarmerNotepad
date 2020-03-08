@@ -18,10 +18,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/LightModeTheme">
+        <activity android:name=".LaunchActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".SettingsActivity"
-            android:label="@string/title_activity_settings">
-        </activity>
+            android:label="@string/title_activity_settings"></activity>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -32,18 +38,16 @@
             android:label="@string/title_activity_maps" />
         <activity android:name=".EmployeeActivity" />
         <activity android:name=".WageCalculatorActivity" />
-        <activity android:name=".BackupActivity"
+        <activity
+            android:name=".BackupActivity"
             android:theme="@style/NoActionBar" />
-        <activity android:name=".FeedbackActivity"
+        <activity
+            android:name=".FeedbackActivity"
             android:theme="@style/NoActionBar" />
         <activity android:name=".NewChecklistActivity" />
         <activity android:name=".NewTextNoteActivity" />
         <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 
