@@ -1,6 +1,5 @@
 package com.example.android.farmernotepad;
 
-import android.app.AlertDialog;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.Context;
@@ -8,7 +7,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -26,17 +24,16 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
 
 import java.util.ArrayList;
 
 import static android.widget.Toast.LENGTH_SHORT;
 import static com.example.android.farmernotepad.GenericUtils.CHANNEL_ID;
 
-public class NewTextNoteActivity extends AppCompatActivity {
+public class ActivityNewTextNote extends AppCompatActivity {
     private Menu mMenu;
     private int noteColor;
-    static NewTextNoteActivity activity;
+    static ActivityNewTextNote activity;
     private int noteIntentID;
 
 
@@ -82,14 +79,14 @@ public class NewTextNoteActivity extends AppCompatActivity {
                     myNewTextNote.setModDate(GenericUtils.getDateTime());
                     myNewTextNote.setColor(noteColor);
 
-                    DatabaseHelper dbHelper = new DatabaseHelper(NewTextNoteActivity.this);
+                    DatabaseHelper dbHelper = new DatabaseHelper(ActivityNewTextNote.this);
                     Boolean checkInsert = dbHelper.updateNote(myNewTextNote);
 
                     if (checkInsert == true) {
                         Toast.makeText(getApplicationContext(), "Note Updated", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(NewTextNoteActivity.this, MainActivity.class);
+                        Intent intent = new Intent(ActivityNewTextNote.this, MainActivity.class);
                         startActivity(intent);
-                        NewTextNoteActivity.this.finish();
+                        ActivityNewTextNote.this.finish();
                     } else {
                         Toast.makeText(getApplicationContext(), "Update Failed", Toast.LENGTH_SHORT).show();
                     }
@@ -104,7 +101,7 @@ public class NewTextNoteActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     EntryTextNote myNewTextNote = new EntryTextNote();
-                    Boolean checkPermission = LocationFunctions.checkPermission(NewTextNoteActivity.this);
+                    Boolean checkPermission = LocationFunctions.checkPermission(ActivityNewTextNote.this);
 
                     if (noteTitle.getText().toString().equals("")) {
                         myNewTextNote.setNoteTitle(GenericUtils.getDateTime());
@@ -117,19 +114,19 @@ public class NewTextNoteActivity extends AppCompatActivity {
                     myNewTextNote.setColor(noteColor);
 
                     if (checkPermission && checkLocation.isChecked()) {
-                        double[] myCoords = LocationFunctions.getLocation(NewTextNoteActivity.this);
+                        double[] myCoords = LocationFunctions.getLocation(ActivityNewTextNote.this);
                         if (myCoords != null) {
                             myNewTextNote.setLatitude(myCoords[0]);
                             myNewTextNote.setLongitude(myCoords[1]);
                         }
                     }
-                    DatabaseHelper dbHelper = new DatabaseHelper(NewTextNoteActivity.this);
+                    DatabaseHelper dbHelper = new DatabaseHelper(ActivityNewTextNote.this);
                     Boolean checkInsert = dbHelper.insertNote(myNewTextNote);
                     if (checkInsert) {
                         Toast.makeText(getApplicationContext(), "Note Saved", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(NewTextNoteActivity.this, MainActivity.class);
+                        Intent intent = new Intent(ActivityNewTextNote.this, MainActivity.class);
                         startActivity(intent);
-                        NewTextNoteActivity.this.finish();
+                        ActivityNewTextNote.this.finish();
                     } else {
                         Toast.makeText(getApplicationContext(), "Insertion Failed", Toast.LENGTH_SHORT).show();
                     }
@@ -141,7 +138,7 @@ public class NewTextNoteActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     if (checkLocation.isChecked()) {
-                        Boolean checkPerm = LocationFunctions.checkPermission(NewTextNoteActivity.this);
+                        Boolean checkPerm = LocationFunctions.checkPermission(ActivityNewTextNote.this);
                         if (checkPerm == false) {
                             LocationFunctions.requestPermission(activity);
                         }
@@ -163,7 +160,7 @@ public class NewTextNoteActivity extends AppCompatActivity {
         }
         MenuItem colorPicker = menu.findItem(R.id.pickColor);
         if (colorPicker != null) {
-            GenericUtils.tintMenuIcon(NewTextNoteActivity.this, colorPicker, noteColor);
+            GenericUtils.tintMenuIcon(ActivityNewTextNote.this, colorPicker, noteColor);
         }
 
         this.mMenu = menu;
@@ -182,8 +179,8 @@ public class NewTextNoteActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.pickColor:
-                final android.app.AlertDialog.Builder alert = new android.app.AlertDialog.Builder(NewTextNoteActivity.this);
-                View mView = getLayoutInflater().inflate(R.layout.color_picker_dialog_box, null);
+                final android.app.AlertDialog.Builder alert = new android.app.AlertDialog.Builder(ActivityNewTextNote.this);
+                View mView = getLayoutInflater().inflate(R.layout.dialog_color_picker, null);
                 alert.setView(mView);
                 final MenuItem pickColorItem = mMenu.findItem(R.id.pickColor);
 
@@ -197,7 +194,7 @@ public class NewTextNoteActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         noteColor = getColor(R.color.White);
-                        GenericUtils.tintMenuIcon(NewTextNoteActivity.this,pickColorItem,noteColor);
+                        GenericUtils.tintMenuIcon(ActivityNewTextNote.this,pickColorItem,noteColor);
                         alertDialog.dismiss();
                     }
                 });
@@ -206,7 +203,7 @@ public class NewTextNoteActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         noteColor = getColor(R.color.Red);
-                        GenericUtils.tintMenuIcon(NewTextNoteActivity.this,pickColorItem,noteColor);
+                        GenericUtils.tintMenuIcon(ActivityNewTextNote.this,pickColorItem,noteColor);
                         alertDialog.dismiss();
                     }
                 });
@@ -215,7 +212,7 @@ public class NewTextNoteActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         noteColor = getColor(R.color.Blue);
-                        GenericUtils.tintMenuIcon(NewTextNoteActivity.this,pickColorItem,noteColor);
+                        GenericUtils.tintMenuIcon(ActivityNewTextNote.this,pickColorItem,noteColor);
                         alertDialog.dismiss();
                     }
                 });
@@ -224,7 +221,7 @@ public class NewTextNoteActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         noteColor = getColor(R.color.Green);
-                        GenericUtils.tintMenuIcon(NewTextNoteActivity.this,pickColorItem,noteColor);
+                        GenericUtils.tintMenuIcon(ActivityNewTextNote.this,pickColorItem,noteColor);
                         alertDialog.dismiss();
                     }
                 });
@@ -233,7 +230,7 @@ public class NewTextNoteActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         noteColor = getColor(R.color.Yellow);
-                        GenericUtils.tintMenuIcon(NewTextNoteActivity.this,pickColorItem,noteColor);
+                        GenericUtils.tintMenuIcon(ActivityNewTextNote.this,pickColorItem,noteColor);
                         alertDialog.dismiss();
                     }
                 });
@@ -242,7 +239,7 @@ public class NewTextNoteActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         noteColor = getColor(R.color.Grey);
-                        GenericUtils.tintMenuIcon(NewTextNoteActivity.this,pickColorItem,noteColor);
+                        GenericUtils.tintMenuIcon(ActivityNewTextNote.this,pickColorItem,noteColor);
                         alertDialog.dismiss();
                     }
                 });
@@ -251,7 +248,7 @@ public class NewTextNoteActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         noteColor = getColor(R.color.Black);
-                        GenericUtils.tintMenuIcon(NewTextNoteActivity.this,pickColorItem,noteColor);
+                        GenericUtils.tintMenuIcon(ActivityNewTextNote.this,pickColorItem,noteColor);
                         alertDialog.dismiss();
                     }
                 });
@@ -260,7 +257,7 @@ public class NewTextNoteActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         noteColor = getColor(R.color.Orange);
-                        GenericUtils.tintMenuIcon(NewTextNoteActivity.this,pickColorItem,noteColor);
+                        GenericUtils.tintMenuIcon(ActivityNewTextNote.this,pickColorItem,noteColor);
                         alertDialog.dismiss();
                     }
                 });
@@ -269,7 +266,7 @@ public class NewTextNoteActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         noteColor = getColor(R.color.Purple);
-                        GenericUtils.tintMenuIcon(NewTextNoteActivity.this,pickColorItem,noteColor);
+                        GenericUtils.tintMenuIcon(ActivityNewTextNote.this,pickColorItem,noteColor);
                         alertDialog.dismiss();
                     }
                 });
@@ -286,19 +283,19 @@ public class NewTextNoteActivity extends AppCompatActivity {
                 break;
 
             case R.id.deleteNote:
-                final android.app.AlertDialog alertDeleteDialog = new android.app.AlertDialog.Builder(NewTextNoteActivity.this).create();
+                final android.app.AlertDialog alertDeleteDialog = new android.app.AlertDialog.Builder(ActivityNewTextNote.this).create();
                 alertDeleteDialog.setTitle("Delete Note");
                 alertDeleteDialog.setMessage("Delete this note?");
                 alertDeleteDialog.setButton(android.app.AlertDialog.BUTTON_POSITIVE, "YES",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 int noteID = getIntent().getIntExtra("noteID", 0);
-                                DatabaseHelper dbHelper = new DatabaseHelper(NewTextNoteActivity.this);
+                                DatabaseHelper dbHelper = new DatabaseHelper(ActivityNewTextNote.this);
                                 Boolean checkDelete = dbHelper.deleteNote(noteID);
                                 if (checkDelete) {
-                                    Intent intent = new Intent(NewTextNoteActivity.this, MainActivity.class);
+                                    Intent intent = new Intent(ActivityNewTextNote.this, MainActivity.class);
                                     startActivity(intent);
-                                    NewTextNoteActivity.this.finish();
+                                    ActivityNewTextNote.this.finish();
                                     Toast.makeText(getApplicationContext(), "Note Deleted", LENGTH_SHORT).show();
                                 } else {
                                     Toast.makeText(getApplicationContext(), "Delete failed", LENGTH_SHORT).show();
@@ -330,10 +327,10 @@ public class NewTextNoteActivity extends AppCompatActivity {
 
             case R.id.showOnMap:
                 if(noteLat.get(0) == 0 && noteLong.get(0) == 0) {
-                    GenericUtils.toast(NewTextNoteActivity.this,"Note has no location.");
+                    GenericUtils.toast(ActivityNewTextNote.this,"Note has no location.");
                 }
                 else {
-                    Intent mapIntent = new Intent(NewTextNoteActivity.this, MapsActivity.class);
+                    Intent mapIntent = new Intent(ActivityNewTextNote.this, ActivityMaps.class);
                     mapIntent.putExtra("NoteLat", noteLat);
                     mapIntent.putExtra("NoteLong", noteLong);
                     mapIntent.putExtra("Title",mNoteTitle);
@@ -375,7 +372,7 @@ public class NewTextNoteActivity extends AppCompatActivity {
 
 
     private void loadEditableNote(int noteID) {
-        DatabaseHelper dbHelper = new DatabaseHelper(NewTextNoteActivity.this);
+        DatabaseHelper dbHelper = new DatabaseHelper(ActivityNewTextNote.this);
         Cursor cursor = dbHelper.getNote(noteID);
 
         if (cursor != null)
@@ -403,9 +400,9 @@ public class NewTextNoteActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(NewTextNoteActivity.this, MainActivity.class);
+        Intent intent = new Intent(ActivityNewTextNote.this, MainActivity.class);
         startActivity(intent);
-        NewTextNoteActivity.this.finish();
+        ActivityNewTextNote.this.finish();
     }
 }
 

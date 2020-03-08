@@ -11,17 +11,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import javax.mail.internet.AddressException;
-
-public class BackupActivity extends AppCompatActivity {
-    private static BackupActivity activity;
+public class ActivityBackup extends AppCompatActivity {
+    private static ActivityBackup activity;
     public static final int REQUEST_CODE = 5;
     String lastActivity;
 
@@ -38,7 +35,7 @@ public class BackupActivity extends AppCompatActivity {
         final CheckBox checkLocal = findViewById(R.id.checkBoxLocal);
         final CheckBox checkOnline = findViewById(R.id.checkBoxOnline);
 
-        if (!FileUtils.checkStoragePermission(BackupActivity.this)) {
+        if (!FileUtils.checkStoragePermission(ActivityBackup.this)) {
             FileUtils.requestStoragePermission(activity);
         }
 
@@ -46,9 +43,9 @@ public class BackupActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (checkLocal.isChecked()) {
-                    DatabaseHelper dbHelper = new DatabaseHelper(BackupActivity.this);
-                        dbHelper.exportDB(BackupActivity.this);
-                    Toast.makeText(BackupActivity.this, "Database exported to " + BackupActivity.this.getExternalFilesDir(null), Toast.LENGTH_SHORT).show();
+                    DatabaseHelper dbHelper = new DatabaseHelper(ActivityBackup.this);
+                        dbHelper.exportDB(ActivityBackup.this);
+                    Toast.makeText(ActivityBackup.this, "Database exported to " + ActivityBackup.this.getExternalFilesDir(null), Toast.LENGTH_SHORT).show();
                 }
                 if (checkOnline.isChecked()) {
                     mailDb(view);
@@ -59,7 +56,7 @@ public class BackupActivity extends AppCompatActivity {
         btnImport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog alertDialog = new AlertDialog.Builder(BackupActivity.this).create();
+                AlertDialog alertDialog = new AlertDialog.Builder(ActivityBackup.this).create();
                 alertDialog.setTitle("Warning");
                 alertDialog.setMessage("This will delete your current notes");
                 alertDialog.setCanceledOnTouchOutside(true);
@@ -89,7 +86,7 @@ public class BackupActivity extends AppCompatActivity {
 
     public void mailDb(View view) {
         final EditText exportEmail = (EditText) findViewById(R.id.editTextEmail);
-        ProgressDialog pDialog = new ProgressDialog(BackupActivity.this);
+        ProgressDialog pDialog = new ProgressDialog(ActivityBackup.this);
         pDialog.setMessage("Loading");
         pDialog.setCancelable(false);
         pDialog.show();
@@ -105,7 +102,7 @@ public class BackupActivity extends AppCompatActivity {
                             EmailHandler sender = new EmailHandler("farmernotepad@gmail.com",
                                     "farmernotepad123");
                             sender.exportDbOnline("Your notes backup", "This is your database file.",
-                                    "farmernotepad@gmail.com", exportEmail.getText().toString(), BackupActivity.this);
+                                    "farmernotepad@gmail.com", exportEmail.getText().toString(), ActivityBackup.this);
                             pDialog.dismiss();
                             GenericUtils.toast(getApplicationContext(), "Database Exported");
 
@@ -134,37 +131,37 @@ public class BackupActivity extends AppCompatActivity {
             case REQUEST_CODE:
                 if (resultCode == RESULT_OK) {
                     Uri uri = data.getData();
-                    String realPath = FileUtils.getPathFromUri(BackupActivity.this, uri);
+                    String realPath = FileUtils.getPathFromUri(ActivityBackup.this, uri);
 
 
                     if (realPath.endsWith("FarmerNotepad.db")) {
-                        if (FileUtils.checkStoragePermission(BackupActivity.this)) {
+                        if (FileUtils.checkStoragePermission(ActivityBackup.this)) {
                             File source = new File(realPath);
-                            File dest = BackupActivity.this.getDatabasePath(DatabaseHelper.DATABASE_NAME);
+                            File dest = ActivityBackup.this.getDatabasePath(DatabaseHelper.DATABASE_NAME);
 
                             try {
-                                FileUtils.copyDatabase(source, dest, BackupActivity.this);
+                                FileUtils.copyDatabase(source, dest, ActivityBackup.this);
                                 //GenericUtils.toast(Backup.this, realPath);
                                 Intent intent = new Intent();
 
                                 if (lastActivity.matches("main")) {
-                                    intent = new Intent(BackupActivity.this, MainActivity.class);
+                                    intent = new Intent(ActivityBackup.this, MainActivity.class);
                                 } else if (lastActivity.matches("wageCalc")) {
-                                    intent = new Intent(BackupActivity.this, WageCalculatorActivity.class);
+                                    intent = new Intent(ActivityBackup.this, ActivityWageCalculator.class);
 
                                 }
                                 startActivity(intent);
-                                BackupActivity.this.finish();
+                                ActivityBackup.this.finish();
 
                             } catch (Exception e) {
                                 Log.e("YOUR ERROR TAG HERE", "Copying failed", e);
                             }
 
                         } else {
-                            Toast.makeText(BackupActivity.this, "Requires external storage permission", Toast.LENGTH_LONG).show();
+                            Toast.makeText(ActivityBackup.this, "Requires external storage permission", Toast.LENGTH_LONG).show();
                         }
                     } else {
-                        Toast.makeText(BackupActivity.this, "Error: Select a FarmerNotepad.db file", Toast.LENGTH_LONG).show();
+                        Toast.makeText(ActivityBackup.this, "Error: Select a FarmerNotepad.db file", Toast.LENGTH_LONG).show();
                     }
                 }
                 break;
@@ -185,13 +182,13 @@ public class BackupActivity extends AppCompatActivity {
         Intent intent = new Intent();
 
         if (lastActivity.matches("main")) {
-            intent = new Intent(BackupActivity.this, MainActivity.class);
+            intent = new Intent(ActivityBackup.this, MainActivity.class);
         } else if (lastActivity.matches("wageCalc")) {
-            intent = new Intent(BackupActivity.this, WageCalculatorActivity.class);
+            intent = new Intent(ActivityBackup.this, ActivityWageCalculator.class);
 
         }
         startActivity(intent);
-        BackupActivity.this.finish();
+        ActivityBackup.this.finish();
     }
 
 

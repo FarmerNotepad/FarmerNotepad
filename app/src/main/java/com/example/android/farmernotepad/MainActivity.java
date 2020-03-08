@@ -16,6 +16,8 @@ import android.widget.Button;
 import android.widget.SearchView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.tabs.TabItem;
+import com.google.android.material.tabs.TabLayout;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -27,6 +29,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.ActionMode;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 
 public class MainActivity extends AppCompatActivity implements RecyclerViewAdapterMain.OnNoteListener {
@@ -44,11 +47,16 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         setContentView(R.layout.activity_main);
 
         FloatingActionButton addNote = findViewById(R.id.addNote);
+        TabLayout tabLayout = findViewById(R.id.tab_layout);
+        TabItem tabColor = findViewById(R.id.tab_color);
+        TabItem tabShort = findViewById(R.id.tab_short);
+        TabItem tabView = findViewById(R.id.tab_view);
+        ViewPager viewPager = findViewById(R.id.viewPager);
 
         findViewById(R.id.main).setOnTouchListener(new OnSwipeTouchListener(MainActivity.this) {
 
             public void onSwipeLeft() {
-                Intent intent = new Intent(MainActivity.this, WageCalculatorActivity.class);
+                Intent intent = new Intent(MainActivity.this, ActivityWageCalculator.class);
                 startActivity(intent);
                 MainActivity.this.finish();
             }
@@ -60,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
             @Override
             public void onClick(View view) {
                 final AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this);
-                View mView = getLayoutInflater().inflate(R.layout.add_note_dialog_box, null);
+                View mView = getLayoutInflater().inflate(R.layout.dialog_add_note, null);
                 alert.setView(mView);
                 final AlertDialog alertDialog = alert.create();
                 alertDialog.setCanceledOnTouchOutside(true);
@@ -72,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
                 text.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(MainActivity.this, NewTextNoteActivity.class);
+                        Intent intent = new Intent(MainActivity.this, ActivityNewTextNote.class);
                         startActivity(intent);
                         alertDialog.dismiss();
                         MainActivity.this.finish();
@@ -82,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
                 checklist.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(MainActivity.this, NewChecklistActivity.class);
+                        Intent intent = new Intent(MainActivity.this, ActivityNewChecklist.class);
                         startActivity(intent);
                         alertDialog.dismiss();
                         MainActivity.this.finish();
@@ -131,25 +139,34 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.Feedback:
-                Intent intent = new Intent(MainActivity.this, FeedbackActivity.class);
+                Intent intent = new Intent(MainActivity.this, ActivityFeedback.class);
                 startActivity(intent);
                 break;
 
             case R.id.Sort:
-                allNotesList = GenericUtils.sortByTitle(allNotesList, desc);
-                adapter.notifyDataSetChanged();
-                desc = !desc;
+                //allNotesList = GenericUtils.sortByTitle(allNotesList, desc);
+                //adapter.notifyDataSetChanged();
+                //desc = !desc;
+
+                final AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this);
+                View mView = getLayoutInflater().inflate(R.layout.dialog_tabbed_short_menu, null);
+                alert.setView(mView);
+                final AlertDialog alertDialog = alert.create();
+                alertDialog.setCanceledOnTouchOutside(true);
+                alertDialog.show();
+
+
                 break;
 
             case R.id.Backup:
-                Intent intentBackup = new Intent(MainActivity.this, BackupActivity.class);
+                Intent intentBackup = new Intent(MainActivity.this, ActivityBackup.class);
                 intentBackup.putExtra("lastActivity", "main");
                 startActivity(intentBackup);
                 MainActivity.this.finish();
                 break;
 
             case R.id.wageCalculator:
-                Intent intentWage = new Intent(MainActivity.this, WageCalculatorActivity.class);
+                Intent intentWage = new Intent(MainActivity.this, ActivityWageCalculator.class);
                 startActivity(intentWage);
                 MainActivity.this.finish();
                 break;
@@ -165,7 +182,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
                         mNoteTitles.add(allNotesList.get(i).getInterfaceTitle());
                     }
                 }
-                Intent mapIntent = new Intent(MainActivity.this, MapsActivity.class);
+                Intent mapIntent = new Intent(MainActivity.this, ActivityMaps.class);
                 mapIntent.putExtra("NoteLat", noteLat);
                 mapIntent.putExtra("NoteLong", noteLong);
                 mapIntent.putExtra("Title", mNoteTitles);
@@ -173,7 +190,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
                 break;
 
             case R.id.Settings:
-                Intent intentSettings = new Intent(MainActivity.this, SettingsActivity.class);
+                Intent intentSettings = new Intent(MainActivity.this, ActivitySettings.class);
                 startActivity(intentSettings);
                 break;
         }
@@ -272,14 +289,14 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         if (noteType == ListItem.typeText) {
             EntryTextNote textNote = (EntryTextNote) allNotesList.get(position);
             mNoteID = textNote.getNoteID();
-            intent = new Intent(this, NewTextNoteActivity.class);
+            intent = new Intent(this, ActivityNewTextNote.class);
             intent.putExtra("noteID", mNoteID);
             intent.putExtra("flag", "editNote");
 
         } else {
             EntryChecklistNote checklistNote = (EntryChecklistNote) allNotesList.get(position);
             mNoteID = checklistNote.getNoteID();
-            intent = new Intent(this, NewChecklistActivity.class);
+            intent = new Intent(this, ActivityNewChecklist.class);
             intent.putExtra("noteID", mNoteID);
             intent.putExtra("flag", "editNote");
         }
@@ -339,6 +356,8 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         @Override
         public void onDestroyActionMode(ActionMode mode) {
             mActionMode = null;
+            FloatingActionButton addNote = findViewById(R.id.addNote);
+            addNote.setVisibility(View.VISIBLE);
         }
     };
 

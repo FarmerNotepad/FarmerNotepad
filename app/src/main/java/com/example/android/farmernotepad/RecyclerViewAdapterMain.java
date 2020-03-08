@@ -39,11 +39,11 @@ public class RecyclerViewAdapterMain extends RecyclerView.Adapter implements Fil
         View itemView;
         switch (viewType) {
             case ListItem.typeChecklist:
-                itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.text_note_item_layout, parent, false);
+                itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_notes_item, parent, false);
                 return new ChecklistViewHolder(itemView, mOnNoteListener);
             default:
                 itemView = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.text_note_item_layout, parent, false);
+                        .inflate(R.layout.recyclerview_notes_item, parent, false);
                 return new TextNoteViewHolder(itemView, mOnNoteListener);
         }
 

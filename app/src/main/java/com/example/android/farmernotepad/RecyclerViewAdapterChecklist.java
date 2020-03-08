@@ -28,7 +28,7 @@ public class RecyclerViewAdapterChecklist extends RecyclerView.Adapter<RecyclerV
     @NonNull
     @Override
     public ViewHolderChecklist onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.checklist_note_item_layout, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_checklist_item, parent, false);
         ViewHolderChecklist holder = new ViewHolderChecklist(view, mOnChecklistItemListener);
         return holder;
     }

@@ -26,28 +26,31 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SettingsActivity"
-            android:label="@string/title_activity_settings"></activity>
+            android:name=".ActivitySettings"
+            android:label="@string/title_activity_settings">
+        </activity>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".MapsActivity"
+            android:name=".ActivityMaps"
             android:label="@string/title_activity_maps" />
-        <activity android:name=".EmployeeActivity" />
-        <activity android:name=".WageCalculatorActivity" />
-        <activity
-            android:name=".BackupActivity"
+        <activity android:name=".ActivityEmployee" />
+        <activity android:name=".ActivityWageCalculator" />
+        <activity android:name=".ActivityBackup"
             android:theme="@style/NoActionBar" />
-        <activity
-            android:name=".FeedbackActivity"
+        <activity android:name=".ActivityFeedback"
             android:theme="@style/NoActionBar" />
-        <activity android:name=".NewChecklistActivity" />
-        <activity android:name=".NewTextNoteActivity" />
+        <activity android:name=".ActivityNewChecklist" />
+        <activity android:name=".ActivityNewTextNote" />
         <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

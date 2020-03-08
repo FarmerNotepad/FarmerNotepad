@@ -23,7 +23,7 @@ public class RecyclerViewAdapterWage extends RecyclerView.Adapter<RecyclerViewAd
     @NonNull
     @Override
     public WageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_view_wage_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_wage_item, parent, false);
         WageViewHolder holder = new WageViewHolder(view, mOnNoteListener);
         return holder;
     }

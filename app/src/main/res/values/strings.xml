@@ -28,13 +28,20 @@
 
     //Backup Layout
     <string name="backup_export_title">Export your Notes:</string>
-    <string name="backup_import_title">Import previews Notes:</string>
+    <string name="backup_import_title">Import previous Notes:</string>
     <string name="backup_email_checkbox">Export to Email:</string>
     <string name="backup_local_checkbox">Export Locally</string>
     <string name="backup_export_button">EXPORT NOTES</string>
     <string name="backup_import_button">IMPORT NOTES</string>
     <string name="backup_email_hint">Write your email</string>
-    
+
+    //Tabbed Dialog
+    <string name="tab_color">COLOR</string>
+    <string name="tab_short">SHORT</string>
+    <string name="tab_view">VIEW</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>
