@@ -34,7 +34,7 @@
     <string name="backup_export_button">EXPORT NOTES</string>
     <string name="backup_import_button">IMPORT NOTES</string>
     <string name="backup_email_hint">Write your email</string>
-
+    
 
 
 </resources>

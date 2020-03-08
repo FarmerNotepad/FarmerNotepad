@@ -22,4 +22,14 @@
         <item>#CCCCCC</item>
         <item>#720B98</item>
     </string-array>
+
+    <string-array name="launch_array">
+        <item>Farmer Notepad</item>
+        <item>Payments Log</item>
+    </string-array>
+
+    <string-array name="launch_array_values">
+        <item>Main</item>
+        <item>Payments</item>
+    </string-array>
 </resources>
