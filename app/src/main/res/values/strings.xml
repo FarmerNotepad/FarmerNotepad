@@ -45,4 +45,18 @@
     <string name="main_sort_menu">Sort Menu</string>
 
 
+    //ColorTab Colors
+    <string name="Color_all_colors">All Colors</string>
+    <string name="Color_red_notes">Red Notes</string>
+    <string name="Color_orange_notes">Orange Notes</string>
+    <string name="Color_yellow_notes">Yellow Notes</string>
+    <string name="Color_green_notes">Green Notes</string>
+    <string name="Color_blue_notes">Blue Notes</string>
+    <string name="Color_purple_notes">Purple Notes</string>
+    <string name="Color_black_notes">Black Notes</string>
+    <string name="Color_grey_notes">Grey Notes</string>
+    <string name="Color_white_notes">White Notes</string>
+
+
+
 </resources>

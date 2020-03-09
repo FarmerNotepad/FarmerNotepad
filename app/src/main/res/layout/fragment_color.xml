@@ -1,29 +1,300 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".FragmentColor">
+    android:layout_centerHorizontal="true"
+    android:layout_centerVertical="true"
+    android:orientation="vertical"
+    tools:context=".FragmentColor"
+    android:layout_row="5"
+    android:layout_column="2">
 
-    <!-- TODO: Update blank fragment layout -->
-
-    <TextView
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_blank_fragment"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        android:orientation="vertical"
+        tools:context=".FragmentColor">
 
-    <Button
-        android:id="@+id/button"
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="8dp">
+
+            <ImageButton
+                android:id="@+id/allColorsBtn"
+                style="@style/ShowOnlyColor"
+                android:background="@drawable/ic_remove_button"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="@string/Color_all_colors"
+                app:layout_constraintBottom_toBottomOf="@+id/allColorsBtn"
+                app:layout_constraintStart_toEndOf="@+id/allColorsBtn"
+                app:layout_constraintTop_toTopOf="@+id/allColorsBtn" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="8dp">
+
+            <ImageButton
+                android:id="@+id/redBtn"
+                style="@style/ShowOnlyColor"
+                android:background="@color/Red"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="@string/Color_red_notes"
+                app:layout_constraintBottom_toBottomOf="@+id/redBtn"
+                app:layout_constraintStart_toEndOf="@+id/redBtn"
+                app:layout_constraintTop_toTopOf="@+id/redBtn" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="8dp">
+
+
+            <ImageButton
+                android:id="@+id/orangeBtn"
+                style="@style/ShowOnlyColor"
+                android:background="@color/Orange"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="@string/Color_orange_notes"
+                app:layout_constraintBottom_toBottomOf="@+id/orangeBtn"
+                app:layout_constraintStart_toEndOf="@+id/orangeBtn"
+                app:layout_constraintTop_toTopOf="@+id/orangeBtn" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="8dp">
+
+
+            <ImageButton
+                android:id="@+id/yellowBtn"
+                style="@style/ShowOnlyColor"
+                android:background="@color/Yellow"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="@string/Color_yellow_notes"
+                app:layout_constraintBottom_toBottomOf="@+id/yellowBtn"
+                app:layout_constraintStart_toEndOf="@+id/yellowBtn"
+                app:layout_constraintTop_toTopOf="@+id/yellowBtn" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="8dp">
+
+
+            <ImageButton
+                android:id="@+id/greenBtn"
+                style="@style/ShowOnlyColor"
+                android:background="@color/Green"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="@string/Color_green_notes"
+                app:layout_constraintBottom_toBottomOf="@+id/greenBtn"
+                app:layout_constraintStart_toEndOf="@+id/greenBtn"
+                app:layout_constraintTop_toTopOf="@+id/greenBtn" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="RED"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_row="0"
+        android:layout_column="2"
+        android:orientation="vertical"
+        tools:context=".FragmentColor"
+        android:layout_marginEnd="120dp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="8dp">
+
+
+            <ImageButton
+                android:id="@+id/blueBtn"
+                style="@style/ShowOnlyColor"
+                android:background="@color/Blue"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="@string/Color_blue_notes"
+                app:layout_constraintBottom_toBottomOf="@+id/blueBtn"
+                app:layout_constraintStart_toEndOf="@+id/blueBtn"
+                app:layout_constraintTop_toTopOf="@+id/blueBtn" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="8dp">
+
+
+            <ImageButton
+                android:id="@+id/purpleBtn"
+                style="@style/ShowOnlyColor"
+                android:background="@color/Purple"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="@string/Color_purple_notes"
+                app:layout_constraintBottom_toBottomOf="@+id/purpleBtn"
+                app:layout_constraintStart_toEndOf="@+id/purpleBtn"
+                app:layout_constraintTop_toTopOf="@+id/purpleBtn" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="8dp">
+
+
+            <ImageButton
+                android:id="@+id/blackBtn"
+                style="@style/ShowOnlyColor"
+                android:background="@color/Black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="@string/Color_black_notes"
+                app:layout_constraintBottom_toBottomOf="@+id/blackBtn"
+                app:layout_constraintStart_toEndOf="@+id/blackBtn"
+                app:layout_constraintTop_toTopOf="@+id/blackBtn" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="8dp">
+
+
+            <ImageButton
+                android:id="@+id/greyBtn"
+                style="@style/ShowOnlyColor"
+                android:background="@color/Grey"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="@string/Color_grey_notes"
+                app:layout_constraintBottom_toBottomOf="@+id/greyBtn"
+                app:layout_constraintStart_toEndOf="@+id/greyBtn"
+                app:layout_constraintTop_toTopOf="@+id/greyBtn" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="8dp">
+
+
+            <ImageButton
+                android:id="@+id/whiteBtn"
+                style="@style/ShowOnlyColor"
+                android:background="@color/White"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="@string/Color_white_notes"
+                app:layout_constraintBottom_toBottomOf="@+id/whiteBtn"
+                app:layout_constraintStart_toEndOf="@+id/whiteBtn"
+                app:layout_constraintTop_toTopOf="@+id/whiteBtn" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </LinearLayout>
+
+
+</GridLayout>
+
+
