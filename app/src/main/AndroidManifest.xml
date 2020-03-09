@@ -18,7 +18,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/LightModeTheme">
-        <activity android:name=".LaunchActivity">
+        <activity android:name=".ActivityLaunch">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -38,7 +38,7 @@
             android:name=".ActivityMaps"
             android:label="@string/title_activity_maps" />
         <activity android:name=".ActivityEmployee" />
-        <activity android:name=".ActivityWageCalculator" />
+        <activity android:name=".ActivityPaymentsLog" />
         <activity android:name=".ActivityBackup"
             android:theme="@style/NoActionBar" />
         <activity android:name=".ActivityFeedback"

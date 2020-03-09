@@ -96,7 +96,7 @@ public class ActivityEmployee extends AppCompatActivity implements RecyclerViewA
 
                         if (checkInsert) {
                             Toast.makeText(getApplicationContext(), "Employee Saved", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(ActivityEmployee.this, ActivityWageCalculator.class);
+                            Intent intent = new Intent(ActivityEmployee.this, ActivityPaymentsLog.class);
                             startActivity(intent);
                             dbHelper.close();
                             ActivityEmployee.this.finish();
@@ -128,7 +128,7 @@ public class ActivityEmployee extends AppCompatActivity implements RecyclerViewA
 
                         if (checkInsert) {
                             Toast.makeText(getApplicationContext(), "Employee Saved", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(ActivityEmployee.this, ActivityWageCalculator.class);
+                            Intent intent = new Intent(ActivityEmployee.this, ActivityPaymentsLog.class);
                             startActivity(intent);
                             dbHelper.close();
                             ActivityEmployee.this.finish();
@@ -170,7 +170,7 @@ public class ActivityEmployee extends AppCompatActivity implements RecyclerViewA
                                 DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
                                 Boolean checkDelete = dbHelper.deleteEmployee(employeeIntentID);
                                 if (checkDelete) {
-                                    Intent intent = new Intent(ActivityEmployee.this, ActivityWageCalculator.class);
+                                    Intent intent = new Intent(ActivityEmployee.this, ActivityPaymentsLog.class);
                                     startActivity(intent);
                                     ActivityEmployee.this.finish();
                                     Toast.makeText(getApplicationContext(), "Employee Deleted", LENGTH_SHORT).show();
@@ -520,7 +520,7 @@ public class ActivityEmployee extends AppCompatActivity implements RecyclerViewA
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(ActivityEmployee.this, ActivityWageCalculator.class);
+        Intent intent = new Intent(ActivityEmployee.this, ActivityPaymentsLog.class);
         startActivity(intent);
         ActivityEmployee.this.finish();
     }

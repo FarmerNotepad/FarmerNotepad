@@ -25,8 +25,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.ActionMode;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
@@ -46,17 +50,33 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         FloatingActionButton addNote = findViewById(R.id.addNote);
-        TabLayout tabLayout = findViewById(R.id.tab_layout);
-        TabItem tabColor = findViewById(R.id.tab_color);
-        TabItem tabShort = findViewById(R.id.tab_short);
-        TabItem tabView = findViewById(R.id.tab_view);
-        ViewPager viewPager = findViewById(R.id.viewPager);
+        Button shortMenu = findViewById(R.id.shortMenu);
+
+        shortMenu.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+
+                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                Fragment prev = getSupportFragmentManager().findFragmentByTag("dialog");
+                if (prev != null) {
+                    ft.remove(prev);
+                }
+                ft.addToBackStack(null);
+
+                // Create and show the dialog.
+                DialogTabbed dialogFragment = new DialogTabbed();
+                dialogFragment.show(ft,"dialog");
+
+            }
+        });
 
         findViewById(R.id.main).setOnTouchListener(new OnSwipeTouchListener(MainActivity.this) {
 
             public void onSwipeLeft() {
-                Intent intent = new Intent(MainActivity.this, ActivityWageCalculator.class);
+                Intent intent = new Intent(MainActivity.this, ActivityPaymentsLog.class);
                 startActivity(intent);
                 MainActivity.this.finish();
             }
@@ -144,17 +164,9 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
                 break;
 
             case R.id.Sort:
-                //allNotesList = GenericUtils.sortByTitle(allNotesList, desc);
-                //adapter.notifyDataSetChanged();
-                //desc = !desc;
-
-                final AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this);
-                View mView = getLayoutInflater().inflate(R.layout.dialog_tabbed_short_menu, null);
-                alert.setView(mView);
-                final AlertDialog alertDialog = alert.create();
-                alertDialog.setCanceledOnTouchOutside(true);
-                alertDialog.show();
-
+                allNotesList = GenericUtils.sortByTitle(allNotesList, desc);
+                adapter.notifyDataSetChanged();
+                desc = !desc;
 
                 break;
 
@@ -166,7 +178,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
                 break;
 
             case R.id.wageCalculator:
-                Intent intentWage = new Intent(MainActivity.this, ActivityWageCalculator.class);
+                Intent intentWage = new Intent(MainActivity.this, ActivityPaymentsLog.class);
                 startActivity(intentWage);
                 MainActivity.this.finish();
                 break;

@@ -147,7 +147,7 @@ public class ActivityBackup extends AppCompatActivity {
                                 if (lastActivity.matches("main")) {
                                     intent = new Intent(ActivityBackup.this, MainActivity.class);
                                 } else if (lastActivity.matches("wageCalc")) {
-                                    intent = new Intent(ActivityBackup.this, ActivityWageCalculator.class);
+                                    intent = new Intent(ActivityBackup.this, ActivityPaymentsLog.class);
 
                                 }
                                 startActivity(intent);
@@ -184,7 +184,7 @@ public class ActivityBackup extends AppCompatActivity {
         if (lastActivity.matches("main")) {
             intent = new Intent(ActivityBackup.this, MainActivity.class);
         } else if (lastActivity.matches("wageCalc")) {
-            intent = new Intent(ActivityBackup.this, ActivityWageCalculator.class);
+            intent = new Intent(ActivityBackup.this, ActivityPaymentsLog.class);
 
         }
         startActivity(intent);
