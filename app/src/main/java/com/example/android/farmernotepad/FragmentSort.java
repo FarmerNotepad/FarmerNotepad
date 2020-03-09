@@ -11,10 +11,10 @@ import android.view.ViewGroup;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link FragmentShort#newInstance} factory method to
+ * Use the {@link FragmentSort#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FragmentShort extends Fragment {
+public class FragmentSort extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -24,7 +24,7 @@ public class FragmentShort extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public FragmentShort() {
+    public FragmentSort() {
         // Required empty public constructor
     }
 
@@ -34,11 +34,11 @@ public class FragmentShort extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment FragmentShort.
+     * @return A new instance of fragment FragmentSort.
      */
     // TODO: Rename and change types and number of parameters
-    public static FragmentShort newInstance(String param1, String param2) {
-        FragmentShort fragment = new FragmentShort();
+    public static FragmentSort newInstance(String param1, String param2) {
+        FragmentSort fragment = new FragmentSort();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
