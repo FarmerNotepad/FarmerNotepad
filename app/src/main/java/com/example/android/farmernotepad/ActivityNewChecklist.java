@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.Menu;
@@ -29,19 +28,18 @@ import java.util.ArrayList;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import static android.widget.Toast.LENGTH_SHORT;
 import static com.example.android.farmernotepad.GenericUtils.CHANNEL_ID;
 
-public class NewChecklistActivity extends AppCompatActivity implements RecyclerViewAdapterChecklist.OnChecklistItemListener {
+public class ActivityNewChecklist extends AppCompatActivity implements RecyclerViewAdapterChecklist.OnChecklistItemListener {
 
     private ArrayList<ChecklistItemEntry> mChecklistItem = new ArrayList<>();
     private Menu mMenu;
     private int noteColor;
-    static NewChecklistActivity activity;
+    static ActivityNewChecklist activity;
     private int noteIntentID;
     RecyclerViewAdapterChecklist adapter;
     private boolean editable;
@@ -81,7 +79,7 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
             @Override
             public void onClick(View view) {
                 if (checkLocation.isChecked()) {
-                    Boolean checkPerm = LocationFunctions.checkPermission(NewChecklistActivity.this);
+                    Boolean checkPerm = LocationFunctions.checkPermission(ActivityNewChecklist.this);
                     if (checkPerm == false) {
                         LocationFunctions.requestPermission(activity);
                     }
@@ -117,13 +115,13 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
 
                     myNewChecklist.setChecklistItems(mChecklistItem);
 
-                    DatabaseHelper dbHelper = new DatabaseHelper(NewChecklistActivity.this);
+                    DatabaseHelper dbHelper = new DatabaseHelper(ActivityNewChecklist.this);
                     Boolean checkUpdate = dbHelper.updateChecklist(myNewChecklist);
                     if (checkUpdate) {
                         Toast.makeText(getApplicationContext(), "Checklist Updated", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(NewChecklistActivity.this, MainActivity.class);
+                        Intent intent = new Intent(ActivityNewChecklist.this, MainActivity.class);
                         startActivity(intent);
-                        NewChecklistActivity.this.finish();
+                        ActivityNewChecklist.this.finish();
                     } else {
                         Toast.makeText(getApplicationContext(), "Update Failed", Toast.LENGTH_SHORT).show();
                     }
@@ -136,7 +134,7 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
                 @Override
                 public void onClick(View view) {
                     EntryChecklistNote myNewChecklist = new EntryChecklistNote();
-                    Boolean checkPermission = LocationFunctions.checkPermission(NewChecklistActivity.this);
+                    Boolean checkPermission = LocationFunctions.checkPermission(ActivityNewChecklist.this);
 
                     if (checklistTitle.getText().toString().equals("")) {
                         myNewChecklist.setNoteTitle(GenericUtils.getDateTime());
@@ -149,7 +147,7 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
                     myNewChecklist.setColor(noteColor);
 
                     if (checkPermission && checkLocation.isChecked()) {
-                        double[] myCoords = LocationFunctions.getLocation(NewChecklistActivity.this);
+                        double[] myCoords = LocationFunctions.getLocation(ActivityNewChecklist.this);
                         if (myCoords != null) {
                             myNewChecklist.setLatitude(myCoords[0]);
                             myNewChecklist.setLongitude(myCoords[1]);
@@ -159,13 +157,13 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
 
                     myNewChecklist.setChecklistItems(mChecklistItem);
 
-                    DatabaseHelper dbHelper = new DatabaseHelper(NewChecklistActivity.this);
+                    DatabaseHelper dbHelper = new DatabaseHelper(ActivityNewChecklist.this);
                     Boolean checkInsert = dbHelper.insertChecklist(myNewChecklist);
                     if (checkInsert) {
                         Toast.makeText(getApplicationContext(), "Checklist Saved", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(NewChecklistActivity.this, MainActivity.class);
+                        Intent intent = new Intent(ActivityNewChecklist.this, MainActivity.class);
                         startActivity(intent);
-                        NewChecklistActivity.this.finish();
+                        ActivityNewChecklist.this.finish();
                     } else {
                         Toast.makeText(getApplicationContext(), "Insertion Failed", Toast.LENGTH_SHORT).show();
                     }
@@ -197,8 +195,8 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
 
 
     private void addItemDialogBox() {
-        final AlertDialog.Builder alert = new AlertDialog.Builder(NewChecklistActivity.this);
-        View mView = getLayoutInflater().inflate(R.layout.add_checklist_item_dialog_box, null);
+        final AlertDialog.Builder alert = new AlertDialog.Builder(ActivityNewChecklist.this);
+        View mView = getLayoutInflater().inflate(R.layout.dialog_add_checklist_item, null);
         alert.setView(mView);
         final AlertDialog alertDialog = alert.create();
         alertDialog.setCanceledOnTouchOutside(true);
@@ -245,8 +243,8 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
     }
 
     private void editItemDialogBox(final String itemText, final int position) {
-        final AlertDialog.Builder alert = new AlertDialog.Builder(NewChecklistActivity.this);
-        View mView = getLayoutInflater().inflate(R.layout.add_checklist_item_dialog_box, null);
+        final AlertDialog.Builder alert = new AlertDialog.Builder(ActivityNewChecklist.this);
+        View mView = getLayoutInflater().inflate(R.layout.dialog_add_checklist_item, null);
         alert.setView(mView);
         final AlertDialog alertDialog = alert.create();
         alertDialog.setCanceledOnTouchOutside(true);
@@ -323,7 +321,7 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
 
         MenuItem colorPicker = menu.findItem(R.id.pickColor);
         if (colorPicker != null) {
-            GenericUtils.tintMenuIcon(NewChecklistActivity.this, colorPicker, noteColor);
+            GenericUtils.tintMenuIcon(ActivityNewChecklist.this, colorPicker, noteColor);
         }
 
         this.mMenu = menu;
@@ -342,18 +340,18 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.deleteNote:
-                final android.app.AlertDialog alertDeleteDialog = new android.app.AlertDialog.Builder(NewChecklistActivity.this).create();
+                final android.app.AlertDialog alertDeleteDialog = new android.app.AlertDialog.Builder(ActivityNewChecklist.this).create();
                 alertDeleteDialog.setTitle("Delete Note");
                 alertDeleteDialog.setMessage("Delete this note?");
                 alertDeleteDialog.setButton(android.app.AlertDialog.BUTTON_POSITIVE, "YES",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                DatabaseHelper dbHelper = new DatabaseHelper(NewChecklistActivity.this);
+                                DatabaseHelper dbHelper = new DatabaseHelper(ActivityNewChecklist.this);
                                 Boolean checkDelete = dbHelper.deleteChecklist(noteIntentID);
                                 if (checkDelete) {
-                                    Intent intent = new Intent(NewChecklistActivity.this, MainActivity.class);
+                                    Intent intent = new Intent(ActivityNewChecklist.this, MainActivity.class);
                                     startActivity(intent);
-                                    NewChecklistActivity.this.finish();
+                                    ActivityNewChecklist.this.finish();
                                     Toast.makeText(getApplicationContext(), "Checklist Deleted", LENGTH_SHORT).show();
                                 } else {
                                     Toast.makeText(getApplicationContext(), "Deletion failed", LENGTH_SHORT).show();
@@ -373,8 +371,8 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
                 break;
 
             case R.id.pickColor:
-                final android.app.AlertDialog.Builder alert = new android.app.AlertDialog.Builder(NewChecklistActivity.this);
-                View mView = getLayoutInflater().inflate(R.layout.color_picker_dialog_box, null);
+                final android.app.AlertDialog.Builder alert = new android.app.AlertDialog.Builder(ActivityNewChecklist.this);
+                View mView = getLayoutInflater().inflate(R.layout.dialog_color_picker, null);
                 alert.setView(mView);
                 final MenuItem pickColorItem = mMenu.findItem(R.id.pickColor);
 
@@ -388,7 +386,7 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
                     @Override
                     public void onClick(View v) {
                         noteColor = getColor(R.color.White);
-                        GenericUtils.tintMenuIcon(NewChecklistActivity.this, pickColorItem, noteColor);
+                        GenericUtils.tintMenuIcon(ActivityNewChecklist.this, pickColorItem, noteColor);
                         alertDialog.dismiss();
                     }
                 });
@@ -397,7 +395,7 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
                     @Override
                     public void onClick(View view) {
                         noteColor = getColor(R.color.Red);
-                        GenericUtils.tintMenuIcon(NewChecklistActivity.this, pickColorItem, noteColor);
+                        GenericUtils.tintMenuIcon(ActivityNewChecklist.this, pickColorItem, noteColor);
                         alertDialog.dismiss();
                     }
                 });
@@ -406,7 +404,7 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
                     @Override
                     public void onClick(View view) {
                         noteColor = getColor(R.color.Blue);
-                        GenericUtils.tintMenuIcon(NewChecklistActivity.this, pickColorItem, noteColor);
+                        GenericUtils.tintMenuIcon(ActivityNewChecklist.this, pickColorItem, noteColor);
                         alertDialog.dismiss();
                     }
                 });
@@ -415,7 +413,7 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
                     @Override
                     public void onClick(View view) {
                         noteColor = getColor(R.color.Green);
-                        GenericUtils.tintMenuIcon(NewChecklistActivity.this, pickColorItem, noteColor);
+                        GenericUtils.tintMenuIcon(ActivityNewChecklist.this, pickColorItem, noteColor);
                         alertDialog.dismiss();
                     }
                 });
@@ -424,7 +422,7 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
                     @Override
                     public void onClick(View view) {
                         noteColor = getColor(R.color.Yellow);
-                        GenericUtils.tintMenuIcon(NewChecklistActivity.this, pickColorItem, noteColor);
+                        GenericUtils.tintMenuIcon(ActivityNewChecklist.this, pickColorItem, noteColor);
                         alertDialog.dismiss();
                     }
                 });
@@ -433,7 +431,7 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
                     @Override
                     public void onClick(View view) {
                         noteColor = getColor(R.color.Grey);
-                        GenericUtils.tintMenuIcon(NewChecklistActivity.this, pickColorItem, noteColor);
+                        GenericUtils.tintMenuIcon(ActivityNewChecklist.this, pickColorItem, noteColor);
                         alertDialog.dismiss();
                     }
                 });
@@ -442,7 +440,7 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
                     @Override
                     public void onClick(View view) {
                         noteColor = getColor(R.color.Black);
-                        GenericUtils.tintMenuIcon(NewChecklistActivity.this, pickColorItem, noteColor);
+                        GenericUtils.tintMenuIcon(ActivityNewChecklist.this, pickColorItem, noteColor);
                         alertDialog.dismiss();
                     }
                 });
@@ -451,7 +449,7 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
                     @Override
                     public void onClick(View view) {
                         noteColor = getColor(R.color.Orange);
-                        GenericUtils.tintMenuIcon(NewChecklistActivity.this, pickColorItem, noteColor);
+                        GenericUtils.tintMenuIcon(ActivityNewChecklist.this, pickColorItem, noteColor);
                         alertDialog.dismiss();
                     }
                 });
@@ -460,7 +458,7 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
                     @Override
                     public void onClick(View view) {
                         noteColor = getColor(R.color.Purple);
-                        GenericUtils.tintMenuIcon(NewChecklistActivity.this, pickColorItem, noteColor);
+                        GenericUtils.tintMenuIcon(ActivityNewChecklist.this, pickColorItem, noteColor);
                         alertDialog.dismiss();
                     }
                 });
@@ -494,9 +492,9 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
 
             case R.id.showOnMap:
                 if (noteLat.get(0) == 0 && noteLong.get(0) == 0) {
-                    GenericUtils.toast(NewChecklistActivity.this, "Note has no location.");
+                    GenericUtils.toast(ActivityNewChecklist.this, "Note has no location.");
                 } else {
-                    Intent mapIntent = new Intent(NewChecklistActivity.this, MapsActivity.class);
+                    Intent mapIntent = new Intent(ActivityNewChecklist.this, ActivityMaps.class);
                     mapIntent.putExtra("NoteLat", noteLat);
                     mapIntent.putExtra("NoteLong", noteLong);
                     mapIntent.putExtra("Title", mNoteTitle);
@@ -543,7 +541,7 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
     }
 
     private void loadEditableChecklist(int noteID) {
-        DatabaseHelper dbHelper = new DatabaseHelper(NewChecklistActivity.this);
+        DatabaseHelper dbHelper = new DatabaseHelper(ActivityNewChecklist.this);
         Cursor cursor = dbHelper.getSingleChecklist(noteID);
         Cursor cursorItems = dbHelper.getSingleChecklistItems(noteID);
 
@@ -578,9 +576,9 @@ public class NewChecklistActivity extends AppCompatActivity implements RecyclerV
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(NewChecklistActivity.this, MainActivity.class);
+        Intent intent = new Intent(ActivityNewChecklist.this, MainActivity.class);
         startActivity(intent);
-        NewChecklistActivity.this.finish();
+        ActivityNewChecklist.this.finish();
     }
 
 }

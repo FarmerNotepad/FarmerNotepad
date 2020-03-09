@@ -32,14 +32,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import static android.widget.Toast.LENGTH_SHORT;
 
-public class EmployeeActivity extends AppCompatActivity implements RecyclerViewAdapterEmployee.OnNoteListener {
+public class ActivityEmployee extends AppCompatActivity implements RecyclerViewAdapterEmployee.OnNoteListener {
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private ArrayList<EntryWage> mNewPaymentList = new ArrayList<>();
     private Menu mMenu;
-    static EmployeeActivity activity;
+    static ActivityEmployee activity;
     private int employeeIntentID;
     boolean desc = false;
     private EntryEmployee mEntryEmployee = new EntryEmployee();
@@ -91,15 +91,15 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
                         mNewEntryEmployee.setEmployeeSum(Double.parseDouble(employeeTotalDebt.getText().toString()));
                         mNewEntryEmployee.setEmployeePaymentItems(mNewPaymentList);
 
-                        DatabaseHelper dbHelper = new DatabaseHelper(EmployeeActivity.this);
+                        DatabaseHelper dbHelper = new DatabaseHelper(ActivityEmployee.this);
                         Boolean checkInsert = dbHelper.updateEmployee(mNewEntryEmployee);
 
                         if (checkInsert) {
                             Toast.makeText(getApplicationContext(), "Employee Saved", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(EmployeeActivity.this, WageCalculatorActivity.class);
+                            Intent intent = new Intent(ActivityEmployee.this, ActivityPaymentsLog.class);
                             startActivity(intent);
                             dbHelper.close();
-                            EmployeeActivity.this.finish();
+                            ActivityEmployee.this.finish();
                         } else {
                             Toast.makeText(getApplicationContext(), "Insertion Failed", Toast.LENGTH_SHORT).show();
                         }
@@ -123,15 +123,15 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
                         mNewEntryEmployee.setEmployeeSum(Double.parseDouble(employeeTotalDebt.getText().toString()));
                         mNewEntryEmployee.setEmployeePaymentItems(mNewPaymentList);
 
-                        DatabaseHelper dbHelper = new DatabaseHelper(EmployeeActivity.this);
+                        DatabaseHelper dbHelper = new DatabaseHelper(ActivityEmployee.this);
                         Boolean checkInsert = dbHelper.insertEmployee(mNewEntryEmployee);
 
                         if (checkInsert) {
                             Toast.makeText(getApplicationContext(), "Employee Saved", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(EmployeeActivity.this, WageCalculatorActivity.class);
+                            Intent intent = new Intent(ActivityEmployee.this, ActivityPaymentsLog.class);
                             startActivity(intent);
                             dbHelper.close();
-                            EmployeeActivity.this.finish();
+                            ActivityEmployee.this.finish();
                         } else {
                             Toast.makeText(getApplicationContext(), "Insertion Failed", Toast.LENGTH_SHORT).show();
                         }
@@ -161,7 +161,7 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.deleteEmployee:
-                final AlertDialog alertDeleteDialog = new MaterialAlertDialogBuilder(EmployeeActivity.this).create();
+                final AlertDialog alertDeleteDialog = new MaterialAlertDialogBuilder(ActivityEmployee.this).create();
                 alertDeleteDialog.setTitle("Delete Employee");
                 alertDeleteDialog.setMessage("Delete this Employee?");
                 alertDeleteDialog.setButton(android.app.AlertDialog.BUTTON_POSITIVE, "YES",
@@ -170,9 +170,9 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
                                 DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
                                 Boolean checkDelete = dbHelper.deleteEmployee(employeeIntentID);
                                 if (checkDelete) {
-                                    Intent intent = new Intent(EmployeeActivity.this, WageCalculatorActivity.class);
+                                    Intent intent = new Intent(ActivityEmployee.this, ActivityPaymentsLog.class);
                                     startActivity(intent);
-                                    EmployeeActivity.this.finish();
+                                    ActivityEmployee.this.finish();
                                     Toast.makeText(getApplicationContext(), "Employee Deleted", LENGTH_SHORT).show();
                                 } else {
                                     Toast.makeText(getApplicationContext(), "Deletion Failed", LENGTH_SHORT).show();
@@ -209,8 +209,8 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
     }
 
     private void addPaymentDialogBox() {
-        final AlertDialog.Builder alert = new AlertDialog.Builder(EmployeeActivity.this);
-        View mView = getLayoutInflater().inflate(R.layout.add_payment_day_off_dialog_box, null);
+        final AlertDialog.Builder alert = new AlertDialog.Builder(ActivityEmployee.this);
+        View mView = getLayoutInflater().inflate(R.layout.dialog_add_payment_day_off, null);
         alert.setView(mView);
         final AlertDialog alertDialog = alert.create();
         alertDialog.setCanceledOnTouchOutside(true);
@@ -241,7 +241,7 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
         newPaymentDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DatePickerDialog(EmployeeActivity.this, date, myCalendar
+                new DatePickerDialog(ActivityEmployee.this, date, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
@@ -314,8 +314,8 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
 
     private void editPaymentDialogBox(EntryWage paymentItem, final int position) {
 
-        final AlertDialog.Builder alert = new AlertDialog.Builder(EmployeeActivity.this);
-        View mView = getLayoutInflater().inflate(R.layout.add_payment_day_off_dialog_box, null);
+        final AlertDialog.Builder alert = new AlertDialog.Builder(ActivityEmployee.this);
+        View mView = getLayoutInflater().inflate(R.layout.dialog_add_payment_day_off, null);
         alert.setView(mView);
         final AlertDialog alertDialog = alert.create();
         alertDialog.setCanceledOnTouchOutside(true);
@@ -345,7 +345,7 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
         newPaymentDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DatePickerDialog(EmployeeActivity.this, date, myCalendar
+                new DatePickerDialog(ActivityEmployee.this, date, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
@@ -520,9 +520,9 @@ public class EmployeeActivity extends AppCompatActivity implements RecyclerViewA
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(EmployeeActivity.this, WageCalculatorActivity.class);
+        Intent intent = new Intent(ActivityEmployee.this, ActivityPaymentsLog.class);
         startActivity(intent);
-        EmployeeActivity.this.finish();
+        ActivityEmployee.this.finish();
     }
 
     private void dayOffChecked(AlertDialog alertDialog) {

@@ -10,7 +10,7 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class FeedbackActivity extends AppCompatActivity {
+public class ActivityFeedback extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +32,7 @@ public class FeedbackActivity extends AppCompatActivity {
     public void sendEmail(View view) {
         final EditText feedbackText = (EditText) findViewById(R.id.feedbackText);
 
-        ProgressDialog pDialog = new ProgressDialog(FeedbackActivity.this);
+        ProgressDialog pDialog = new ProgressDialog(ActivityFeedback.this);
         pDialog.setMessage("Loading");
         pDialog.setCancelable(false);
         pDialog.show();
@@ -48,9 +48,9 @@ public class FeedbackActivity extends AppCompatActivity {
                                 "farmernotepad@gmail.com", "farmernotepad@gmail.com");
                         pDialog.dismiss();
                         GenericUtils.toast(getApplicationContext(), "Feedback sent to devs");
-                        Intent intent = new Intent(FeedbackActivity.this, MainActivity.class);
+                        Intent intent = new Intent(ActivityFeedback.this, MainActivity.class);
                         startActivity(intent);
-                        FeedbackActivity.this.finish();
+                        ActivityFeedback.this.finish();
                     } catch (Exception e) {
                         Log.e("SendMail", e.getMessage(), e);
                         pDialog.dismiss();

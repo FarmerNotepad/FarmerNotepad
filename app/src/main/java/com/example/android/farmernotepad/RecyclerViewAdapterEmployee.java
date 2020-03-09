@@ -24,7 +24,7 @@ public class RecyclerViewAdapterEmployee extends RecyclerView.Adapter<RecyclerVi
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_view_payment_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_payment_item, parent, false);
         ViewHolder holder = new ViewHolder(view, mOnNoteListener);
         return holder;
     }

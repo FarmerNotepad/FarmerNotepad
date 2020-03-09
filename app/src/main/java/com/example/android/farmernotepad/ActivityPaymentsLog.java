@@ -17,7 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class WageCalculatorActivity extends AppCompatActivity implements RecyclerViewAdapterWage.OnNoteListener {
+public class ActivityPaymentsLog extends AppCompatActivity implements RecyclerViewAdapterWage.OnNoteListener {
 
     private RecyclerView mRecyclerView;
     private RecyclerViewAdapterWage mAdapter;
@@ -31,12 +31,12 @@ public class WageCalculatorActivity extends AppCompatActivity implements Recycle
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wage_calculator);
 
-        findViewById(R.id.wage_calculator).setOnTouchListener(new OnSwipeTouchListener(WageCalculatorActivity.this) {
+        findViewById(R.id.wage_calculator).setOnTouchListener(new OnSwipeTouchListener(ActivityPaymentsLog.this) {
 
             public void onSwipeRight() {
-                Intent intent = new Intent(WageCalculatorActivity.this, MainActivity.class);
+                Intent intent = new Intent(ActivityPaymentsLog.this, MainActivity.class);
                 startActivity(intent);
-                WageCalculatorActivity.this.finish();
+                ActivityPaymentsLog.this.finish();
             }
 
         });
@@ -49,9 +49,9 @@ public class WageCalculatorActivity extends AppCompatActivity implements Recycle
         addEmployee.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(WageCalculatorActivity.this, EmployeeActivity.class);
+                Intent intent = new Intent(ActivityPaymentsLog.this, ActivityEmployee.class);
                 startActivity(intent);
-                WageCalculatorActivity.this.finish();
+                ActivityPaymentsLog.this.finish();
             }
         });
     }
@@ -60,13 +60,13 @@ public class WageCalculatorActivity extends AppCompatActivity implements Recycle
     public void onNoteClick(int position) {
         int mEmployeeID;
         EntryEmployee mEntryEmployee = (EntryEmployee) employeesArrayList.get(position);
-        Intent intent = new Intent(WageCalculatorActivity.this, EmployeeActivity.class);
+        Intent intent = new Intent(ActivityPaymentsLog.this, ActivityEmployee.class);
         mEmployeeID = mEntryEmployee.getEmployeeID();
         intent.putExtra("employeeID", mEmployeeID);
         intent.putExtra("flag", "editEmployee");
 
         startActivity(intent);
-        WageCalculatorActivity.this.finish();
+        ActivityPaymentsLog.this.finish();
     }
 
     private void initRecyclerView() {
@@ -114,19 +114,19 @@ public class WageCalculatorActivity extends AppCompatActivity implements Recycle
                 break;
 
             case R.id.employeesBackup:
-                Intent intentBackup = new Intent(WageCalculatorActivity.this, BackupActivity.class);
+                Intent intentBackup = new Intent(ActivityPaymentsLog.this, ActivityBackup.class);
                 intentBackup.putExtra("lastActivity", "wageCalc");
                 startActivity(intentBackup);
-                WageCalculatorActivity.this.finish();
+                ActivityPaymentsLog.this.finish();
                 break;
 
             case R.id.employeesFeedback:
-                Intent intentFeedBack = new Intent(WageCalculatorActivity.this, FeedbackActivity.class);
+                Intent intentFeedBack = new Intent(ActivityPaymentsLog.this, ActivityFeedback.class);
                 startActivity(intentFeedBack);
                 break;
 
             case R.id.employeesSettings:
-                Intent intentSettings = new Intent(WageCalculatorActivity.this, SettingsActivity.class);
+                Intent intentSettings = new Intent(ActivityPaymentsLog.this, ActivitySettings.class);
                 startActivity(intentSettings);
                 break;
 
@@ -137,7 +137,7 @@ public class WageCalculatorActivity extends AppCompatActivity implements Recycle
     }
 
     private void loadEmployees() {
-        DatabaseHelper dbHelper = new DatabaseHelper(WageCalculatorActivity.this);
+        DatabaseHelper dbHelper = new DatabaseHelper(ActivityPaymentsLog.this);
         Cursor cursor = dbHelper.getAllEmployees();
 
         if (cursor.moveToFirst()) {
@@ -158,9 +158,9 @@ public class WageCalculatorActivity extends AppCompatActivity implements Recycle
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(WageCalculatorActivity.this, MainActivity.class);
+        Intent intent = new Intent(ActivityPaymentsLog.this, MainActivity.class);
         startActivity(intent);
-        WageCalculatorActivity.this.finish();
+        ActivityPaymentsLog.this.finish();
     }
 
 }

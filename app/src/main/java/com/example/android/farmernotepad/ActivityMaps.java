@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 import androidx.fragment.app.FragmentActivity;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+public class ActivityMaps extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     private ArrayList<Double> latCoords = new ArrayList<>();
@@ -62,7 +62,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             LatLng myNote = new LatLng(latCoords.get(i), longCoords.get(i));
             mMap.addMarker(new MarkerOptions().position(myNote).title(markerTitle.get(i)));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(myNote));
-            GenericUtils.toast(MapsActivity.this, myNote.toString());
+            GenericUtils.toast(ActivityMaps.this, myNote.toString());
         }
     }
 }

@@ -7,7 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 
-public class LaunchActivity extends AppCompatActivity {
+public class ActivityLaunch extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,7 +17,7 @@ public class LaunchActivity extends AppCompatActivity {
 
         String defLaunchActivity = sharedPreferences.getString("default_home_screen", "Main");
         if(defLaunchActivity.equals("Payments")) {
-            Intent intent = new Intent(this, WageCalculatorActivity.class);
+            Intent intent = new Intent(this, ActivityPaymentsLog.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             finish();
             startActivity(intent);
