@@ -45,7 +45,7 @@
     <string name="main_sort_menu">Sort Menu</string>
 
 
-    //ColorTab Colors
+    //ColorTab
     <string name="Color_all_colors">All Colors</string>
     <string name="Color_red_notes">Red Notes</string>
     <string name="Color_orange_notes">Orange Notes</string>
@@ -57,6 +57,16 @@
     <string name="Color_grey_notes">Grey Notes</string>
     <string name="Color_white_notes">White Notes</string>
 
+    //SortTab
+    <string name="sort_alphabetically">Alphabetically</string>
+    <string name="sort_by_date_created">by date created</string>
+    <string name="sort_by_date_last_modified">by date last modified</string>
+    <string name="sort_by_color">by color</string>
+
+    //ViewTab
+    <string name="view_list">List View</string>
+    <string name="view_grid">Grid View</string>
+    <string name="view_staggered">Staggered View</string>
 
 
 </resources>
