@@ -2,6 +2,7 @@ package com.example.android.farmernotepad;
 
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -50,6 +51,13 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        Fragment prev = getSupportFragmentManager().findFragmentByTag("dialog");
+        if (prev != null) {
+            ft.remove(prev);
+        }
+        ft.addToBackStack(null);
+
 
         FloatingActionButton addNote = findViewById(R.id.addNote);
         Button shortMenu = findViewById(R.id.shortMenu);
@@ -59,16 +67,14 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
             @Override
             public void onClick(View view) {
 
-                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                Fragment prev = getSupportFragmentManager().findFragmentByTag("dialog");
-                if (prev != null) {
-                    ft.remove(prev);
-                }
-                ft.addToBackStack(null);
 
                 // Create and show the dialog.
                 DialogTabbed dialogFragment = new DialogTabbed();
                 dialogFragment.show(ft,"dialog");
+
+                Dialog dialog = dialogFragment.getDialog();
+                //Button btn = dialog.findViewById(R.id.allColorsBtn);
+                //btn.setOnClickListener(this);
 
             }
         });
@@ -428,6 +434,8 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
             }
         }
     }
+
+
 
 
 }
