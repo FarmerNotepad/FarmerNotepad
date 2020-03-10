@@ -1,14 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".FragmentSort">
+    tools:context=".FragmentSort"
+    android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
 
-</FrameLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="8dp">
+
+            <ImageButton
+                android:id="@+id/alphabeticalBtn"
+                style="@style/SortTab"
+                android:background="@drawable/ic_action_name"
+                android:backgroundTint="@color/Black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="@string/sort_alphabetically"
+                app:layout_constraintBottom_toBottomOf="@+id/alphabeticalBtn"
+                app:layout_constraintStart_toEndOf="@+id/alphabeticalBtn"
+                app:layout_constraintTop_toTopOf="@+id/alphabeticalBtn" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="8dp">
+
+            <ImageButton
+                android:id="@+id/createBtn"
+                style="@style/SortTab"
+                android:background="@drawable/ic_create_date"
+                android:backgroundTint="@color/Black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sort_by_date_created"
+                android:layout_marginStart="10dp"
+                app:layout_constraintBottom_toBottomOf="@+id/createBtn"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/createBtn"
+                app:layout_constraintTop_toTopOf="@+id/createBtn" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="8dp">
+
+
+            <ImageButton
+                android:id="@+id/modBtn"
+                style="@style/SortTab"
+                android:background="@drawable/ic_mod_date"
+                android:backgroundTint="@color/Black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="@string/sort_by_date_last_modified"
+                app:layout_constraintBottom_toBottomOf="@+id/modBtn"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/modBtn"
+                app:layout_constraintTop_toTopOf="@+id/modBtn" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="8dp">
+
+
+            <ImageButton
+                android:id="@+id/colorBtn"
+                style="@style/SortTab"
+                android:background="@drawable/ic_color"
+                android:backgroundTint="@color/Black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="@string/sort_by_color"
+                app:layout_constraintBottom_toBottomOf="@+id/colorBtn"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/colorBtn"
+                app:layout_constraintTop_toTopOf="@+id/colorBtn" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</LinearLayout>

@@ -2,7 +2,7 @@
 <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_centerHorizontal="true"
     android:layout_centerVertical="true"
@@ -26,7 +26,7 @@
 
             <ImageButton
                 android:id="@+id/allColorsBtn"
-                style="@style/ShowOnlyColor"
+                style="@style/ColorTab"
                 android:background="@drawable/ic_remove_button"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -52,7 +52,7 @@
 
             <ImageButton
                 android:id="@+id/redBtn"
-                style="@style/ShowOnlyColor"
+                style="@style/ColorTab"
                 android:background="@color/Red"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -79,7 +79,7 @@
 
             <ImageButton
                 android:id="@+id/orangeBtn"
-                style="@style/ShowOnlyColor"
+                style="@style/ColorTab"
                 android:background="@color/Orange"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -106,13 +106,14 @@
 
             <ImageButton
                 android:id="@+id/yellowBtn"
-                style="@style/ShowOnlyColor"
+                style="@style/ColorTab"
                 android:background="@color/Yellow"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="ContentDescription" />
 
             <TextView
+                android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -133,7 +134,7 @@
 
             <ImageButton
                 android:id="@+id/greenBtn"
-                style="@style/ShowOnlyColor"
+                style="@style/ColorTab"
                 android:background="@color/Green"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -171,7 +172,7 @@
 
             <ImageButton
                 android:id="@+id/blueBtn"
-                style="@style/ShowOnlyColor"
+                style="@style/ColorTab"
                 android:background="@color/Blue"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -196,7 +197,7 @@
 
             <ImageButton
                 android:id="@+id/purpleBtn"
-                style="@style/ShowOnlyColor"
+                style="@style/ColorTab"
                 android:background="@color/Purple"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -222,7 +223,7 @@
 
             <ImageButton
                 android:id="@+id/blackBtn"
-                style="@style/ShowOnlyColor"
+                style="@style/ColorTab"
                 android:background="@color/Black"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -248,7 +249,7 @@
 
             <ImageButton
                 android:id="@+id/greyBtn"
-                style="@style/ShowOnlyColor"
+                style="@style/ColorTab"
                 android:background="@color/Grey"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -274,7 +275,7 @@
 
             <ImageButton
                 android:id="@+id/whiteBtn"
-                style="@style/ShowOnlyColor"
+                style="@style/ColorTab"
                 android:background="@color/White"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
