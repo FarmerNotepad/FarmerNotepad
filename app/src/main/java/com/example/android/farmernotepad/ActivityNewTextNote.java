@@ -45,8 +45,7 @@ public class ActivityNewTextNote extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_note);
-        SharedPreferences sharedPreferences =
-                PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         //String defColor = sharedPreferences.getString("default_color", "");
 
         noteColor = Color.parseColor(sharedPreferences.getString("default_color", "#FFFFFF"));
