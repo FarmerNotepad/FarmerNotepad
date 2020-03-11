@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
 
     private static final String TAG = "MainActivity";
     boolean desc = false;
-
+    private ArrayList<ListItem> concreteList = new ArrayList<>();
     private ArrayList<ListItem> allNotesList = new ArrayList<>();
     RecyclerViewAdapterMain adapter;
     private ActionMode mActionMode;
@@ -50,6 +50,8 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        SharedPreferences sharedPreferences =
+                PreferenceManager.getDefaultSharedPreferences(this);
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         Fragment prev = getSupportFragmentManager().findFragmentByTag("dialog");
@@ -130,7 +132,9 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         GenericUtils.createNotificationChannel(MainActivity.this);
         loadNotes();
         loadChecklistNotes();
+        concreteList.addAll(allNotesList);
 
+        filterColor(sharedPreferences.getInt("filter_color",0));
         autoBackupHandler();
 
 
@@ -433,6 +437,24 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
                 GenericUtils.toast(this, "Set email address for auto-backup.");
             }
         }
+    }
+
+    public void filterColor(int colorToFilter){
+        ArrayList<ListItem> filteredList = new ArrayList<ListItem>();
+        if (colorToFilter == 0){
+            allNotesList.clear();
+            allNotesList.addAll(concreteList);
+        }
+        else {
+            for (int i = 0; i < concreteList.size(); i++) {
+                if (concreteList.get(i).getColor() == colorToFilter) {
+                    filteredList.add(concreteList.get(i));
+                }
+            }
+            allNotesList.clear();
+            allNotesList.addAll(filteredList);
+        }
+        adapter.notifyDataSetChanged();
     }
 
 
