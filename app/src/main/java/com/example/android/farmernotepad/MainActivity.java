@@ -37,8 +37,8 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
     private static RecyclerView recyclerView;
     boolean desc = false;
     private ArrayList<ListItem> concreteList = new ArrayList<>();
-    private ArrayList<ListItem> allNotesList = new ArrayList<>();
-    RecyclerViewAdapterMain adapter;
+    private static ArrayList<ListItem> allNotesList = new ArrayList<>();
+    static RecyclerViewAdapterMain adapter;
     private ActionMode mActionMode;
     Button shortMenu;
     FloatingActionButton addNote;
@@ -133,6 +133,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         loadNotes();
         loadChecklistNotes();
         concreteList.addAll(allNotesList);
+        setAllNotesList(allNotesList);
 
         filterColor(sharedPreferences.getInt("filter_color",0));
         autoBackupHandler();
@@ -229,8 +230,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         adapter.notifyDataSetChanged();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         setRecyclerView(recyclerView);
-        //recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-        //recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2,1 ));
+        setAdapter(adapter);
     }
 
     private void setRecyclerView(RecyclerView recyclerView) {
@@ -239,6 +239,22 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
 
     public static RecyclerView getRecyclerView(){
         return recyclerView;
+    }
+
+    private void setAllNotesList(ArrayList<ListItem> allNotesList){
+        this.allNotesList = allNotesList;
+    }
+
+    public static ArrayList<ListItem> getAllNotesList(){
+        return allNotesList;
+    }
+
+    private void setAdapter(RecyclerViewAdapterMain adapter){
+        this.adapter = adapter;
+    }
+
+    public static RecyclerViewAdapterMain getAdapter(){
+        return adapter;
     }
 
     private void loadNotes() {
