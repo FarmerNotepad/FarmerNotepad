@@ -75,6 +75,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
                 dialogFragment.show(ft,"dialog");
 
                 Dialog dialog = dialogFragment.getDialog();
+
                 //Button btn = dialog.findViewById(R.id.allColorsBtn);
                 //btn.setOnClickListener(this);
 
