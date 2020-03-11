@@ -6,13 +6,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 
+import java.util.ArrayList;
+
 import androidx.fragment.app.Fragment;
 
 
 public class FragmentSort extends Fragment {
 
     ImageButton alphabetical, createDate, modDate, byColor;
-
+    boolean desc = false;
     public FragmentSort() {
         // Required empty public constructor
     }
@@ -32,7 +34,11 @@ public class FragmentSort extends Fragment {
         alphabetical.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                ArrayList<ListItem> allNotesList = MainActivity.getAllNotesList();
+                RecyclerViewAdapterMain adapter = new MainActivity().getAdapter();
+                allNotesList = GenericUtils.sortByTitle(allNotesList, desc);
+                adapter.notifyDataSetChanged();
+                desc = !desc;
             }
         });
 
@@ -40,7 +46,11 @@ public class FragmentSort extends Fragment {
         createDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                ArrayList<ListItem> allNotesList = MainActivity.getAllNotesList();
+                RecyclerViewAdapterMain adapter = new MainActivity().getAdapter();
+                allNotesList = GenericUtils.sortByCreateDate(allNotesList, desc);
+                adapter.notifyDataSetChanged();
+                desc = !desc;
             }
         });
 
@@ -48,7 +58,11 @@ public class FragmentSort extends Fragment {
         modDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                ArrayList<ListItem> allNotesList = MainActivity.getAllNotesList();
+                RecyclerViewAdapterMain adapter = new MainActivity().getAdapter();
+                allNotesList = GenericUtils.sortByModDate(allNotesList, desc);
+                adapter.notifyDataSetChanged();
+                desc = !desc;
             }
         });
 
@@ -56,7 +70,11 @@ public class FragmentSort extends Fragment {
         byColor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                ArrayList<ListItem> allNotesList = MainActivity.getAllNotesList();
+                RecyclerViewAdapterMain adapter = new MainActivity().getAdapter();
+                allNotesList = GenericUtils.sortByColor(allNotesList, desc);
+                adapter.notifyDataSetChanged();
+                desc = !desc;
             }
         });
 
