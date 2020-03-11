@@ -3,6 +3,10 @@ package com.example.android.farmernotepad;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,7 +36,8 @@ public class FragmentView extends Fragment {
         list.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                RecyclerView recyclerView = MainActivity.getRecyclerView();
+                recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
             }
         });
 
@@ -40,7 +45,8 @@ public class FragmentView extends Fragment {
         grid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                RecyclerView recyclerView = MainActivity.getRecyclerView();
+                recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
             }
         });
 
@@ -48,7 +54,8 @@ public class FragmentView extends Fragment {
         staggered.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                RecyclerView recyclerView = MainActivity.getRecyclerView();
+                recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL));
             }
         });
 

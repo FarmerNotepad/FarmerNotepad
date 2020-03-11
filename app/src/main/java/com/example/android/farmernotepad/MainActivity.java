@@ -2,7 +2,6 @@ package com.example.android.farmernotepad;
 
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -17,8 +16,6 @@ import android.widget.Button;
 import android.widget.SearchView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.tabs.TabItem;
-import com.google.android.material.tabs.TabLayout;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -26,25 +23,25 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.ActionMode;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
 
 
 public class MainActivity extends AppCompatActivity implements RecyclerViewAdapterMain.OnNoteListener {
 
     private static final String TAG = "MainActivity";
+    private static RecyclerView recyclerView;
     boolean desc = false;
     private ArrayList<ListItem> concreteList = new ArrayList<>();
-    private ArrayList<ListItem> allNotesList = new ArrayList<>();
-    RecyclerViewAdapterMain adapter;
+    private static ArrayList<ListItem> allNotesList = new ArrayList<>();
+    static RecyclerViewAdapterMain adapter;
     private ActionMode mActionMode;
+    Button shortMenu;
+    FloatingActionButton addNote;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,29 +50,31 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         SharedPreferences sharedPreferences =
                 PreferenceManager.getDefaultSharedPreferences(this);
 
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        Fragment prev = getSupportFragmentManager().findFragmentByTag("dialog");
-        if (prev != null) {
-            ft.remove(prev);
-        }
-        ft.addToBackStack(null);
+        addNote = findViewById(R.id.addNote);
+        shortMenu = findViewById(R.id.shortMenu);
 
 
-        FloatingActionButton addNote = findViewById(R.id.addNote);
-        Button shortMenu = findViewById(R.id.shortMenu);
 
         shortMenu.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
 
+                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                Fragment prev = getSupportFragmentManager().findFragmentByTag("dialog");
+                if (prev != null) {
+                    ft.remove(prev);
+                }
+                ft.addToBackStack(null);
+
 
                 // Create and show the dialog.
                 DialogTabbed dialogFragment = new DialogTabbed();
                 dialogFragment.show(ft,"dialog");
 
-                Dialog dialog = dialogFragment.getDialog();
 
+
+                //Dialog dialog = dialogFragment.getDialog();
                 //Button btn = dialog.findViewById(R.id.allColorsBtn);
                 //btn.setOnClickListener(this);
 
@@ -134,6 +133,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         loadNotes();
         loadChecklistNotes();
         concreteList.addAll(allNotesList);
+        setAllNotesList(allNotesList);
 
         filterColor(sharedPreferences.getInt("filter_color",0));
         autoBackupHandler();
@@ -229,8 +229,32 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        //recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-        //recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2,1 ));
+        setRecyclerView(recyclerView);
+        setAdapter(adapter);
+    }
+
+    private void setRecyclerView(RecyclerView recyclerView) {
+        this.recyclerView = recyclerView;
+    }
+
+    public static RecyclerView getRecyclerView(){
+        return recyclerView;
+    }
+
+    private void setAllNotesList(ArrayList<ListItem> allNotesList){
+        this.allNotesList = allNotesList;
+    }
+
+    public static ArrayList<ListItem> getAllNotesList(){
+        return allNotesList;
+    }
+
+    private void setAdapter(RecyclerViewAdapterMain adapter){
+        this.adapter = adapter;
+    }
+
+    public static RecyclerViewAdapterMain getAdapter(){
+        return adapter;
     }
 
     private void loadNotes() {
@@ -457,8 +481,6 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         }
         adapter.notifyDataSetChanged();
     }
-
-
 
 
 }
