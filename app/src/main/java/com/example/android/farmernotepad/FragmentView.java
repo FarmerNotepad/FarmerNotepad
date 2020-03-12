@@ -1,5 +1,6 @@
 package com.example.android.farmernotepad;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +17,7 @@ import android.widget.ImageButton;
 
 
 public class FragmentView extends Fragment {
-
+    MainActivity myActivity;
     ImageButton list, grid, staggered;
 
     public FragmentView() {
@@ -28,7 +30,7 @@ public class FragmentView extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_view, container, false);
-
+        myActivity = (MainActivity) getActivity();
         list = view.findViewById(R.id.listBtn);
         grid = view.findViewById(R.id.gridBtn);
         staggered = view.findViewById(R.id.staggeredBtn);
@@ -36,8 +38,12 @@ public class FragmentView extends Fragment {
         list.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                RecyclerView recyclerView = MainActivity.getRecyclerView();
-                recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                SharedPreferences sharedPreferences =
+                        PreferenceManager.getDefaultSharedPreferences(myActivity.getApplicationContext());
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putInt("view_type", 0);
+                editor.apply();
+                myActivity.viewTypeHandler(0);
             }
         });
 
@@ -45,8 +51,12 @@ public class FragmentView extends Fragment {
         grid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                RecyclerView recyclerView = MainActivity.getRecyclerView();
-                recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+                SharedPreferences sharedPreferences =
+                        PreferenceManager.getDefaultSharedPreferences(myActivity.getApplicationContext());
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putInt("view_type", 1);
+                editor.apply();
+                myActivity.viewTypeHandler(1);
             }
         });
 
@@ -54,8 +64,12 @@ public class FragmentView extends Fragment {
         staggered.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                RecyclerView recyclerView = MainActivity.getRecyclerView();
-                recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL));
+                SharedPreferences sharedPreferences =
+                        PreferenceManager.getDefaultSharedPreferences(myActivity.getApplicationContext());
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putInt("view_type", 2);
+                editor.apply();
+                myActivity.viewTypeHandler(2);
             }
         });
 

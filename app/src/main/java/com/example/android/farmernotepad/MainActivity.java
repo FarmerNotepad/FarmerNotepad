@@ -27,19 +27,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.ActionMode;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 
 public class MainActivity extends AppCompatActivity implements RecyclerViewAdapterMain.OnNoteListener {
 
     private static final String TAG = "MainActivity";
-    private static RecyclerView recyclerView;
+    private RecyclerView recyclerView;
     boolean desc = false;
     private ArrayList<ListItem> concreteList = new ArrayList<>();
-    private static ArrayList<ListItem> allNotesList = new ArrayList<>();
-    static RecyclerViewAdapterMain adapter;
+    private ArrayList<ListItem> allNotesList = new ArrayList<>();
+    RecyclerViewAdapterMain adapter;
     private ActionMode mActionMode;
+
     Button shortMenu;
     FloatingActionButton addNote;
 
@@ -133,9 +136,11 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         loadNotes();
         loadChecklistNotes();
         concreteList.addAll(allNotesList);
-        setAllNotesList(allNotesList);
+
 
         filterColor(sharedPreferences.getInt("filter_color",0));
+        sortHandler(sharedPreferences.getInt("sort_type",0));
+        viewTypeHandler(sharedPreferences.getInt("view_type",0));
         autoBackupHandler();
 
 
@@ -224,38 +229,14 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
     private void initRecyclerView() {
         Log.d(TAG, "initRecyclerView: init recyclerview.");
 
-        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+        recyclerView = findViewById(R.id.recycler_view);
         adapter = new RecyclerViewAdapterMain(allNotesList, this);
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        setRecyclerView(recyclerView);
-        setAdapter(adapter);
+
     }
 
-    private void setRecyclerView(RecyclerView recyclerView) {
-        this.recyclerView = recyclerView;
-    }
-
-    public static RecyclerView getRecyclerView(){
-        return recyclerView;
-    }
-
-    private void setAllNotesList(ArrayList<ListItem> allNotesList){
-        this.allNotesList = allNotesList;
-    }
-
-    public static ArrayList<ListItem> getAllNotesList(){
-        return allNotesList;
-    }
-
-    private void setAdapter(RecyclerViewAdapterMain adapter){
-        this.adapter = adapter;
-    }
-
-    public static RecyclerViewAdapterMain getAdapter(){
-        return adapter;
-    }
 
     private void loadNotes() {
         DatabaseHelper dbHelper = new DatabaseHelper(MainActivity.this);
@@ -480,6 +461,40 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
             allNotesList.addAll(filteredList);
         }
         adapter.notifyDataSetChanged();
+    }
+
+    public void sortHandler(int sortType){
+        switch (sortType){
+            case 0:
+                allNotesList = GenericUtils.sortByCreateDate(allNotesList,desc);
+                break;
+            case 1:
+                allNotesList = GenericUtils.sortByTitle(allNotesList,desc);
+                break;
+            case 2:
+                allNotesList = GenericUtils.sortByModDate(allNotesList,desc);
+                break;
+            case 3:
+                allNotesList = GenericUtils.sortByColor(allNotesList,desc);
+                break;
+        }
+        adapter.notifyDataSetChanged();
+        desc = !desc;
+
+    }
+
+    public void viewTypeHandler(int viewType){
+        switch (viewType){
+            case 0:
+                recyclerView.setLayoutManager(new LinearLayoutManager(this));
+                break;
+            case 1:
+                recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+                break;
+            case 2:
+                recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL));
+                break;
+        }
     }
 
 
