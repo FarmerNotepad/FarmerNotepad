@@ -1,6 +1,8 @@
 package com.example.android.farmernotepad;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +17,8 @@ public class FragmentSort extends Fragment {
 
     ImageButton alphabetical, createDate, modDate, byColor;
     boolean desc = false;
+    MainActivity myActivity;
+
     public FragmentSort() {
         // Required empty public constructor
     }
@@ -26,6 +30,7 @@ public class FragmentSort extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_short, container, false);
 
+        myActivity = (MainActivity) getActivity();
         alphabetical = view.findViewById(R.id.alphabeticalBtn);
         createDate = view.findViewById(R.id.createBtn);
         modDate = view.findViewById(R.id.modBtn);
@@ -34,11 +39,12 @@ public class FragmentSort extends Fragment {
         alphabetical.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ArrayList<ListItem> allNotesList = MainActivity.getAllNotesList();
-                RecyclerViewAdapterMain adapter = new MainActivity().getAdapter();
-                allNotesList = GenericUtils.sortByTitle(allNotesList, desc);
-                adapter.notifyDataSetChanged();
-                desc = !desc;
+                SharedPreferences sharedPreferences =
+                        PreferenceManager.getDefaultSharedPreferences(myActivity.getApplicationContext());
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putInt("sort_type", 1);
+                editor.apply();
+                myActivity.sortHandler(1);
             }
         });
 
@@ -46,11 +52,12 @@ public class FragmentSort extends Fragment {
         createDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ArrayList<ListItem> allNotesList = MainActivity.getAllNotesList();
-                RecyclerViewAdapterMain adapter = new MainActivity().getAdapter();
-                allNotesList = GenericUtils.sortByCreateDate(allNotesList, desc);
-                adapter.notifyDataSetChanged();
-                desc = !desc;
+                SharedPreferences sharedPreferences =
+                        PreferenceManager.getDefaultSharedPreferences(myActivity.getApplicationContext());
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putInt("sort_type", 0);
+                editor.apply();
+                myActivity.sortHandler(0);
             }
         });
 
@@ -58,11 +65,12 @@ public class FragmentSort extends Fragment {
         modDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ArrayList<ListItem> allNotesList = MainActivity.getAllNotesList();
-                RecyclerViewAdapterMain adapter = new MainActivity().getAdapter();
-                allNotesList = GenericUtils.sortByModDate(allNotesList, desc);
-                adapter.notifyDataSetChanged();
-                desc = !desc;
+                SharedPreferences sharedPreferences =
+                        PreferenceManager.getDefaultSharedPreferences(myActivity.getApplicationContext());
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putInt("sort_type", 2);
+                editor.apply();
+                myActivity.sortHandler(2);
             }
         });
 
@@ -70,11 +78,12 @@ public class FragmentSort extends Fragment {
         byColor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ArrayList<ListItem> allNotesList = MainActivity.getAllNotesList();
-                RecyclerViewAdapterMain adapter = new MainActivity().getAdapter();
-                allNotesList = GenericUtils.sortByColor(allNotesList, desc);
-                adapter.notifyDataSetChanged();
-                desc = !desc;
+                SharedPreferences sharedPreferences =
+                        PreferenceManager.getDefaultSharedPreferences(myActivity.getApplicationContext());
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putInt("sort_type", 3);
+                editor.apply();
+                myActivity.sortHandler(3);
             }
         });
 
