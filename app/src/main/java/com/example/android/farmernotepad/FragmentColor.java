@@ -9,18 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 
-import com.google.android.material.button.MaterialButton;
-
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 
 public class FragmentColor extends Fragment {
     MainActivity myActivity;
-    private ImageButton allColors, redBtn, orangeBtn, yellowBtn, greenBtn, blueBtn, purpleBtn, blackBtn, greyBtn, whiteBtn;
-
+    private ConstraintLayout allColors, redBtn, orangeBtn, yellowBtn, greenBtn, blueBtn, purpleBtn, blackBtn, greyBtn, whiteBtn;
 
     public FragmentColor() {
         // Required empty public constructor
@@ -41,16 +37,17 @@ public class FragmentColor extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_color, container, false);
         myActivity = (MainActivity) getActivity();
-        allColors = view.findViewById(R.id.allColorsBtn);
-        redBtn = view.findViewById(R.id.redBtn);
-        orangeBtn = view.findViewById(R.id.orangeBtn);
-        yellowBtn = view.findViewById(R.id.yellowBtn);
-        greenBtn = view.findViewById(R.id.greenBtn);
-        blueBtn = view.findViewById(R.id.blueBtn);
-        purpleBtn = view.findViewById(R.id.purpleBtn);
-        blackBtn = view.findViewById(R.id.blackBtn);
-        greyBtn = view.findViewById(R.id.greyBtn);
-        whiteBtn = view.findViewById(R.id.whiteBtn);
+        allColors = view.findViewById(R.id.allColorsLayout);
+        redBtn = view.findViewById(R.id.redColorLayout);
+        orangeBtn = view.findViewById(R.id.orangeColorLayout);
+        yellowBtn = view.findViewById(R.id.yellowColorLayout);
+        greenBtn = view.findViewById(R.id.greenColorLayout);
+        blueBtn = view.findViewById(R.id.blueColorLayout);
+        purpleBtn = view.findViewById(R.id.purpleColorLayout);
+        blackBtn = view.findViewById(R.id.blackColorLayout);
+        greyBtn = view.findViewById(R.id.greyColorLayout);
+        whiteBtn = view.findViewById(R.id.whiteColorLayout);
+
 
         setClickListener(allColors, 0);
         setClickListener(redBtn, ContextCompat.getColor(context,R.color.Red));
@@ -67,7 +64,7 @@ public class FragmentColor extends Fragment {
         return view;
     }
 
-    private void setClickListener(ImageButton colorBtn, int colorNumber) {
+    private void setClickListener(ConstraintLayout colorBtn, int colorNumber) {
         colorBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

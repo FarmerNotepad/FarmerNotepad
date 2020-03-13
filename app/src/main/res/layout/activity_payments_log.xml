@@ -12,8 +12,8 @@
         android:id="@+id/wageTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="WAGE CALCULATOR"
-        android:textSize="35dp"
+        android:text="@string/payments_log"
+        android:textSize="35sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

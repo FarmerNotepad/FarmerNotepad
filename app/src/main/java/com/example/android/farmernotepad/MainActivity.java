@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.SearchView;
 
@@ -489,7 +490,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
                 recyclerView.setLayoutManager(new LinearLayoutManager(this));
                 break;
             case 1:
-                recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+                recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
                 break;
             case 2:
                 recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL));

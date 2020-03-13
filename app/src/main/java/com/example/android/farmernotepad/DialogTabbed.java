@@ -1,15 +1,14 @@
 package com.example.android.farmernotepad;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.google.android.material.tabs.TabLayout;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.viewpager.widget.ViewPager;
@@ -24,8 +23,8 @@ public class DialogTabbed extends DialogFragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
-        View rootview = inflater.inflate(R.layout.dialog_tabbed_short_menu,container,false);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View rootview = inflater.inflate(R.layout.dialog_tabbed_short_menu, container, false);
         fragmentColor = new FragmentColor();
         fragmentSort = new FragmentSort();
         fragmentView = new FragmentView();
@@ -40,5 +39,11 @@ public class DialogTabbed extends DialogFragment {
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
         return rootview;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        GenericUtils.setDialogSize(getDialog(), 880, 950);
     }
 }

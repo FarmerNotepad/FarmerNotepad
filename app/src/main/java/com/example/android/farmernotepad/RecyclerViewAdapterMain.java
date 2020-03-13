@@ -121,7 +121,7 @@ public class RecyclerViewAdapterMain extends RecyclerView.Adapter implements Fil
             super(itemView);
             textNoteTitle = itemView.findViewById(R.id.textNoteTitle);
             textNoteContent = itemView.findViewById(R.id.textNoteContent);
-            parentLayout = itemView.findViewById(R.id.parent_layout);
+            parentLayout = itemView.findViewById(R.id.note_item_layout);
             this.onNoteListener = onNoteListener;
 
             itemView.setOnClickListener(this);
@@ -176,7 +176,7 @@ public class RecyclerViewAdapterMain extends RecyclerView.Adapter implements Fil
 
             textNoteTitle = itemView.findViewById(R.id.textNoteTitle);
             textNoteContent = itemView.findViewById(R.id.textNoteContent);
-            parentLayout = itemView.findViewById(R.id.parent_layout);
+            parentLayout = itemView.findViewById(R.id.note_item_layout);
             this.onNoteListener = onNoteListener;
 
             itemView.setOnClickListener(this);

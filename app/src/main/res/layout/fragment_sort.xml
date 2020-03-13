@@ -9,12 +9,13 @@
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
-            android:layout_marginVertical="8dp">
+            android:layout_marginVertical="8dp"
+            android:id="@+id/alphabeticalLayout">
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/alphabeticalBtn"
                 style="@style/SortTab"
                 android:background="@drawable/ic_action_name"
@@ -36,12 +37,13 @@
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
-            android:layout_marginVertical="8dp">
+            android:layout_marginVertical="8dp"
+            android:id="@+id/createLayout">
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/createBtn"
                 style="@style/SortTab"
                 android:background="@drawable/ic_create_date"
@@ -53,10 +55,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/sort_by_date_created"
                 android:layout_marginStart="10dp"
+                android:text="@string/sort_by_date_created"
                 app:layout_constraintBottom_toBottomOf="@+id/createBtn"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/createBtn"
                 app:layout_constraintTop_toTopOf="@+id/createBtn" />
 
@@ -64,13 +65,14 @@
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
-            android:layout_marginVertical="8dp">
+            android:layout_marginVertical="8dp"
+            android:id="@+id/modLayout">
 
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/modBtn"
                 style="@style/SortTab"
                 android:background="@drawable/ic_mod_date"
@@ -85,7 +87,6 @@
                 android:layout_marginStart="10dp"
                 android:text="@string/sort_by_date_last_modified"
                 app:layout_constraintBottom_toBottomOf="@+id/modBtn"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/modBtn"
                 app:layout_constraintTop_toTopOf="@+id/modBtn" />
 
@@ -93,13 +94,14 @@
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
-            android:layout_marginVertical="8dp">
+            android:layout_marginVertical="8dp"
+            android:id="@+id/colorLayout">
 
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/colorBtn"
                 style="@style/SortTab"
                 android:background="@drawable/ic_color"
@@ -115,7 +117,6 @@
                 android:layout_marginStart="10dp"
                 android:text="@string/sort_by_color"
                 app:layout_constraintBottom_toBottomOf="@+id/colorBtn"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/colorBtn"
                 app:layout_constraintTop_toTopOf="@+id/colorBtn" />
 

@@ -1,5 +1,6 @@
 package com.example.android.farmernotepad;
 
+import android.app.Dialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
@@ -8,6 +9,8 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.MenuItem;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import androidx.core.graphics.drawable.DrawableCompat;
@@ -230,6 +233,17 @@ public class GenericUtils {
             NotificationManager manager = getSystemService(ctx,NotificationManager.class);
             manager.createNotificationChannel(channel1);
         }
+    }
+
+    public static void setDialogSize(Dialog dialog, int width, int height){
+        Window window = dialog.getWindow();
+        if(window == null) return;
+
+        WindowManager.LayoutParams params = window.getAttributes();
+        params.width = width;
+        params.height = height;
+
+        window.setAttributes(params);
     }
 }
 

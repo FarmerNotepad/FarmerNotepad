@@ -10,12 +10,13 @@ import android.widget.ImageButton;
 
 import java.util.ArrayList;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 
 public class FragmentSort extends Fragment {
 
-    ImageButton alphabetical, createDate, modDate, byColor;
+    ConstraintLayout alphabetical, createDate, modDate, byColor;
     boolean desc = false;
     MainActivity myActivity;
 
@@ -28,13 +29,13 @@ public class FragmentSort extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_short, container, false);
+        View view = inflater.inflate(R.layout.fragment_sort, container, false);
 
         myActivity = (MainActivity) getActivity();
-        alphabetical = view.findViewById(R.id.alphabeticalBtn);
-        createDate = view.findViewById(R.id.createBtn);
-        modDate = view.findViewById(R.id.modBtn);
-        byColor = view.findViewById(R.id.colorBtn);
+        alphabetical = view.findViewById(R.id.alphabeticalLayout);
+        createDate = view.findViewById(R.id.createLayout);
+        modDate = view.findViewById(R.id.modLayout);
+        byColor = view.findViewById(R.id.colorLayout);
 
         alphabetical.setOnClickListener(new View.OnClickListener() {
             @Override

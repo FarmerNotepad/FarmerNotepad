@@ -380,6 +380,7 @@ public class ActivityNewChecklist extends AppCompatActivity implements RecyclerV
 
                 alertDialog.setCanceledOnTouchOutside(true);
                 alertDialog.show();
+                GenericUtils.setDialogSize(alertDialog, 880, 880);
 
                 ImageButton buttonWhite = alertDialog.findViewById(R.id.colorWhite);
                 buttonWhite.setOnClickListener(new View.OnClickListener() {

@@ -67,6 +67,7 @@
     <string name="view_list">List View</string>
     <string name="view_grid">Grid View</string>
     <string name="view_staggered">Staggered View</string>
+    <string name="payments_log">PAYMENTS LOG</string>
 
 
 </resources>
