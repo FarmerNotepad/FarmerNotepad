@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:layout_row="5"
+    android:layout_column="2"
     android:layout_centerHorizontal="true"
     android:layout_centerVertical="true"
     android:orientation="vertical"
-    tools:context=".FragmentColor"
-    android:layout_row="5"
-    android:layout_column="2">
+    tools:context=".FragmentColor">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -19,12 +19,13 @@
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/allColorsLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
             android:layout_marginVertical="8dp">
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/allColorsBtn"
                 style="@style/ColorTab"
                 android:background="@drawable/ic_remove_button"
@@ -45,12 +46,13 @@
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/redColorLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
             android:layout_marginVertical="8dp">
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/redBtn"
                 style="@style/ColorTab"
                 android:background="@color/Red"
@@ -71,13 +73,14 @@
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/orangeColorLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
             android:layout_marginVertical="8dp">
 
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/orangeBtn"
                 style="@style/ColorTab"
                 android:background="@color/Orange"
@@ -98,13 +101,14 @@
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/yellowColorLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
             android:layout_marginVertical="8dp">
 
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/yellowBtn"
                 style="@style/ColorTab"
                 android:background="@color/Yellow"
@@ -126,13 +130,14 @@
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/greenColorLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
             android:layout_marginVertical="8dp">
 
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/greenBtn"
                 style="@style/ColorTab"
                 android:background="@color/Green"
@@ -160,17 +165,18 @@
         android:layout_height="wrap_content"
         android:layout_row="0"
         android:layout_column="2"
+        android:layout_marginEnd="120dp"
         android:orientation="vertical"
-        tools:context=".FragmentColor"
-        android:layout_marginEnd="120dp">
+        tools:context=".FragmentColor">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/blueColorLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginVertical="8dp">
 
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/blueBtn"
                 style="@style/ColorTab"
                 android:background="@color/Blue"
@@ -190,12 +196,13 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/purpleColorLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginVertical="8dp">
 
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/purpleBtn"
                 style="@style/ColorTab"
                 android:background="@color/Purple"
@@ -216,12 +223,13 @@
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/blackColorLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginVertical="8dp">
 
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/blackBtn"
                 style="@style/ColorTab"
                 android:background="@color/Black"
@@ -242,12 +250,13 @@
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/greyColorLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginVertical="8dp">
 
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/greyBtn"
                 style="@style/ColorTab"
                 android:background="@color/Grey"
@@ -268,12 +277,13 @@
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/whiteColorLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginVertical="8dp">
 
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/whiteBtn"
                 style="@style/ColorTab"
                 android:background="@color/White"

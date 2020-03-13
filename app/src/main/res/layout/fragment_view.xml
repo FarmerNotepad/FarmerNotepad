@@ -8,12 +8,13 @@
     android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
-        android:layout_marginVertical="8dp">
+        android:layout_marginVertical="8dp"
+        android:id="@+id/listLayout">
 
-        <ImageButton
+        <ImageView
             android:id="@+id/listBtn"
             style="@style/SortTab"
             android:background="@drawable/ic_list"
@@ -35,12 +36,13 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
-        android:layout_marginVertical="8dp">
+        android:layout_marginVertical="8dp"
+        android:id="@+id/gridLayout">
 
-        <ImageButton
+        <ImageView
             android:id="@+id/gridBtn"
             style="@style/SortTab"
             android:background="@drawable/ic_grid"
@@ -52,10 +54,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/view_grid"
             android:layout_marginStart="10dp"
+            android:text="@string/view_grid"
             app:layout_constraintBottom_toBottomOf="@+id/gridBtn"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/gridBtn"
             app:layout_constraintTop_toTopOf="@+id/gridBtn" />
 
@@ -63,13 +64,14 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
-        android:layout_marginVertical="8dp">
+        android:layout_marginVertical="8dp"
+        android:id="@+id/staggeredLayout">
 
 
-        <ImageButton
+        <ImageView
             android:id="@+id/staggeredBtn"
             style="@style/SortTab"
             android:background="@drawable/ic_staggered"
@@ -84,7 +86,6 @@
             android:layout_marginStart="10dp"
             android:text="@string/view_staggered"
             app:layout_constraintBottom_toBottomOf="@+id/staggeredBtn"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/staggeredBtn"
             app:layout_constraintTop_toTopOf="@+id/staggeredBtn" />
 

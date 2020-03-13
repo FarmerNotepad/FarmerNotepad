@@ -29,7 +29,7 @@ public class ActivityPaymentsLog extends AppCompatActivity implements RecyclerVi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_wage_calculator);
+        setContentView(R.layout.activity_payments_log);
 
         findViewById(R.id.wage_calculator).setOnTouchListener(new OnSwipeTouchListener(ActivityPaymentsLog.this) {
 

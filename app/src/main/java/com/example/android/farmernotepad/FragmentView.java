@@ -3,6 +3,7 @@ package com.example.android.farmernotepad;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -18,7 +19,7 @@ import android.widget.ImageButton;
 
 public class FragmentView extends Fragment {
     MainActivity myActivity;
-    ImageButton list, grid, staggered;
+    ConstraintLayout list, grid, staggered;
 
     public FragmentView() {
         // Required empty public constructor
@@ -31,9 +32,9 @@ public class FragmentView extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_view, container, false);
         myActivity = (MainActivity) getActivity();
-        list = view.findViewById(R.id.listBtn);
-        grid = view.findViewById(R.id.gridBtn);
-        staggered = view.findViewById(R.id.staggeredBtn);
+        list = view.findViewById(R.id.listLayout);
+        grid = view.findViewById(R.id.gridLayout);
+        staggered = view.findViewById(R.id.staggeredLayout);
 
         list.setOnClickListener(new View.OnClickListener() {
             @Override

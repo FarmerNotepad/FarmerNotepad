@@ -14,17 +14,22 @@
         <item name="android:transition">@id/normal</item>
         <item name="dialogCornerRadius">20dp</item>
         <item name="actionModeBackground">@color/colorPrimaryVariant</item>
-
+        <item name="colorControlHighlight">@color/DarkGrey</item>
     </style>
 
 
+
+    //COLOR_PICKER
     <style name="ColorPicker" parent="Theme.MaterialComponents.Light.Dialog.Alert">
-        <item name="android:layout_width">104dp</item>
-        <item name="android:layout_height">104dp</item>
+        <item name="android:layout_width">85dp</item>
+        <item name="android:layout_height">85dp</item>
         <item name="android:layout_margin">6dp</item>
         <item name="android:foreground">@drawable/color_picker_outline</item>
     </style>
 
+
+
+    //Color_Tab
     <style name="ColorTab" parent="Theme.MaterialComponents.Light">
         <item name="android:layout_width">35dp</item>
         <item name="android:layout_height">35dp</item>
@@ -32,11 +37,16 @@
         <item name="android:foreground">@drawable/color_picker_outline</item>
     </style>
 
+
+
+    //Sort_Tab
     <style name="SortTab" parent="Theme.MaterialComponents.Light">
         <item name="android:layout_width">35dp</item>
         <item name="android:layout_height">35dp</item>
         <item name="android:layout_margin">1dp</item>
     </style>
+
+
 
     <style name="DarkModeTheme" parent="Theme.MaterialComponents">
         <!-- Customize your theme here. -->

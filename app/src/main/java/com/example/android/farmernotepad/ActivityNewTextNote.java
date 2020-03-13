@@ -14,6 +14,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -187,6 +189,7 @@ public class ActivityNewTextNote extends AppCompatActivity {
 
                 alertDialog.setCanceledOnTouchOutside(true);
                 alertDialog.show();
+                GenericUtils.setDialogSize(alertDialog, 880, 880);
 
                 ImageButton buttonWhite = alertDialog.findViewById(R.id.colorWhite);
                 buttonWhite.setOnClickListener(new View.OnClickListener() {
@@ -269,7 +272,6 @@ public class ActivityNewTextNote extends AppCompatActivity {
                         alertDialog.dismiss();
                     }
                 });
-
 
                 break;
 
