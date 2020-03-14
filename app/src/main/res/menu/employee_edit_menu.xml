@@ -1,24 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <item
         android:id="@+id/editEmployee"
-        android:title="EDIT"
         android:icon="@drawable/ic_edit_menu_item"
-        app:showAsAction="always"
-        />
+        android:title="@string/employee_edit_menu_edit"
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/sortPayments"
         android:icon="@drawable/ic_action_name"
-        android:title="Sort"
-        app:showAsAction="ifRoom" />
+        android:title="@string/employee_edit_menu_sort"
+        app:showAsAction="always"
+        tools:ignore="AlwaysShowAction" />
 
     <item
-        android:id="@+id/deleteEmployee"
-        android:title="Delete Employee"
-        app:showAsAction = "never"
-        />
+        android:icon="@drawable/ic_menu_dots"
+        android:title="@string/employee_edit_menu_show_more_menu"
+        app:showAsAction="always">
+
+        <menu>
+
+            <item
+                android:id="@+id/deleteEmployee"
+                android:icon="@drawable/ic_trash_can"
+                android:title="@string/employee_edit_menu_delete_employee"
+                app:showAsAction="never" />
+
+        </menu>
+
+    </item>
+
 
 </menu>

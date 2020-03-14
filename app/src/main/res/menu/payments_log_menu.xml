@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <item
+        android:id="@+id/employeesSearch"
+        android:icon="@drawable/ic_search_black_24dp"
+        android:title="@string/payments_log_menu_search"
+        app:actionViewClass="android.widget.SearchView"
+        app:showAsAction="always"
+        tools:ignore="AlwaysShowAction" />
+
+
+    <item
+        android:id="@+id/employeesSort"
+        android:icon="@drawable/ic_action_name"
+        android:title="@string/payments_log_menu_sort"
+        app:showAsAction="always" />
+
+
+    <item
+        android:icon="@drawable/ic_menu_dots"
+        android:title="@string/payments_log_menu_show_more_menu"
+        app:showAsAction="always">
+
+        <menu>
+
+            <item
+                android:id="@+id/farmerNotepad"
+                android:icon="@drawable/ic_notepad"
+                android:title="@string/payments_log_menu_farmer_notepad" />
+
+            <item
+                android:id="@+id/employeesBackup"
+                android:icon="@drawable/ic_backup"
+                android:title="@string/payments_log_menu_backup_files"
+                app:showAsAction="never" />
+
+            <item
+                android:id="@+id/employeesFeedback"
+                android:icon="@drawable/ic_feedback"
+                android:title="@string/payments_log_menu_feedback"
+                app:showAsAction="never" />
+
+            <item
+                android:id="@+id/employeesSettings"
+                android:icon="@drawable/ic_settings"
+                android:title="@string/payments_log_menu_settings"
+                app:showAsAction="never" />
+
+
+        </menu>
+
+    </item>
+
+</menu>

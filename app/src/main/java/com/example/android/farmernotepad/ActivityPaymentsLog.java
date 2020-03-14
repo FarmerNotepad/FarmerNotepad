@@ -1,8 +1,10 @@
 package com.example.android.farmernotepad;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -83,7 +85,7 @@ public class ActivityPaymentsLog extends AppCompatActivity implements RecyclerVi
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.wage_calculator_menu, menu);
+        inflater.inflate(R.menu.payments_log_menu, menu);
 
         MenuItem searchItem = menu.findItem(R.id.employeesSearch);
         SearchView searchView = (SearchView) searchItem.getActionView();
@@ -107,6 +109,10 @@ public class ActivityPaymentsLog extends AppCompatActivity implements RecyclerVi
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.farmerNotepad:
+                Intent intentFarmerNotepad = new Intent(ActivityPaymentsLog.this, MainActivity.class);
+                startActivity(intentFarmerNotepad);
+                break;
             case R.id.employeesSort:
                 employeesArrayList = GenericUtils.sortByTotalDebt(employeesArrayList, desc);
                 mAdapter.notifyDataSetChanged();
@@ -158,9 +164,21 @@ public class ActivityPaymentsLog extends AppCompatActivity implements RecyclerVi
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(ActivityPaymentsLog.this, MainActivity.class);
-        startActivity(intent);
-        ActivityPaymentsLog.this.finish();
+
+        SharedPreferences sharedPreferences =
+                PreferenceManager.getDefaultSharedPreferences(this);
+
+        String defLaunchActivity = sharedPreferences.getString("default_home_screen", "Main");
+
+        if(defLaunchActivity.equals("Payments")) {
+            ActivityPaymentsLog.this.finish();
+        } else {
+            Intent intent = new Intent(ActivityPaymentsLog.this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            ActivityPaymentsLog.this.finish();
+        }
+
     }
 
 }

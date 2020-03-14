@@ -33,4 +33,7 @@
     <color name="Purple">#720B98</color>
     <color name="Transparent_White">#8CFFFFFF</color>
     <color name="DarkGrey">#575757</color>
+
+    //General Colors
+    <color name="Payment_Log_Recycler_Background">#808EACBB</color>
 </resources>

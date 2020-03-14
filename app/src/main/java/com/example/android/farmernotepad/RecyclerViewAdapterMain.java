@@ -132,6 +132,7 @@ public class RecyclerViewAdapterMain extends RecyclerView.Adapter implements Fil
             EntryTextNote textNote = (EntryTextNote) allNotesList.get(position);
             textNoteTitle.setText(textNote.getNoteTitle());
             textNoteContent.setText(textNote.getNoteText());
+
             Drawable unwrappedDrawable = ContextCompat.getDrawable(parentLayout.getContext(), R.drawable.rounded_corners);
             Drawable wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable);
             DrawableCompat.setTint(wrappedDrawable, allNotesList.get(position).getColor());

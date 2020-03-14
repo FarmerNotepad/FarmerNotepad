@@ -45,6 +45,7 @@
     <string name="main_sort_menu">Sort Menu</string>
 
 
+
     //ColorTab
     <string name="Color_all_colors">All Colors</string>
     <string name="Color_red_notes">Red Notes</string>
@@ -57,17 +58,69 @@
     <string name="Color_grey_notes">Grey Notes</string>
     <string name="Color_white_notes">White Notes</string>
 
+
     //SortTab
     <string name="sort_alphabetically">Alphabetically</string>
     <string name="sort_by_date_created">by date created</string>
     <string name="sort_by_date_last_modified">by date last modified</string>
     <string name="sort_by_color">by color</string>
 
+
     //ViewTab
     <string name="view_list">List View</string>
     <string name="view_grid">Grid View</string>
     <string name="view_staggered">Staggered View</string>
-    <string name="payments_log">PAYMENTS LOG</string>
+
+
+    //PaymentsLog
+    <string name="payments_log"><u>PAYMENTS LOG</u></string>
+
+
+    //Add Note Dialog
+    <string name="dialog_add_note">Add Note</string>
+    <string name="dialog_text_note">Text</string>
+    <string name="dialog_checklist_note">Checklist</string>
+
+
+    //Edit Note Menu
+    <string name="edit_note_menu_edit">Edit</string>
+    <string name="edit_note_menu_delete_note">Delete Note</string>
+    <string name="edit_note_menu_pick_color">Pick Color</string>
+    <string name="edit_note_menu_show_on_map">Show on map</string>
+    <string name="edit_note_menu_pin_to_status_bar">Pin to status bar</string>
+    <string name="edit_note_menu_share">Share</string>
+    <string name="edit_note_showMoreMenu">Show More Menu</string>
+
+
+    //Employee Edit Menu
+    <string name="employee_edit_menu_edit">EDIT</string>
+    <string name="employee_edit_menu_sort">Sort</string>
+    <string name="employee_edit_menu_show_more_menu">Show More Menu</string>
+    <string name="employee_edit_menu_delete_employee">Delete Employee</string>
+
+
+    //Main Menu
+    <string name="main_menu_search">Search</string>
+    <string name="main_menu_sort">Sort</string>
+    <string name="main_menu_show_on_map">Show on map</string>
+    <string name="main_menu_show_more_menu">Show More Menu</string>
+    <string name="main_menu_payments_log">Payments Log</string>
+    <string name="main_menu_backup_files">Backup Files</string>
+    <string name="main_menu_feedback">Feedback</string>
+    <string name="main_menu_settings">Settings</string>
+
+    //Note Menu
+    <string name="note_menu_pick_color">Pick Color</string>
+
+
+    //Payments Log Menu
+    <string name="payments_log_menu_search">Search</string>
+    <string name="payments_log_menu_sort">Sort</string>
+    <string name="payments_log_menu_show_more_menu">Show More Menu</string>
+    <string name="payments_log_menu_farmer_notepad">Farmer Notepad</string>
+    <string name="payments_log_menu_backup_files">Backup Files</string>
+    <string name="payments_log_menu_feedback">Feedback</string>
+    <string name="payments_log_menu_settings">Settings</string>
 
 
 </resources>

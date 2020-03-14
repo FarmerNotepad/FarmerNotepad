@@ -1,5 +1,6 @@
 package com.example.android.farmernotepad;
 
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class RecyclerViewAdapterWage extends RecyclerView.Adapter<RecyclerViewAdapterWage.WageViewHolder> implements Filterable {
@@ -18,6 +21,7 @@ public class RecyclerViewAdapterWage extends RecyclerView.Adapter<RecyclerViewAd
     private final ArrayList<EntryEmployee> employeesArrayListFull;
     private ArrayList<EntryEmployee> employeesArrayList = new ArrayList<>();
     private OnNoteListener mOnNoteListener;
+    public LinearLayout parentLayout;
 
 
     @NonNull
@@ -40,6 +44,14 @@ public class RecyclerViewAdapterWage extends RecyclerView.Adapter<RecyclerViewAd
 
         holder.mEmployeeName.setText(currentEntryEmployee.getEmployeeName());
         holder.mTotalDebt.setText(String.valueOf(currentEntryEmployee.getEmployeeSum()));
+
+        Drawable unwrappedDrawable = ContextCompat.getDrawable(parentLayout.getContext(), R.drawable.rounded_corners);
+        Drawable wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable);
+        parentLayout.setBackground(wrappedDrawable);
+        Drawable unwrappedDrawable2 = ContextCompat.getDrawable(parentLayout.getContext(), R.drawable.recycler_view_items_outline);
+        Drawable wrappedDrawable2 = DrawableCompat.wrap(unwrappedDrawable2);
+        parentLayout.setForeground(wrappedDrawable2);
+
 
 
     }
@@ -85,10 +97,10 @@ public class RecyclerViewAdapterWage extends RecyclerView.Adapter<RecyclerViewAd
     };
 
 
-    public static class WageViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class WageViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView mEmployeeName;
         public TextView mTotalDebt;
-        LinearLayout parentLayout;
+        //LinearLayout parentLayout;
         OnNoteListener onNoteListener;
 
 
