@@ -189,7 +189,7 @@ public class ActivityNewTextNote extends AppCompatActivity {
 
                 alertDialog.setCanceledOnTouchOutside(true);
                 alertDialog.show();
-                GenericUtils.setDialogSize(alertDialog, 880, 880);
+                GenericUtils.setDialogSize(alertDialog, 890, 890);
 
                 ImageButton buttonWhite = alertDialog.findViewById(R.id.colorWhite);
                 buttonWhite.setOnClickListener(new View.OnClickListener() {

@@ -106,6 +106,8 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
                 alertDialog.setCanceledOnTouchOutside(true);
                 alertDialog.show();
 
+                GenericUtils.setDialogSize(alertDialog, 750, ViewGroup.LayoutParams.WRAP_CONTENT);
+
                 Button text = (Button) alertDialog.findViewById(R.id.addTextNoteButton);
                 Button checklist = (Button) alertDialog.findViewById(R.id.addChecklistNoteButton);
 
@@ -194,7 +196,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
                 MainActivity.this.finish();
                 break;
 
-            case R.id.wageCalculator:
+            case R.id.paymentsLog:
                 Intent intentWage = new Intent(MainActivity.this, ActivityPaymentsLog.class);
                 startActivity(intentWage);
                 MainActivity.this.finish();
@@ -498,5 +500,22 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         }
     }
 
+    @Override
+    public void onBackPressed() {
+
+        SharedPreferences sharedPreferences =
+                PreferenceManager.getDefaultSharedPreferences(this);
+
+        String defLaunchActivity = sharedPreferences.getString("default_home_screen", "Main");
+
+        if(defLaunchActivity.equals("Payments")) {
+            Intent intent = new Intent(MainActivity.this, ActivityPaymentsLog.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        } else {
+            MainActivity.this.finish();
+        }
+
+    }
 
 }

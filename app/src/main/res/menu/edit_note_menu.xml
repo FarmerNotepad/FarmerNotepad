@@ -1,45 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <item
         android:id="@+id/editNote"
-        android:title="EDIT"
         android:icon="@drawable/ic_edit_menu_item"
+        android:title="@string/edit_note_menu_edit"
         app:showAsAction="always"
-        />
+        tools:ignore="AlwaysShowAction" />
 
-    <item
-        android:id="@+id/deleteNote"
-        android:title="Delete Note"
-        app:showAsAction = "never"
-        />
 
     <item
         android:id="@+id/pickColor"
-        android:title="Pick Color"
         android:icon="@drawable/ic_stop_white_24dp"
-        app:showAsAction = "always"
-        />
+        android:title="@string/edit_note_menu_pick_color"
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/showOnMap"
-        android:title="Show on map"
         android:icon="@drawable/ic_pin_drop_red_24dp"
-        app:showAsAction = "always"
-        />
+        android:title="@string/edit_note_menu_show_on_map"
+        app:showAsAction="always" />
 
     <item
-        android:id="@+id/pinStatusBar"
-        android:title="Pin to status bar"
-        app:showAsAction = "never"
-        />
+        android:icon="@drawable/ic_menu_dots"
+        android:title="@string/edit_note_showMoreMenu"
+        app:showAsAction="always">
 
-    <item
-        android:id="@+id/shareNote"
-        android:title="Share"
-        app:showAsAction = "never"
-        />
+        <menu>
 
+            <item
+                android:id="@+id/pinStatusBar"
+                android:icon="@drawable/ic_reminder"
+                android:title="@string/edit_note_menu_pin_to_status_bar"
+                app:showAsAction="never" />
+
+            <item
+                android:id="@+id/shareNote"
+                android:icon="@drawable/ic_share"
+                android:title="@string/edit_note_menu_share"
+                app:showAsAction="never" />
+
+            <item
+                android:id="@+id/deleteNote"
+                android:icon="@drawable/ic_trash_can"
+                android:title="@string/edit_note_menu_delete_note"
+                app:showAsAction="never" />
+
+
+        </menu>
+    </item>
 
 </menu>

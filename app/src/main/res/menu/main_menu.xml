@@ -1,46 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <item
-        android:id="@+id/wageCalculator"
-        android:title="Wage Calculator"
-        app:showAsAction="never"
-        />
 
     <item
         android:id="@+id/searchNoteMenuItem"
         android:icon="@drawable/ic_search_black_24dp"
-        android:title="Search"
+        android:title="@string/main_menu_search"
         app:actionViewClass="android.widget.SearchView"
-        app:showAsAction="always" />
+        app:showAsAction="always"
+        tools:ignore="AlwaysShowAction" />
 
 
     <item
         android:id="@+id/Sort"
-        android:title="Sort"
-        app:showAsAction="always"
-        android:icon="@drawable/ic_action_name"/>
+        android:icon="@drawable/ic_action_name"
+        android:title="@string/main_menu_sort"
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/showOnMap"
-        android:title="Show on map"
         android:icon="@drawable/ic_pin_drop_red_24dp"
-        app:showAsAction = "always"
-        />
+        android:title="@string/main_menu_show_on_map"
+        app:showAsAction="always" />
 
     <item
-        android:id="@+id/Backup"
-        android:title="Backup Files"
-        app:showAsAction="never" />
+        android:icon="@drawable/ic_menu_dots"
+        android:title="@string/main_menu_show_more_menu"
+        app:showAsAction="always">
 
-    <item
-        android:id="@+id/Feedback"
-        android:title="Feedback"
-        app:showAsAction="never" />
+        <menu>
 
-    <item
-        android:id="@+id/Settings"
-        android:title="Settings"
-        app:showAsAction="never" />
+            <item
+                android:id="@+id/paymentsLog"
+                android:icon="@drawable/ic_payments_log"
+                android:title="@string/main_menu_payments_log"
+                app:showAsAction="never" />
+
+
+            <item
+                android:id="@+id/Backup"
+                android:icon="@drawable/ic_backup"
+                android:title="@string/main_menu_backup_files"
+                app:showAsAction="never" />
+
+            <item
+                android:id="@+id/Feedback"
+                android:icon="@drawable/ic_feedback"
+                android:title="@string/main_menu_feedback"
+                app:showAsAction="never" />
+
+            <item
+                android:id="@+id/Settings"
+                android:title="@string/main_menu_settings"
+                android:icon="@drawable/ic_settings"
+                app:showAsAction="never" />
+
+
+        </menu>
+
+    </item>
+
 </menu>
