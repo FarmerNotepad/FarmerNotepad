@@ -26,6 +26,7 @@ import java.util.Date;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.ActionMode;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -46,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
 
     Button shortMenu;
     FloatingActionButton addNote;
+    ConstraintLayout splashScreen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +58,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
 
         addNote = findViewById(R.id.addNote);
         shortMenu = findViewById(R.id.shortMenu);
+        splashScreen = findViewById(R.id.parent_Splash);
 
 
 
@@ -145,7 +148,6 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         sortHandler(sharedPreferences.getInt("sort_type",0));
         viewTypeHandler(sharedPreferences.getInt("view_type",0));
         autoBackupHandler();
-
 
     }
 
@@ -237,7 +239,11 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
+        if(allNotesList.isEmpty()){
+            splashScreen.setVisibility(View.VISIBLE);
+        }else{
+            splashScreen.setVisibility(View.GONE);
+        }
     }
 
 
