@@ -454,6 +454,8 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
             allNotesList.clear();
             allNotesList.addAll(concreteList);
             shortMenu.setBackgroundColor(getColor(R.color.White));
+            shortMenu.setText("All Notes");
+
         }
         else {
             for (int i = 0; i < concreteList.size(); i++) {
@@ -461,7 +463,11 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
                     filteredList.add(concreteList.get(i));
                 }
             }
+            SharedPreferences sharedPreferences =
+                    PreferenceManager.getDefaultSharedPreferences(this);
             shortMenu.setBackgroundColor(colorToFilter);
+            //String textToSet = "Sort Menu (" +sharedPreferences.getString(String.valueOf(colorToFilter),"") + ")";
+            //shortMenu.setText(textToSet);
             allNotesList.clear();
             allNotesList.addAll(filteredList);
         }
