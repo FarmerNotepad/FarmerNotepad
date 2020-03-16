@@ -43,6 +43,7 @@ public class ActivityNewChecklist extends AppCompatActivity implements RecyclerV
     private int noteIntentID;
     RecyclerViewAdapterChecklist adapter;
     private boolean editable;
+    androidx.appcompat.widget.Toolbar toolbar;
 
 
     ArrayList<Double> noteLat = new ArrayList<Double>();
@@ -58,6 +59,10 @@ public class ActivityNewChecklist extends AppCompatActivity implements RecyclerV
         final CheckBox checkLocation = findViewById(R.id.checkBoxLocChecklist);
         activity = this;
         noteIntentID = getIncomingIntent();
+
+        toolbar = findViewById(R.id.newChkListToolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
 
         SharedPreferences sharedPreferences =

@@ -53,7 +53,6 @@ public class RecyclerViewAdapterWage extends RecyclerView.Adapter<RecyclerViewAd
         parentLayout.setForeground(wrappedDrawable2);
 
 
-
     }
 
     @Override
@@ -100,7 +99,6 @@ public class RecyclerViewAdapterWage extends RecyclerView.Adapter<RecyclerViewAd
     public class WageViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView mEmployeeName;
         public TextView mTotalDebt;
-        //LinearLayout parentLayout;
         OnNoteListener onNoteListener;
 
 
