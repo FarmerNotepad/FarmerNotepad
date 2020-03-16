@@ -98,7 +98,7 @@ public class ActivityNewChecklist extends AppCompatActivity implements RecyclerV
             checklistTitle.setEnabled(false);
             loadEditableChecklist(noteIntentID);
             addItemButton.setClickable(false);
-            addItemButton.setVisibility(View.INVISIBLE);
+            addItemButton.setVisibility(View.GONE);
 
             saveChecklistButton.setOnClickListener(new View.OnClickListener() {
                 @Override
