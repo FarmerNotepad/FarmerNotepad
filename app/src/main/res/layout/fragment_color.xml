@@ -61,6 +61,7 @@
                 tools:ignore="ContentDescription" />
 
             <TextView
+                android:id ="@+id/redText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -89,6 +90,7 @@
                 tools:ignore="ContentDescription" />
 
             <TextView
+                android:id="@+id/orangeText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -117,7 +119,7 @@
                 tools:ignore="ContentDescription" />
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/yellowText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -146,6 +148,7 @@
                 tools:ignore="ContentDescription" />
 
             <TextView
+                android:id="@+id/greenText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -185,6 +188,7 @@
                 tools:ignore="ContentDescription" />
 
             <TextView
+                android:id="@+id/blueText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -211,6 +215,7 @@
                 tools:ignore="ContentDescription" />
 
             <TextView
+                android:id="@+id/purpleText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -238,6 +243,7 @@
                 tools:ignore="ContentDescription" />
 
             <TextView
+                android:id="@+id/blackeText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -265,6 +271,7 @@
                 tools:ignore="ContentDescription" />
 
             <TextView
+                android:id="@+id/greyText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -292,6 +299,7 @@
                 tools:ignore="ContentDescription" />
 
             <TextView
+                android:id="@+id/whiteText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"

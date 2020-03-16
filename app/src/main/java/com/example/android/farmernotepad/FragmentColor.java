@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
@@ -17,6 +18,7 @@ import androidx.fragment.app.Fragment;
 public class FragmentColor extends Fragment {
     MainActivity myActivity;
     private ConstraintLayout allColors, redBtn, orangeBtn, yellowBtn, greenBtn, blueBtn, purpleBtn, blackBtn, greyBtn, whiteBtn;
+    private TextView redText,orangeText,yellowText,greenText,blueText,purpleText,blackText,GreyText,whiteText;
 
     public FragmentColor() {
         // Required empty public constructor
@@ -39,6 +41,7 @@ public class FragmentColor extends Fragment {
         myActivity = (MainActivity) getActivity();
         allColors = view.findViewById(R.id.allColorsLayout);
         redBtn = view.findViewById(R.id.redColorLayout);
+        redText = view.findViewById(R.id.redText);
         orangeBtn = view.findViewById(R.id.orangeColorLayout);
         yellowBtn = view.findViewById(R.id.yellowColorLayout);
         greenBtn = view.findViewById(R.id.greenColorLayout);
@@ -60,8 +63,6 @@ public class FragmentColor extends Fragment {
         setClickListener(greyBtn, ContextCompat.getColor(context,R.color.Grey));
         setClickListener(whiteBtn, ContextCompat.getColor(context,R.color.White));
 
-
-        return view;
     }
 
     private void setClickListener(ConstraintLayout colorBtn, int colorNumber) {

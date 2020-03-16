@@ -453,6 +453,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         if (colorToFilter == 0){
             allNotesList.clear();
             allNotesList.addAll(concreteList);
+            shortMenu.setBackgroundColor(getColor(R.color.White));
         }
         else {
             for (int i = 0; i < concreteList.size(); i++) {
@@ -460,6 +461,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
                     filteredList.add(concreteList.get(i));
                 }
             }
+            shortMenu.setBackgroundColor(colorToFilter);
             allNotesList.clear();
             allNotesList.addAll(filteredList);
         }
