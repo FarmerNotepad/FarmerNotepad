@@ -22,8 +22,8 @@
 
     //COLOR_PICKER
     <style name="ColorPicker" parent="Theme.MaterialComponents.Light.Dialog.Alert">
-        <item name="android:layout_width">85dp</item>
-        <item name="android:layout_height">85dp</item>
+        <item name="android:layout_width">80dp</item>
+        <item name="android:layout_height">80dp</item>
         <item name="android:layout_margin">6dp</item>
         <item name="android:foreground">@drawable/color_picker_outline</item>
     </style>
@@ -55,20 +55,9 @@
     </style>
 
 
-    <style name="NoActionBar" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="NoActionBar" parent="LightModeTheme">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
-        <item name="colorSecondary">@color/colorSecondary</item>
-        <item name="colorSecondaryVariant">@color/colorSecondaryVariant</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:colorBackground">@color/background</item>
-        <item name="android:transition">@id/normal</item>
-        <item name="dialogCornerRadius">20dp</item>
-        <item name="actionModeBackground">@color/colorPrimaryVariant</item>
 
     </style>
 

@@ -14,20 +14,20 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
-
-import java.util.ArrayList;
 
 import static android.widget.Toast.LENGTH_SHORT;
 import static com.example.android.farmernotepad.GenericUtils.CHANNEL_ID;
@@ -37,6 +37,7 @@ public class ActivityNewTextNote extends AppCompatActivity {
     private int noteColor;
     static ActivityNewTextNote activity;
     private int noteIntentID;
+    androidx.appcompat.widget.Toolbar toolbar;
 
 
     ArrayList<Double> noteLat = new ArrayList<Double>();
@@ -50,6 +51,10 @@ public class ActivityNewTextNote extends AppCompatActivity {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         //String defColor = sharedPreferences.getString("default_color", "");
 
+        toolbar = findViewById(R.id.newTxtNoteToolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
         noteColor = Color.parseColor(sharedPreferences.getString("default_color", "#FFFFFF"));
         activity = this;
 
@@ -58,12 +63,23 @@ public class ActivityNewTextNote extends AppCompatActivity {
         FloatingActionButton confirmSaveButton = findViewById(R.id.confirmSave);
         final CheckBox checkLocation = findViewById(R.id.checkBoxLoc);
         noteIntentID = getIncomingIntent();
+        LinearLayout newTxtNoteBackground = findViewById(R.id.newTxtNoteBackground);
+
+        newTxtNoteBackground.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                noteText.requestFocus();
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+            }
+        });
 
         if (noteIntentID != 0) {
 
             checkLocation.setVisibility(View.INVISIBLE);
             noteText.setEnabled(false);
             noteTitle.setEnabled(false);
+            newTxtNoteBackground.setEnabled(false);
             loadEditableNote(noteIntentID);
             confirmSaveButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -196,7 +212,7 @@ public class ActivityNewTextNote extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         noteColor = getColor(R.color.White);
-                        GenericUtils.tintMenuIcon(ActivityNewTextNote.this,pickColorItem,noteColor);
+                        GenericUtils.tintMenuIcon(ActivityNewTextNote.this, pickColorItem, noteColor);
                         alertDialog.dismiss();
                     }
                 });
@@ -205,7 +221,7 @@ public class ActivityNewTextNote extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         noteColor = getColor(R.color.Red);
-                        GenericUtils.tintMenuIcon(ActivityNewTextNote.this,pickColorItem,noteColor);
+                        GenericUtils.tintMenuIcon(ActivityNewTextNote.this, pickColorItem, noteColor);
                         alertDialog.dismiss();
                     }
                 });
@@ -214,7 +230,7 @@ public class ActivityNewTextNote extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         noteColor = getColor(R.color.Blue);
-                        GenericUtils.tintMenuIcon(ActivityNewTextNote.this,pickColorItem,noteColor);
+                        GenericUtils.tintMenuIcon(ActivityNewTextNote.this, pickColorItem, noteColor);
                         alertDialog.dismiss();
                     }
                 });
@@ -223,7 +239,7 @@ public class ActivityNewTextNote extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         noteColor = getColor(R.color.Green);
-                        GenericUtils.tintMenuIcon(ActivityNewTextNote.this,pickColorItem,noteColor);
+                        GenericUtils.tintMenuIcon(ActivityNewTextNote.this, pickColorItem, noteColor);
                         alertDialog.dismiss();
                     }
                 });
@@ -232,7 +248,7 @@ public class ActivityNewTextNote extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         noteColor = getColor(R.color.Yellow);
-                        GenericUtils.tintMenuIcon(ActivityNewTextNote.this,pickColorItem,noteColor);
+                        GenericUtils.tintMenuIcon(ActivityNewTextNote.this, pickColorItem, noteColor);
                         alertDialog.dismiss();
                     }
                 });
@@ -241,7 +257,7 @@ public class ActivityNewTextNote extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         noteColor = getColor(R.color.Grey);
-                        GenericUtils.tintMenuIcon(ActivityNewTextNote.this,pickColorItem,noteColor);
+                        GenericUtils.tintMenuIcon(ActivityNewTextNote.this, pickColorItem, noteColor);
                         alertDialog.dismiss();
                     }
                 });
@@ -250,7 +266,7 @@ public class ActivityNewTextNote extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         noteColor = getColor(R.color.Black);
-                        GenericUtils.tintMenuIcon(ActivityNewTextNote.this,pickColorItem,noteColor);
+                        GenericUtils.tintMenuIcon(ActivityNewTextNote.this, pickColorItem, noteColor);
                         alertDialog.dismiss();
                     }
                 });
@@ -259,7 +275,7 @@ public class ActivityNewTextNote extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         noteColor = getColor(R.color.Orange);
-                        GenericUtils.tintMenuIcon(ActivityNewTextNote.this,pickColorItem,noteColor);
+                        GenericUtils.tintMenuIcon(ActivityNewTextNote.this, pickColorItem, noteColor);
                         alertDialog.dismiss();
                     }
                 });
@@ -268,7 +284,7 @@ public class ActivityNewTextNote extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         noteColor = getColor(R.color.Purple);
-                        GenericUtils.tintMenuIcon(ActivityNewTextNote.this,pickColorItem,noteColor);
+                        GenericUtils.tintMenuIcon(ActivityNewTextNote.this, pickColorItem, noteColor);
                         alertDialog.dismiss();
                     }
                 });
@@ -280,6 +296,7 @@ public class ActivityNewTextNote extends AppCompatActivity {
                 findViewById(R.id.editText).setEnabled(true);
                 findViewById(R.id.editTitle).setEnabled(true);
                 mMenu.findItem(R.id.pickColor).setEnabled(true);
+                findViewById(R.id.newTxtNoteBackground).setEnabled(true);
 
                 break;
 
@@ -315,26 +332,25 @@ public class ActivityNewTextNote extends AppCompatActivity {
 
                 break;
 
-             case R.id.shareNote:
-                 EditText noteText = findViewById(R.id.editText);
-                 Intent sendIntent = new Intent();
-                 sendIntent.setAction(Intent.ACTION_SEND);
-                 sendIntent.putExtra(Intent.EXTRA_TEXT,
-                         noteText.getText().toString());
-                 sendIntent.setType("text/plain");
-                 startActivity(sendIntent);
+            case R.id.shareNote:
+                EditText noteText = findViewById(R.id.editText);
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT,
+                        noteText.getText().toString());
+                sendIntent.setType("text/plain");
+                startActivity(sendIntent);
 
-                 break;
+                break;
 
             case R.id.showOnMap:
-                if(noteLat.get(0) == 0 && noteLong.get(0) == 0) {
-                    GenericUtils.toast(ActivityNewTextNote.this,"Note has no location.");
-                }
-                else {
+                if (noteLat.get(0) == 0 && noteLong.get(0) == 0) {
+                    GenericUtils.toast(ActivityNewTextNote.this, "Note has no location.");
+                } else {
                     Intent mapIntent = new Intent(ActivityNewTextNote.this, ActivityMaps.class);
                     mapIntent.putExtra("NoteLat", noteLat);
                     mapIntent.putExtra("NoteLong", noteLong);
-                    mapIntent.putExtra("Title",mNoteTitle);
+                    mapIntent.putExtra("Title", mNoteTitle);
                     startActivity(mapIntent);
                 }
                 break;

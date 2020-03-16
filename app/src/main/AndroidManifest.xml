@@ -43,8 +43,11 @@
             android:theme="@style/NoActionBar" />
         <activity android:name=".ActivityFeedback"
             android:theme="@style/NoActionBar" />
-        <activity android:name=".ActivityNewChecklist" />
-        <activity android:name=".ActivityNewTextNote" />
+        <activity android:name=".ActivityNewChecklist"
+            android:theme="@style/NoActionBar"/>
+        <activity android:name=".ActivityNewTextNote"
+            android:theme="@style/NoActionBar"
+            android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".MainActivity">
         </activity>
     </application>

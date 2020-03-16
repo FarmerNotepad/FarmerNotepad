@@ -74,6 +74,8 @@
 
     //PaymentsLog
     <string name="payments_log"><u>PAYMENTS LOG</u></string>
+    <string name="payments_log_items_name">EMPLOYEE FULL NAME</string>
+    <string name="payments_log_items_wage">1500€</string>
 
 
     //Add Note Dialog
@@ -121,6 +123,18 @@
     <string name="payments_log_menu_backup_files">Backup Files</string>
     <string name="payments_log_menu_feedback">Feedback</string>
     <string name="payments_log_menu_settings">Settings</string>
+
+
+    //New Text Note
+    <string name="new_note_title">Note Title</string>
+    <string name="new_note_location">Location</string>
+
+
+    //New Checklist Note
+    <string name="new_checklist_title">Checklist Title</string>
+    <string name="new_checklist_add_item">Add Item</string>
+    <string name="new_checklist_location">Location</string>
+    <string name="new_checklist_item_title">TEST</string>
 
 
 </resources>

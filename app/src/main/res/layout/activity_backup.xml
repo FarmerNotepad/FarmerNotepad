@@ -39,7 +39,8 @@
         app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/exportButton" />
+        app:layout_constraintTop_toBottomOf="@+id/exportButton"
+        tools:ignore="ContentDescription" />
 
     <CheckBox
         android:id="@+id/checkBoxLocal"
@@ -47,6 +48,7 @@
         android:layout_height="wrap_content"
         android:text="@string/backup_local_checkbox"
         android:textSize="17sp"
+        app:buttonTint="@color/Black"
         app:layout_constraintBottom_toTopOf="@+id/exportButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.059"
@@ -71,17 +73,20 @@
         android:hint="@string/backup_email_hint"
         android:textAlignment="center"
         android:ems="10"
+        android:textSize="18sp"
         android:inputType="textEmailAddress"
         app:layout_constraintBottom_toBottomOf="@+id/checkBoxOnline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/checkBoxOnline"
-        app:layout_constraintTop_toTopOf="@+id/checkBoxOnline" />
+        app:layout_constraintTop_toTopOf="@+id/checkBoxOnline"
+        android:importantForAutofill="no" />
 
     <Button
         android:id="@+id/exportButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/backup_export_button"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="180dp"
@@ -93,6 +98,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="64dp"
         android:text="@string/backup_import_button"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

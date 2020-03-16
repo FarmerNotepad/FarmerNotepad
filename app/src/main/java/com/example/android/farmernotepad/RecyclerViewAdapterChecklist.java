@@ -1,6 +1,7 @@
 package com.example.android.farmernotepad;
 
 import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +13,15 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class RecyclerViewAdapterChecklist extends RecyclerView.Adapter<RecyclerViewAdapterChecklist.ViewHolderChecklist>{
+public class RecyclerViewAdapterChecklist extends RecyclerView.Adapter<RecyclerViewAdapterChecklist.ViewHolderChecklist> {
 
     private ArrayList<ChecklistItemEntry> mChecklistItem = new ArrayList<>();
     private OnChecklistItemListener mOnChecklistItemListener;
+    public LinearLayout parentLayout;
 
     public RecyclerViewAdapterChecklist(ArrayList<ChecklistItemEntry> mChecklistItem, OnChecklistItemListener onChecklistItemListener) {
         this.mChecklistItem = mChecklistItem;
@@ -37,12 +41,11 @@ public class RecyclerViewAdapterChecklist extends RecyclerView.Adapter<RecyclerV
     public void onBindViewHolder(@NonNull ViewHolderChecklist holder, final int position) {
         holder.checklistItemTextView.setText(mChecklistItem.get(position).getItemText());
         int isItChecked = mChecklistItem.get(position).getIsChecked();
-        if (isItChecked == 1){
+        if (isItChecked == 1) {
             holder.checklistItemTextView.setPaintFlags(holder.checklistItemTextView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
             //newPaymentWorkHours.setPaintFlags(newPaymentWorkHours.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG); add
             //newPaymentWorkHours.setPaintFlags(newPaymentWorkHours.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG)); remove
-        }
-        else if (isItChecked == 0){
+        } else if (isItChecked == 0) {
             holder.checklistItemTextView.setPaintFlags(holder.checklistItemTextView.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
         }
 
@@ -55,6 +58,14 @@ public class RecyclerViewAdapterChecklist extends RecyclerView.Adapter<RecyclerV
             }
         });
 
+        Drawable unwrappedDrawable = ContextCompat.getDrawable(parentLayout.getContext(), R.drawable.rounded_corners);
+        Drawable wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable);
+        parentLayout.setBackground(wrappedDrawable);
+        Drawable unwrappedDrawable2 = ContextCompat.getDrawable(parentLayout.getContext(), R.drawable.recycler_view_items_outline);
+        Drawable wrappedDrawable2 = DrawableCompat.wrap(unwrappedDrawable2);
+        parentLayout.setForeground(wrappedDrawable2);
+
+
     }
 
     @Override
@@ -62,9 +73,9 @@ public class RecyclerViewAdapterChecklist extends RecyclerView.Adapter<RecyclerV
         return mChecklistItem.size();
     }
 
-    public class ViewHolderChecklist extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class ViewHolderChecklist extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        LinearLayout parent_checklistLayout;
+
         TextView checklistItemTextView;
         Button deleteItemButton;
         EditText checklistItem;
@@ -74,7 +85,7 @@ public class RecyclerViewAdapterChecklist extends RecyclerView.Adapter<RecyclerV
             super(itemView);
 
             checklistItem = itemView.findViewById(R.id.checklistEditText);
-            parent_checklistLayout = itemView.findViewById(R.id.parent_checklistLayout);
+            parentLayout = itemView.findViewById(R.id.parent_checklistLayout);
             checklistItemTextView = itemView.findViewById(R.id.checklistItemTextView);
             deleteItemButton = itemView.findViewById(R.id.deleteItemButton);
             this.onChecklistItemListener = onChecklistItemListener;
@@ -89,7 +100,7 @@ public class RecyclerViewAdapterChecklist extends RecyclerView.Adapter<RecyclerV
         }
     }
 
-    public interface OnChecklistItemListener{
+    public interface OnChecklistItemListener {
         void onChecklistNoteClick(int position);
     }
 }
