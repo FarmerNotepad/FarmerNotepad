@@ -40,9 +40,6 @@
     <string name="tab_short">SHORT</string>
     <string name="tab_view">VIEW</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="main_sort_menu">Sort Menu</string>
 
 
 
@@ -135,6 +132,12 @@
     <string name="new_checklist_add_item">Add Item</string>
     <string name="new_checklist_location">Location</string>
     <string name="new_checklist_item_title">TEST</string>
+
+
+    //Main Activity
+    <string name="main_sort_menu">Sort Menu</string>
+    <string name="main_cut_out_paper_not_trees">*Cut out paper NOT TREES*</string>
+    <string name="main_add_your_notes_here">ADD YOUR NOTES HERE</string>
 
 
 </resources>

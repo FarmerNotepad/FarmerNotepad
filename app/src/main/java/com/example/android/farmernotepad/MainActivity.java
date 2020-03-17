@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
     Button shortMenu;
     FloatingActionButton addNote;
     ConstraintLayout splashScreen;
+    private static DialogTabbed dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +80,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
                 DialogTabbed dialogFragment = new DialogTabbed();
                 dialogFragment.show(ft,"dialog");
 
+                setDialog(dialogFragment);
 
 
                 //Dialog dialog = dialogFragment.getDialog();
@@ -149,6 +151,14 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         viewTypeHandler(sharedPreferences.getInt("view_type",0));
         autoBackupHandler();
 
+    }
+
+    private void setDialog(DialogTabbed dialog) {
+        this.dialog = dialog;
+    }
+
+    public static DialogTabbed getDialog(){
+        return dialog;
     }
 
 
@@ -459,7 +469,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         if (colorToFilter == 0){
             allNotesList.clear();
             allNotesList.addAll(concreteList);
-            shortMenu.setBackgroundColor(getColor(R.color.White));
+            shortMenu.setBackgroundColor(getColor(R.color.background));
             shortMenu.setText("All Notes");
 
         }
@@ -472,8 +482,8 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
             SharedPreferences sharedPreferences =
                     PreferenceManager.getDefaultSharedPreferences(this);
             shortMenu.setBackgroundColor(colorToFilter);
-            //String textToSet = "Sort Menu (" +sharedPreferences.getString(String.valueOf(colorToFilter),"") + ")";
-            //shortMenu.setText(textToSet);
+            String textToSet = "Sort Menu (" +sharedPreferences.getString(String.valueOf(colorToFilter),"") + ")";
+            shortMenu.setText(textToSet);
             allNotesList.clear();
             allNotesList.addAll(filteredList);
         }

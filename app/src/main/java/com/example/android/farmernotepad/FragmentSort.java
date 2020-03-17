@@ -46,6 +46,8 @@ public class FragmentSort extends Fragment {
                 editor.putInt("sort_type", 1);
                 editor.apply();
                 myActivity.sortHandler(1);
+                DialogTabbed dialog = MainActivity.getDialog();
+                dialog.dismiss();
             }
         });
 
@@ -59,6 +61,8 @@ public class FragmentSort extends Fragment {
                 editor.putInt("sort_type", 0);
                 editor.apply();
                 myActivity.sortHandler(0);
+                DialogTabbed dialog = MainActivity.getDialog();
+                dialog.dismiss();
             }
         });
 
@@ -72,6 +76,8 @@ public class FragmentSort extends Fragment {
                 editor.putInt("sort_type", 2);
                 editor.apply();
                 myActivity.sortHandler(2);
+                DialogTabbed dialog = MainActivity.getDialog();
+                dialog.dismiss();
             }
         });
 
@@ -85,6 +91,8 @@ public class FragmentSort extends Fragment {
                 editor.putInt("sort_type", 3);
                 editor.apply();
                 myActivity.sortHandler(3);
+                DialogTabbed dialog = MainActivity.getDialog();
+                dialog.dismiss();
             }
         });
 

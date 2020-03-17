@@ -110,6 +110,8 @@ public class FragmentColor extends Fragment {
                 editor.putInt("filter_color", colorNumber);
                 editor.apply();
                 myActivity.filterColor(colorNumber);
+                DialogTabbed dialog = MainActivity.getDialog();
+                dialog.dismiss();
             }
         });
     }
