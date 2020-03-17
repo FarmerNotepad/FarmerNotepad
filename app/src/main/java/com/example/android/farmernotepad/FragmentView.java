@@ -45,6 +45,8 @@ public class FragmentView extends Fragment {
                 editor.putInt("view_type", 0);
                 editor.apply();
                 myActivity.viewTypeHandler(0);
+                DialogTabbed dialog = MainActivity.getDialog();
+                dialog.dismiss();
             }
         });
 
@@ -58,6 +60,8 @@ public class FragmentView extends Fragment {
                 editor.putInt("view_type", 1);
                 editor.apply();
                 myActivity.viewTypeHandler(1);
+                DialogTabbed dialog = MainActivity.getDialog();
+                dialog.dismiss();
             }
         });
 
@@ -71,6 +75,8 @@ public class FragmentView extends Fragment {
                 editor.putInt("view_type", 2);
                 editor.apply();
                 myActivity.viewTypeHandler(2);
+                DialogTabbed dialog = MainActivity.getDialog();
+                dialog.dismiss();
             }
         });
 
