@@ -1,20 +1,26 @@
 package com.example.android.farmernotepad;
 
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class RecyclerViewAdapterEmployee extends RecyclerView.Adapter<RecyclerViewAdapterEmployee.ViewHolder> {
 
     private ArrayList<EntryWage> mNewPaymentList = new ArrayList<>();
     private OnNoteListener mOnNoteListener;
+    private LinearLayout parentPaymentLayout;
+
 
     public RecyclerViewAdapterEmployee(ArrayList<EntryWage> mNewPaymentList, OnNoteListener onNoteListener) {
         this.mNewPaymentList = mNewPaymentList;
@@ -48,6 +54,14 @@ public class RecyclerViewAdapterEmployee extends RecyclerView.Adapter<RecyclerVi
             }
         });
 
+        Drawable unwrappedDrawable = ContextCompat.getDrawable(parentPaymentLayout.getContext(), R.drawable.rounded_corners);
+        Drawable wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable);
+        parentPaymentLayout.setBackground(wrappedDrawable);
+        Drawable unwrappedDrawable2 = ContextCompat.getDrawable(parentPaymentLayout.getContext(), R.drawable.recycler_view_items_outline);
+        Drawable wrappedDrawable2 = DrawableCompat.wrap(unwrappedDrawable2);
+        parentPaymentLayout.setForeground(wrappedDrawable2);
+
+
     }
 
     @Override
@@ -73,6 +87,7 @@ public class RecyclerViewAdapterEmployee extends RecyclerView.Adapter<RecyclerVi
             paymentDescription = itemView.findViewById(R.id.description);
             paymentTotalDebt = itemView.findViewById(R.id.employmentDebt);
             paymentDelete = itemView.findViewById(R.id.deletePayment);
+            parentPaymentLayout = itemView.findViewById(R.id.parent_paymentLayout);
             this.onNoteListener = onNoteListener;
 
             itemView.setOnClickListener(this);

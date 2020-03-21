@@ -72,7 +72,7 @@ public class ActivityEmployee extends AppCompatActivity implements RecyclerViewA
             employeeFullName.setEnabled(false);
             employeePhoneNumber.setEnabled(false);
             addPaymentDayOff.setClickable(false);
-            addPaymentDayOff.setVisibility(View.INVISIBLE);
+            addPaymentDayOff.setVisibility(View.GONE);
 
 
             loadEditableEmployee(employeeIntentID);

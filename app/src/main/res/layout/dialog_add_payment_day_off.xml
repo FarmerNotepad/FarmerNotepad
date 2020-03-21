@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
             android:singleLine="true"
-            android:text="Add Payment / Day Off"
+            android:text="@string/dialog_add_payment_title"
             android:textAlignment="center"
             android:textColor="@android:color/black"
             android:textSize="26sp"
@@ -33,7 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:text="ADD DATE:"
+                android:text="@string/dialog_add_payment_add_date"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/newPaymentDate"
@@ -53,12 +53,12 @@
                 android:padding="5dp"
                 android:singleLine="true"
                 android:textAlignment="center"
-                android:hint="DATE"
+                android:hint="@string/dialog_add_payment_date"
                 android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="KeyboardInaccessibleWidget" />
+                tools:ignore="KeyboardInaccessibleWidget,TextFields" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -73,7 +73,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:text="WORK HOURS:"
+                android:text="@string/dialog_add_payment_work_hours"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/newPaymentWorkHours"
@@ -89,7 +89,7 @@
                 android:background="@color/Transparent_White"
                 android:clickable="true"
                 android:ems="10"
-                android:hint="HOURS"
+                android:hint="@string/dialog_add_payment_hours"
                 android:inputType="number"
                 android:focusable="true"
                 android:padding="5dp"
@@ -98,7 +98,8 @@
                 android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:importantForAutofill="no" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -113,7 +114,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:text="TOTAL WAGE:"
+                android:text="@string/dialog_add_payment_total_wage"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/newPaymentWage"
@@ -132,13 +133,14 @@
                 android:focusable="true"
                 android:padding="5dp"
                 android:singleLine="true"
-                android:hint="WAGE"
+                android:hint="@string/dialog_add_payment_wage"
                 android:inputType="numberDecimal"
                 android:textAlignment="center"
                 android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:importantForAutofill="no" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -154,7 +156,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:text="DESCRIPTION:"
+                android:text="@string/dialog_add_payment_description"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/newPaymentDescription"
@@ -172,7 +174,7 @@
                 android:clickable="true"
                 android:ems="10"
                 android:focusable="true"
-                android:hint="JOB DESCRIPTION"
+                android:hint="@string/dialog_add_payment_job_description"
                 android:inputType="text"
                 android:padding="5dp"
                 android:singleLine="true"
@@ -180,7 +182,8 @@
                 android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:importantForAutofill="no" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -195,7 +198,7 @@
             android:background="@color/Transparent_White"
             android:paddingHorizontal="20dp"
             android:paddingVertical="5dp"
-            android:text="DAY OFF"
+            android:text="@string/dialog_add_payment_day_off"
             android:layout_gravity="end"
             android:ems="10"
             android:textAlignment="center"
@@ -213,7 +216,7 @@
                 android:layout_width="105dp"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/colorPrimary"
-                android:text="CANCEL"
+                android:text="@string/dialog_add_payment_cancel"
                 android:textColor="@color/White"
                 android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -225,7 +228,7 @@
                 android:layout_width="105dp"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/colorPrimary"
-                android:text="OK"
+                android:text="@string/dialog_add_payment_ok"
                 android:textColor="@color/White"
                 android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="parent"

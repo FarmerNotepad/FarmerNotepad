@@ -140,4 +140,39 @@
     <string name="main_add_your_notes_here">ADD YOUR NOTES HERE</string>
 
 
+    //Dialog Add Checklist Item
+    <string name="dialog_checklist_item_add_item">Add Item</string>
+    <string name="dialog_checklist_item_cancel">Cancel</string>
+    <string name="dialog_checklist_item_ok">OK</string>
+
+
+    //Dialog Add Payment - Day Off
+    <string name="dialog_add_payment_title">Add Payment / Day Off</string>
+    <string name="dialog_add_payment_add_date">ADD DATE:</string>
+    <string name="dialog_add_payment_date">DATE</string>
+    <string name="dialog_add_payment_work_hours">WORK HOURS:</string>
+    <string name="dialog_add_payment_hours">HOURS</string>
+    <string name="dialog_add_payment_total_wage">TOTAL WAGE:</string>
+    <string name="dialog_add_payment_wage">WAGE</string>
+    <string name="dialog_add_payment_description">DESCRIPTION:</string>
+    <string name="dialog_add_payment_job_description">JOB DESCRIPTION</string>
+    <string name="dialog_add_payment_day_off">DAY OFF</string>
+    <string name="dialog_add_payment_cancel">Cancel</string>
+    <string name="dialog_add_payment_ok">OK</string>
+
+
+    //Activity Employee
+    <string name="activity_employee_enter_full_name">ENTER FULL NAME</string>
+    <string name="activity_employee_enter_phone_number">ENTER PHONE NUMBER</string>
+    <string name="activity_employee_total_debt">TOTAL DEBT</string>
+    <string name="activity_employee_add_payment_day_off">ADD PAYMENT / DAY OFF</string>
+
+
+    //RecyclerView Employee
+    <string name="recyclerview_payment_job_date">Job Date:</string>
+    <string name="recyclerview_payment_hours_of_work">Hours of Work:</string>
+    <string name="recyclerview_payment_job_description">Job Description:</string>
+    <string name="recyclerview_payment_wage">Wage:</string>
+
+
 </resources>

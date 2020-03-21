@@ -197,12 +197,12 @@ public class ActivityNewTextNote extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.pickColor:
-                final android.app.AlertDialog.Builder alert = new android.app.AlertDialog.Builder(ActivityNewTextNote.this);
+                final AlertDialog.Builder alert = new AlertDialog.Builder(ActivityNewTextNote.this);
                 View mView = getLayoutInflater().inflate(R.layout.dialog_color_picker, null);
                 alert.setView(mView);
                 final MenuItem pickColorItem = mMenu.findItem(R.id.pickColor);
 
-                final android.app.AlertDialog alertDialog = alert.create();
+                final AlertDialog alertDialog = alert.create();
 
                 alertDialog.setCanceledOnTouchOutside(true);
                 alertDialog.show();
