@@ -143,7 +143,7 @@ public class FragmentColor extends Fragment {
                 AlertDialog.Builder alert = new AlertDialog.Builder(context);
                 final EditText edittext = new EditText(context);
                 edittext.setText(textView.getText());
-                alert.setMessage("Color category");
+                alert.setMessage("Color Category");
                 alert.setCancelable(true);
                 alert.setView(edittext);
 

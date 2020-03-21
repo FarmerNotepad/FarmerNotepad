@@ -59,8 +59,9 @@
 
         <Button
             android:id="@+id/deletePayment"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="15dp"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
             android:layout_weight="1"
             android:foreground="@drawable/ic_remove_button"
             android:padding="10dp"/>

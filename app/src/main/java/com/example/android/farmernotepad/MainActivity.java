@@ -1,10 +1,14 @@
 package com.example.android.farmernotepad;
 
 
-import android.app.AlertDialog;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.database.Cursor;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -24,9 +28,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.ActionMode;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -45,9 +52,9 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
     RecyclerViewAdapterMain adapter;
     private ActionMode mActionMode;
 
-    Button shortMenu;
+    Button sortMenu;
     FloatingActionButton addNote;
-    ConstraintLayout splashScreen;
+    ConstraintLayout splashScreen,parentMain;
     private static DialogTabbed dialog;
 
     @Override
@@ -58,12 +65,13 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
                 PreferenceManager.getDefaultSharedPreferences(this);
 
         addNote = findViewById(R.id.addNote);
-        shortMenu = findViewById(R.id.shortMenu);
+        sortMenu = findViewById(R.id.sortMenu);
         splashScreen = findViewById(R.id.parent_Splash);
+        parentMain = findViewById(R.id.parentMain);
 
 
 
-        shortMenu.setOnClickListener(new View.OnClickListener() {
+        sortMenu.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
@@ -104,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         addNote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this);
+                final androidx.appcompat.app.AlertDialog.Builder alert = new androidx.appcompat.app.AlertDialog.Builder(MainActivity.this);
                 View mView = getLayoutInflater().inflate(R.layout.dialog_add_note, null);
                 alert.setView(mView);
                 final AlertDialog alertDialog = alert.create();
@@ -469,8 +477,9 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         if (colorToFilter == 0){
             allNotesList.clear();
             allNotesList.addAll(concreteList);
-            shortMenu.setBackgroundColor(getColor(R.color.background));
-            shortMenu.setText("All Notes");
+            sortMenu.setBackgroundColor(getColor(R.color.background));
+            sortMenu.setText("All Notes");
+            sortMenu.setTextColor(getColor(R.color.Black));
 
         }
         else {
@@ -481,9 +490,17 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
             }
             SharedPreferences sharedPreferences =
                     PreferenceManager.getDefaultSharedPreferences(this);
-            shortMenu.setBackgroundColor(colorToFilter);
+            sortMenu.setBackgroundColor(colorToFilter);
             String textToSet = "Sort Menu (" +sharedPreferences.getString(String.valueOf(colorToFilter),"") + ")";
-            shortMenu.setText(textToSet);
+            sortMenu.setText(textToSet);
+
+            if(colorToFilter == getColor(R.color.White) || colorToFilter == getColor(R.color.Yellow)){
+                sortMenu.setTextColor(getColor(R.color.Black));
+            } else {
+                sortMenu.setTextColor(getColor(R.color.White));
+            }
+
+
             allNotesList.clear();
             allNotesList.addAll(filteredList);
         }
