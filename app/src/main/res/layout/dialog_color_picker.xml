@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
@@ -11,50 +12,58 @@
     <ImageButton
         android:id="@+id/colorBlack"
         style="@style/ColorPicker"
-        android:background="@color/Black" />
+        android:background="@color/Black"
+        tools:ignore="ContentDescription" />
 
     <ImageButton
         android:id="@+id/colorGrey"
         style="@style/ColorPicker"
         android:background="@color/Grey"
-        />
+        tools:ignore="ContentDescription" />
 
     <ImageButton
         android:id="@+id/colorWhite"
         style="@style/ColorPicker"
-        android:background="@color/White"/>
+        android:background="@color/White"
+        tools:ignore="ContentDescription" />
 
     <ImageButton
         android:id="@+id/colorPurple"
         style="@style/ColorPicker"
-        android:background="@color/Purple" />
+        android:background="@color/Purple"
+        tools:ignore="ContentDescription" />
 
 
     <ImageButton
         android:id="@+id/colorOrange"
         style="@style/ColorPicker"
-        android:background="@color/Orange" />
+        android:background="@color/Orange"
+        tools:ignore="ContentDescription" />
 
     <ImageButton
         android:id="@+id/colorYellow"
         style="@style/ColorPicker"
-        android:background="@color/Yellow" />
+        android:background="@color/Yellow"
+        tools:ignore="ContentDescription" />
 
     <ImageButton
         android:id="@+id/colorGreen"
         style="@style/ColorPicker"
-        android:background="@color/Green" />
+        android:background="@color/Green"
+        tools:ignore="ContentDescription" />
 
     <ImageButton
         android:id="@+id/colorRed"
         style="@style/ColorPicker"
-        android:background="@color/Red" />
+        android:background="@color/Red"
+        tools:ignore="ContentDescription" />
 
 
     <ImageButton
         android:id="@+id/colorBlue"
         style="@style/ColorPicker"
-        android:background="@color/Blue" />
+        android:background="@color/Blue"
+        tools:ignore="ContentDescription" />
 
 </GridLayout>
 

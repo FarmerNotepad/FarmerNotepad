@@ -4,60 +4,108 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".ActivityEmployee">
 
 
-    <EditText
-        android:id="@+id/employeeFullName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="ENTER FULL NAME"
-        android:inputType="textPersonName"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
 
-    <EditText
-        android:id="@+id/employeePhoneNumber"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:hint="ENTER PHONE NUMBER"
-        android:inputType="phone"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/employeeFullName" />
-
-    <TextView
-        android:id="@+id/employeeTotalDebt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:hint="TOTAL DEBT"
-        app:layout_constraintBottom_toTopOf="@+id/addPaymentRecyclerView"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.397" />
+        android:orientation="vertical">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/addPaymentRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        app:layout_constraintTop_toBottomOf="@+id/employeePhoneNumber"
-        tools:layout_editor_absoluteX="0dp" />
 
-    <Button
-        android:id="@+id/addPaymentBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/ic_add_button"
-        android:drawablePadding="10dp"
-        android:text="ADD PAYMENT / DAY OFF"
-        android:textAlignment="textStart"
-        app:layout_constraintEnd_toEndOf="@+id/checklistRecyclerView"
-        app:layout_constraintStart_toStartOf="@+id/checklistRecyclerView"
-        app:layout_constraintTop_toBottomOf="@+id/addPaymentRecyclerView" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/employeeFullName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/activity_employee_enter_full_name"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:inputType="textPersonName"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:importantForAutofill="no" />
+
+
+            <EditText
+                android:id="@+id/employeePhoneNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
+                android:hint="@string/activity_employee_enter_phone_number"
+                android:inputType="phone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/employeeFullName"
+                android:importantForAutofill="no" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/activity_employee_total_debt"
+                android:textAlignment="center"
+                android:layout_marginBottom="3dp"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toTopOf="@+id/employeeTotalDebt"
+                app:layout_constraintEnd_toEndOf="@+id/employeeTotalDebt"
+                app:layout_constraintStart_toStartOf="@+id/employeeTotalDebt" />
+
+            <TextView
+                android:id="@+id/employeeTotalDebt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                android:hint="@string/activity_employee_total_debt"
+                android:textAlignment="center"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/DarkGrey"/>
+
+
+        <Button
+            android:id="@+id/addPaymentBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_add_button"
+            android:layout_marginTop="10dp"
+            android:text="@string/activity_employee_add_payment_day_off"
+            android:textAlignment="textStart"
+            app:layout_constraintEnd_toEndOf="@+id/checklistRecyclerView"
+            app:layout_constraintStart_toStartOf="@+id/checklistRecyclerView"
+            app:layout_constraintTop_toBottomOf="@+id/addPaymentRecyclerView"
+            tools:ignore="RtlHardcoded" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/addPaymentRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="3dp"
+            android:layout_marginVertical="3dp"
+            app:layout_constraintTop_toBottomOf="@+id/employeePhoneNumber" />
+
+
+    </LinearLayout>
+
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/saveEmployeeBtn"
