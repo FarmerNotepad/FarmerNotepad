@@ -19,7 +19,6 @@
     </style>
 
 
-
     //COLOR_PICKER
     <style name="ColorPicker" parent="Theme.MaterialComponents.Light.Dialog.Alert">
         <item name="android:layout_width">80dp</item>

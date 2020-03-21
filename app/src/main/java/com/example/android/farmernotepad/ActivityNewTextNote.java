@@ -26,6 +26,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 
@@ -196,12 +197,12 @@ public class ActivityNewTextNote extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.pickColor:
-                final android.app.AlertDialog.Builder alert = new android.app.AlertDialog.Builder(ActivityNewTextNote.this);
+                final AlertDialog.Builder alert = new AlertDialog.Builder(ActivityNewTextNote.this);
                 View mView = getLayoutInflater().inflate(R.layout.dialog_color_picker, null);
                 alert.setView(mView);
                 final MenuItem pickColorItem = mMenu.findItem(R.id.pickColor);
 
-                final android.app.AlertDialog alertDialog = alert.create();
+                final AlertDialog alertDialog = alert.create();
 
                 alertDialog.setCanceledOnTouchOutside(true);
                 alertDialog.show();
@@ -301,10 +302,10 @@ public class ActivityNewTextNote extends AppCompatActivity {
                 break;
 
             case R.id.deleteNote:
-                final android.app.AlertDialog alertDeleteDialog = new android.app.AlertDialog.Builder(ActivityNewTextNote.this).create();
+                final AlertDialog alertDeleteDialog = new AlertDialog.Builder(ActivityNewTextNote.this).create();
                 alertDeleteDialog.setTitle("Delete Note");
                 alertDeleteDialog.setMessage("Delete this note?");
-                alertDeleteDialog.setButton(android.app.AlertDialog.BUTTON_POSITIVE, "YES",
+                alertDeleteDialog.setButton(AlertDialog.BUTTON_POSITIVE, "YES",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 int noteID = getIntent().getIntExtra("noteID", 0);
@@ -322,7 +323,7 @@ public class ActivityNewTextNote extends AppCompatActivity {
                                 dbHelper.close();
                             }
                         });
-                alertDeleteDialog.setButton(android.app.AlertDialog.BUTTON_NEGATIVE, "NO", new DialogInterface.OnClickListener() {
+                alertDeleteDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "NO", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int which) {
                         alertDeleteDialog.dismiss();

@@ -1,107 +1,241 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="320dp"
     android:layout_height="wrap_content"
-    android:layout_gravity="center">
+    android:background="@color/Payment_Log_Recycler_Background">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:background="@color/Black"
         android:padding="10dp">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:text="Add Payment / Day Off"
+            android:layout_marginBottom="15dp"
+            android:singleLine="true"
+            android:text="@string/dialog_add_payment_title"
             android:textAlignment="center"
-            android:textColor="@android:color/white"
-            android:textSize="26dp"
+            android:textColor="@android:color/black"
+            android:textSize="26sp"
             android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/newPaymentDate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="8dp"
-            android:background="@color/cardview_light_background"
-            android:hint="ADD DATE"
-            android:clickable="true"
-            android:focusable="false"
-            android:padding="5dp"
-            android:textSize="15dp" />
 
-        <EditText
-            android:id="@+id/newPaymentWorkHours"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="8dp"
-            android:background="@color/cardview_light_background"
-            android:hint="ADD HOURS OF WORK"
-            android:inputType="number"
-            android:padding="5dp"
-            android:textSize="15dp" />
+            android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/newPaymentWage"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="8dp"
-            android:background="@color/cardview_light_background"
-            android:hint="ADD TOTAL WAGE"
-            android:inputType="numberDecimal"
-            android:padding="5dp"
-            android:textSize="15dp" />
+            <TextView
+                android:id="@+id/addDateTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="@string/dialog_add_payment_add_date"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/newPaymentDate"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/newPaymentDate" />
 
-        <EditText
-            android:id="@+id/newPaymentDescription"
+            <EditText
+                android:id="@+id/newPaymentDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="8dp"
+                android:background="@color/Transparent_White"
+                android:clickable="true"
+                android:ems="10"
+                android:focusable="false"
+                android:importantForAutofill="no"
+                android:padding="5dp"
+                android:singleLine="true"
+                android:textAlignment="center"
+                android:hint="@string/dialog_add_payment_date"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="KeyboardInaccessibleWidget,TextFields" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="8dp"
-            android:background="@color/cardview_light_background"
-            android:hint="JOB DESCRIPTION"
-            android:padding="5dp"
-            android:textSize="15dp" />
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/workHoursTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="@string/dialog_add_payment_work_hours"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/newPaymentWorkHours"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/newPaymentWorkHours" />
+
+
+            <EditText
+                android:id="@+id/newPaymentWorkHours"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="8dp"
+                android:background="@color/Transparent_White"
+                android:clickable="true"
+                android:ems="10"
+                android:hint="@string/dialog_add_payment_hours"
+                android:inputType="number"
+                android:focusable="true"
+                android:padding="5dp"
+                android:singleLine="true"
+                android:textAlignment="center"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:importantForAutofill="no" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/totalWage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="@string/dialog_add_payment_total_wage"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/newPaymentWage"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/newPaymentWage" />
+
+
+            <EditText
+                android:id="@+id/newPaymentWage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="8dp"
+                android:background="@color/Transparent_White"
+                android:clickable="true"
+                android:ems="10"
+                android:focusable="true"
+                android:padding="5dp"
+                android:singleLine="true"
+                android:hint="@string/dialog_add_payment_wage"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:importantForAutofill="no" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:id="@+id/jobDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="@string/dialog_add_payment_description"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/newPaymentDescription"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/newPaymentDescription" />
+
+
+
+            <EditText
+                android:id="@+id/newPaymentDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="8dp"
+                android:background="@color/Transparent_White"
+                android:clickable="true"
+                android:ems="10"
+                android:focusable="true"
+                android:hint="@string/dialog_add_payment_job_description"
+                android:inputType="text"
+                android:padding="5dp"
+                android:singleLine="true"
+                android:textAlignment="center"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:importantForAutofill="no" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
         <CheckedTextView
             android:id="@+id/dayOffCheckedTextView"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginVertical="8dp"
-            android:background="@color/cardview_light_background"
-            android:padding="5dp"
-            android:text="DAY OFF"
-            android:textSize="15dp"
-            android:gravity="center_vertical"/>
+            android:background="@color/Transparent_White"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="5dp"
+            android:text="@string/dialog_add_payment_day_off"
+            android:layout_gravity="end"
+            android:ems="10"
+            android:textAlignment="center"
+            android:textSize="15sp"
+            tools:ignore="RtlCompat" />
 
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginHorizontal="10dp"
-            android:paddingVertical="20dp">
+            android:layout_marginTop="20dp">
 
             <Button
                 android:id="@+id/addPaymentCancel"
                 android:layout_width="105dp"
                 android:layout_height="wrap_content"
-                android:text="CANCEL"
-                android:textSize="15dp" />
+                android:backgroundTint="@color/colorPrimary"
+                android:text="@string/dialog_add_payment_cancel"
+                android:textColor="@color/White"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <Button
                 android:id="@+id/addPaymentOk"
                 android:layout_width="105dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="70dp"
-                android:text="OK"
-                android:textSize="15dp"
-                />
+                android:backgroundTint="@color/colorPrimary"
+                android:text="@string/dialog_add_payment_ok"
+                android:textColor="@color/White"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
 

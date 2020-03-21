@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/parent_checklistLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -14,16 +13,16 @@
         android:id="@+id/checklistItemTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="15sp"
         android:layout_gravity="center"
-        android:layout_weight="4" />
+        android:layout_weight="4"
+        android:textSize="15sp" />
 
     <Button
         android:id="@+id/deleteItemButton"
         style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="40dp"
-        android:layout_gravity="center"
         android:layout_height="40dp"
+        android:layout_gravity="center"
         android:layout_weight="1"
         android:foreground="@drawable/ic_delete" />
 

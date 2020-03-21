@@ -72,7 +72,7 @@ public class ActivityEmployee extends AppCompatActivity implements RecyclerViewA
             employeeFullName.setEnabled(false);
             employeePhoneNumber.setEnabled(false);
             addPaymentDayOff.setClickable(false);
-            addPaymentDayOff.setVisibility(View.INVISIBLE);
+            addPaymentDayOff.setVisibility(View.GONE);
 
 
             loadEditableEmployee(employeeIntentID);
@@ -161,10 +161,10 @@ public class ActivityEmployee extends AppCompatActivity implements RecyclerViewA
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.deleteEmployee:
-                final AlertDialog alertDeleteDialog = new MaterialAlertDialogBuilder(ActivityEmployee.this).create();
+                final AlertDialog alertDeleteDialog = new AlertDialog.Builder(ActivityEmployee.this).create();
                 alertDeleteDialog.setTitle("Delete Employee");
                 alertDeleteDialog.setMessage("Delete this Employee?");
-                alertDeleteDialog.setButton(android.app.AlertDialog.BUTTON_POSITIVE, "YES",
+                alertDeleteDialog.setButton(AlertDialog.BUTTON_POSITIVE, "YES",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
@@ -181,7 +181,7 @@ public class ActivityEmployee extends AppCompatActivity implements RecyclerViewA
                                 dbHelper.close();
                             }
                         });
-                alertDeleteDialog.setButton(android.app.AlertDialog.BUTTON_NEGATIVE, "NO", new DialogInterface.OnClickListener() {
+                alertDeleteDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "NO", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int which) {
                         alertDeleteDialog.dismiss();

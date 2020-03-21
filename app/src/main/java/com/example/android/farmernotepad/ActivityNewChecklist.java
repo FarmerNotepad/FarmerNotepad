@@ -345,10 +345,10 @@ public class ActivityNewChecklist extends AppCompatActivity implements RecyclerV
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.deleteNote:
-                final android.app.AlertDialog alertDeleteDialog = new android.app.AlertDialog.Builder(ActivityNewChecklist.this).create();
+                final AlertDialog alertDeleteDialog = new AlertDialog.Builder(ActivityNewChecklist.this).create();
                 alertDeleteDialog.setTitle("Delete Note");
                 alertDeleteDialog.setMessage("Delete this note?");
-                alertDeleteDialog.setButton(android.app.AlertDialog.BUTTON_POSITIVE, "YES",
+                alertDeleteDialog.setButton(AlertDialog.BUTTON_POSITIVE, "YES",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 DatabaseHelper dbHelper = new DatabaseHelper(ActivityNewChecklist.this);
@@ -365,7 +365,7 @@ public class ActivityNewChecklist extends AppCompatActivity implements RecyclerV
                                 dbHelper.close();
                             }
                         });
-                alertDeleteDialog.setButton(android.app.AlertDialog.BUTTON_NEGATIVE, "NO", new DialogInterface.OnClickListener() {
+                alertDeleteDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "NO", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int which) {
                         alertDeleteDialog.dismiss();
@@ -376,12 +376,12 @@ public class ActivityNewChecklist extends AppCompatActivity implements RecyclerV
                 break;
 
             case R.id.pickColor:
-                final android.app.AlertDialog.Builder alert = new android.app.AlertDialog.Builder(ActivityNewChecklist.this);
+                final AlertDialog.Builder alert = new AlertDialog.Builder(ActivityNewChecklist.this);
                 View mView = getLayoutInflater().inflate(R.layout.dialog_color_picker, null);
                 alert.setView(mView);
                 final MenuItem pickColorItem = mMenu.findItem(R.id.pickColor);
 
-                final android.app.AlertDialog alertDialog = alert.create();
+                final AlertDialog alertDialog = alert.create();
 
                 alertDialog.setCanceledOnTouchOutside(true);
                 alertDialog.show();
