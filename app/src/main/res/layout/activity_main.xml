@@ -7,7 +7,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:id="@+id/parentMain">
 
     <LinearLayout
         android:id="@+id/main"
@@ -20,12 +21,15 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <Button
-            android:id="@+id/shortMenu"
+            android:id="@+id/sortMenu"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/main_sort_menu"
             android:textSize="16sp"
+            android:textColor="@color/White"
+            android:textStyle="bold"
+            android:alpha="0.5"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -78,7 +82,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/shortMenu">
+            app:layout_constraintTop_toBottomOf="@+id/sortMenu">
 
         </androidx.recyclerview.widget.RecyclerView>
 
