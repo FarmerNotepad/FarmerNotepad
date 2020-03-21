@@ -31,23 +31,12 @@
             app:useSimpleSummaryProvider="true"/>
 
         <ListPreference
-            app:key="default_notes_layout"
-            app:entries="@array/launch_array"
-            app:entryValues="@array/launch_array_values"
-            app:title="Default Notes Layout" />
-
-
-        <ListPreference
             app:defaultValue="#FFFFFF"
             app:entries="@array/color_array"
             app:entryValues="@array/color_array_values"
             app:key="default_color"
             app:title="Default Note Color"
             app:useSimpleSummaryProvider="true" />
-
-        <ListPreference
-            app:key="default_employee_sort_order"
-            app:title="Default Employee sort order" />
 
         <ListPreference
             app:key="default_font_size"
@@ -61,26 +50,6 @@
 
     </PreferenceCategory>
 
-    <PreferenceCategory
-        app:key="sort_category"
-        app:title="Sort"
-        app:allowDividerAbove="true"
-        app:allowDividerBelow="true">
-
-        <ListPreference
-            app:key="default_wageCalc_sort_order"
-            app:title="Default Wage Calculator sort order" />
-        <ListPreference
-            app:key="default_note_sort_order"
-            app:title="Default Notes sort order"/>
-
-        <ListPreference
-            app:key="default_wageCalc_sort_order"
-            app:title="Default Wage Calculator sort order" />
-
-
-
-    </PreferenceCategory>
 
     <PreferenceCategory
         app:key="backup_category"
