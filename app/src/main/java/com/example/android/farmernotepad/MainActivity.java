@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
     private ArrayList<ListItem> allNotesList = new ArrayList<>();
     RecyclerViewAdapterMain adapter;
     private ActionMode mActionMode;
+    private ArrayList<Integer> selectionTracker = new ArrayList<>();
 
     Button sortMenu;
     FloatingActionButton addNote;
@@ -366,11 +367,18 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         FloatingActionButton addNote = findViewById(R.id.addNote);
         addNote.setVisibility(View.INVISIBLE);
 
+        if (!selectionTracker.contains(position))
+            selectionTracker.add(position);
+        else
+            selectionTracker.remove((Integer) position);
+
         if (mActionMode != null) {
+            mActionMode.setTitle(selectionTracker.size() + "/" + allNotesList.size());
             return false;
         }
 
         mActionMode = startSupportActionMode(mActionModeCallback);
+
 
         return true;
     }
@@ -381,7 +389,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         @Override
         public boolean onCreateActionMode(ActionMode mode, Menu menu) {
             mode.getMenuInflater().inflate(R.menu.contextual_menu, menu);
-            mode.setTitle(selectedItems + "/" + allNotesList.size());
+            mode.setTitle(selectionTracker.size() + "/" + allNotesList.size());
             return true;
         }
 
@@ -395,6 +403,12 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
 
             switch (item.getItemId()){
                 case R.id.deleteNotes:
+                    String print =":";
+                    for (int i=0 ; i<selectionTracker.size();i++){
+                        print += String.valueOf(selectionTracker.get(i)) + ";";
+                    }
+                    GenericUtils.toast(MainActivity.this,print);
+                    deleteMultipleNotes();
                     mode.finish();
                     return true;
                 case R.id.setReminder:
@@ -414,6 +428,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
             mActionMode = null;
             FloatingActionButton addNote = findViewById(R.id.addNote);
             addNote.setVisibility(View.VISIBLE);
+            selectionTracker.clear();
         }
     };
 
@@ -558,6 +573,24 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
             MainActivity.this.finish();
         }
 
+    }
+
+    private void deleteMultipleNotes(){
+        ArrayList<ListItem> toDelete = new ArrayList<>();
+        DatabaseHelper dbHelper = new DatabaseHelper(MainActivity.this);
+        for (int i=0; i < selectionTracker.size();i++){
+            ListItem toBeDeleted = allNotesList.get(selectionTracker.get(i));
+            if ( toBeDeleted.getListItemType() == ListItem.typeText){
+                dbHelper.deleteNote(toBeDeleted.getNoteID());
+            }
+            else {
+                dbHelper.deleteChecklist(toBeDeleted.getNoteID());
+            }
+            toDelete.add(toBeDeleted);
+        }
+        dbHelper.close();
+        allNotesList.removeAll(toDelete);
+        adapter.notifyDataSetChanged();
     }
 
 }

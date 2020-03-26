@@ -28,6 +28,7 @@ public class EntryTextNote implements ListItem {
     public EntryTextNote() {  //NULL Constructor for testing purposes
     }
 
+    @Override
     public int getNoteID() {
         return noteID;
     }
