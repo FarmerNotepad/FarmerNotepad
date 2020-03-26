@@ -7,6 +7,8 @@ public interface ListItem {
 
     int getListItemType();
 
+    int getNoteID();
+
     String getInterfaceTitle();
 
     String getInterfaceText();

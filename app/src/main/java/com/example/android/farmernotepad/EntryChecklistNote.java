@@ -25,6 +25,7 @@ public class EntryChecklistNote implements ListItem{
 
     public EntryChecklistNote() {}
 
+    @Override
     public int getNoteID() {
         return noteID;
     }
