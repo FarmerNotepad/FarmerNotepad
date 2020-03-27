@@ -377,6 +377,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
             return false;
         }
 
+
         mActionMode = startSupportActionMode(mActionModeCallback);
 
 
