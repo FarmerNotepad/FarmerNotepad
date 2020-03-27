@@ -53,10 +53,11 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
     RecyclerViewAdapterMain adapter;
     private ActionMode mActionMode;
     private ArrayList<Integer> selectionTracker = new ArrayList<>();
+    private boolean clickState = false;
 
     Button sortMenu;
     FloatingActionButton addNote;
-    ConstraintLayout splashScreen,parentMain;
+    ConstraintLayout splashScreen, parentMain;
     private static DialogTabbed dialog;
 
     @Override
@@ -70,7 +71,6 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         sortMenu = findViewById(R.id.sortMenu);
         splashScreen = findViewById(R.id.parent_Splash);
         parentMain = findViewById(R.id.parentMain);
-
 
 
         sortMenu.setOnClickListener(new View.OnClickListener() {
@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
 
                 // Create and show the dialog.
                 DialogTabbed dialogFragment = new DialogTabbed();
-                dialogFragment.show(ft,"dialog");
+                dialogFragment.show(ft, "dialog");
 
                 setDialog(dialogFragment);
 
@@ -156,9 +156,9 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         concreteList.addAll(allNotesList);
 
 
-        filterColor(sharedPreferences.getInt("filter_color",0));
-        sortHandler(sharedPreferences.getInt("sort_type",0));
-        viewTypeHandler(sharedPreferences.getInt("view_type",0));
+        filterColor(sharedPreferences.getInt("filter_color", 0));
+        sortHandler(sharedPreferences.getInt("sort_type", 0));
+        viewTypeHandler(sharedPreferences.getInt("view_type", 0));
         autoBackupHandler();
 
     }
@@ -167,7 +167,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         this.dialog = dialog;
     }
 
-    public static DialogTabbed getDialog(){
+    public static DialogTabbed getDialog() {
         return dialog;
     }
 
@@ -259,9 +259,9 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        if(allNotesList.isEmpty()){
+        if (allNotesList.isEmpty()) {
             splashScreen.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             splashScreen.setVisibility(View.GONE);
         }
     }
@@ -341,36 +341,47 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         Intent intent;
         int mNoteID;
 
-        int noteType = allNotesList.get(position).getListItemType();
-
-        if (noteType == ListItem.typeText) {
-            EntryTextNote textNote = (EntryTextNote) allNotesList.get(position);
-            mNoteID = textNote.getNoteID();
-            intent = new Intent(this, ActivityNewTextNote.class);
-            intent.putExtra("noteID", mNoteID);
-            intent.putExtra("flag", "editNote");
-
+        if(clickState){
+            onNoteLongClick(position);
         } else {
-            EntryChecklistNote checklistNote = (EntryChecklistNote) allNotesList.get(position);
-            mNoteID = checklistNote.getNoteID();
-            intent = new Intent(this, ActivityNewChecklist.class);
-            intent.putExtra("noteID", mNoteID);
-            intent.putExtra("flag", "editNote");
+
+            int noteType = allNotesList.get(position).getListItemType();
+
+            if (noteType == ListItem.typeText) {
+                EntryTextNote textNote = (EntryTextNote) allNotesList.get(position);
+                mNoteID = textNote.getNoteID();
+                intent = new Intent(this, ActivityNewTextNote.class);
+                intent.putExtra("noteID", mNoteID);
+                intent.putExtra("flag", "editNote");
+
+            } else {
+                EntryChecklistNote checklistNote = (EntryChecklistNote) allNotesList.get(position);
+                mNoteID = checklistNote.getNoteID();
+                intent = new Intent(this, ActivityNewChecklist.class);
+                intent.putExtra("noteID", mNoteID);
+                intent.putExtra("flag", "editNote");
+            }
+
+
+
+            startActivity(intent);
+            MainActivity.this.finish();
+
         }
 
-        startActivity(intent);
-        MainActivity.this.finish();
     }
 
     @Override
     public boolean onNoteLongClick(int position) {
         FloatingActionButton addNote = findViewById(R.id.addNote);
         addNote.setVisibility(View.INVISIBLE);
+        clickState = true;
 
-        if (!selectionTracker.contains(position))
+        if (!selectionTracker.contains(position)) {
             selectionTracker.add(position);
-        else
+        } else {
             selectionTracker.remove((Integer) position);
+        }
 
         if (mActionMode != null) {
             mActionMode.setTitle(selectionTracker.size() + "/" + allNotesList.size());
@@ -402,13 +413,13 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         @Override
         public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
 
-            switch (item.getItemId()){
+            switch (item.getItemId()) {
                 case R.id.deleteNotes:
-                    String print =":";
-                    for (int i=0 ; i<selectionTracker.size();i++){
+                    String print = ":";
+                    for (int i = 0; i < selectionTracker.size(); i++) {
                         print += String.valueOf(selectionTracker.get(i)) + ";";
                     }
-                    GenericUtils.toast(MainActivity.this,print);
+                    GenericUtils.toast(MainActivity.this, print);
                     deleteMultipleNotes();
                     mode.finish();
                     return true;
@@ -430,6 +441,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
             FloatingActionButton addNote = findViewById(R.id.addNote);
             addNote.setVisibility(View.VISIBLE);
             selectionTracker.clear();
+            clickState = false;
         }
     };
 
@@ -489,17 +501,16 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         }
     }
 
-    public void filterColor(int colorToFilter){
+    public void filterColor(int colorToFilter) {
         ArrayList<ListItem> filteredList = new ArrayList<ListItem>();
-        if (colorToFilter == 0){
+        if (colorToFilter == 0) {
             allNotesList.clear();
             allNotesList.addAll(concreteList);
             sortMenu.setBackgroundColor(getColor(R.color.background));
             sortMenu.setText("All Notes");
             sortMenu.setTextColor(getColor(R.color.Black));
 
-        }
-        else {
+        } else {
             for (int i = 0; i < concreteList.size(); i++) {
                 if (concreteList.get(i).getColor() == colorToFilter) {
                     filteredList.add(concreteList.get(i));
@@ -508,10 +519,10 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
             SharedPreferences sharedPreferences =
                     PreferenceManager.getDefaultSharedPreferences(this);
             sortMenu.setBackgroundColor(colorToFilter);
-            String textToSet = "Sort Menu (" +sharedPreferences.getString(String.valueOf(colorToFilter),"") + ")";
+            String textToSet = "Sort Menu (" + sharedPreferences.getString(String.valueOf(colorToFilter), "") + ")";
             sortMenu.setText(textToSet);
 
-            if(colorToFilter == getColor(R.color.White) || colorToFilter == getColor(R.color.Yellow)){
+            if (colorToFilter == getColor(R.color.White) || colorToFilter == getColor(R.color.Yellow)) {
                 sortMenu.setTextColor(getColor(R.color.Black));
             } else {
                 sortMenu.setTextColor(getColor(R.color.White));
@@ -524,19 +535,19 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         adapter.notifyDataSetChanged();
     }
 
-    public void sortHandler(int sortType){
-        switch (sortType){
+    public void sortHandler(int sortType) {
+        switch (sortType) {
             case 0:
-                allNotesList = GenericUtils.sortByCreateDate(allNotesList,desc);
+                allNotesList = GenericUtils.sortByCreateDate(allNotesList, desc);
                 break;
             case 1:
-                allNotesList = GenericUtils.sortByTitle(allNotesList,desc);
+                allNotesList = GenericUtils.sortByTitle(allNotesList, desc);
                 break;
             case 2:
-                allNotesList = GenericUtils.sortByModDate(allNotesList,desc);
+                allNotesList = GenericUtils.sortByModDate(allNotesList, desc);
                 break;
             case 3:
-                allNotesList = GenericUtils.sortByColor(allNotesList,desc);
+                allNotesList = GenericUtils.sortByColor(allNotesList, desc);
                 break;
         }
         adapter.notifyDataSetChanged();
@@ -544,8 +555,8 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
 
     }
 
-    public void viewTypeHandler(int viewType){
-        switch (viewType){
+    public void viewTypeHandler(int viewType) {
+        switch (viewType) {
             case 0:
                 recyclerView.setLayoutManager(new LinearLayoutManager(this));
                 break;
@@ -566,7 +577,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
 
         String defLaunchActivity = sharedPreferences.getString("default_home_screen", "Main");
 
-        if(defLaunchActivity.equals("Payments")) {
+        if (defLaunchActivity.equals("Payments")) {
             Intent intent = new Intent(MainActivity.this, ActivityPaymentsLog.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
@@ -576,15 +587,14 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
 
     }
 
-    private void deleteMultipleNotes(){
+    private void deleteMultipleNotes() {
         ArrayList<ListItem> toDelete = new ArrayList<>();
         DatabaseHelper dbHelper = new DatabaseHelper(MainActivity.this);
-        for (int i=0; i < selectionTracker.size();i++){
+        for (int i = 0; i < selectionTracker.size(); i++) {
             ListItem toBeDeleted = allNotesList.get(selectionTracker.get(i));
-            if ( toBeDeleted.getListItemType() == ListItem.typeText){
+            if (toBeDeleted.getListItemType() == ListItem.typeText) {
                 dbHelper.deleteNote(toBeDeleted.getNoteID());
-            }
-            else {
+            } else {
                 dbHelper.deleteChecklist(toBeDeleted.getNoteID());
             }
             toDelete.add(toBeDeleted);
