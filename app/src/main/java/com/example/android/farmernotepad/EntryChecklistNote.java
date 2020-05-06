@@ -105,7 +105,11 @@ public class EntryChecklistNote implements ListItem{
 
     @Override
     public String getInterfaceText(){
-        return checklistItems.toString();
+        String toBeReturned = "";
+        for (int i=0; i<checklistItems.size(); i++){
+            toBeReturned = toBeReturned + checklistItems.get(i).getItemText();
+        }
+        return toBeReturned;
     }
 
 }
