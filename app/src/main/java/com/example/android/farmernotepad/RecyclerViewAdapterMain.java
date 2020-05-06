@@ -242,4 +242,7 @@ public class RecyclerViewAdapterMain extends RecyclerView.Adapter implements Fil
         return allNotesList.get(position).getListItemType();
     }
 
+
+
+
 }

@@ -32,6 +32,7 @@ import java.util.Date;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.ActionMode;
+import androidx.appcompat.view.menu.MenuView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
@@ -603,5 +604,6 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         allNotesList.removeAll(toDelete);
         adapter.notifyDataSetChanged();
     }
+
 
 }
