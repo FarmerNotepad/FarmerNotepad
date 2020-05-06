@@ -16,7 +16,7 @@ import androidx.fragment.app.Fragment;
 
 public class FragmentSort extends Fragment {
 
-    ConstraintLayout alphabetical, createDate, modDate, byColor;
+    ConstraintLayout alphabetical, createDate, modDate, byColor, filterByDate;
     boolean desc = false;
     MainActivity myActivity;
 
@@ -36,6 +36,7 @@ public class FragmentSort extends Fragment {
         createDate = view.findViewById(R.id.createLayout);
         modDate = view.findViewById(R.id.modLayout);
         byColor = view.findViewById(R.id.colorLayout);
+        filterByDate = view.findViewById(R.id.filterLayout);
 
         alphabetical.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,6 +94,14 @@ public class FragmentSort extends Fragment {
                 myActivity.sortHandler(3);
                 DialogTabbed dialog = MainActivity.getDialog();
                 dialog.dismiss();
+            }
+        });
+
+
+        filterByDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
             }
         });
 

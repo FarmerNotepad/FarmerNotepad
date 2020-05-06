@@ -111,7 +111,6 @@
                 tools:ignore="ContentDescription" />
 
             <TextView
-                android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -121,6 +120,34 @@
                 app:layout_constraintTop_toTopOf="@+id/colorBtn" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginVertical="8dp"
+        android:id="@+id/filterLayout">
+
+
+        <ImageView
+            android:id="@+id/calendarBtn"
+            style="@style/SortTab"
+            android:background="@drawable/ic_calendar"
+            android:backgroundTint="@color/Black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="@string/filter_by_date"
+            app:layout_constraintBottom_toBottomOf="@+id/calendarBtn"
+            app:layout_constraintStart_toEndOf="@+id/calendarBtn"
+            app:layout_constraintTop_toTopOf="@+id/calendarBtn" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 

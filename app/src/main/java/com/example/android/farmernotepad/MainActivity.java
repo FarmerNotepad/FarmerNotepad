@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.SearchView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -376,6 +377,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
     public boolean onNoteLongClick(int position) {
         FloatingActionButton addNote = findViewById(R.id.addNote);
         addNote.setVisibility(View.INVISIBLE);
+        sortMenu.setClickable(false);
         clickState = true;
 
         if (!selectionTracker.contains(position)) {
@@ -397,7 +399,6 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
     }
 
     private ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
-        int selectedItems = 1;
 
         @Override
         public boolean onCreateActionMode(ActionMode mode, Menu menu) {
@@ -420,7 +421,12 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
                     for (int i = 0; i < selectionTracker.size(); i++) {
                         print += String.valueOf(selectionTracker.get(i)) + ";";
                     }
-                    GenericUtils.toast(MainActivity.this, print);
+
+                    if(selectionTracker.size() > 1) {
+                        GenericUtils.toast(MainActivity.this, selectionTracker.size() + " notes deleted successfully");
+                    } else{
+                        GenericUtils.toast(MainActivity.this, "Your note deleted successfully");
+                    }
                     deleteMultipleNotes();
                     mode.finish();
                     return true;
@@ -443,6 +449,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
             addNote.setVisibility(View.VISIBLE);
             selectionTracker.clear();
             clickState = false;
+            sortMenu.setClickable(true);
         }
     };
 
