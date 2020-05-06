@@ -2,6 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <item
+        android:id="@+id/attachImage"
+        android:icon="@drawable/ic_image"
+        android:title="Attach Image"
+        app:showAsAction="always"
+        />
+
 
     <item
         android:id="@+id/pickColor"

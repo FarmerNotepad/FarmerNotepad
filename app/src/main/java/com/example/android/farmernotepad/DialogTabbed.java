@@ -33,9 +33,9 @@ public class DialogTabbed extends DialogFragment {
         viewPager = (ViewPager) rootview.findViewById(R.id.viewPager);
 
         CustomAdapter adapter = new CustomAdapter(getChildFragmentManager());
-        adapter.addFragment("COLOR", fragmentColor);
-        adapter.addFragment("SORT", fragmentSort);
-        adapter.addFragment("VIEW", fragmentView);
+        adapter.addFragment(getString(R.string.tab_color), fragmentColor);
+        adapter.addFragment(getString(R.string.tab_short), fragmentSort);
+        adapter.addFragment(getString(R.string.tab_view), fragmentView);
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
         return rootview;

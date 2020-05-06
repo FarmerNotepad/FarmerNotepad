@@ -165,7 +165,6 @@ public class RecyclerViewAdapterMain extends RecyclerView.Adapter implements Fil
         @Override
         public boolean onLongClick(View view) {
             onNoteListener.onNoteLongClick(getAdapterPosition());
-
             return true;
         }
     }

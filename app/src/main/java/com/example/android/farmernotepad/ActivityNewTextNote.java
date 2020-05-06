@@ -196,6 +196,8 @@ public class ActivityNewTextNote extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.attachImage:
+
             case R.id.pickColor:
                 final AlertDialog.Builder alert = new AlertDialog.Builder(ActivityNewTextNote.this);
                 View mView = getLayoutInflater().inflate(R.layout.dialog_color_picker, null);
