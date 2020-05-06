@@ -25,6 +25,7 @@ public class RecyclerViewAdapterMain extends RecyclerView.Adapter implements Fil
     private ArrayList<ListItem> allNotesList;
     private ArrayList<ListItem> allNotesListFull;
     private OnNoteListener mOnNoteListener;
+    private boolean selectCheck = false;
 
 
     public RecyclerViewAdapterMain(ArrayList<ListItem> allNotesList, OnNoteListener onNoteListener) {
@@ -240,5 +241,8 @@ public class RecyclerViewAdapterMain extends RecyclerView.Adapter implements Fil
     public int getItemViewType(int position) {
         return allNotesList.get(position).getListItemType();
     }
+
+
+
 
 }

@@ -32,6 +32,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(FeedReaderContract.SQL_CREATE_TABLE_Checklist_Items);
         db.execSQL(FeedReaderContract.SQL_CREATE_TABLE_Employees);
         db.execSQL(FeedReaderContract.SQL_CREATE_TABLE_Wages);
+        db.execSQL(FeedReaderContract.SQL_CREATE_TABLE_Text_Images);
+        db.execSQL(FeedReaderContract.SQL_CREATE_TABLE_Checklist_Images);
 
     }
 

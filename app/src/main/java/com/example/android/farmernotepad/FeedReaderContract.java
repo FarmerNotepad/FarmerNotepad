@@ -10,6 +10,8 @@ public class FeedReaderContract {
         public final static String TABLE_NAME_Checklist_Items = "ChecklistItems";
         public final static String TABLE_NAME_Employees = "Employees";
         public final static String TABLE_NAME_Wages = "Wages";
+        public final static String TABLE_NAME_Text_Images = "TextImages";
+        public final static String TABLE_NAME_Checklist_Images = "ChecklistImages";
         public final static String COLUMN_ID = "ID";
         public final static String COLUMN_noteTitle = "noteTitle";
         public final static String COLUMN_noteText = "noteText";
@@ -32,6 +34,8 @@ public class FeedReaderContract {
         public final static String COLUMN_wage_Type = "wageType";
         public final static String COLUMN_wage_CreateDate = "wageCreateDate";
         public final static String COLUMN_isChecked = "checkedItem";
+        public final static String COLUMN_imageBlob = "Image";
+        public final static String COLUMN_imageRel = "noteOfImage";
 
     }
 
@@ -68,6 +72,16 @@ public class FeedReaderContract {
             FeedTextNote.COLUMN_wage_Type + " INTEGER," + FeedTextNote.COLUMN_wage_Rel + " INTEGER," +
             "FOREIGN KEY (" + FeedTextNote.COLUMN_wage_Rel + ") REFERENCES " + FeedTextNote.TABLE_NAME_Employees + "(" +
             FeedTextNote.COLUMN_ID + ") ON DELETE CASCADE);";
+
+    public static final String SQL_CREATE_TABLE_Text_Images = "CREATE TABLE IF NOT EXISTS " + FeedTextNote.TABLE_NAME_Text_Images + "(" + FeedTextNote.COLUMN_ID +
+            " INTEGER PRIMARY KEY AUTOINCREMENT," + FeedTextNote.COLUMN_imageBlob + " BLOB," + FeedTextNote.COLUMN_imageRel + " INTEGER,"
+            + "FOREIGN KEY (" + FeedTextNote.COLUMN_imageRel +
+            ") REFERENCES " + FeedTextNote.TABLE_NAME_Text_Note + "(" + FeedTextNote.COLUMN_ID + ") ON DELETE CASCADE);";
+
+
+    public static final String SQL_CREATE_TABLE_Checklist_Images = "CREATE TABLE IF NOT EXISTS " + FeedTextNote.TABLE_NAME_Checklist_Images + "(" + FeedTextNote.COLUMN_ID +
+            " INTEGER PRIMARY KEY AUTOINCREMENT," + FeedTextNote.COLUMN_imageBlob + " BLOB," + FeedTextNote.COLUMN_imageRel + " INTEGER," + "FOREIGN KEY (" + FeedTextNote.COLUMN_imageRel +
+            ") REFERENCES " + FeedTextNote.TABLE_NAME_Checklist_Note + "(" + FeedTextNote.COLUMN_ID + ") ON DELETE CASCADE);";
 
 
     public static final String SQL_DELETE_ENTRIES =
