@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/ic_add_button"
+        android:shortcutDisabledMessage="@string/addNewNote"
+        android:shortcutId="addNote"
+        android:shortcutLongLabel="@string/addNewNote"
+        android:shortcutShortLabel="@string/addNewNote">
+
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.example.android.farmernotepad.ActivityNewTextNote"
+            android:targetPackage="com.example.android.farmernotepad" />
+        <!-- If your shortcut is associated with multiple intents, include them
+             here. The last intent in the list determines what the user sees when
+             they launch this shortcut. -->
+    </shortcut>
+
+
+
+
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/ic_add_button"
+        android:shortcutDisabledMessage="@string/addNewChecklist"
+        android:shortcutId="addChecklist"
+        android:shortcutLongLabel="@string/addNewChecklist"
+        android:shortcutShortLabel="@string/addNewChecklist">
+
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.example.android.farmernotepad.ActivityNewChecklist"
+            android:targetPackage="com.example.android.farmernotepad" />
+        <!-- If your shortcut is associated with multiple intents, include them
+             here. The last intent in the list determines what the user sees when
+             they launch this shortcut. -->
+    </shortcut>
+
+
+
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/ic_add_button"
+        android:shortcutDisabledMessage="@string/addNewEmployee"
+        android:shortcutId="addEmployee"
+        android:shortcutLongLabel="@string/addNewEmployee"
+        android:shortcutShortLabel="@string/addNewEmployee">
+
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.example.android.farmernotepad.ActivityEmployee"
+            android:targetPackage="com.example.android.farmernotepad" />
+        <!-- If your shortcut is associated with multiple intents, include them
+             here. The last intent in the list determines what the user sees when
+             they launch this shortcut. -->
+    </shortcut>
+
+
+
+</shortcuts>

@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">FarmerNotepad</string>
+    <string name="app_name" translatable="false">FarmerNotepad</string>
     <string name="title_activity_new_checklist">NewChecklistActivity</string>
 
-    <string name="google_maps_API_key">AIzaSyCclnpVns_5DdY-qsHrnbstgJVhb8j5I74</string>
+    <string name="google_maps_API_key" translatable="false">AIzaSyCclnpVns_5DdY-qsHrnbstgJVhb8j5I74</string>
     <string name="title_activity_maps" translatable="false">Map</string>
     <string name="title_activity_settings">Settings</string>
 
@@ -11,15 +11,15 @@
     <string name="sync_header">Sync</string>
 
     <!-- Messages Preferences -->
-    <string name="signature_title">Your signature</string>
-    <string name="reply_title">Default reply action</string>
+    <string name="signature_title" translatable="false">Your signature</string>
+    <string name="reply_title" translatable="false">Default reply action</string>
 
     <!-- Sync Preferences -->
-    <string name="sync_title">Sync email periodically</string>
+    <string name="sync_title" translatable="false">Sync email periodically</string>
     <string name="attachment_title">Download incoming attachments</string>
     <string name="attachment_summary_on">Automatically download attachments for incoming emails
     </string>
-    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="attachment_summary_off" translatable="false">Only download attachments when manually requested</string>
 
     //FeedBack Layout
     <string name="feedback_title">Send us your Feedback:</string>
@@ -37,7 +37,7 @@
 
     //Tabbed Dialog
     <string name="tab_color">COLOR</string>
-    <string name="tab_short">SHORT</string>
+    <string name="tab_short">SORT</string>
     <string name="tab_view">VIEW</string>
 
 
@@ -61,6 +61,7 @@
     <string name="sort_by_date_created">by date created</string>
     <string name="sort_by_date_last_modified">by date last modified</string>
     <string name="sort_by_color">by color</string>
+    <string name="filter_by_date">filter by date</string>
 
 
     //ViewTab
@@ -72,7 +73,7 @@
     //PaymentsLog
     <string name="payments_log"><u>PAYMENTS LOG</u></string>
     <string name="payments_log_items_name">EMPLOYEE FULL NAME</string>
-    <string name="payments_log_items_wage">1500€</string>
+    <string name="payments_log_items_wage" translatable="false">1500€</string>
 
 
     //Add Note Dialog
@@ -131,12 +132,11 @@
     <string name="new_checklist_title">Checklist Title</string>
     <string name="new_checklist_add_item">Add Item</string>
     <string name="new_checklist_location">Location</string>
-    <string name="new_checklist_item_title">TEST</string>
 
 
     //Main Activity
     <string name="main_sort_menu">Sort Menu</string>
-    <string name="main_cut_out_paper_not_trees">*Cut out paper NOT TREES*</string>
+    <string name="main_cut_out_paper_not_trees" translatable="false">*Cut out paper NOT TREES*</string>
     <string name="main_add_your_notes_here">ADD YOUR NOTES HERE</string>
 
 
@@ -173,6 +173,19 @@
     <string name="recyclerview_payment_hours_of_work">Hours of Work:</string>
     <string name="recyclerview_payment_job_description">Job Description:</string>
     <string name="recyclerview_payment_wage">Wage:</string>
+
+
+    //Settings
+    <string name="settings_general">General</string>
+    <string name="settings_def_home_screen">Default Home Screen</string>
+    <string name="settings_def_note_color">Default Note Color</string>
+
+
+    //ShortCuts
+    <string name="addNewNote">Add Note</string>
+    <string name="addNewChecklist">Add Checklist</string>
+    <string name="addNewEmployee">Add Employee</string>
+
 
 
 </resources>
