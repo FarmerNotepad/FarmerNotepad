@@ -28,7 +28,9 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -610,6 +612,31 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         dbHelper.close();
         allNotesList.removeAll(toDelete);
         adapter.notifyDataSetChanged();
+    }
+
+    public void filterByDate(int month, int year) throws ParseException {
+        ArrayList<ListItem> filteredList = new ArrayList<ListItem>();
+        SimpleDateFormat format1 =new SimpleDateFormat("dd/MM/yyyy");
+        int noteMonth = 15;
+        int noteYear = 30;
+        Calendar calendar = Calendar.getInstance();
+
+
+        for (int i = 0; i < concreteList.size(); i++) {
+            Date noteDate = format1.parse(concreteList.get(i).getCreateDate());
+            assert noteDate != null;
+            calendar.setTime(noteDate);
+            noteMonth = calendar.get(Calendar.MONTH);
+            noteYear = calendar.get(Calendar.YEAR);
+            if (noteMonth + 1 == month && noteYear == year) {
+                filteredList.add(concreteList.get(i));
+            }
+        }
+        allNotesList.clear();
+        allNotesList.addAll(filteredList);
+        adapter.notifyDataSetChanged();
+
+        GenericUtils.toast(this,String.valueOf(noteMonth) +" " + String.valueOf(month) + " "+  String.valueOf(noteYear) + " " + String.valueOf(year));
     }
 
 
