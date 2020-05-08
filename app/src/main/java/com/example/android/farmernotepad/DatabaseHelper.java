@@ -345,6 +345,71 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    public boolean insertTextImage(int noteID, byte[] image){
+       SQLiteDatabase db = getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(FeedReaderContract.FeedTextNote.COLUMN_imageRel,noteID);
+        cv.put(FeedReaderContract.FeedTextNote.COLUMN_imageBlob,image);
+        long rowInserted = db.insert(FeedReaderContract.FeedTextNote.TABLE_NAME_Text_Images, null, cv);
+        if (rowInserted != -1)
+            return true;
+        else
+            return false;
+    }
+
+    public boolean insertChecklistImage(int noteID, byte[] image){
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(FeedReaderContract.FeedTextNote.COLUMN_imageRel,noteID);
+        cv.put(FeedReaderContract.FeedTextNote.COLUMN_imageBlob,image);
+        long rowInserted = db.insert(FeedReaderContract.FeedTextNote.TABLE_NAME_Checklist_Images, null, cv);
+        if (rowInserted != -1)
+            return true;
+        else
+            return false;
+    }
+
+    public boolean deleteTextImage(int noteID) {
+        SQLiteDatabase db = getWritableDatabase();
+        long rowDeleted = db.delete(FeedReaderContract.FeedTextNote.TABLE_NAME_Text_Images, FeedReaderContract.FeedTextNote.COLUMN_imageRel + "= ?", new String[]{String.valueOf(noteID)});
+        if (rowDeleted > 0)
+            return true;
+        else
+            return false;
+    }
+
+    public boolean deleteChecklistImage(int noteID) {
+        SQLiteDatabase db = getWritableDatabase();
+        long rowDeleted = db.delete(FeedReaderContract.FeedTextNote.TABLE_NAME_Checklist_Images, FeedReaderContract.FeedTextNote.COLUMN_imageRel + "= ?", new String[]{String.valueOf(noteID)});
+        if (rowDeleted > 0)
+            return true;
+        else
+            return false;
+    }
+
+
+    public boolean updateTextImage(int noteID, byte[] image){
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(FeedReaderContract.FeedTextNote.COLUMN_imageBlob,image);
+        long checkUpdate = db.update(FeedReaderContract.FeedTextNote.TABLE_NAME_Text_Images, cv, FeedReaderContract.FeedTextNote.COLUMN_imageRel + "=?", new String[]{String.valueOf(noteID)});
+        if (checkUpdate != -1)
+            return true;
+        else
+            return false;
+    }
+
+    public boolean updateChecklistImage(int noteID, byte[] image){
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(FeedReaderContract.FeedTextNote.COLUMN_imageBlob,image);
+        long checkUpdate = db.update(FeedReaderContract.FeedTextNote.TABLE_NAME_Checklist_Images, cv, FeedReaderContract.FeedTextNote.COLUMN_imageRel + "=?", new String[]{String.valueOf(noteID)});
+        if (checkUpdate != -1)
+            return true;
+        else
+            return false;
+    }
+
 
 }
 
