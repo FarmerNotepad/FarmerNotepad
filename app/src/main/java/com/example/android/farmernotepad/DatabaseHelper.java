@@ -48,7 +48,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("PRAGMA foreign_keys=ON");
     }
 
-    public boolean insertNote(EntryTextNote note) {
+    public long insertNote(EntryTextNote note) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(FeedReaderContract.FeedTextNote.COLUMN_noteTitle, note.getNoteTitle());
@@ -59,10 +59,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(FeedReaderContract.FeedTextNote.COLUMN_noteLatitude, note.getLatitude());
         cv.put(FeedReaderContract.FeedTextNote.COLUMN_noteLongitude, note.getLongitude());
         long rowInserted = db.insert(FeedReaderContract.FeedTextNote.TABLE_NAME_Text_Note, null, cv);
-        if (rowInserted != -1)
+       /* if (rowInserted != -1)
             return true;
         else
-            return false;
+            return false; */
+       return rowInserted;
     }
 
     public boolean updateNote(EntryTextNote note) {
@@ -345,7 +346,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public boolean insertTextImage(int noteID, byte[] image){
+    public boolean insertTextImage(long noteID, byte[] image){
        SQLiteDatabase db = getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(FeedReaderContract.FeedTextNote.COLUMN_imageRel,noteID);

@@ -9,7 +9,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.Menu;
@@ -27,6 +29,7 @@ import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
@@ -158,8 +161,13 @@ public class ActivityNewTextNote extends AppCompatActivity {
                         }
                     }
                     DatabaseHelper dbHelper = new DatabaseHelper(ActivityNewTextNote.this);
-                    Boolean checkInsert = dbHelper.insertNote(myNewTextNote);
-                    if (checkInsert) {
+                    long checkInsert = dbHelper.insertNote(myNewTextNote);
+
+                    if (attachedImage.getDrawable() != null) {
+                        boolean insertImage = dbHelper.insertTextImage(checkInsert, imageViewToByte(attachedImage));
+                    }
+
+                    if (checkInsert != -1 ) {
                         Toast.makeText(getApplicationContext(), "Note Saved", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(ActivityNewTextNote.this, MainActivity.class);
                         startActivity(intent);
@@ -167,6 +175,8 @@ public class ActivityNewTextNote extends AppCompatActivity {
                     } else {
                         Toast.makeText(getApplicationContext(), "Insertion Failed", Toast.LENGTH_SHORT).show();
                     }
+
+
                     dbHelper.close();
                 }
             });
@@ -473,6 +483,15 @@ public class ActivityNewTextNote extends AppCompatActivity {
             attachedImage.setImageURI(data.getData());
         }
     }
+
+    private byte[] imageViewToByte (ImageView image) {
+        Bitmap bitmap = ((BitmapDrawable) image.getDrawable()).getBitmap();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        byte[] byteArray = stream.toByteArray();
+        return byteArray;
+    }
+
 
     @Override
     public void onBackPressed() {
