@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
@@ -446,6 +447,17 @@ public class ActivityNewTextNote extends AppCompatActivity {
 
         cursor.close();
 
+        Cursor cursorImage = dbHelper.getTextImage(noteID);
+
+        if (cursorImage !=null) {
+            cursorImage.moveToFirst();
+
+            byte[] imageByteArray = cursorImage.getBlob(cursorImage.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_imageBlob));
+
+            Bitmap imageBitmap = getImage(imageByteArray);
+            attachedImage.setImageBitmap(imageBitmap);
+        }
+
         TextView title = findViewById(R.id.editTitle);
         TextView text = findViewById(R.id.editText);
 
@@ -487,9 +499,13 @@ public class ActivityNewTextNote extends AppCompatActivity {
     private byte[] imageViewToByte (ImageView image) {
         Bitmap bitmap = ((BitmapDrawable) image.getDrawable()).getBitmap();
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 80, stream);
         byte[] byteArray = stream.toByteArray();
         return byteArray;
+    }
+
+    public static Bitmap getImage(byte[] image) {
+        return BitmapFactory.decodeByteArray(image, 0, image.length);
     }
 
 
