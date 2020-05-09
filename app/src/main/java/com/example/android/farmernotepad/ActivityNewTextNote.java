@@ -64,7 +64,7 @@ public class ActivityNewTextNote extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         //String defColor = sharedPreferences.getString("default_color", "");
-
+        
         toolbar = findViewById(R.id.newTxtNoteToolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
