@@ -412,6 +412,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
+    Cursor getTextImage(int noteID){
+        SQLiteDatabase db = getReadableDatabase();
+        return db.rawQuery("SELECT * FROM " + FeedReaderContract.FeedTextNote.TABLE_NAME_Text_Images + " WHERE "
+                + FeedReaderContract.FeedTextNote.COLUMN_imageRel + "=?", new String[]{String.valueOf(noteID)});
+    }
+
+
 }
 
 
