@@ -28,6 +28,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.ByteArrayOutputStream;
@@ -122,6 +123,14 @@ public class ActivityNewTextNote extends AppCompatActivity {
 
                     DatabaseHelper dbHelper = new DatabaseHelper(ActivityNewTextNote.this);
                     Boolean checkInsert = dbHelper.updateNote(myNewTextNote);
+
+                    if (attachedImage.getDrawable() == null) {
+                        Boolean deleteImage = dbHelper.deleteTextImage(noteIntentID);
+                    }
+                    else {
+                        Boolean updateImage = dbHelper.updateTextImage(noteIntentID,imageViewToByte(attachedImage));
+                    }
+
 
                     if (checkInsert == true) {
                         Toast.makeText(getApplicationContext(), "Note Updated", Toast.LENGTH_SHORT).show();
@@ -449,7 +458,7 @@ public class ActivityNewTextNote extends AppCompatActivity {
 
         Cursor cursorImage = dbHelper.getTextImage(noteID);
 
-        if (cursorImage !=null) {
+        if (cursorImage != null && cursorImage.getCount() > 0) {
             cursorImage.moveToFirst();
 
             byte[] imageByteArray = cursorImage.getBlob(cursorImage.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_imageBlob));
@@ -458,6 +467,7 @@ public class ActivityNewTextNote extends AppCompatActivity {
             attachedImage.setImageBitmap(imageBitmap);
         }
 
+        cursorImage.close();
         TextView title = findViewById(R.id.editTitle);
         TextView text = findViewById(R.id.editText);
 
@@ -489,17 +499,22 @@ public class ActivityNewTextNote extends AppCompatActivity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data)  {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && requestCode == IMAGE_PICK_CODE) {
-            attachedImage.setImageURI(data.getData());
+                Glide
+                        .with(this)
+                        .load(data.getData())
+                        .centerCrop()
+                        .into(attachedImage);
+                //attachedImage.setImageURI(data.getData());
         }
     }
 
     private byte[] imageViewToByte (ImageView image) {
         Bitmap bitmap = ((BitmapDrawable) image.getDrawable()).getBitmap();
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 80, stream);
+        bitmap.compress(Bitmap.CompressFormat.WEBP, 50, stream);
         byte[] byteArray = stream.toByteArray();
         return byteArray;
     }
