@@ -49,6 +49,7 @@ public class ActivityNewTextNote extends AppCompatActivity {
     static ActivityNewTextNote activity;
     private int noteIntentID;
     ImageView attachedImage;
+    FloatingActionButton deleteImage;
     androidx.appcompat.widget.Toolbar toolbar;
 
     private static final int IMAGE_PICK_CODE = 1000;
@@ -74,7 +75,9 @@ public class ActivityNewTextNote extends AppCompatActivity {
         activity = this;
 
         attachedImage = findViewById(R.id.newTextNoteImagePlaceholder);
-        FloatingActionButton deleteImage = findViewById(R.id.deleteImageBtnText);
+        deleteImage = findViewById(R.id.deleteImageBtnText);
+        //checkImageView(attachedImage);
+
 
         final EditText noteTitle = findViewById(R.id.editTitle);
         final EditText noteText = findViewById(R.id.editText);
@@ -95,7 +98,22 @@ public class ActivityNewTextNote extends AppCompatActivity {
         deleteImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                attachedImage.setImageResource(0);
+                //attachedImage.setImageResource(0);
+                attachedImage.setImageDrawable(null);
+                //checkImageView(attachedImage);
+            }
+        });
+
+        attachedImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (attachedImage != null || attachedImage.getDrawable() != null) {
+                    byte[] byteImageView = imageViewToByte(attachedImage);
+
+                    Intent intentDisplay = new Intent(ActivityNewTextNote.this, ActivityDisplayImage.class);
+                    intentDisplay.putExtra("picture", byteImageView);
+                    startActivity(intentDisplay);
+                }
             }
         });
 
@@ -106,6 +124,8 @@ public class ActivityNewTextNote extends AppCompatActivity {
             noteTitle.setEnabled(false);
             newTxtNoteBackground.setEnabled(false);
             loadEditableNote(noteIntentID);
+            //checkImageView(attachedImage);
+
             confirmSaveButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -126,10 +146,9 @@ public class ActivityNewTextNote extends AppCompatActivity {
 
                     if (attachedImage.getDrawable() == null) {
                         Boolean deleteImage = dbHelper.deleteTextImage(noteIntentID);
-                    }
-                    else {
-                        Boolean updateImage = dbHelper.updateTextImage(noteIntentID,imageViewToByte(attachedImage));
-                    }
+                    } else {
+                        Boolean updateImage = dbHelper.updateTextImage(noteIntentID, imageViewToByte(attachedImage));
+                }
 
 
                     if (checkInsert == true) {
@@ -146,6 +165,7 @@ public class ActivityNewTextNote extends AppCompatActivity {
 
         } else {
 
+            //checkImageView(attachedImage);
 
             confirmSaveButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -177,7 +197,7 @@ public class ActivityNewTextNote extends AppCompatActivity {
                         boolean insertImage = dbHelper.insertTextImage(checkInsert, imageViewToByte(attachedImage));
                     }
 
-                    if (checkInsert != -1 ) {
+                    if (checkInsert != -1) {
                         Toast.makeText(getApplicationContext(), "Note Saved", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(ActivityNewTextNote.this, MainActivity.class);
                         startActivity(intent);
@@ -237,11 +257,11 @@ public class ActivityNewTextNote extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.attachImage:
 
-                if(checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED){
+                if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
                     String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE};
                     requestPermissions(permissions, PERMISSION_CODE);
 
-                }else {
+                } else {
                     pickImageFromGallery();
                 }
 
@@ -468,6 +488,7 @@ public class ActivityNewTextNote extends AppCompatActivity {
         }
 
         cursorImage.close();
+
         TextView title = findViewById(R.id.editTitle);
         TextView text = findViewById(R.id.editText);
 
@@ -476,45 +497,49 @@ public class ActivityNewTextNote extends AppCompatActivity {
 
         dbHelper.close();
 
+       // checkImageView(attachedImage);
     }
 
-    public void pickImageFromGallery(){
+    public void pickImageFromGallery() {
 
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
         startActivityForResult(intent, IMAGE_PICK_CODE);
+        //checkImageView(attachedImage);
     }
 
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode){
+        switch (requestCode) {
             case PERMISSION_CODE:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     pickImageFromGallery();
-                }else{
+                } else {
                     Toast.makeText(this, "Permission denied...!", LENGTH_SHORT).show();
                 }
         }
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data)  {
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && requestCode == IMAGE_PICK_CODE) {
-                Glide
-                        .with(this)
-                        .load(data.getData())
-                        .centerCrop()
-                        .into(attachedImage);
-                //attachedImage.setImageURI(data.getData());
+
+            Glide
+                    .with(this)
+                    .load(data.getData())
+                    .centerCrop()
+                    .into(attachedImage);
+
+            //checkImageView(attachedImage);
         }
     }
 
-    private byte[] imageViewToByte (ImageView image) {
+    private byte[] imageViewToByte(ImageView image) {
         Bitmap bitmap = ((BitmapDrawable) image.getDrawable()).getBitmap();
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.WEBP, 50, stream);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
         byte[] byteArray = stream.toByteArray();
         return byteArray;
     }
@@ -522,6 +547,23 @@ public class ActivityNewTextNote extends AppCompatActivity {
     public static Bitmap getImage(byte[] image) {
         return BitmapFactory.decodeByteArray(image, 0, image.length);
     }
+
+    /*
+    private void checkImageView(ImageView imageView) {
+        if (attachedImage == null || attachedImage.getDrawable() == null) {
+
+            attachedImage.setVisibility(View.GONE);
+            deleteImage.setVisibility(View.GONE);
+
+        } else {
+
+            attachedImage.setVisibility(View.VISIBLE);
+            deleteImage.setVisibility(View.VISIBLE);
+
+        }
+
+    }
+     */
 
 
     @Override

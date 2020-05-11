@@ -31,6 +31,13 @@
         <menu>
 
             <item
+                android:id="@+id/attachImage"
+                android:icon="@drawable/ic_image"
+                android:title="Attach Image"
+                app:showAsAction="always"
+                />
+
+            <item
                 android:id="@+id/pinStatusBar"
                 android:icon="@drawable/ic_reminder"
                 android:title="@string/edit_note_menu_pin_to_status_bar"

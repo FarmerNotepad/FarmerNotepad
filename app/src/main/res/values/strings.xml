@@ -41,8 +41,6 @@
     <string name="tab_view">VIEW</string>
 
 
-
-
     //ColorTab
     <string name="Color_all_colors">All Colors</string>
     <string name="Color_red_notes">Red Notes</string>
@@ -185,7 +183,6 @@
     <string name="addNewNote">Add Note</string>
     <string name="addNewChecklist">Add Checklist</string>
     <string name="addNewEmployee">Add Employee</string>
-
 
 
 </resources>
