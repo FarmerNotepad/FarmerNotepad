@@ -19,6 +19,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/LightModeTheme">
+        <activity android:name=".ActivityDisplayImage"></activity>
         <activity android:name=".ActivityLaunch">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,13 +27,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
-            <meta-data android:name="android.app.shortcuts"
+            <meta-data
+                android:name="android.app.shortcuts"
                 android:resource="@xml/shortcuts" />
         </activity>
         <activity
             android:name=".ActivitySettings"
-            android:label="@string/title_activity_settings">
-        </activity>
+            android:label="@string/title_activity_settings"></activity>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -43,17 +44,20 @@
             android:label="@string/title_activity_maps" />
         <activity android:name=".ActivityEmployee" />
         <activity android:name=".ActivityPaymentsLog" />
-        <activity android:name=".ActivityBackup"
+        <activity
+            android:name=".ActivityBackup"
             android:theme="@style/NoActionBar" />
-        <activity android:name=".ActivityFeedback"
+        <activity
+            android:name=".ActivityFeedback"
             android:theme="@style/NoActionBar" />
-        <activity android:name=".ActivityNewChecklist"
-            android:theme="@style/NoActionBar"/>
-        <activity android:name=".ActivityNewTextNote"
+        <activity
+            android:name=".ActivityNewChecklist"
+            android:theme="@style/NoActionBar" />
+        <activity
+            android:name=".ActivityNewTextNote"
             android:theme="@style/NoActionBar"
-            android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".MainActivity">
-        </activity>
+            android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".MainActivity"></activity>
     </application>
 
 </manifest>

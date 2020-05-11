@@ -111,8 +111,8 @@ public class FragmentSort extends Fragment {
                 final androidx.appcompat.app.AlertDialog.Builder alert = new androidx.appcompat.app.AlertDialog.Builder(getContext());
                 View mView = getLayoutInflater().inflate(R.layout.dialog_filter_date, null);
 
-                final NumberPicker monthPicker = (NumberPicker) mView.findViewById(R.id.picker_month);
-                final NumberPicker yearPicker = (NumberPicker) mView.findViewById(R.id.picker_year);
+                final NumberPicker monthPicker = (NumberPicker) mView.findViewById(R.id.monthPicker);
+                final NumberPicker yearPicker = (NumberPicker) mView.findViewById(R.id.yearPicker);
 
                 Calendar cal = Calendar.getInstance();
 
@@ -121,7 +121,7 @@ public class FragmentSort extends Fragment {
                 monthPicker.setValue(cal.get(Calendar.MONTH) + 1);
 
                 yearPicker.setMinValue(2020);
-                yearPicker.setMaxValue(yearPicker.getMinValue() + 3);
+                yearPicker.setMaxValue(yearPicker.getMinValue() + 10);
                 yearPicker.setValue(2020);
 
                alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -150,7 +150,7 @@ public class FragmentSort extends Fragment {
                     }
                 });
 
-                GenericUtils.setDialogSize(alertDialog, 900, ViewGroup.LayoutParams.WRAP_CONTENT);
+                GenericUtils.setDialogSize(alertDialog, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
 
             }

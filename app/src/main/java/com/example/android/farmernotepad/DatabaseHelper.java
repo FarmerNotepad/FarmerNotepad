@@ -63,7 +63,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return true;
         else
             return false; */
-       return rowInserted;
+        return rowInserted;
     }
 
     public boolean updateNote(EntryTextNote note) {
@@ -346,11 +346,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public boolean insertTextImage(long noteID, byte[] image){
-       SQLiteDatabase db = getWritableDatabase();
+    public boolean insertTextImage(long noteID, byte[] image) {
+        SQLiteDatabase db = getWritableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put(FeedReaderContract.FeedTextNote.COLUMN_imageRel,noteID);
-        cv.put(FeedReaderContract.FeedTextNote.COLUMN_imageBlob,image);
+        cv.put(FeedReaderContract.FeedTextNote.COLUMN_imageRel, noteID);
+        cv.put(FeedReaderContract.FeedTextNote.COLUMN_imageBlob, image);
         long rowInserted = db.insert(FeedReaderContract.FeedTextNote.TABLE_NAME_Text_Images, null, cv);
         if (rowInserted != -1)
             return true;
@@ -358,11 +358,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return false;
     }
 
-    public boolean insertChecklistImage(int noteID, byte[] image){
+    public boolean insertChecklistImage(int noteID, byte[] image) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put(FeedReaderContract.FeedTextNote.COLUMN_imageRel,noteID);
-        cv.put(FeedReaderContract.FeedTextNote.COLUMN_imageBlob,image);
+        cv.put(FeedReaderContract.FeedTextNote.COLUMN_imageRel, noteID);
+        cv.put(FeedReaderContract.FeedTextNote.COLUMN_imageBlob, image);
         long rowInserted = db.insert(FeedReaderContract.FeedTextNote.TABLE_NAME_Checklist_Images, null, cv);
         if (rowInserted != -1)
             return true;
@@ -389,21 +389,34 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    public boolean updateTextImage(int noteID, byte[] image){
+    public boolean updateTextImage(int noteID, byte[] image) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put(FeedReaderContract.FeedTextNote.COLUMN_imageBlob,image);
-        long checkUpdate = db.update(FeedReaderContract.FeedTextNote.TABLE_NAME_Text_Images, cv, FeedReaderContract.FeedTextNote.COLUMN_imageRel + "=?", new String[]{String.valueOf(noteID)});
+        cv.put(FeedReaderContract.FeedTextNote.COLUMN_imageBlob, image);
+
+        long checkUpdate;
+        Cursor cursor = getTextImage(noteID);
+
+        if (cursor != null && cursor.getCount() > 0) {
+            checkUpdate = db.update(FeedReaderContract.FeedTextNote.TABLE_NAME_Text_Images, cv, FeedReaderContract.FeedTextNote.COLUMN_imageRel + "=?", new String[]{String.valueOf(noteID)});
+        } else {
+            cv.put(FeedReaderContract.FeedTextNote.COLUMN_imageRel, noteID);
+            checkUpdate = db.insert(FeedReaderContract.FeedTextNote.TABLE_NAME_Text_Images, null, cv);
+        }
+
+        cursor.close();
+
+        //long checkUpdate = db.update(FeedReaderContract.FeedTextNote.TABLE_NAME_Text_Images, cv, FeedReaderContract.FeedTextNote.COLUMN_imageRel + "=?", new String[]{String.valueOf(noteID)});
         if (checkUpdate != -1)
             return true;
         else
             return false;
     }
 
-    public boolean updateChecklistImage(int noteID, byte[] image){
+    public boolean updateChecklistImage(int noteID, byte[] image) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put(FeedReaderContract.FeedTextNote.COLUMN_imageBlob,image);
+        cv.put(FeedReaderContract.FeedTextNote.COLUMN_imageBlob, image);
         long checkUpdate = db.update(FeedReaderContract.FeedTextNote.TABLE_NAME_Checklist_Images, cv, FeedReaderContract.FeedTextNote.COLUMN_imageRel + "=?", new String[]{String.valueOf(noteID)});
         if (checkUpdate != -1)
             return true;
@@ -412,7 +425,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    Cursor getTextImage(int noteID){
+    Cursor getTextImage(int noteID) {
         SQLiteDatabase db = getReadableDatabase();
         return db.rawQuery("SELECT * FROM " + FeedReaderContract.FeedTextNote.TABLE_NAME_Text_Images + " WHERE "
                 + FeedReaderContract.FeedTextNote.COLUMN_imageRel + "=?", new String[]{String.valueOf(noteID)});
