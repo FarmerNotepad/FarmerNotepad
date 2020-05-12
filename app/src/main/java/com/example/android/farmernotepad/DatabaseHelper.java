@@ -99,7 +99,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return false;
     }
 
-    public boolean insertChecklist(EntryChecklistNote checklist) {
+    public long insertChecklist(EntryChecklistNote checklist) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(FeedReaderContract.FeedTextNote.COLUMN_noteTitle, checklist.getNoteTitle());
@@ -109,7 +109,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(FeedReaderContract.FeedTextNote.COLUMN_noteLatitude, checklist.getLatitude());
         cv.put(FeedReaderContract.FeedTextNote.COLUMN_noteLongitude, checklist.getLongitude());
         long lastID = db.insert(FeedReaderContract.FeedTextNote.TABLE_NAME_Checklist_Note, null, cv);
-        if (lastID != -1) {
+
+        //if (lastID != -1) {
+
             int newID = (int) lastID;
             ContentValues cvitems = new ContentValues();
             ArrayList<ChecklistItemEntry> items = checklist.getChecklistItems();
@@ -125,10 +127,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     }
                 }
             }
-            return true;
-        } else {
-            return false;
-        }
+            return lastID;
+
+        //} else {
+          //  return lastID;
+       // }
+
     }
 
     public boolean deleteChecklist(int checklistID) {
@@ -358,7 +362,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return false;
     }
 
-    public boolean insertChecklistImage(int noteID, byte[] image) {
+    public boolean insertChecklistImage(long noteID, byte[] image) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(FeedReaderContract.FeedTextNote.COLUMN_imageRel, noteID);
@@ -417,7 +421,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(FeedReaderContract.FeedTextNote.COLUMN_imageBlob, image);
-        long checkUpdate = db.update(FeedReaderContract.FeedTextNote.TABLE_NAME_Checklist_Images, cv, FeedReaderContract.FeedTextNote.COLUMN_imageRel + "=?", new String[]{String.valueOf(noteID)});
+
+        long checkUpdate;
+        Cursor cursor = getChecklistImage(noteID);
+
+        if (cursor != null && cursor.getCount() > 0) {
+            checkUpdate = db.update(FeedReaderContract.FeedTextNote.TABLE_NAME_Checklist_Images, cv, FeedReaderContract.FeedTextNote.COLUMN_imageRel + "=?", new String[]{String.valueOf(noteID)});
+        } else {
+            cv.put(FeedReaderContract.FeedTextNote.COLUMN_imageRel, noteID);
+            checkUpdate = db.insert(FeedReaderContract.FeedTextNote.TABLE_NAME_Checklist_Images, null, cv);
+        }
+
+        cursor.close();
+
+
+        //long checkUpdate = db.update(FeedReaderContract.FeedTextNote.TABLE_NAME_Checklist_Images, cv, FeedReaderContract.FeedTextNote.COLUMN_imageRel + "=?", new String[]{String.valueOf(noteID)});
         if (checkUpdate != -1)
             return true;
         else
@@ -428,6 +446,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     Cursor getTextImage(int noteID) {
         SQLiteDatabase db = getReadableDatabase();
         return db.rawQuery("SELECT * FROM " + FeedReaderContract.FeedTextNote.TABLE_NAME_Text_Images + " WHERE "
+                + FeedReaderContract.FeedTextNote.COLUMN_imageRel + "=?", new String[]{String.valueOf(noteID)});
+    }
+
+
+    Cursor getChecklistImage(int noteID) {
+        SQLiteDatabase db = getReadableDatabase();
+        return db.rawQuery("SELECT * FROM " + FeedReaderContract.FeedTextNote.TABLE_NAME_Checklist_Images + " WHERE "
                 + FeedReaderContract.FeedTextNote.COLUMN_imageRel + "=?", new String[]{String.valueOf(noteID)});
     }
 

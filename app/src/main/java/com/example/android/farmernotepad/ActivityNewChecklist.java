@@ -9,7 +9,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.Menu;
@@ -24,8 +27,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
@@ -49,6 +54,7 @@ public class ActivityNewChecklist extends AppCompatActivity implements RecyclerV
     RecyclerViewAdapterChecklist adapter;
     private boolean editable;
     ImageView attachedImage;
+    FloatingActionButton deleteImage;
     androidx.appcompat.widget.Toolbar toolbar;
 
     private static final int IMAGE_PICK_CODE = 1000;
@@ -62,11 +68,13 @@ public class ActivityNewChecklist extends AppCompatActivity implements RecyclerV
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_new_checklist);
 
         attachedImage = findViewById(R.id.newChecklistImagePlaceholder);
-        FloatingActionButton deleteImage = findViewById(R.id.deleteImageBtnChecklist);
+        deleteImage = findViewById(R.id.deleteImageBtnChecklist);
+        attachedImage.setVisibility(View.GONE);
+        deleteImage.setVisibility(View.GONE);
+
         final EditText checklistTitle = findViewById(R.id.checklistTitleEditText);
         final CheckBox checkLocation = findViewById(R.id.checkBoxLocChecklist);
         activity = this;
@@ -107,7 +115,25 @@ public class ActivityNewChecklist extends AppCompatActivity implements RecyclerV
         deleteImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                attachedImage.setImageResource(0);
+                attachedImage.setImageDrawable(null);
+
+                attachedImage.setVisibility(View.GONE);
+                deleteImage.setVisibility(View.GONE);
+            }
+        });
+
+
+        attachedImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (attachedImage != null || attachedImage.getDrawable() != null) {
+
+                    byte[] byteImageView = imageViewToByte(attachedImage);
+
+                    Intent intentDisplay = new Intent(ActivityNewChecklist.this, ActivityDisplayImage.class);
+                    intentDisplay.putExtra("picture", byteImageView);
+                    startActivity(intentDisplay);
+                }
             }
         });
 
@@ -137,11 +163,18 @@ public class ActivityNewChecklist extends AppCompatActivity implements RecyclerV
                     myNewChecklist.setColor(noteColor);
 
 
-
                     myNewChecklist.setChecklistItems(mChecklistItem);
 
                     DatabaseHelper dbHelper = new DatabaseHelper(ActivityNewChecklist.this);
                     Boolean checkUpdate = dbHelper.updateChecklist(myNewChecklist);
+
+                    if (attachedImage.getDrawable() == null) {
+                        Boolean deleteImage = dbHelper.deleteChecklistImage(noteIntentID);
+                    } else {
+                        Boolean updateImage = dbHelper.updateChecklistImage(noteIntentID, imageViewToByte(attachedImage));
+                    }
+
+
                     if (checkUpdate) {
                         Toast.makeText(getApplicationContext(), "Checklist Updated", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(ActivityNewChecklist.this, MainActivity.class);
@@ -179,12 +212,17 @@ public class ActivityNewChecklist extends AppCompatActivity implements RecyclerV
                         }
                     }
 
-
                     myNewChecklist.setChecklistItems(mChecklistItem);
 
                     DatabaseHelper dbHelper = new DatabaseHelper(ActivityNewChecklist.this);
-                    Boolean checkInsert = dbHelper.insertChecklist(myNewChecklist);
-                    if (checkInsert) {
+                    long checkInsert = dbHelper.insertChecklist(myNewChecklist);
+
+                    if (attachedImage.getDrawable() != null) {
+                        boolean insertImage = dbHelper.insertChecklistImage(checkInsert, imageViewToByte(attachedImage));
+                    }
+
+
+                    if (checkInsert != -1) {
                         Toast.makeText(getApplicationContext(), "Checklist Saved", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(ActivityNewChecklist.this, MainActivity.class);
                         startActivity(intent);
@@ -322,14 +360,12 @@ public class ActivityNewChecklist extends AppCompatActivity implements RecyclerV
         if (editable) {
             String itemText = mChecklistItem.get(position).getItemText();
             editItemDialogBox(itemText, position);
-        }
-        else {
+        } else {
 
             int isItChecked = mChecklistItem.get(position).getIsChecked();
-            if (isItChecked == 0){
+            if (isItChecked == 0) {
                 mChecklistItem.get(position).setIsChecked(1);
-            }
-            else {
+            } else {
                 mChecklistItem.get(position).setIsChecked(0);
             }
             adapter.notifyDataSetChanged();
@@ -366,11 +402,11 @@ public class ActivityNewChecklist extends AppCompatActivity implements RecyclerV
         switch (item.getItemId()) {
             case R.id.attachImage:
 
-                if(checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED){
+                if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
                     String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE};
                     requestPermissions(permissions, PERMISSION_CODE);
 
-                }else {
+                } else {
                     pickImageFromGallery();
                 }
 
@@ -543,10 +579,9 @@ public class ActivityNewChecklist extends AppCompatActivity implements RecyclerV
                 NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, CHANNEL_ID);
                 TextView checklistTitle = findViewById(R.id.checklistTitleEditText);
                 String checklistText = "";
-                for (ChecklistItemEntry s : mChecklistItem){
-                            checklistText += " \u2022" + s.getItemText();
+                for (ChecklistItemEntry s : mChecklistItem) {
+                    checklistText += " \u2022" + s.getItemText();
                 }
-
 
 
                 notificationBuilder.setAutoCancel(true)
@@ -603,6 +638,26 @@ public class ActivityNewChecklist extends AppCompatActivity implements RecyclerV
             } while (cursorItems.moveToNext());
         }
         cursorItems.close();
+
+
+        Cursor cursorImage = dbHelper.getChecklistImage(noteID);
+
+        if (cursorImage != null && cursorImage.getCount() > 0) {
+            cursorImage.moveToFirst();
+
+            byte[] imageByteArray = cursorImage.getBlob(cursorImage.getColumnIndex(FeedReaderContract.FeedTextNote.COLUMN_imageBlob));
+
+            Bitmap imageBitmap = getImage(imageByteArray);
+            attachedImage.setImageBitmap(imageBitmap);
+
+            attachedImage.setVisibility(View.VISIBLE);
+            deleteImage.setVisibility(View.VISIBLE);
+        }
+
+        cursorImage.close();
+
+
+
         dbHelper.close();
 
         EditText title = findViewById(R.id.checklistTitleEditText);
@@ -610,7 +665,7 @@ public class ActivityNewChecklist extends AppCompatActivity implements RecyclerV
         title.setText(textNoteTitle);
     }
 
-    public void pickImageFromGallery(){
+    public void pickImageFromGallery() {
 
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
@@ -620,11 +675,11 @@ public class ActivityNewChecklist extends AppCompatActivity implements RecyclerV
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode){
+        switch (requestCode) {
             case PERMISSION_CODE:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     pickImageFromGallery();
-                }else{
+                } else {
                     Toast.makeText(this, "Permission denied...!", LENGTH_SHORT).show();
                 }
         }
@@ -634,9 +689,30 @@ public class ActivityNewChecklist extends AppCompatActivity implements RecyclerV
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && requestCode == IMAGE_PICK_CODE) {
-            attachedImage.setImageURI(data.getData());
+
+            Glide
+                    .with(this)
+                    .load(data.getData())
+                    //.centerCrop()
+                    .into(attachedImage);
+
+            attachedImage.setVisibility(View.VISIBLE);
+            deleteImage.setVisibility(View.VISIBLE);
         }
     }
+
+    private byte[] imageViewToByte(ImageView image) {
+        Bitmap bitmap = ((BitmapDrawable) image.getDrawable()).getBitmap();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        byte[] byteArray = stream.toByteArray();
+        return byteArray;
+    }
+
+    public static Bitmap getImage(byte[] image) {
+        return BitmapFactory.decodeByteArray(image, 0, image.length);
+    }
+
 
 
     @Override

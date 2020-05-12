@@ -7,6 +7,8 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.widget.ImageView;
 
+import com.github.chrisbanes.photoview.PhotoView;
+
 public class ActivityDisplayImage extends AppCompatActivity {
 
     @Override
@@ -18,7 +20,7 @@ public class ActivityDisplayImage extends AppCompatActivity {
         byte[] byteImageView = extras.getByteArray("picture");
 
         Bitmap bmp = BitmapFactory.decodeByteArray(byteImageView, 0, byteImageView.length);
-        ImageView image = (ImageView) findViewById(R.id.fullImageDisplay);
+        PhotoView image = findViewById(R.id.fullImageDisplay);
 
         image.setImageBitmap(bmp);
     }
