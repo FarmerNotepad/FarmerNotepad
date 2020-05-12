@@ -51,10 +51,9 @@
                 android:layout_height="200dp"
                 android:layout_marginHorizontal="5dp"
                 android:layout_marginVertical="3dp"
-                android:scaleType="centerCrop"
+                android:scaleType="fitCenter"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.444"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 

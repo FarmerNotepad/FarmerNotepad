@@ -76,7 +76,8 @@ public class ActivityNewTextNote extends AppCompatActivity {
 
         attachedImage = findViewById(R.id.newTextNoteImagePlaceholder);
         deleteImage = findViewById(R.id.deleteImageBtnText);
-        //checkImageView(attachedImage);
+        attachedImage.setVisibility(View.GONE);
+        deleteImage.setVisibility(View.GONE);
 
 
         final EditText noteTitle = findViewById(R.id.editTitle);
@@ -98,9 +99,10 @@ public class ActivityNewTextNote extends AppCompatActivity {
         deleteImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //attachedImage.setImageResource(0);
                 attachedImage.setImageDrawable(null);
-                //checkImageView(attachedImage);
+
+                attachedImage.setVisibility(View.GONE);
+                deleteImage.setVisibility(View.GONE);
             }
         });
 
@@ -108,6 +110,7 @@ public class ActivityNewTextNote extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (attachedImage != null || attachedImage.getDrawable() != null) {
+
                     byte[] byteImageView = imageViewToByte(attachedImage);
 
                     Intent intentDisplay = new Intent(ActivityNewTextNote.this, ActivityDisplayImage.class);
@@ -124,7 +127,6 @@ public class ActivityNewTextNote extends AppCompatActivity {
             noteTitle.setEnabled(false);
             newTxtNoteBackground.setEnabled(false);
             loadEditableNote(noteIntentID);
-            //checkImageView(attachedImage);
 
             confirmSaveButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -148,7 +150,7 @@ public class ActivityNewTextNote extends AppCompatActivity {
                         Boolean deleteImage = dbHelper.deleteTextImage(noteIntentID);
                     } else {
                         Boolean updateImage = dbHelper.updateTextImage(noteIntentID, imageViewToByte(attachedImage));
-                }
+                    }
 
 
                     if (checkInsert == true) {
@@ -159,13 +161,14 @@ public class ActivityNewTextNote extends AppCompatActivity {
                     } else {
                         Toast.makeText(getApplicationContext(), "Update Failed", Toast.LENGTH_SHORT).show();
                     }
+
+                    dbHelper.close();
                 }
             });
 
 
         } else {
 
-            //checkImageView(attachedImage);
 
             confirmSaveButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -190,6 +193,7 @@ public class ActivityNewTextNote extends AppCompatActivity {
                             myNewTextNote.setLongitude(myCoords[1]);
                         }
                     }
+
                     DatabaseHelper dbHelper = new DatabaseHelper(ActivityNewTextNote.this);
                     long checkInsert = dbHelper.insertNote(myNewTextNote);
 
@@ -266,6 +270,7 @@ public class ActivityNewTextNote extends AppCompatActivity {
                 }
 
                 break;
+
             case R.id.pickColor:
                 final AlertDialog.Builder alert = new AlertDialog.Builder(ActivityNewTextNote.this);
                 View mView = getLayoutInflater().inflate(R.layout.dialog_color_picker, null);
@@ -476,6 +481,7 @@ public class ActivityNewTextNote extends AppCompatActivity {
 
         cursor.close();
 
+
         Cursor cursorImage = dbHelper.getTextImage(noteID);
 
         if (cursorImage != null && cursorImage.getCount() > 0) {
@@ -485,6 +491,9 @@ public class ActivityNewTextNote extends AppCompatActivity {
 
             Bitmap imageBitmap = getImage(imageByteArray);
             attachedImage.setImageBitmap(imageBitmap);
+
+            attachedImage.setVisibility(View.VISIBLE);
+            deleteImage.setVisibility(View.VISIBLE);
         }
 
         cursorImage.close();
@@ -497,7 +506,6 @@ public class ActivityNewTextNote extends AppCompatActivity {
 
         dbHelper.close();
 
-       // checkImageView(attachedImage);
     }
 
     public void pickImageFromGallery() {
@@ -505,7 +513,6 @@ public class ActivityNewTextNote extends AppCompatActivity {
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
         startActivityForResult(intent, IMAGE_PICK_CODE);
-        //checkImageView(attachedImage);
     }
 
 
@@ -529,10 +536,11 @@ public class ActivityNewTextNote extends AppCompatActivity {
             Glide
                     .with(this)
                     .load(data.getData())
-                    .centerCrop()
+                    //.centerCrop()
                     .into(attachedImage);
 
-            //checkImageView(attachedImage);
+            attachedImage.setVisibility(View.VISIBLE);
+            deleteImage.setVisibility(View.VISIBLE);
         }
     }
 
@@ -548,22 +556,26 @@ public class ActivityNewTextNote extends AppCompatActivity {
         return BitmapFactory.decodeByteArray(image, 0, image.length);
     }
 
-    /*
+/*
     private void checkImageView(ImageView imageView) {
-        if (attachedImage == null || attachedImage.getDrawable() == null) {
+        if (attachedImage.getDrawable() == null) {
 
             attachedImage.setVisibility(View.GONE);
             deleteImage.setVisibility(View.GONE);
+
+            attachedImage.refreshDrawableState();
 
         } else {
 
             attachedImage.setVisibility(View.VISIBLE);
             deleteImage.setVisibility(View.VISIBLE);
 
+            attachedImage.refreshDrawableState();
         }
 
     }
-     */
+
+ */
 
 
     @Override
