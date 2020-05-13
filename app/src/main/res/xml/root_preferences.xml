@@ -38,16 +38,6 @@
             app:title="Default Note Color"
             app:useSimpleSummaryProvider="true" />
 
-        <ListPreference
-            app:key="default_font_size"
-            app:title="Default font size"/>
-
-
-        <SwitchPreferenceCompat
-            app:key="dark_mode"
-            app:title="Dark Mode" />
-
-
     </PreferenceCategory>
 
 
@@ -77,7 +67,11 @@
 
         <EditTextPreference
             app:key="app_info"
-            app:title="App Info"/>
+            app:title="App Info"
+            app:summary="FarmerNotepad Version 1.0.0"
+            app:selectable="false"
+            />
+
 
     </PreferenceCategory>
 

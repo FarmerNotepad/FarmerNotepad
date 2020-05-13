@@ -10,7 +10,7 @@
     <color name="colorSecondaryVariant">#ffdd71</color>
     <color name="colorAccent">#c77c02</color>
     <color name="background">#f2ffff</color>
-    <color name="navigationBarColor"></color>
+    <color name="navigationBarColor" />
 
     //TEXT
 

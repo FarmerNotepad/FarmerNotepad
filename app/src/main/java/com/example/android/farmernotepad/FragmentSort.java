@@ -139,16 +139,6 @@ public class FragmentSort extends Fragment {
                 alertDialog.setCanceledOnTouchOutside(false);
                 alertDialog.show();
 
-                alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        try {
-                            myActivity.filterByDate(monthPicker.getValue(),yearPicker.getValue());
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-                        alertDialog.dismiss();
-                    }
-                });
 
                 GenericUtils.setDialogSize(alertDialog, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 

@@ -181,7 +181,8 @@ public class ActivityNewChecklist extends AppCompatActivity implements RecyclerV
                         startActivity(intent);
                         ActivityNewChecklist.this.finish();
                     } else {
-                        Toast.makeText(getApplicationContext(), "Update Failed", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), checkUpdate.toString(), Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getApplicationContext(), "Update Failed", Toast.LENGTH_SHORT).show();
                     }
                     dbHelper.close();
                 }

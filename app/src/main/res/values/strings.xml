@@ -185,4 +185,14 @@
     <string name="addNewEmployee">Add Employee</string>
 
 
+    //Filter by Date Picker
+    <string name="monthPicker">Month :</string>
+    <string name="yearPicker">Year :</string>
+    <string name="attach_image">Attach Image</string>
+    <string name="delete_note">Delete Note</string>
+    <string name="set_reminder">Set Reminder</string>
+    <string name="share_note">Share Note</string>
+    <string name="attach_image">Attach Image</string>
+
+
 </resources>

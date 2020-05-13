@@ -636,7 +636,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         allNotesList.addAll(filteredList);
         adapter.notifyDataSetChanged();
 
-        GenericUtils.toast(this,String.valueOf(noteMonth) +" " + String.valueOf(month) + " "+  String.valueOf(noteYear) + " " + String.valueOf(year));
+        GenericUtils.toast(this,"Notes created on " + String.valueOf(month) + "/"+ String.valueOf(year));
     }
 
 
