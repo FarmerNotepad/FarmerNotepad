@@ -1,14 +1,14 @@
 <resources>
     <string name="app_name" translatable="false">FarmerNotepad</string>
-    <string name="title_activity_new_checklist">NewChecklistActivity</string>
+    <string name="title_activity_new_checklist" translatable="false">NewChecklistActivity</string>
 
     <string name="google_maps_API_key" translatable="false">AIzaSyCclnpVns_5DdY-qsHrnbstgJVhb8j5I74</string>
     <string name="title_activity_maps" translatable="false">Map</string>
-    <string name="title_activity_settings">Settings</string>
+    <string name="title_activity_settings" translatable="false">Settings</string>
 
     <!-- Preference Titles -->
-    <string name="messages_header">Messages</string>
-    <string name="sync_header">Sync</string>
+    <string name="messages_header" translatable="false">Messages</string>
+    <string name="sync_header" translatable="false">Sync</string>
 
     <!-- Messages Preferences -->
     <string name="signature_title" translatable="false">Your signature</string>
@@ -16,183 +16,182 @@
 
     <!-- Sync Preferences -->
     <string name="sync_title" translatable="false">Sync email periodically</string>
-    <string name="attachment_title">Download incoming attachments</string>
-    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    <string name="attachment_title" translatable="false">Download incoming attachments</string>
+    <string name="attachment_summary_on" translatable="false">Automatically download attachments for incoming emails
     </string>
     <string name="attachment_summary_off" translatable="false">Only download attachments when manually requested</string>
 
     //FeedBack Layout
-    <string name="feedback_title">Send us your Feedback:</string>
-    <string name="feedback_button">Send Feedback</string>
-    <string name="feedback_hint">Write your feedback here.....</string>
+    <string name="feedback_title" translatable="false">Send us your Feedback:</string>
+    <string name="feedback_button" translatable="false">Send Feedback</string>
+    <string name="feedback_hint" translatable="false">Write your feedback here.....</string>
 
     //Backup Layout
-    <string name="backup_export_title">Export your Notes:</string>
-    <string name="backup_import_title">Import previous Notes:</string>
-    <string name="backup_email_checkbox">Export to Email:</string>
-    <string name="backup_local_checkbox">Export Locally</string>
-    <string name="backup_export_button">EXPORT NOTES</string>
-    <string name="backup_import_button">IMPORT NOTES</string>
-    <string name="backup_email_hint">Write your email</string>
+    <string name="backup_export_title" translatable="false">Export your Notes:</string>
+    <string name="backup_import_title" translatable="false">Import previous Notes:</string>
+    <string name="backup_email_checkbox" translatable="false">Export to Email:</string>
+    <string name="backup_local_checkbox" translatable="false">Export Locally</string>
+    <string name="backup_export_button" translatable="false">EXPORT NOTES</string>
+    <string name="backup_import_button" translatable="false">IMPORT NOTES</string>
+    <string name="backup_email_hint" translatable="false">Write your email</string>
 
     //Tabbed Dialog
-    <string name="tab_color">COLOR</string>
-    <string name="tab_short">SORT</string>
-    <string name="tab_view">VIEW</string>
+    <string name="tab_color" translatable="false">COLOR</string>
+    <string name="tab_short" translatable="false">SORT</string>
+    <string name="tab_view" translatable="false">VIEW</string>
 
 
     //ColorTab
-    <string name="Color_all_colors">All Colors</string>
-    <string name="Color_red_notes">Red Notes</string>
-    <string name="Color_orange_notes">Orange Notes</string>
-    <string name="Color_yellow_notes">Yellow Notes</string>
-    <string name="Color_green_notes">Green Notes</string>
-    <string name="Color_blue_notes">Blue Notes</string>
-    <string name="Color_purple_notes">Purple Notes</string>
-    <string name="Color_black_notes">Black Notes</string>
-    <string name="Color_grey_notes">Grey Notes</string>
-    <string name="Color_white_notes">White Notes</string>
+    <string name="Color_all_colors" translatable="false">All Colors</string>
+    <string name="Color_red_notes" translatable="false">Red Notes</string>
+    <string name="Color_orange_notes" translatable="false">Orange Notes</string>
+    <string name="Color_yellow_notes" translatable="false">Yellow Notes</string>
+    <string name="Color_green_notes" translatable="false">Green Notes</string>
+    <string name="Color_blue_notes" translatable="false">Blue Notes</string>
+    <string name="Color_purple_notes" translatable="false">Purple Notes</string>
+    <string name="Color_black_notes" translatable="false">Black Notes</string>
+    <string name="Color_grey_notes" translatable="false">Grey Notes</string>
+    <string name="Color_white_notes" translatable="false">White Notes</string>
 
 
     //SortTab
-    <string name="sort_alphabetically">Alphabetically</string>
-    <string name="sort_by_date_created">by date created</string>
-    <string name="sort_by_date_last_modified">by date last modified</string>
-    <string name="sort_by_color">by color</string>
-    <string name="filter_by_date">filter by date</string>
+    <string name="sort_alphabetically" translatable="false">Alphabetically</string>
+    <string name="sort_by_date_created" translatable="false">by date created</string>
+    <string name="sort_by_date_last_modified" translatable="false">by date last modified</string>
+    <string name="sort_by_color" translatable="false">by color</string>
+    <string name="filter_by_date" translatable="false">filter by date</string>
 
 
     //ViewTab
-    <string name="view_list">List View</string>
-    <string name="view_grid">Grid View</string>
-    <string name="view_staggered">Staggered View</string>
+    <string name="view_list" translatable="false">List View</string>
+    <string name="view_grid" translatable="false">Grid View</string>
+    <string name="view_staggered" translatable="false">Staggered View</string>
 
 
     //PaymentsLog
-    <string name="payments_log"><u>PAYMENTS LOG</u></string>
-    <string name="payments_log_items_name">EMPLOYEE FULL NAME</string>
+    <string name="payments_log" translatable="false"><u>PAYMENTS LOG</u></string>
+    <string name="payments_log_items_name" translatable="false">EMPLOYEE FULL NAME</string>
     <string name="payments_log_items_wage" translatable="false">1500€</string>
 
 
     //Add Note Dialog
-    <string name="dialog_add_note">Add Note</string>
-    <string name="dialog_text_note">Text</string>
-    <string name="dialog_checklist_note">Checklist</string>
+    <string name="dialog_add_note" translatable="false">Add Note</string>
+    <string name="dialog_text_note" translatable="false">Text</string>
+    <string name="dialog_checklist_note" translatable="false">Checklist</string>
 
 
     //Edit Note Menu
-    <string name="edit_note_menu_edit">Edit</string>
-    <string name="edit_note_menu_delete_note">Delete Note</string>
-    <string name="edit_note_menu_pick_color">Pick Color</string>
-    <string name="edit_note_menu_show_on_map">Show on map</string>
-    <string name="edit_note_menu_pin_to_status_bar">Pin to status bar</string>
-    <string name="edit_note_menu_share">Share</string>
-    <string name="edit_note_showMoreMenu">Show More Menu</string>
+    <string name="edit_note_menu_edit" translatable="false">Edit</string>
+    <string name="edit_note_menu_delete_note" translatable="false">Delete Note</string>
+    <string name="edit_note_menu_pick_color" translatable="false">Pick Color</string>
+    <string name="edit_note_menu_show_on_map" translatable="false">Show on map</string>
+    <string name="edit_note_menu_pin_to_status_bar" translatable="false">Pin to status bar</string>
+    <string name="edit_note_menu_share" translatable="false">Share</string>
+    <string name="edit_note_showMoreMenu" translatable="false">Show More Menu</string>
 
 
     //Employee Edit Menu
-    <string name="employee_edit_menu_edit">EDIT</string>
-    <string name="employee_edit_menu_sort">Sort</string>
-    <string name="employee_edit_menu_show_more_menu">Show More Menu</string>
-    <string name="employee_edit_menu_delete_employee">Delete Employee</string>
+    <string name="employee_edit_menu_edit" translatable="false">EDIT</string>
+    <string name="employee_edit_menu_sort" translatable="false">Sort</string>
+    <string name="employee_edit_menu_show_more_menu" translatable="false">Show More Menu</string>
+    <string name="employee_edit_menu_delete_employee" translatable="false">Delete Employee</string>
 
 
     //Main Menu
-    <string name="main_menu_search">Search</string>
-    <string name="main_menu_sort">Sort</string>
-    <string name="main_menu_show_on_map">Show on map</string>
-    <string name="main_menu_show_more_menu">Show More Menu</string>
-    <string name="main_menu_payments_log">Payments Log</string>
-    <string name="main_menu_backup_files">Backup Files</string>
-    <string name="main_menu_feedback">Feedback</string>
-    <string name="main_menu_settings">Settings</string>
+    <string name="main_menu_search" translatable="false">Search</string>
+    <string name="main_menu_sort" translatable="false">Sort</string>
+    <string name="main_menu_show_on_map" translatable="false">Show on map</string>
+    <string name="main_menu_show_more_menu" translatable="false">Show More Menu</string>
+    <string name="main_menu_payments_log" translatable="false">Payments Log</string>
+    <string name="main_menu_backup_files" translatable="false">Backup Files</string>
+    <string name="main_menu_feedback" translatable="false">Feedback</string>
+    <string name="main_menu_settings" translatable="false">Settings</string>
 
     //Note Menu
-    <string name="note_menu_pick_color">Pick Color</string>
+    <string name="note_menu_pick_color" translatable="false">Pick Color</string>
 
 
     //Payments Log Menu
-    <string name="payments_log_menu_search">Search</string>
-    <string name="payments_log_menu_sort">Sort</string>
-    <string name="payments_log_menu_show_more_menu">Show More Menu</string>
-    <string name="payments_log_menu_farmer_notepad">Farmer Notepad</string>
-    <string name="payments_log_menu_backup_files">Backup Files</string>
-    <string name="payments_log_menu_feedback">Feedback</string>
-    <string name="payments_log_menu_settings">Settings</string>
+    <string name="payments_log_menu_search" translatable="false">Search</string>
+    <string name="payments_log_menu_sort" translatable="false">Sort</string>
+    <string name="payments_log_menu_show_more_menu" translatable="false">Show More Menu</string>
+    <string name="payments_log_menu_farmer_notepad" translatable="false">Farmer Notepad</string>
+    <string name="payments_log_menu_backup_files" translatable="false">Backup Files</string>
+    <string name="payments_log_menu_feedback" translatable="false">Feedback</string>
+    <string name="payments_log_menu_settings" translatable="false">Settings</string>
 
 
     //New Text Note
-    <string name="new_note_title">Note Title</string>
-    <string name="new_note_location">Location</string>
+    <string name="new_note_title" translatable="false">Note Title</string>
+    <string name="new_note_location" translatable="false">Location</string>
 
 
     //New Checklist Note
-    <string name="new_checklist_title">Checklist Title</string>
-    <string name="new_checklist_add_item">Add Item</string>
-    <string name="new_checklist_location">Location</string>
+    <string name="new_checklist_title" translatable="false">Checklist Title</string>
+    <string name="new_checklist_add_item" translatable="false">Add Item</string>
+    <string name="new_checklist_location" translatable="false">Location</string>
 
 
     //Main Activity
-    <string name="main_sort_menu">Sort Menu</string>
+    <string name="main_sort_menu" translatable="false">Sort Menu</string>
     <string name="main_cut_out_paper_not_trees" translatable="false">*Cut out paper NOT TREES*</string>
-    <string name="main_add_your_notes_here">ADD YOUR NOTES HERE</string>
+    <string name="main_add_your_notes_here" translatable="false">ADD YOUR NOTES HERE</string>
 
 
     //Dialog Add Checklist Item
-    <string name="dialog_checklist_item_add_item">Add Item</string>
-    <string name="dialog_checklist_item_cancel">Cancel</string>
-    <string name="dialog_checklist_item_ok">OK</string>
+    <string name="dialog_checklist_item_add_item" translatable="false">Add Item</string>
+    <string name="dialog_checklist_item_cancel" translatable="false">Cancel</string>
+    <string name="dialog_checklist_item_ok" translatable="false">OK</string>
 
 
     //Dialog Add Payment - Day Off
-    <string name="dialog_add_payment_title">Add Payment / Day Off</string>
-    <string name="dialog_add_payment_add_date">ADD DATE:</string>
-    <string name="dialog_add_payment_date">DATE</string>
-    <string name="dialog_add_payment_work_hours">WORK HOURS:</string>
-    <string name="dialog_add_payment_hours">HOURS</string>
-    <string name="dialog_add_payment_total_wage">TOTAL WAGE:</string>
-    <string name="dialog_add_payment_wage">WAGE</string>
-    <string name="dialog_add_payment_description">DESCRIPTION:</string>
-    <string name="dialog_add_payment_job_description">JOB DESCRIPTION</string>
-    <string name="dialog_add_payment_day_off">DAY OFF</string>
-    <string name="dialog_add_payment_cancel">Cancel</string>
-    <string name="dialog_add_payment_ok">OK</string>
+    <string name="dialog_add_payment_title" translatable="false">Add Payment / Day Off</string>
+    <string name="dialog_add_payment_add_date" translatable="false">ADD DATE:</string>
+    <string name="dialog_add_payment_date" translatable="false">DATE</string>
+    <string name="dialog_add_payment_work_hours" translatable="false">WORK HOURS:</string>
+    <string name="dialog_add_payment_hours" translatable="false">HOURS</string>
+    <string name="dialog_add_payment_total_wage" translatable="false">TOTAL WAGE:</string>
+    <string name="dialog_add_payment_wage" translatable="false">WAGE</string>
+    <string name="dialog_add_payment_description" translatable="false">DESCRIPTION:</string>
+    <string name="dialog_add_payment_job_description" translatable="false">JOB DESCRIPTION</string>
+    <string name="dialog_add_payment_day_off" translatable="false">DAY OFF</string>
+    <string name="dialog_add_payment_cancel" translatable="false">Cancel</string>
+    <string name="dialog_add_payment_ok" translatable="false">OK</string>
 
 
     //Activity Employee
-    <string name="activity_employee_enter_full_name">ENTER FULL NAME</string>
-    <string name="activity_employee_enter_phone_number">ENTER PHONE NUMBER</string>
-    <string name="activity_employee_total_debt">TOTAL DEBT</string>
-    <string name="activity_employee_add_payment_day_off">ADD PAYMENT / DAY OFF</string>
+    <string name="activity_employee_enter_full_name" translatable="false">ENTER FULL NAME</string>
+    <string name="activity_employee_enter_phone_number" translatable="false">ENTER PHONE NUMBER</string>
+    <string name="activity_employee_total_debt" translatable="false">TOTAL DEBT</string>
+    <string name="activity_employee_add_payment_day_off" translatable="false">ADD PAYMENT / DAY OFF</string>
 
 
     //RecyclerView Employee
-    <string name="recyclerview_payment_job_date">Job Date:</string>
-    <string name="recyclerview_payment_hours_of_work">Hours of Work:</string>
-    <string name="recyclerview_payment_job_description">Job Description:</string>
-    <string name="recyclerview_payment_wage">Wage:</string>
+    <string name="recyclerview_payment_job_date" translatable="false">Job Date:</string>
+    <string name="recyclerview_payment_hours_of_work" translatable="false">Hours of Work:</string>
+    <string name="recyclerview_payment_job_description" translatable="false">Job Description:</string>
+    <string name="recyclerview_payment_wage" translatable="false">Wage:</string>
 
 
     //Settings
-    <string name="settings_general">General</string>
-    <string name="settings_def_home_screen">Default Home Screen</string>
-    <string name="settings_def_note_color">Default Note Color</string>
+    <string name="settings_general" translatable="false">General</string>
+    <string name="settings_def_home_screen" translatable="false">Default Home Screen</string>
+    <string name="settings_def_note_color" translatable="false">Default Note Color</string>
 
 
     //ShortCuts
-    <string name="addNewNote">Add Note</string>
-    <string name="addNewChecklist">Add Checklist</string>
-    <string name="addNewEmployee">Add Employee</string>
+    <string name="addNewNote" translatable="false">Add Note</string>
+    <string name="addNewChecklist" translatable="false">Add Checklist</string>
+    <string name="addNewEmployee" translatable="false">Add Employee</string>
 
 
     //Filter by Date Picker
-    <string name="monthPicker">Month :</string>
-    <string name="yearPicker">Year :</string>
-    <string name="attach_image">Attach Image</string>
-    <string name="delete_note">Delete Note</string>
-    <string name="set_reminder">Set Reminder</string>
-    <string name="share_note">Share Note</string>
-    <string name="attach_image">Attach Image</string>
+    <string name="monthPicker" translatable="false">Month :</string>
+    <string name="yearPicker" translatable="false">Year :</string>
+    <string name="attach_image" translatable="false">Attach Image</string>
+    <string name="delete_note" translatable="false">Delete Note</string>
+    <string name="set_reminder" translatable="false">Set Reminder</string>
+    <string name="share_note" translatable="false">Share Note</string>
 
 
 </resources>

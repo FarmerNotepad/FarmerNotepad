@@ -1,6 +1,7 @@
 package com.example.android.farmernotepad;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.Context;
@@ -13,13 +14,18 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.preference.PreferenceManager;
+import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -32,13 +38,18 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
+import androidx.core.content.FileProvider;
 
 import static android.widget.Toast.LENGTH_SHORT;
 import static com.example.android.farmernotepad.GenericUtils.CHANNEL_ID;
@@ -47,6 +58,7 @@ public class ActivityNewTextNote extends AppCompatActivity {
     private Menu mMenu;
     private int noteColor;
     static ActivityNewTextNote activity;
+    String currentPhotoPath;
     private int noteIntentID;
     ImageView attachedImage;
     FloatingActionButton deleteImage;
@@ -54,6 +66,10 @@ public class ActivityNewTextNote extends AppCompatActivity {
 
     private static final int IMAGE_PICK_CODE = 1000;
     private static final int PERMISSION_CODE = 1001;
+    private static final int CAMERA_REQUEST = 1888;
+    private static final int MY_CAMERA_PERMISSION_CODE = 100;
+    static final int REQUEST_TAKE_PHOTO = 1;
+
 
     ArrayList<Double> noteLat = new ArrayList<Double>();
     ArrayList<Double> noteLong = new ArrayList<Double>();
@@ -261,13 +277,49 @@ public class ActivityNewTextNote extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.attachImage:
 
-                if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
-                    String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE};
-                    requestPermissions(permissions, PERMISSION_CODE);
+                final androidx.appcompat.app.AlertDialog.Builder alertAttachImage = new androidx.appcompat.app.AlertDialog.Builder(ActivityNewTextNote.this);
+                View myView = getLayoutInflater().inflate(R.layout.dialog_attached_image, null);
+                alertAttachImage.setView(myView);
+                final AlertDialog alertDialogImage = alertAttachImage.create();
+                alertDialogImage.setCanceledOnTouchOutside(true);
+                alertDialogImage.show();
 
-                } else {
-                    pickImageFromGallery();
-                }
+                GenericUtils.setDialogSize(alertDialogImage, 750, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+                Button camera = (Button) alertDialogImage.findViewById(R.id.cameraBtn);
+                Button gallery = (Button) alertDialogImage.findViewById(R.id.galleryBtn);
+
+                camera.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                            requestPermissions(new String[]{Manifest.permission.CAMERA}, MY_CAMERA_PERMISSION_CODE);
+                        } else {
+                            dispatchTakePictureIntent();
+                        }
+
+                        alertDialogImage.dismiss();
+                    }
+                });
+
+
+                gallery.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
+                            String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE};
+                            requestPermissions(permissions, PERMISSION_CODE);
+
+                        } else {
+                            pickImageFromGallery();
+                        }
+
+                        alertDialogImage.dismiss();
+                    }
+                });
+
 
                 break;
 
@@ -525,6 +577,19 @@ public class ActivityNewTextNote extends AppCompatActivity {
                 } else {
                     Toast.makeText(this, "Permission denied...!", LENGTH_SHORT).show();
                 }
+
+                break;
+
+            case MY_CAMERA_PERMISSION_CODE:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(this, "Camera permission granted", Toast.LENGTH_LONG).show();
+                    Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                    startActivityForResult(cameraIntent, CAMERA_REQUEST);
+                } else {
+                    Toast.makeText(this, "Camera permission denied", Toast.LENGTH_LONG).show();
+                }
+
+                break;
         }
     }
 
@@ -541,7 +606,21 @@ public class ActivityNewTextNote extends AppCompatActivity {
 
             attachedImage.setVisibility(View.VISIBLE);
             deleteImage.setVisibility(View.VISIBLE);
+
+        } else if (requestCode == REQUEST_TAKE_PHOTO && resultCode == Activity.RESULT_OK) {
+
+            Glide
+                    .with(this)
+                    .load(currentPhotoPath)
+                    //.centerCrop()
+                    .into(attachedImage);
+
+            attachedImage.setVisibility(View.VISIBLE);
+            deleteImage.setVisibility(View.VISIBLE);
+
+
         }
+
     }
 
     private byte[] imageViewToByte(ImageView image) {
@@ -556,26 +635,46 @@ public class ActivityNewTextNote extends AppCompatActivity {
         return BitmapFactory.decodeByteArray(image, 0, image.length);
     }
 
-/*
-    private void checkImageView(ImageView imageView) {
-        if (attachedImage.getDrawable() == null) {
 
-            attachedImage.setVisibility(View.GONE);
-            deleteImage.setVisibility(View.GONE);
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
 
-            attachedImage.refreshDrawableState();
-
-        } else {
-
-            attachedImage.setVisibility(View.VISIBLE);
-            deleteImage.setVisibility(View.VISIBLE);
-
-            attachedImage.refreshDrawableState();
-        }
-
+        // Save a file: path for use with ACTION_VIEW intents
+        currentPhotoPath = image.getAbsolutePath();
+        return image;
     }
 
- */
+
+    private void dispatchTakePictureIntent() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        // Ensure that there's a camera activity to handle the intent
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            // Create the File where the photo should go
+            File photoFile = null;
+            try {
+                photoFile = createImageFile();
+            } catch (IOException ex) {
+                // Error occurred while creating the File
+                Toast.makeText(this, "Error while creating file", Toast.LENGTH_LONG).show();
+            }
+            // Continue only if the File was successfully created
+            if (photoFile != null) {
+                Uri photoURI = FileProvider.getUriForFile(this,
+                        "com.example.android.farmernotepad.fileprovider",
+                        photoFile);
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
+            }
+        }
+    }
 
 
     @Override

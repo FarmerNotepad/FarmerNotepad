@@ -432,12 +432,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
                     deleteMultipleNotes();
                     mode.finish();
                     return true;
-                case R.id.setReminder:
-                    mode.finish();
-                    return true;
-                case R.id.share:
-                    mode.finish();
-                    return true;
+
                 default:
                     return false;
             }
@@ -517,7 +512,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
             allNotesList.clear();
             allNotesList.addAll(concreteList);
             sortMenu.setBackgroundColor(getColor(R.color.background));
-            sortMenu.setText("All Notes");
+            sortMenu.setText("SORT MENU (All Notes)");
             sortMenu.setTextColor(getColor(R.color.Black));
 
         } else {

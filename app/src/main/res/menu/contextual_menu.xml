@@ -10,18 +10,4 @@
         android:title="@string/delete_note"
         tools:ignore="AlwaysShowAction" />
 
-    <item
-        android:id="@+id/setReminder"
-        android:title="@string/set_reminder"
-        app:showAsAction="always"
-        android:icon="@drawable/ic_reminder"
-        />
-
-    <item
-        android:id="@+id/share"
-        android:title="@string/share_note"
-        app:showAsAction="always"
-        android:icon="@drawable/ic_share"
-        />
-
 </menu>
