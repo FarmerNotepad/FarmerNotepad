@@ -17,8 +17,7 @@ public class CustomAdapter extends FragmentPagerAdapter {
         super(fm);
     }
 
-    public void addFragment(String title, Fragment fragment)
-    {
+    public void addFragment(String title, Fragment fragment) {
         mTitleCollection.add(title);
         mFragmentCollection.add(fragment);
     }

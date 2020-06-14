@@ -59,10 +59,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(FeedReaderContract.FeedTextNote.COLUMN_noteLatitude, note.getLatitude());
         cv.put(FeedReaderContract.FeedTextNote.COLUMN_noteLongitude, note.getLongitude());
         long rowInserted = db.insert(FeedReaderContract.FeedTextNote.TABLE_NAME_Text_Note, null, cv);
-       /* if (rowInserted != -1)
-            return true;
-        else
-            return false; */
         return rowInserted;
     }
 
@@ -110,7 +106,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(FeedReaderContract.FeedTextNote.COLUMN_noteLongitude, checklist.getLongitude());
         long lastID = db.insert(FeedReaderContract.FeedTextNote.TABLE_NAME_Checklist_Note, null, cv);
 
-        //if (lastID != -1) {
 
         long newID = (long) lastID;
         ContentValues cvitems = new ContentValues();
@@ -130,9 +125,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return lastID;
 
-        //} else {
-        //  return lastID;
-        // }
 
     }
 
@@ -414,7 +406,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         cursor.close();
 
-        //long checkUpdate = db.update(FeedReaderContract.FeedTextNote.TABLE_NAME_Text_Images, cv, FeedReaderContract.FeedTextNote.COLUMN_imageRel + "=?", new String[]{String.valueOf(noteID)});
         if (checkUpdate != -1)
             return true;
         else
@@ -439,7 +430,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cursor.close();
 
 
-        //long checkUpdate = db.update(FeedReaderContract.FeedTextNote.TABLE_NAME_Checklist_Images, cv, FeedReaderContract.FeedTextNote.COLUMN_imageRel + "=?", new String[]{String.valueOf(noteID)});
         if (checkUpdate != -1)
             return true;
         else
@@ -462,11 +452,3 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
 }
-
-
-
-
-
-
-
-

@@ -43,8 +43,6 @@ public class RecyclerViewAdapterChecklist extends RecyclerView.Adapter<RecyclerV
         int isItChecked = mChecklistItem.get(position).getIsChecked();
         if (isItChecked == 1) {
             holder.checklistItemTextView.setPaintFlags(holder.checklistItemTextView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-            //newPaymentWorkHours.setPaintFlags(newPaymentWorkHours.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG); add
-            //newPaymentWorkHours.setPaintFlags(newPaymentWorkHours.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG)); remove
         } else if (isItChecked == 0) {
             holder.checklistItemTextView.setPaintFlags(holder.checklistItemTextView.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
         }

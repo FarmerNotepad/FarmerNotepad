@@ -7,15 +7,12 @@ import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.NumberPicker;
 
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.Calendar;
 
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
@@ -124,10 +121,10 @@ public class FragmentSort extends Fragment {
                 yearPicker.setMaxValue(yearPicker.getMinValue() + 10);
                 yearPicker.setValue(2020);
 
-               alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         try {
-                            myActivity.filterByDate(monthPicker.getValue(),yearPicker.getValue());
+                            myActivity.filterByDate(monthPicker.getValue(), yearPicker.getValue());
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }

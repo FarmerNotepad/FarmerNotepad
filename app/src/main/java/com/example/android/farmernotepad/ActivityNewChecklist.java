@@ -197,7 +197,6 @@ public class ActivityNewChecklist extends AppCompatActivity implements RecyclerV
                         ActivityNewChecklist.this.finish();
                     } else {
                         Toast.makeText(getApplicationContext(), checkUpdate.toString(), Toast.LENGTH_SHORT).show();
-                        //Toast.makeText(getApplicationContext(), "Update Failed", Toast.LENGTH_SHORT).show();
                     }
                     dbHelper.close();
                 }
@@ -343,8 +342,6 @@ public class ActivityNewChecklist extends AppCompatActivity implements RecyclerV
                     editText.getText().clear();
                     alertDialog.dismiss();
                 } else {
-                    //String itemText = editText.getText().toString();
-                    //mChecklistItem.set(position, itemText);
                     mChecklistItem.get(position).setItemText(checklistItem);
                     adapter.notifyDataSetChanged();
                 }
@@ -640,9 +637,9 @@ public class ActivityNewChecklist extends AppCompatActivity implements RecyclerV
                 notificationBuilder.setAutoCancel(true)
                         .setDefaults(Notification.DEFAULT_ALL)
                         .setWhen(System.currentTimeMillis())
-                        .setSmallIcon(R.drawable.ic_assignment_late_black_24dp)
+                        .setSmallIcon(R.drawable.ic_notification_farm)
                         .setTicker(checklistTitle.getText().toString())
-                        .setPriority(Notification.PRIORITY_DEFAULT) // this is deprecated in API 26 but you can still use for below 26. check below update for 26 API
+                        .setPriority(Notification.PRIORITY_DEFAULT)
                         .setContentTitle(checklistTitle.getText().toString())
                         .setContentText(checklistText)
                         .setContentInfo("Info");
@@ -759,7 +756,6 @@ public class ActivityNewChecklist extends AppCompatActivity implements RecyclerV
             Glide
                     .with(this)
                     .load(data.getData())
-                    //.centerCrop()
                     .into(attachedImage);
 
             attachedImage.setVisibility(View.VISIBLE);
@@ -770,7 +766,6 @@ public class ActivityNewChecklist extends AppCompatActivity implements RecyclerV
             Glide
                     .with(this)
                     .load(currentPhotoPath)
-                    //.centerCrop()
                     .into(attachedImage);
 
             attachedImage.setVisibility(View.VISIBLE);
@@ -814,17 +809,13 @@ public class ActivityNewChecklist extends AppCompatActivity implements RecyclerV
 
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        // Ensure that there's a camera activity to handle the intent
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            // Create the File where the photo should go
             File photoFile = null;
             try {
                 photoFile = createImageFile();
             } catch (IOException ex) {
-                // Error occurred while creating the File
                 Toast.makeText(this, "Error while creating file", Toast.LENGTH_LONG).show();
             }
-            // Continue only if the File was successfully created
             if (photoFile != null) {
                 Uri photoURI = FileProvider.getUriForFile(this,
                         "com.example.android.farmernotepad.fileprovider",

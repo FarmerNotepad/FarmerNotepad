@@ -1,9 +1,7 @@
 package com.example.android.farmernotepad;
 
 import android.content.Context;
-import android.os.Looper;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.security.Security;
 import java.util.Properties;
@@ -40,7 +38,6 @@ public class EmailHandler extends javax.mail.Authenticator {
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.port", "465");  //465 587
         props.setProperty("mail.smtp.ssl.enable", "true");
-        //props.put("mail.smtp.starttls.enable","true");
         props.put("mail.smtp.socketFactory.port", "465");
         props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
         props.put("mail.smtp.socketFactory.fallback", "false");
@@ -90,19 +87,16 @@ public class EmailHandler extends javax.mail.Authenticator {
         message.setDataHandler(handler);
         message.setContent(emailContent);
 
-            try {
-                if (recipients.indexOf(',') > 0)
-                    message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipients));
-                else
-                    message.setRecipient(Message.RecipientType.TO, new InternetAddress(recipients));
+        try {
+            if (recipients.indexOf(',') > 0)
+                message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipients));
+            else
+                message.setRecipient(Message.RecipientType.TO, new InternetAddress(recipients));
 
-                Transport.send(message);
-            }
-            catch (AddressException e){
-                Log.e("AddressError", "Invalid address.", e);
-            }
+            Transport.send(message);
+        } catch (AddressException e) {
+            Log.e("AddressError", "Invalid address.", e);
+        }
 
     }
 }
-
-

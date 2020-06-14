@@ -88,5 +88,3 @@ public class FeedReaderContract {
             "DROP TABLE IF EXISTS " + FeedTextNote.TABLE_NAME_Text_Note;
 
 }
-
-

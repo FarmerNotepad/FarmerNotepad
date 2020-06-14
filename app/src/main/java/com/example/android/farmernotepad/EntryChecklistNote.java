@@ -2,7 +2,7 @@ package com.example.android.farmernotepad;
 
 import java.util.ArrayList;
 
-public class EntryChecklistNote implements ListItem{
+public class EntryChecklistNote implements ListItem {
     private int noteID;
     private String noteTitle;
     private String createDate;
@@ -23,7 +23,8 @@ public class EntryChecklistNote implements ListItem{
         this.checklistItems = items;
     }
 
-    public EntryChecklistNote() {}
+    public EntryChecklistNote() {
+    }
 
     @Override
     public int getNoteID() {
@@ -88,10 +89,13 @@ public class EntryChecklistNote implements ListItem{
         this.longitude = longitude;
     }
 
-    public void setChecklistItems(ArrayList<ChecklistItemEntry> items) {this.checklistItems = items;}
+    public void setChecklistItems(ArrayList<ChecklistItemEntry> items) {
+        this.checklistItems = items;
+    }
 
     public ArrayList<ChecklistItemEntry> getChecklistItems() {
-        return checklistItems; }
+        return checklistItems;
+    }
 
     @Override
     public int getListItemType() {
@@ -99,14 +103,14 @@ public class EntryChecklistNote implements ListItem{
     }
 
     @Override
-    public  String getInterfaceTitle(){
+    public String getInterfaceTitle() {
         return noteTitle;
     }
 
     @Override
-    public String getInterfaceText(){
+    public String getInterfaceText() {
         String toBeReturned = "";
-        for (int i=0; i<checklistItems.size(); i++){
+        for (int i = 0; i < checklistItems.size(); i++) {
             toBeReturned = toBeReturned + checklistItems.get(i).getItemText();
         }
         return toBeReturned;

@@ -170,7 +170,7 @@ public class ActivityPaymentsLog extends AppCompatActivity implements RecyclerVi
 
         String defLaunchActivity = sharedPreferences.getString("default_home_screen", "Main");
 
-        if(defLaunchActivity.equals("Payments")) {
+        if (defLaunchActivity.equals("Payments")) {
             ActivityPaymentsLog.this.finish();
         } else {
             Intent intent = new Intent(ActivityPaymentsLog.this, MainActivity.class);

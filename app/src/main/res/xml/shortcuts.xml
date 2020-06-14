@@ -19,8 +19,6 @@
     </shortcut>
 
 
-
-
     <shortcut
         android:enabled="true"
         android:icon="@drawable/ic_add_button"
@@ -39,7 +37,6 @@
     </shortcut>
 
 
-
     <shortcut
         android:enabled="true"
         android:icon="@drawable/ic_add_button"
@@ -56,7 +53,6 @@
              here. The last intent in the list determines what the user sees when
              they launch this shortcut. -->
     </shortcut>
-
 
 
 </shortcuts>

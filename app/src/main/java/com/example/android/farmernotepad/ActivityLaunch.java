@@ -1,11 +1,11 @@
 package com.example.android.farmernotepad;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class ActivityLaunch extends AppCompatActivity {
 
@@ -16,7 +16,7 @@ public class ActivityLaunch extends AppCompatActivity {
                 PreferenceManager.getDefaultSharedPreferences(this);
 
         String defLaunchActivity = sharedPreferences.getString("default_home_screen", "Main");
-        if(defLaunchActivity.equals("Payments")) {
+        if (defLaunchActivity.equals("Payments")) {
             Intent intent = new Intent(this, ActivityPaymentsLog.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             finish();

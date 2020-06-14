@@ -81,7 +81,6 @@ public class ActivityNewTextNote extends AppCompatActivity {
         setContentView(R.layout.activity_new_note);
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        //String defColor = sharedPreferences.getString("default_color", "");
 
         toolbar = findViewById(R.id.newTxtNoteToolbar);
         setSupportActionBar(toolbar);
@@ -491,9 +490,9 @@ public class ActivityNewTextNote extends AppCompatActivity {
                 notificationBuilder.setAutoCancel(true)
                         .setDefaults(Notification.DEFAULT_ALL)
                         .setWhen(System.currentTimeMillis())
-                        .setSmallIcon(R.drawable.ic_assignment_late_black_24dp)
+                        .setSmallIcon(R.drawable.ic_notification_farm)
                         .setTicker(title.getText().toString())
-                        .setPriority(Notification.PRIORITY_MAX) // this is deprecated in API 26 but you can still use for below 26. check below update for 26 API
+                        .setPriority(Notification.PRIORITY_MAX)
                         .setContentTitle(title.getText().toString())
                         .setContentText(text.getText().toString())
                         .setContentInfo("Info");
@@ -601,7 +600,6 @@ public class ActivityNewTextNote extends AppCompatActivity {
             Glide
                     .with(this)
                     .load(data.getData())
-                    //.centerCrop()
                     .into(attachedImage);
 
             attachedImage.setVisibility(View.VISIBLE);
@@ -612,7 +610,6 @@ public class ActivityNewTextNote extends AppCompatActivity {
             Glide
                     .with(this)
                     .load(currentPhotoPath)
-                    //.centerCrop()
                     .into(attachedImage);
 
             attachedImage.setVisibility(View.VISIBLE);
@@ -655,17 +652,13 @@ public class ActivityNewTextNote extends AppCompatActivity {
 
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        // Ensure that there's a camera activity to handle the intent
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            // Create the File where the photo should go
             File photoFile = null;
             try {
                 photoFile = createImageFile();
             } catch (IOException ex) {
-                // Error occurred while creating the File
                 Toast.makeText(this, "Error while creating file", Toast.LENGTH_LONG).show();
             }
-            // Continue only if the File was successfully created
             if (photoFile != null) {
                 Uri photoURI = FileProvider.getUriForFile(this,
                         "com.example.android.farmernotepad.fileprovider",
@@ -684,4 +677,3 @@ public class ActivityNewTextNote extends AppCompatActivity {
         ActivityNewTextNote.this.finish();
     }
 }
-

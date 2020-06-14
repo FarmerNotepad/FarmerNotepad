@@ -44,8 +44,8 @@ public class ActivityBackup extends AppCompatActivity {
             public void onClick(View view) {
                 if (checkLocal.isChecked()) {
                     DatabaseHelper dbHelper = new DatabaseHelper(ActivityBackup.this);
-                        dbHelper.exportDB(ActivityBackup.this);
-                    Toast.makeText(ActivityBackup.this, "Database exported to " + ActivityBackup.this.getExternalFilesDir(null), Toast.LENGTH_SHORT).show();
+                    dbHelper.exportDB(ActivityBackup.this);
+                    Toast.makeText(ActivityBackup.this, "Database exported to " + ActivityBackup.this.getExternalFilesDir(null), Toast.LENGTH_LONG).show();
                 }
                 if (checkOnline.isChecked()) {
                     mailDb(view);
@@ -109,17 +109,17 @@ public class ActivityBackup extends AppCompatActivity {
                         } catch (Exception e) {
                             Log.e("SendMail", e.getMessage(), e);
                             pDialog.dismiss();
-                            GenericUtils.toast(getApplicationContext(),"Error sending email.");
+                            GenericUtils.toast(getApplicationContext(), "Error sending email.");
                         }
                     } else {
                         pDialog.dismiss();
-                        GenericUtils.toast(getApplicationContext(),"Please specify an email adress.");
+                        GenericUtils.toast(getApplicationContext(), "Please specify an email adress.");
                     }
-                } else{
-                        pDialog.dismiss();
-                        GenericUtils.toast(getApplicationContext(), "No Internet connection found");
-                    }
+                } else {
+                    pDialog.dismiss();
+                    GenericUtils.toast(getApplicationContext(), "No Internet connection found");
                 }
+            }
         }).start();
     }
 
