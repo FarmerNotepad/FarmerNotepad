@@ -14,7 +14,6 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.RecyclerView;
@@ -41,19 +40,17 @@ public class RecyclerViewAdapterMain extends RecyclerView.Adapter implements Fil
         View itemView;
 
 
-            switch (viewType) {
-                case ListItem.typeChecklist:
-                    itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_notes_item, parent, false);
-                    return new ChecklistViewHolder(itemView, mOnNoteListener);
-                default:
-                    itemView = LayoutInflater.from(parent.getContext())
-                            .inflate(R.layout.recyclerview_notes_item, parent, false);
-                    return new TextNoteViewHolder(itemView, mOnNoteListener);
-            }
-
+        switch (viewType) {
+            case ListItem.typeChecklist:
+                itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_notes_item, parent, false);
+                return new ChecklistViewHolder(itemView, mOnNoteListener);
+            default:
+                itemView = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.recyclerview_notes_item, parent, false);
+                return new TextNoteViewHolder(itemView, mOnNoteListener);
         }
 
-
+    }
 
 
     @Override
@@ -240,8 +237,5 @@ public class RecyclerViewAdapterMain extends RecyclerView.Adapter implements Fil
     public int getItemViewType(int position) {
         return allNotesList.get(position).getListItemType();
     }
-
-
-
 
 }

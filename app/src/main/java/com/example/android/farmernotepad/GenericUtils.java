@@ -4,7 +4,6 @@ import android.app.Dialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Handler;
@@ -13,8 +12,6 @@ import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
-
-import androidx.core.graphics.drawable.DrawableCompat;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -29,6 +26,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 
+import androidx.core.graphics.drawable.DrawableCompat;
+
 import static androidx.core.content.ContextCompat.getSystemService;
 
 public class GenericUtils {
@@ -40,7 +39,7 @@ public class GenericUtils {
         return dateFormat.format(date);
     }
 
-    public static Date addMonth(Date dateToIncrease){
+    public static Date addMonth(Date dateToIncrease) {
         Calendar myCal = Calendar.getInstance();
         myCal.setTime(dateToIncrease);
         myCal.add(Calendar.MONTH, +1);
@@ -176,8 +175,6 @@ public class GenericUtils {
     }
 
 
-
-
     public static boolean isOnline() {
         try {
             int timeoutMs = 1500;
@@ -210,35 +207,35 @@ public class GenericUtils {
             return false;
         }
 
-            return str.chars().allMatch(Character::isDigit);
+        return str.chars().allMatch(Character::isDigit);
 
     }
 
     public static void tintMenuIcon(Context context, MenuItem item, int color) {
         Drawable normalDrawable = item.getIcon();
         Drawable wrapDrawable = DrawableCompat.wrap(normalDrawable);
-        DrawableCompat.setTint(wrapDrawable, color );
+        DrawableCompat.setTint(wrapDrawable, color);
 
 
         item.setIcon(wrapDrawable);
     }
 
-    public static void createNotificationChannel(Context ctx){
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+    public static void createNotificationChannel(Context ctx) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel1 = new NotificationChannel(
-                    CHANNEL_ID,"Channel 1 ",
+                    CHANNEL_ID, "Channel 1 ",
                     NotificationManager.IMPORTANCE_DEFAULT
             );
             channel1.setDescription("Pin to status bar channel.");
 
-            NotificationManager manager = getSystemService(ctx,NotificationManager.class);
+            NotificationManager manager = getSystemService(ctx, NotificationManager.class);
             manager.createNotificationChannel(channel1);
         }
     }
 
-    public static void setDialogSize(Dialog dialog, int width, int height){
+    public static void setDialogSize(Dialog dialog, int width, int height) {
         Window window = dialog.getWindow();
-        if(window == null) return;
+        if (window == null) return;
 
         WindowManager.LayoutParams params = window.getAttributes();
         params.width = width;
@@ -247,8 +244,3 @@ public class GenericUtils {
         window.setAttributes(params);
     }
 }
-
-
-
-
-

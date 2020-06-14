@@ -175,7 +175,7 @@
                 android:ems="10"
                 android:focusable="true"
                 android:hint="@string/dialog_add_payment_job_description"
-                android:inputType="text"
+                android:inputType="textMultiLine"
                 android:padding="5dp"
                 android:singleLine="true"
                 android:textAlignment="center"

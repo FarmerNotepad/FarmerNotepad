@@ -26,8 +26,6 @@ public class LocationFunctions {
                 Location loc = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
                 if (loc != null) {
                     double[] coords = {loc.getLatitude(), loc.getLongitude()};
-                    //String longi = String.valueOf(coords[0]);
-                    //Toast.makeText(getApplicationContext(), longi, LENGTH_SHORT).show();
                     return coords;
                 } else {
                     return null;

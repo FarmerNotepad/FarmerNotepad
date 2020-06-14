@@ -18,17 +18,17 @@
 
 
     <PreferenceCategory
+        app:allowDividerBelow="true"
         app:key="visuals_category"
-        app:title="General"
-        app:allowDividerBelow="true">
+        app:title="General">
 
         <ListPreference
-            app:key="default_home_screen"
             app:defaultValue="Main"
             app:entries="@array/launch_array"
             app:entryValues="@array/launch_array_values"
+            app:key="default_home_screen"
             app:title="Default Home Screen"
-            app:useSimpleSummaryProvider="true"/>
+            app:useSimpleSummaryProvider="true" />
 
         <ListPreference
             app:defaultValue="#FFFFFF"
@@ -38,46 +38,38 @@
             app:title="Default Note Color"
             app:useSimpleSummaryProvider="true" />
 
-        <ListPreference
-            app:key="default_font_size"
-            app:title="Default font size"/>
-
-
-        <SwitchPreferenceCompat
-            app:key="dark_mode"
-            app:title="Dark Mode" />
-
-
     </PreferenceCategory>
 
 
     <PreferenceCategory
-        app:key="backup_category"
-        app:title="Backup"
         app:allowDividerAbove="true"
-        app:allowDividerBelow="true">
+        app:allowDividerBelow="true"
+        app:key="backup_category"
+        app:title="Backup">
 
         <EditTextPreference
             app:key="backup_email"
             app:title="Set backup receiver email."
-            app:useSimpleSummaryProvider="true"/>
+            app:useSimpleSummaryProvider="true" />
 
         <CheckBoxPreference
             app:key="backup_check"
-            app:title="Auto Backup"
-            />
+            app:title="Auto Backup" />
 
 
     </PreferenceCategory>
 
     <PreferenceCategory
+        app:allowDividerAbove="true"
         app:key="about_category"
-        app:title="About"
-        app:allowDividerAbove="true">
+        app:title="About">
 
         <EditTextPreference
             app:key="app_info"
-            app:title="App Info"/>
+            app:selectable="false"
+            app:summary="FarmerNotepad Version 1.0.0"
+            app:title="App Info" />
+
 
     </PreferenceCategory>
 

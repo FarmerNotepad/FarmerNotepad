@@ -28,6 +28,7 @@
             android:text="@string/main_sort_menu"
             android:textSize="16sp"
             android:textColor="@color/White"
+            android:layout_marginHorizontal="4dp"
             android:textStyle="bold"
             android:alpha="0.5"
             app:layout_constraintTop_toTopOf="parent" />

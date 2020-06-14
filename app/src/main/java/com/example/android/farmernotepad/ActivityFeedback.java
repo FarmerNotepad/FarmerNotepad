@@ -47,7 +47,7 @@ public class ActivityFeedback extends AppCompatActivity {
                         sender.sendMail("User Feedback", feedbackText.getText().toString(),
                                 "farmernotepad@gmail.com", "farmernotepad@gmail.com");
                         pDialog.dismiss();
-                        GenericUtils.toast(getApplicationContext(), "Feedback sent to devs");
+                        GenericUtils.toast(getApplicationContext(), "Feedback sent to developers");
                         Intent intent = new Intent(ActivityFeedback.this, MainActivity.class);
                         startActivity(intent);
                         ActivityFeedback.this.finish();

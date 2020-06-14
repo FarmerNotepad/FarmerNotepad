@@ -10,7 +10,7 @@
     <color name="colorSecondaryVariant">#ffdd71</color>
     <color name="colorAccent">#c77c02</color>
     <color name="background">#f2ffff</color>
-    <color name="navigationBarColor"></color>
+    <color name="navigationBarColor" />
 
     //TEXT
 
@@ -22,7 +22,7 @@
 
 
     //COLOR PICKER
-    <color name="White" >#FFFFFF</color>
+    <color name="White">#FFFFFF</color>
     <color name="Black">#000000</color>
     <color name="Red">#FF0000</color>
     <color name="Green">#008000</color>

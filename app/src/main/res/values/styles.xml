@@ -15,7 +15,7 @@
         <item name="dialogCornerRadius">20dp</item>
         <item name="actionModeBackground">@color/colorPrimaryVariant</item>
         <item name="colorControlHighlight">@color/DarkGrey</item>
-        <item name="buttonTint">@color/background</item>
+        <item name="buttonTint">@color/DarkGrey</item>
     </style>
 
 

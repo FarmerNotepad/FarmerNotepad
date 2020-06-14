@@ -59,10 +59,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(FeedReaderContract.FeedTextNote.COLUMN_noteLatitude, note.getLatitude());
         cv.put(FeedReaderContract.FeedTextNote.COLUMN_noteLongitude, note.getLongitude());
         long rowInserted = db.insert(FeedReaderContract.FeedTextNote.TABLE_NAME_Text_Note, null, cv);
-       /* if (rowInserted != -1)
-            return true;
-        else
-            return false; */
         return rowInserted;
     }
 
@@ -110,28 +106,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(FeedReaderContract.FeedTextNote.COLUMN_noteLongitude, checklist.getLongitude());
         long lastID = db.insert(FeedReaderContract.FeedTextNote.TABLE_NAME_Checklist_Note, null, cv);
 
-        //if (lastID != -1) {
 
-            int newID = (int) lastID;
-            ContentValues cvitems = new ContentValues();
-            ArrayList<ChecklistItemEntry> items = checklist.getChecklistItems();
-            if (items != null) {
-                for (int i = 0; i < items.size(); i++) {
-                    cvitems.put(FeedReaderContract.FeedTextNote.COLUMN_Item_note_Rel, newID);
-                    cvitems.put(FeedReaderContract.FeedTextNote.COLUMN_Item_Text, items.get(i).getItemText());
-                    cvitems.put(FeedReaderContract.FeedTextNote.COLUMN_isChecked, items.get(i).getIsChecked());
-                    long checklistItemCheck = db.insert(FeedReaderContract.FeedTextNote.TABLE_NAME_Checklist_Items, null, cvitems);
-                    cvitems.clear();
-                    if (checklistItemCheck == -1) {
-                        break;
-                    }
+        long newID = (long) lastID;
+        ContentValues cvitems = new ContentValues();
+        ArrayList<ChecklistItemEntry> items = checklist.getChecklistItems();
+        if (items != null) {
+            for (int i = 0; i < items.size(); i++) {
+                cvitems.put(FeedReaderContract.FeedTextNote.COLUMN_Item_note_Rel, newID);
+                cvitems.put(FeedReaderContract.FeedTextNote.COLUMN_Item_Text, items.get(i).getItemText());
+                cvitems.put(FeedReaderContract.FeedTextNote.COLUMN_isChecked, items.get(i).getIsChecked());
+                long checklistItemCheck = db.insert(FeedReaderContract.FeedTextNote.TABLE_NAME_Checklist_Items, null, cvitems);
+                cvitems.clear();
+                if (checklistItemCheck == -1) {
+                    break;
                 }
             }
-            return lastID;
+        }
 
-        //} else {
-          //  return lastID;
-       // }
+        return lastID;
+
 
     }
 
@@ -184,10 +177,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             cvItems.put(FeedReaderContract.FeedTextNote.COLUMN_isChecked, checklist.getChecklistItems().get(i).getIsChecked());
             db.insert(FeedReaderContract.FeedTextNote.TABLE_NAME_Checklist_Items, null, cvItems);
         }
-        if (rowUpdated != -1 && rowDeleteItems != 0)
+        if (rowUpdated != -1 && rowDeleteItems != 0) {
             return true;
-        else
+        } else if (db.inTransaction()) {
             return false;
+        } else {
+            return true;
+        }
     }
 
     public boolean insertEmployee(EntryEmployee entryEmployee) {
@@ -410,7 +406,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         cursor.close();
 
-        //long checkUpdate = db.update(FeedReaderContract.FeedTextNote.TABLE_NAME_Text_Images, cv, FeedReaderContract.FeedTextNote.COLUMN_imageRel + "=?", new String[]{String.valueOf(noteID)});
         if (checkUpdate != -1)
             return true;
         else
@@ -435,7 +430,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cursor.close();
 
 
-        //long checkUpdate = db.update(FeedReaderContract.FeedTextNote.TABLE_NAME_Checklist_Images, cv, FeedReaderContract.FeedTextNote.COLUMN_imageRel + "=?", new String[]{String.valueOf(noteID)});
         if (checkUpdate != -1)
             return true;
         else
@@ -458,11 +452,3 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
 }
-
-
-
-
-
-
-
-

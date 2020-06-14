@@ -17,7 +17,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.SimpleDateFormat;
@@ -150,9 +149,8 @@ public class ActivityEmployee extends AppCompatActivity implements RecyclerViewA
         if (employeeIntentID != 0) {
             inflater.inflate(R.menu.employee_edit_menu, menu);
 
-        } else {
-            //inflater.inflate(R.menu.note_menu, menu);
         }
+
         this.mMenu = menu;
         return true;
     }

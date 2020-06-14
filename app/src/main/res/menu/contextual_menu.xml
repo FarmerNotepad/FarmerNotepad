@@ -1,25 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
         android:id="@+id/deleteNotes"
         android:icon="@drawable/ic_trash_can"
         app:showAsAction="always"
-        android:title="Delete Note" />
-
-    <item
-        android:id="@+id/setReminder"
-        android:title="Set Reminder"
-        app:showAsAction="always"
-        android:icon="@drawable/ic_reminder"
-        />
-
-    <item
-        android:id="@+id/share"
-        android:title="Share Note"
-        app:showAsAction="always"
-        android:icon="@drawable/ic_share"
-        />
+        android:title="@string/delete_note"
+        tools:ignore="AlwaysShowAction" />
 
 </menu>
