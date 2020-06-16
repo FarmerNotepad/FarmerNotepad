@@ -41,6 +41,13 @@ public class ActivityPaymentsLog extends AppCompatActivity implements RecyclerVi
                 ActivityPaymentsLog.this.finish();
             }
 
+
+            public void onSwipeLeft() {
+                Intent intent = new Intent(ActivityPaymentsLog.this, MainActivity.class);
+                startActivity(intent);
+                ActivityPaymentsLog.this.finish();
+            }
+
         });
 
 

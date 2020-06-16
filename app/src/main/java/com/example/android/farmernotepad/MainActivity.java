@@ -94,6 +94,13 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
                 MainActivity.this.finish();
             }
 
+            public void onSwipeRight() {
+                Intent intent = new Intent(MainActivity.this, ActivityPaymentsLog.class);
+                startActivity(intent);
+                MainActivity.this.finish();
+            }
+
+
         });
 
 
